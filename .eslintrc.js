@@ -44,6 +44,12 @@ module.exports = {
       // enable the rule specifically for TypeScript files
       files: ["*.ts", "*.tsx"],
       rules: {
+        "prettier/prettier": [
+          "error",
+          {
+            endOfLine: "auto",
+          },
+        ],
         "@typescript-eslint/explicit-function-return-type": ["error"],
       },
       // parserOptions: { project: ['./tsconfig.json'] },
