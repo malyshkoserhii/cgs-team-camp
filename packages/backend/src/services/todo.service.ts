@@ -1,5 +1,5 @@
 import { prismaClient } from '@/prisma/prismaClient';
-import { Todo } from '@/types/todos.type';
+import { Todo } from '@/types';
 
 export default class TodoService {
 	async createTodo(data: Todo): Promise<Todo> {

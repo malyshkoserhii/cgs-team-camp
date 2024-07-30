@@ -1,4 +1,7 @@
 import { Router } from 'express';
+
+import { prismaClient } from '@/prisma/prismaClient';
+import { isExistMiddleware } from '@/middlewares';
 import {
 	ctrAddNewTodo,
 	ctrDeleteTodoById,
@@ -7,14 +10,24 @@ import {
 	ctrUpdateTodoById,
 } from '@/controllers';
 
-// import todoController from '../../controllers/todo.controller';
-
 const todosRouter: Router = Router();
 
 todosRouter.post('/create', ctrAddNewTodo);
 todosRouter.get('/all', ctrGetAllTodo);
-todosRouter.get('/todo/:id', ctrGetTodoById);
-todosRouter.put('/todo/:id', ctrUpdateTodoById);
-todosRouter.delete('/todo/:id', ctrDeleteTodoById);
+todosRouter.get(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrGetTodoById,
+);
+todosRouter.put(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrUpdateTodoById,
+);
+todosRouter.delete(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrDeleteTodoById,
+);
 
 export default todosRouter;
