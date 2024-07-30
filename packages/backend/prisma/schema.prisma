@@ -12,9 +12,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+  // todos Todo[]  
+}
+
+enum TodoStatus {
+  inProgress
+  completed
+}
+
+model Todo {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  isPrivate   Boolean  @default(false)
+  status TodoStatus @default(inProgress)
+  // userId      Int     
+  // user        User    @relation(fields: [userId], references: [id])
 }

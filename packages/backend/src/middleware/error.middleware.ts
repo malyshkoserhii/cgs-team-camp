@@ -1,16 +1,15 @@
 import { NextFunction, Response } from 'express';
-
-import { ErrorCodes } from '@/utils/const/errors';
 import { ApiError } from '@/utils/helpers/ApiError.helper';
-import { Error } from '@/types/shared.type';
+import { Error } from '@/utils/types/shared.type';
+import { StatusCodes } from '@/utils/const/statusCodes';
 
-const errorMiddleware = (
+export const errorMiddleware = (
 	err: Error,
 	_: unknown,
 	res: Response,
 	next: NextFunction,
 ): Response<unknown, Record<string, unknown>> => {
-	if (err.code === ErrorCodes.internalServerError) {
+	if (err.code === StatusCodes.internalServerError) {
 		next();
 	}
 	if (err instanceof ApiError) {
@@ -21,5 +20,3 @@ const errorMiddleware = (
 		return res.json({ error: err.message });
 	}
 };
-
-export { errorMiddleware };

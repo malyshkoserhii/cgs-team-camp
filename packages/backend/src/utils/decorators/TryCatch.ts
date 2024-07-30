@@ -1,4 +1,4 @@
-import { AsyncMethodType, FunctionType } from '@/types/shared.type';
+import { AsyncMethodType, FunctionType } from '@/utils/types/shared.type';
 import { NextFunction, Request, Response } from 'express';
 
 function isAsyncFunction(target: FunctionType): boolean {
@@ -65,5 +65,6 @@ export default function TryCatch<T>(target: T): T {
 	} else if (typeof target === 'function') {
 		return TryCatchFunction(target as (...args: unknown[]) => unknown) as T;
 	}
+
 	return target;
 }

@@ -1,4 +1,5 @@
-import { ErrorMessages, ErrorCodes } from '../const/errors';
+import { ErrorMessages } from '../const/errors';
+import { StatusCodes } from '../const/statusCodes';
 
 export class ApiError extends Error {
 	status: number;
@@ -11,42 +12,42 @@ export class ApiError extends Error {
 
 	static AuthorizationError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.unauthorized,
+			StatusCodes.unauthorized,
 			message ?? ErrorMessages.unauthorized,
 		);
 	}
 
 	static BadRequestError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.badRequest,
+			StatusCodes.badRequest,
 			message ?? ErrorMessages.badRequest,
 		);
 	}
 
 	static ConflictError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.duplicateEntry,
+			StatusCodes.duplicateEntry,
 			message ?? ErrorMessages.conflict,
 		);
 	}
 
 	static NotFoundError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.notFound,
+			StatusCodes.notFound,
 			message ?? ErrorMessages.notFound(),
 		);
 	}
 
 	static AuthenticationError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.forbidden,
+			StatusCodes.forbidden,
 			message ?? ErrorMessages.forbidden,
 		);
 	}
 
 	static InternalServerError(message?: string): ApiError {
 		return new ApiError(
-			ErrorCodes.internalServerError,
+			StatusCodes.internalServerError,
 			message ?? ErrorMessages.internalServerError,
 		);
 	}
