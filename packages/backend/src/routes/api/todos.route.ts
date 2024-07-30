@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { prismaClient } from '@/prisma/prismaClient';
-import { isExistMiddleware } from '@/middlewares';
+import { isExistMiddleware, validateTodoReqBody } from '@/middlewares';
 import {
 	ctrAddNewTodo,
 	ctrDeleteTodoById,
@@ -12,7 +12,7 @@ import {
 
 const todosRouter: Router = Router();
 
-todosRouter.post('/create', ctrAddNewTodo);
+todosRouter.post('/create', validateTodoReqBody, ctrAddNewTodo);
 todosRouter.get('/all', ctrGetAllTodo);
 todosRouter.get(
 	'/todo/:id',
@@ -21,6 +21,7 @@ todosRouter.get(
 );
 todosRouter.put(
 	'/todo/:id',
+	validateTodoReqBody,
 	isExistMiddleware(prismaClient.todo),
 	ctrUpdateTodoById,
 );
