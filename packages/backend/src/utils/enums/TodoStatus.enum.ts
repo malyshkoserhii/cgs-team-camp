@@ -1,4 +1,4 @@
 export enum TodoStatus {
-	IN_PROGRESS = 'IN_PROGRESS',
-	COMPLETED = 'COMPLETED',
+	IN_PROGRESS = 'inProgress',
+	COMPLETED = 'completed',
 }
