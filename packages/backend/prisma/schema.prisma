@@ -18,3 +18,12 @@ model User {
   email String  @unique
   name  String?
 }
+model TodoItem {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String
+  isCompleted   Boolean   @default(false)
+  isPrivate     Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
