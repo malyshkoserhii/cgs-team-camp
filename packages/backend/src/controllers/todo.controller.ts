@@ -10,8 +10,12 @@ export class TodoController {
 	constructor(private todoService: TodoService) {}
 
 	async getAllTodo(_: Request, res: Response): Promise<void> {
-		const todos = await this.todoService.findAll();
-		res.send(todos);
+		const data = await this.todoService.findAll();
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			data,
+		});
 	}
 
 	async findById(req: Request, res: Response): Promise<void> {

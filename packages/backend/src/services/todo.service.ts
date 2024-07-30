@@ -4,8 +4,8 @@ import { entityIsExist } from '@/utils/helpers/isExist.helper';
 import { Todo } from '@prisma/client';
 
 export default class TodoService {
-	async findAll(): Promise<string> {
-		return 'Todos';
+	async findAll(): Promise<Todo[]> {
+		return await prisma.todo.findMany();
 	}
 
 	async findById(id: number): Promise<Todo | void> {
@@ -13,7 +13,6 @@ export default class TodoService {
 	}
 
 	async create(todo: Todo): Promise<Todo> {
-		// todo.userId = userId;
 		return await prisma.todo.create({ data: todo });
 	}
 
@@ -44,8 +43,4 @@ export default class TodoService {
 			data: { status },
 		});
 	}
-
-	// async isTodoExists(id: string) {
-	// 	return !!(await this.findById(id));
-	// }
 }
