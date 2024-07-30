@@ -9,6 +9,17 @@ export class TodoController {
 		const todos = await this.todoService.findAll();
 		res.send(todos);
 	}
+
+	async createTodo(req: Request, res: Response): Promise<void> {
+		const { title, text, userId } = req.body;
+
+		const newTodo = await this.todoService.addTodo(title, text, userId);
+
+		res.send({
+			message: 'Successfully added',
+			newTodo,
+		});
+	}
 }
 
 const todoController = new TodoController(new TodoService());
