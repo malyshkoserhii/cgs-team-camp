@@ -1,13 +1,13 @@
 import { Response, Request } from 'express';
 
 import TodoService from '@/services/todo.service';
+import { tryCatchMiddleware } from '@/middlewares';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
 	async addNewTodo(req: Request, res: Response): Promise<void> {
 		const newTodo = await this.todoService.createTodo(req.body);
-		console.log('newTodo', newTodo);
 		res.status(201).json(newTodo);
 	}
 
@@ -36,4 +36,20 @@ export class TodoController {
 }
 
 const todoController = new TodoController(new TodoService());
-export default todoController;
+
+export const ctrAddNewTodo = tryCatchMiddleware(
+	todoController.addNewTodo.bind(todoController),
+);
+
+export const ctrGetAllTodo = tryCatchMiddleware(
+	todoController.getAllTodo.bind(todoController),
+);
+export const ctrGetTodoById = tryCatchMiddleware(
+	todoController.getTodoById.bind(todoController),
+);
+export const ctrUpdateTodoById = tryCatchMiddleware(
+	todoController.updateTodoById.bind(todoController),
+);
+export const ctrDeleteTodoById = tryCatchMiddleware(
+	todoController.deleteTodoById.bind(todoController),
+);
