@@ -1,5 +1,9 @@
 // TODO: Put a real types here
 
-export type TodoType = {
-	data: string;
-};
+export interface Todo {
+	id?: string;
+	title: string;
+	description: string;
+	isPrivate: boolean;
+	isCompleted?: boolean;
+}
