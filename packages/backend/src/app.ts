@@ -4,7 +4,7 @@ import express, { Express, Request, Response } from 'express';
 
 import AppRouter from './routes';
 
-const port = 3031;
+const { PORT } = process.env;
 const app: Express = express();
 const router = new AppRouter(app);
 
@@ -17,6 +17,6 @@ app.get('/', (req: Request, res: Response) => {
 
 router.init();
 
-app.listen(port, () => {
-	console.log(`Now listening on port ${port}`);
+app.listen(PORT, () => {
+	console.log(`Now listening on port ${PORT}`);
 });

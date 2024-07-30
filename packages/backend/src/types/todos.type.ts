@@ -1,5 +1,5 @@
-// TODO: Put a real types here
-
-export type TodoType = {
-	data: string;
-};
+import { TodoItem } from '@prisma/client';
+export type TodoType = TodoItem;
+export type CreateTodoType = Omit<TodoItem, 'id'>;
+export type UpdateTodoType = Partial<TodoItem>;
+export type GetAllTodosType = TodoItem[];
