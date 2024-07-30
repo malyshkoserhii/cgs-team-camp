@@ -14,7 +14,35 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int         @id @default(autoincrement())
+  email     String      @unique
+  name      String?
+  password  String
+  username  String      @unique
+  Dashboard Dashboard[]
+  TodoItem  TodoItem[]
+}
+
+model Dashboard {
+  id       Int        @id @default(autoincrement())
+  owner    User       @relation(fields: [userId], references: [id])
+  name     String
+  descr    String?
+  date     DateTime
+  private  Boolean
+  userId   Int
+  TodoItem TodoItem[]
+}
+
+model TodoItem {
+  id          Int       @id @default(autoincrement())
+  owner       User      @relation(fields: [userId], references: [id])
+  name        String
+  descr       String?
+  date        DateTime
+  updateTime  DateTime?
+  status      String?   @default("ToDo")
+  userId      Int
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+  dashboardId Int
 }
