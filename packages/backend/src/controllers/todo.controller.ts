@@ -11,6 +11,7 @@ export class TodoController {
 
 	async getAllTodo(_: Request, res: Response): Promise<void> {
 		const data = await this.todoService.findAll();
+
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
@@ -39,6 +40,7 @@ export class TodoController {
 
 	async create(req: RequestWithUser, res: Response): Promise<void> {
 		const data = await this.todoService.create(req.body);
+
 		res.status(StatusCodes.created).json({
 			code: StatusCodes.created,
 			status: Status.success,
@@ -51,6 +53,7 @@ export class TodoController {
 			Number(req.params.id),
 			req.body,
 		);
+
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
@@ -63,6 +66,7 @@ export class TodoController {
 			Number(req.params.id),
 			req.body,
 		);
+
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
