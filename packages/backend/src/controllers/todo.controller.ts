@@ -4,16 +4,29 @@ import TodoService from '@/services/todo.service';
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
-	async getAllTodo(_: Request, res: Response): Promise<void> {
-		// TODO: Write your implementation here
-		const todos = await this.todoService.findAll();
-		res.send(todos);
+	async getAllTodo(req: Request, res: Response): Promise<void> {
+		let todos = await this.todoService.findAll();
+
+		res.send({
+			message: 'OK',
+			todos,
+		});
 	}
 
 	async createTodo(req: Request, res: Response): Promise<void> {
-		const { title, text, userId } = req.body;
+		const {
+			title,
+			text,
+			isCompleted = false,
+			isPrivate = false,
+		} = req.body;
 
-		const newTodo = await this.todoService.addTodo(title, text, userId);
+		const newTodo = await this.todoService.addTodo(
+			title,
+			text,
+			isCompleted,
+			isPrivate,
+		);
 
 		res.send({
 			message: 'Successfully added',

@@ -19,6 +19,7 @@ model Todo {
   title        String
   text         String
   isCompleted  Boolean @default(false)
+  isPrivate   Boolean @default(false)
 
   @@map("todos")
 }

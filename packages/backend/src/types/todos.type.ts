@@ -5,4 +5,5 @@ export type TodoType = {
 	title: string;
 	text: string;
 	isCompleted: boolean;
+	isPrivate: boolean;
 };
