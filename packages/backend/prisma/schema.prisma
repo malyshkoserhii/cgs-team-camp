@@ -13,8 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+
+model Todo {
+  id           String  @id @default(uuid())
+  title        String
+  text         String
+  isCompleted  Boolean @default(false)
+  isPrivate   Boolean @default(false)
+
+  @@map("todos")
 }
+
