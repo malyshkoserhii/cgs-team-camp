@@ -53,4 +53,34 @@ export default class TodoService {
 
 		return newTodo;
 	}
+
+	async deleteTodo(id: string): Promise<TodoType | null> {
+		const newTodo = await prisma.todo.delete({
+			where: {
+				id,
+			},
+		});
+
+		if (newTodo) {
+			return newTodo;
+		}
+
+		return null;
+	}
+
+	async updateTodo(
+		id: string,
+		updates: Partial<Omit<TodoType, 'id'>>,
+	): Promise<TodoType | null> {
+		const updatedTodo = await prisma.todo.update({
+			where: { id },
+			data: updates,
+		});
+
+		if (updatedTodo) {
+			return updatedTodo;
+		}
+
+		return null;
+	}
 }

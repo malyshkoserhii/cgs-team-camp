@@ -20,11 +20,12 @@ export const creatingSchema = Joi.object({
 });
 
 export const updatingSchema = Joi.object({
-	id: Joi.string().required(),
 	title: Joi.string()
 		.min(1)
 		.max(12)
 		.pattern(/^[a-zA-ZА-Яа-яЁё]*$/)
-		.required(),
-	isCompleted: Joi.boolean().required(),
+		.optional(),
+	isCompleted: Joi.boolean().optional(),
+	text: Joi.string().optional(),
+	isPrivate: Joi.boolean().optional(),
 });
