@@ -1,6 +1,8 @@
 body {
 	margin: 0;
 	overflow-x: hidden;
+	background: #202023;
+	color: #ffffff
 }
 
 h1,

@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express, { Express } from 'express';
 import { errorMiddleware } from './middleware/error.middleware';
 import AppRouter from './routes';
@@ -8,6 +9,7 @@ const port = 3030;
 const app: Express = express();
 const router = new AppRouter(app);
 
+app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 router.init();
