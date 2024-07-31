@@ -115,7 +115,7 @@ Design: [drive.google](https://drive.google.com/file/d/1PcusGdHTmD4qzhKRJnd9pk2j
 [React Final Form](https://final-form.org/docs/react-final-form/getting-started) <br />
 [Formik](https://formik.org/docs/overview) <br />
 [React Hook Form](https://www.react-hook-form.com/get-started) <br />
-[Typescript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)  <br /> 
+[Typescript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) <br />
 [Passport](http://www.passportjs.org/) <br />
 [Emotion CSS](https://emotion.sh/docs/introduction) <br />
 [Prisma](https://www.prisma.io/docs/orm/overview/introduction) <br />
