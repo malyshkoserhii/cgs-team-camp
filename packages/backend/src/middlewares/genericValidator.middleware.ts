@@ -3,7 +3,7 @@ import { Schema, ValidationError } from 'joi';
 
 import { ApiErrors } from '@/utils';
 
-export const genericValidator = (schema: Schema): RequestHandler => {
+export const genericValidatorMiddleware = (schema: Schema): RequestHandler => {
 	return (req: Request, _res: Response, next: NextFunction): void => {
 		const { error }: { error?: ValidationError } = schema.validate(
 			req.body,

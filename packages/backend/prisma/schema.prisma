@@ -15,7 +15,7 @@ datasource db {
 
 model Todo {
   id          String   @id @default(uuid())
-  title       String
+  title       String   @unique
   description String
   isPrivate   Boolean  @default(false)
   isCompleted Boolean  @default(false)

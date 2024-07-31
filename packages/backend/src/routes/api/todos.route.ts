@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { prismaClient } from '@/prisma/prismaClient';
 import { reqBodySchema, todoSchema } from '@/schema';
-import { genericValidator, isExistMiddleware } from '@/middlewares';
+import { genericValidatorMiddleware, isExistMiddleware } from '@/middlewares';
 import {
 	ctrAddNewTodo,
 	ctrDeleteTodoById,
@@ -15,8 +15,8 @@ const todosRouter: Router = Router();
 
 todosRouter.post(
 	'/create',
-	genericValidator(reqBodySchema),
-	genericValidator(todoSchema),
+	genericValidatorMiddleware(reqBodySchema),
+	genericValidatorMiddleware(todoSchema),
 	ctrAddNewTodo,
 );
 
@@ -31,8 +31,8 @@ todosRouter.get(
 todosRouter.put(
 	'/todo/:id',
 	isExistMiddleware(prismaClient.todo),
-	genericValidator(reqBodySchema),
-	genericValidator(todoSchema),
+	genericValidatorMiddleware(reqBodySchema),
+	genericValidatorMiddleware(todoSchema),
 	ctrUpdateTodoById,
 );
 

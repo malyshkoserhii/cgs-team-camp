@@ -21,4 +21,8 @@ export default class TodoService {
 	async deleteTodo(id: string): Promise<Todo | null> {
 		return prismaClient.todo.delete({ where: { id } });
 	}
+
+	async findTodoByTitle(title: string): Promise<Todo | null> {
+		return prismaClient.todo.findUnique({ where: { title } });
+	}
 }
