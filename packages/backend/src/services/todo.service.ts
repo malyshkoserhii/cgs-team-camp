@@ -22,6 +22,20 @@ export default class TodoService {
 		return null;
 	}
 
+	async getById(id: string): Promise<TodoType | null> {
+		const todo = await prisma.todo.findUnique({
+			where: {
+				id,
+			},
+		});
+
+		if (todo) {
+			return todo;
+		}
+
+		return null;
+	}
+
 	async addTodo(
 		title: string,
 		text: string,

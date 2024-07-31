@@ -13,6 +13,25 @@ export class TodoController {
 		});
 	}
 
+	async getById(req: Request, res: Response): Promise<void> {
+		const { id } = req.params;
+
+		const todo = await this.todoService.getById(id);
+
+		if (todo) {
+			res.status(200).json({
+				status: 200,
+				message: `Successfully found todo with id ${id}!`,
+				data: todo,
+			});
+		} else {
+			res.status(404).json({
+				status: 404,
+				message: `Todo with id ${id} not found!`,
+			});
+		}
+	}
+
 	async createTodo(req: Request, res: Response): Promise<void> {
 		const {
 			title,
