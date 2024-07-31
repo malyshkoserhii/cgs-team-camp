@@ -12,3 +12,7 @@ export type HandlerType = (
 	res: Response,
 	next: NextFunction,
 ) => Promise<void>;
+
+export interface ResponseError extends Error {
+	status?: number;
+}

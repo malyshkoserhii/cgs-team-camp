@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import 'dotenv/config';
 import express, { Express, Request, Response } from 'express';
 
+import { generalErrorHandler } from './middlewars/generalErrorHandler';
 import AppRouter from './routes';
 
 const { PORT } = process.env;
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req: Request, res: Response) => {
 	res.send('Hello Node!');
 });
-
+app.use(generalErrorHandler);
 router.init();
 
 app.listen(PORT, () => {
