@@ -1,3 +1,4 @@
+import { NotFoundError, ValidationError } from '@/middlewares/customErrors';
 import { PrismaClient, Todo } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
@@ -7,20 +8,30 @@ export default class TodoService {
 		return await prisma.todo.findMany();
 	}
 
-	async findById(id: number): Promise<Todo | null> {
-		return await prisma.todo.findUnique({ where: { id } });
+	async findById(id: number): Promise<Todo> {
+		const todo = await prisma.todo.findUnique({ where: { id: id } });
+		if (!todo) {
+			throw new NotFoundError('Todo not found');
+		}
+		return todo;
 	}
 
 	async create(
 		data: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>,
 	): Promise<Todo> {
-		return await prisma.todo.create({ data });
+		if (!data.title) {
+			throw new ValidationError('Title is required');
+		}
+		return await prisma.todo.create({
+			data: {
+				title: data.title,
+				description: data.description,
+				completed: data.completed,
+			},
+		});
 	}
 
-	async update(
-		id: number,
-		data: Partial<Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>>,
-	): Promise<Todo | null> {
+	async update(id: number, data: Partial<Todo>): Promise<Todo> {
 		try {
 			return await prisma.todo.update({
 				where: { id },
@@ -31,22 +42,21 @@ export default class TodoService {
 				error instanceof PrismaClientKnownRequestError &&
 				error.code === 'P2025'
 			) {
-				return null;
+				throw new NotFoundError('Todo not found');
 			}
 			throw error;
 		}
 	}
 
-	async delete(id: number): Promise<boolean> {
+	async delete(id: number): Promise<void> {
 		try {
 			await prisma.todo.delete({ where: { id } });
-			return true;
 		} catch (error) {
 			if (
 				error instanceof PrismaClientKnownRequestError &&
 				error.code === 'P2025'
 			) {
-				return false;
+				throw new NotFoundError('Todo not found');
 			}
 			throw error;
 		}

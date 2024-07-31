@@ -81,14 +81,8 @@ export class TodoController {
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const deleted = await this.todoService.delete(
-				parseInt(req.params.id, 10),
-			);
-			if (deleted) {
-				res.send({ message: 'Todo deleted successfully' });
-			} else {
-				res.status(404).send({ message: 'Todo not found' });
-			}
+			await this.todoService.delete(parseInt(req.params.id, 10));
+			res.send({ message: 'Todo deleted successfully' });
 		} catch (error) {
 			next(error);
 		}

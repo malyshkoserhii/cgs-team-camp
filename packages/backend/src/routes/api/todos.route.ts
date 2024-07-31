@@ -7,19 +7,16 @@ import { todoSchema } from '../../validators/todoValidator';
 
 const todosRouter: Router = Router();
 
-todosRouter.get(
-	'/all',
-	tryCatch(todoController.getAllTodo.bind(todoController)),
-);
+todosRouter.get('/', tryCatch(todoController.getAllTodo.bind(todoController)));
 todosRouter.get(
 	'/:id',
 	isExist,
 	tryCatch(todoController.getTodoById.bind(todoController)),
 );
 todosRouter.post(
-	'/:id',
-	isExist,
-	tryCatch(todoController.getTodoById.bind(todoController)),
+	'/',
+	validate(todoSchema),
+	tryCatch(todoController.createTodo.bind(todoController)),
 );
 todosRouter.put(
 	'/:id',
