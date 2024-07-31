@@ -1,26 +1,26 @@
 {
-  "name": "cgs-team-camp-template-2024",
-  "version": "1.0.0",
-  "description": "",
-  "private": "true",
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "lint": "npx eslint packages/backend packages/frontend",
-    "lint:fix": "npx eslint packages/backend packages/frontend --fix",
-    "prepare": "husky"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+	"name": "cgs-team-camp-template-2024",
+	"version": "1.0.0",
+	"description": "",
+	"private": "true",
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"lint": "npx eslint packages/backend packages/frontend",
+		"lint:fix": "npx eslint packages/backend packages/frontend --fix",
+		"prepare": "husky"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-import-resolver-typescript": "^3.6.1",
+		"eslint-plugin-prettier": "^5.1.3",
+		"prettier": "^3.2.5",
+		"typescript": "^5.3.3"
+	},
+	"packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
