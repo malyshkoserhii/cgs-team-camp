@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi, { ObjectSchema } from 'joi';
-import { ValuesOf } from '@/utils/types/shared.type';
 import { ApiError } from '@/utils/helpers/ApiError.helper';
+import { ValuesOf } from '@/utils/types/shared.type';
 
 type JoiSchema<T> = ObjectSchema<T>;
 

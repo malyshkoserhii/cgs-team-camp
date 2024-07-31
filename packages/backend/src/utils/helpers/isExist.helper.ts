@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
-import { ApiError } from './ApiError.helper';
-import { ErrorMessages } from '../const/errors';
 import prisma from '@/client';
+import { ErrorMessages } from '../const/errors';
 import { PrismaModelType } from '../types/prisma.type';
+import { ApiError } from './ApiError.helper';
 
-type PrismaModelDelegate = {
+export type PrismaModelDelegate = {
 	[K in keyof PrismaClient]: PrismaClient[K] extends {
 		findUnique: (args: { where: { id: number } }) => Promise<unknown>;
 	}

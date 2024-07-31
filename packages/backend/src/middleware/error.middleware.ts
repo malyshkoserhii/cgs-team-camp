@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
+import { StatusCodes } from '@/utils/const/statusCodes';
 import { ApiError } from '@/utils/helpers/ApiError.helper';
 import { Error } from '@/utils/types/shared.type';
-import { StatusCodes } from '@/utils/const/statusCodes';
 
 export const errorMiddleware = (
 	err: Error,

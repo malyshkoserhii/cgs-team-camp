@@ -1,9 +1,8 @@
-import express, { Express } from 'express';
 import 'dotenv/config';
 import bodyParser from 'body-parser';
-
-import AppRouter from './routes';
+import express, { Express } from 'express';
 import { errorMiddleware } from './middleware/error.middleware';
+import AppRouter from './routes';
 
 const port = 3030;
 const app: Express = express();

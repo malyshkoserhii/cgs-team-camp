@@ -1,15 +1,9 @@
-import prisma from '@/client';
-import { Entities } from '@/utils/enums/Entities.enum';
-import { entityIsExist } from '@/utils/helpers/isExist.helper';
 import { Todo } from '@prisma/client';
+import prisma from '@/client';
 
 export default class TodoService {
 	async findAll(): Promise<Todo[]> {
 		return await prisma.todo.findMany();
-	}
-
-	async findById(id: number): Promise<Todo | void> {
-		return await entityIsExist(id, Entities.TODO);
 	}
 
 	async create(todo: Todo): Promise<Todo> {
@@ -17,8 +11,6 @@ export default class TodoService {
 	}
 
 	async updateById(id: number, data: Todo): Promise<Todo | void> {
-		await entityIsExist(id, Entities.TODO);
-
 		return await prisma.todo.update({
 			where: { id },
 			data,
@@ -26,7 +18,6 @@ export default class TodoService {
 	}
 
 	async deleteById(id: number): Promise<void> {
-		await entityIsExist(id, Entities.TODO);
 		await prisma.todo.delete({
 			where: { id },
 		});
@@ -36,8 +27,6 @@ export default class TodoService {
 		id: number,
 		status: Todo['status'],
 	): Promise<Todo | void> {
-		await entityIsExist(id, Entities.TODO);
-
 		return await prisma.todo.update({
 			where: { id },
 			data: { status },

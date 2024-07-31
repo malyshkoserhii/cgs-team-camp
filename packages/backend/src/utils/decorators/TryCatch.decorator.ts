@@ -1,5 +1,5 @@
-import { AsyncMethodType, FunctionType } from '@/utils/types/shared.type';
 import { NextFunction, Request, Response } from 'express';
+import { AsyncMethodType, FunctionType } from '@/utils/types/shared.type';
 
 function isAsyncFunction(target: FunctionType): boolean {
 	return target.constructor.name === 'AsyncFunction';

@@ -1,9 +1,8 @@
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import TodoService from '@/services/todo.service';
-import TryCatch from '@/utils/decorators/TryCatch';
-import { StatusCodes } from '@/utils/const/statusCodes';
 import { Status } from '@/utils/const/status';
-import { RequestWithUser } from '@/utils/interfaces/user.interface';
+import { StatusCodes } from '@/utils/const/statusCodes';
+import TryCatch from '@/utils/decorators/TryCatch.decorator';
 
 @TryCatch
 export class TodoController {
@@ -20,12 +19,10 @@ export class TodoController {
 	}
 
 	async findById(req: Request, res: Response): Promise<void> {
-		const data = await this.todoService.findById(Number(req.params.id));
-
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
-			data,
+			data: req.entity,
 		});
 	}
 
@@ -38,7 +35,7 @@ export class TodoController {
 		});
 	}
 
-	async create(req: RequestWithUser, res: Response): Promise<void> {
+	async create(req: Request, res: Response): Promise<void> {
 		const data = await this.todoService.create(req.body);
 
 		res.status(StatusCodes.created).json({
