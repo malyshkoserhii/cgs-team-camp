@@ -7,6 +7,7 @@ export const generalErrorHandler = (
 	req: Request,
 	res: Response,
 ): void => {
+	console.log('working');
 	if (err.status && err.message) {
 		res.status(err.status).json({
 			status: err.status,

@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req: Request, res: Response) => {
 	res.send('Hello Node!');
 });
-app.use(generalErrorHandler);
-router.init();
 
+router.init();
+app.use(generalErrorHandler);
 app.listen(PORT, () => {
 	console.log(`Now listening on port ${PORT}`);
 });
