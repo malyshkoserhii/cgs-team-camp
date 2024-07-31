@@ -11,11 +11,16 @@ export default class TodoService {
 		return await prisma.todo.findUnique({ where: { id } });
 	}
 
-	async create(data: Todo): Promise<Todo> {
+	async create(
+		data: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>,
+	): Promise<Todo> {
 		return await prisma.todo.create({ data });
 	}
 
-	async update(id: number, data: Todo): Promise<Todo | null> {
+	async update(
+		id: number,
+		data: Partial<Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>>,
+	): Promise<Todo | null> {
 		try {
 			return await prisma.todo.update({
 				where: { id },
