@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiErrors } from '@/utils';
 
+// TODO After morning meet QA -> have to use Joi Schema to validate req.body
 export const validateTodoReqBody = (
 	req: Request,
 	_res: Response,
