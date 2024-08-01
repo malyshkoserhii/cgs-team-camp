@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
-import { immer } from 'zustand/middleware/immer'; // Импортируйте immer
+import { immer } from 'zustand/middleware/immer';
 import { Messages } from '~shared/const/messages.const';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { TodoI } from '~shared/interfaces/todo.interface';
