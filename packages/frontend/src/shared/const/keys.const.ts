@@ -1,9 +1,11 @@
 export const enum ROUTER_KEYS {
 	ALL_MATCH = '/*',
-	LOGIN = '/login',
 	DASHBOARD = '/',
 	CREATE_TODO = '/create',
-	AUTH = '/auth',
+	LOGIN = '/login',
+	REGISTER = '/REGISTER',
+	CHANGE_PASSWORD = '/change-password',
+	RESET_PASSWORD = '/reset-password',
 }
 
 export const STORAGE_KEYS = Object.freeze({

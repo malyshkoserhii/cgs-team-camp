@@ -28,23 +28,11 @@
             "~pages/*": [
                 "src/pages/*"
             ],
-            "~models/*": [
-                "src/shared/models/*"
-            ],
-            "~interfaces/*": [
-                "src/shared/interfaces/*"
-            ],
             "~components/*": [
                 "src/components/*"
             ],
-            "~todoForm/*": [
-                "src/components/todoForm/*"
-            ],
-            "~todoList/*": [
-                "src/components/todoList/*"
-            ],
-            "~AuthPage/*": [
-                "src/pages/AuthPage/*"
+            "~LoginPage/*": [
+                "src/pages/LoginPage/*"
             ]
         }
     }

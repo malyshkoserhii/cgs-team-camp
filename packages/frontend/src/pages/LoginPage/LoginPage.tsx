@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { PageWrapper } from '~shared/ui/pageWrapper';
 
-const AuthPage = (): ReactElement => {
+const LoginPage = (): ReactElement => {
 	return <PageWrapper>Auth</PageWrapper>;
 };
 
-export default AuthPage;
+export default LoginPage;

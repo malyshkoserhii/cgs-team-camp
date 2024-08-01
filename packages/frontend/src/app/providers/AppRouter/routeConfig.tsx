@@ -6,7 +6,7 @@ import { ROUTER_KEYS } from '~shared/const/keys.const';
 export enum AppRoutes {
 	MAIN = 'dashboard',
 	CREATE_TODO = 'create-todo',
-	AUTH = 'auth',
+	LOGIN = 'login',
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -30,8 +30,8 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
 		element: <CreateTodoPage />,
 		auth: false, // need to edit
 	},
-	[AppRoutes.AUTH]: {
-		path: ROUTER_KEYS.AUTH,
+	[AppRoutes.LOGIN]: {
+		path: ROUTER_KEYS.LOGIN,
 		element: <AuthPage />,
 	},
 };
