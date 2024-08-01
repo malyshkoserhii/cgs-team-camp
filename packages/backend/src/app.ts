@@ -1,10 +1,11 @@
-import express, { Express, Request, Response } from 'express';
-import 'dotenv/config';
 import bodyParser from 'body-parser';
+import 'dotenv/config';
+import express, { Express, Request, Response } from 'express';
 
+import { generalErrorHandler } from './middlewars/generalErrorHandler';
 import AppRouter from './routes';
 
-const port = 3030;
+const { PORT } = process.env;
 const app: Express = express();
 const router = new AppRouter(app);
 
@@ -16,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 router.init();
-
-app.listen(port, () => {
-	console.log(`Now listening on port ${port}`);
+app.use(generalErrorHandler);
+app.listen(PORT, () => {
+	console.log(`Now listening on port ${PORT}`);
 });
