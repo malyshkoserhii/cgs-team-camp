@@ -4,12 +4,13 @@ import {
 	todoDescriptionValidation,
 	todoNameValidation,
 	todoPrivateValidation,
+	todoStatusValidation,
 } from './const';
 
 const todoSchema = Joi.object({
 	name: todoNameValidation,
 	description: todoDescriptionValidation,
-	// status: todoStatusValidation,
+	status: todoStatusValidation,
 	isPrivate: todoPrivateValidation,
 });
 

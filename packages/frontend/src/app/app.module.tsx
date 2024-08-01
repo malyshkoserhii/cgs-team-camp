@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Alert } from '~shared/components/alert';
-import { Container } from '~shared/components/container';
-import { Navbar } from '~shared/components/navbar';
+import { Alert } from '~shared/ui/alert';
+import { Container } from '~shared/ui/container';
+import { Modal } from '~shared/ui/modal/modal.component';
+import { Navbar } from '~shared/ui/navbar';
 import { AppRouter } from './providers/AppRouter/AppRouter';
 
 const App = (): React.ReactElement => {
@@ -12,6 +13,7 @@ const App = (): React.ReactElement => {
 				<AppRouter />
 			</Container>
 			<Alert />
+			<Modal />
 		</>
 	);
 };

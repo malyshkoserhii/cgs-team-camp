@@ -4,19 +4,18 @@ import { fontSizeMap, spacingMap } from './fontSizes';
 
 export const labelStyle = css`
 	font-size: ${fontSizeMap[200]};
+	margin-bottom: 2px;
 `;
 
 export const emptyMessageStyle = css`
+	color: ${colors.errorColor};
 	font-size: ${fontSizeMap[100]};
 	margin-top: 1px;
 	margin-bottom: 0;
-	color: ${colors.errorColor};
 `;
 
 export const boxStyle = css`
-	font-size: ${fontSizeMap[100]};
 	height: 24px;
-	color: ${colors.errorColor};
 `;
 
 export const asteriskStyle = css`

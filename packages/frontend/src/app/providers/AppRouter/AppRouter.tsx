@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Loader } from '~shared/components/loader';
+import { Loader } from '~shared/ui/loader';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AppRoutesProps, routeConfig } from './routeConfig';
 

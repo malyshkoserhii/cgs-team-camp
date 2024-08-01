@@ -33,6 +33,15 @@
             ],
             "~interfaces/*": [
                 "src/shared/interfaces/*"
+            ],
+            "~components/*": [
+                "src/components/*"
+            ],
+            "~todoForm/*": [
+                "src/components/todoForm/*"
+            ],
+            "~todoList/*": [
+                "src/components/todoList/*"
             ]
         }
     }

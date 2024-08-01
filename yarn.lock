@@ -228,13 +228,13 @@
   dependencies:
     tslib "~2.6.2"
 
-"@blueprintjs/core@^5.4.0":
-  version "5.10.1"
-  resolved "https://registry.npmjs.org/@blueprintjs/core/-/core-5.10.1.tgz"
-  integrity sha512-yE10tC/tA/NWo8zsged3n0PUcjlQzh9GqNKOqMAoSSnsAKGI+RJiHtbS2RERyKU+NailIsuFx1k282ohkJvkOQ==
+"@blueprintjs/core@^5.11.0", "@blueprintjs/core@^5.4.0":
+  version "5.11.0"
+  resolved "https://registry.npmjs.org/@blueprintjs/core/-/core-5.11.0.tgz"
+  integrity sha512-tjiiwQH0ZC0lQ58WPkKSVZda/hs0Swcn4dbK/a0EOwFXpa3e6JxBESrL+6DiQNyCHnv9I1ZaEVG2zVcvM27taA==
   dependencies:
     "@blueprintjs/colors" "^5.1.1"
-    "@blueprintjs/icons" "^5.9.0"
+    "@blueprintjs/icons" "^5.11.0"
     "@popperjs/core" "^2.11.8"
     classnames "^2.3.1"
     normalize.css "^8.0.1"
@@ -244,12 +244,22 @@
     tslib "~2.6.2"
     use-sync-external-store "^1.2.0"
 
-"@blueprintjs/icons@^5.9.0":
-  version "5.9.0"
-  resolved "https://registry.npmjs.org/@blueprintjs/icons/-/icons-5.9.0.tgz"
-  integrity sha512-9W9DYFqSORBr1QPSEwpbjnftbU+hfWB/gFtpa4LdzR7VhtQaCdcrinyXFmNUFacQ9czYrmr72bP567Rv6pRUDg==
+"@blueprintjs/icons@^5.11.0":
+  version "5.11.0"
+  resolved "https://registry.npmjs.org/@blueprintjs/icons/-/icons-5.11.0.tgz"
+  integrity sha512-2SyJgeol61hSaxdGrwPdzCx0cA5TEboc18oJYWQ31TZkidN3NWuH0Z4aEvugtM1+NR3W0Vcd/+1xIe5Y32pwTQ==
   dependencies:
     change-case "^4.1.2"
+    classnames "^2.3.1"
+    tslib "~2.6.2"
+
+"@blueprintjs/select@^5.2.2":
+  version "5.2.2"
+  resolved "https://registry.npmjs.org/@blueprintjs/select/-/select-5.2.2.tgz"
+  integrity sha512-oJeYa+SaHhk2gwhBr7ZyDL7B8hGvDb1EM3my3RevQxfaSmLx73436yUrwJocBRjJE03UtlchFZFPBRdZ8n/eIQ==
+  dependencies:
+    "@blueprintjs/core" "^5.11.0"
+    "@blueprintjs/icons" "^5.11.0"
     classnames "^2.3.1"
     tslib "~2.6.2"
 
@@ -260,7 +270,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@emotion/babel-plugin@^11.11.0", "@emotion/babel-plugin@^11.12.0":
+"@emotion/babel-plugin@^11.11.0":
   version "11.12.0"
   resolved "https://registry.npmjs.org/@emotion/babel-plugin/-/babel-plugin-11.12.0.tgz"
   integrity sha512-y2WQb+oP8Jqvvclh8Q55gLUyb7UFvgv7eJfsj7td5TToBrIUtPay2kMrZi4xjq9qw2vD0ZR5fSho0yqoFgX7Rw==
@@ -277,7 +287,7 @@
     source-map "^0.5.7"
     stylis "4.2.0"
 
-"@emotion/cache@^11.11.0", "@emotion/cache@^11.13.0":
+"@emotion/cache@^11.11.0":
   version "11.13.1"
   resolved "https://registry.npmjs.org/@emotion/cache/-/cache-11.13.1.tgz"
   integrity sha512-iqouYkuEblRcXmylXIwwOodiEK5Ifl7JcX7o6V4jI3iW4mLXX3dmt5xwBtIkJiQEXFAI+pC8X0i67yiPkH9Ucw==
@@ -309,7 +319,7 @@
   resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.9.0.tgz"
   integrity sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==
 
-"@emotion/serialize@^1.1.2", "@emotion/serialize@^1.2.0", "@emotion/serialize@^1.3.0":
+"@emotion/serialize@^1.1.2", "@emotion/serialize@^1.2.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@emotion/serialize/-/serialize-1.3.0.tgz"
   integrity sha512-jACuBa9SlYajnpIVXB+XOXnfJHyckDfe6fOpORIM6yhBDlqGuExvDdZYHDQGoDf3bZXGv7tNr+LpLjJqiEQ6EA==
@@ -329,11 +339,6 @@
   version "0.9.0"
   resolved "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.9.0.tgz"
   integrity sha512-TP6GgNZtmtFaFcsOgExdnfxLLpRDla4Q66tnenA9CktvVSdNKDvMVuUah4QvWPIpNjrWsGg3qeGo9a43QooGZQ==
-
-"@emotion/use-insertion-effect-with-fallbacks@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@emotion/use-insertion-effect-with-fallbacks/-/use-insertion-effect-with-fallbacks-1.1.0.tgz"
-  integrity sha512-+wBOcIV5snwGgI2ya3u99D7/FJquOIniQT1IKyDsBmEgwvpxMNeS65Oib7OnE2d2aY+3BU4OiH+0Wchf8yk3Hw==
 
 "@emotion/utils@^1.2.1", "@emotion/utils@^1.4.0":
   version "1.4.0"
@@ -1475,6 +1480,11 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+css-mediaquery@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/css-mediaquery/-/css-mediaquery-0.1.2.tgz"
+  integrity sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==
+
 csstype@^3.0.2:
   version "3.1.3"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz"
@@ -2129,7 +2139,7 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-final-form@^4.20.10, final-form@^4.20.4:
+final-form@^4.20.4:
   version "4.20.10"
   resolved "https://registry.npmjs.org/final-form/-/final-form-4.20.10.tgz"
   integrity sha512-TL48Pi1oNHeMOHrKv1bCJUrWZDcD3DIG6AGYVNOnyZPr7Bd/pStN0pL+lfzF5BNoj/FclaoiaLenk4XUIFVYng==
@@ -2429,13 +2439,6 @@ header-case@^2.0.4:
     capital-case "^1.0.4"
     tslib "^2.0.3"
 
-hoist-non-react-statics@^3.3.1:
-  version "3.3.2"
-  resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
-  integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
-  dependencies:
-    react-is "^16.7.0"
-
 http-errors@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/http-errors/-/http-errors-2.0.0.tgz"
@@ -2451,6 +2454,11 @@ husky@^9.0.10:
   version "9.0.11"
   resolved "https://registry.npmjs.org/husky/-/husky-9.0.11.tgz"
   integrity sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==
+
+hyphenate-style-name@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz"
+  integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
 
 iconv-lite@0.4.24:
   version "0.4.24"
@@ -2818,6 +2826,13 @@ make-error@^1.1.1:
   version "1.3.6"
   resolved "https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
+
+matchmediaquery@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/matchmediaquery/-/matchmediaquery-0.4.2.tgz"
+  integrity sha512-wrZpoT50ehYOudhDjt/YvUJc6eUzcdFPdmbizfgvswCKNHD1/OBOHYJpHie+HXpu6bSkEGieFMYk6VuutaiRfA==
+  dependencies:
+    css-mediaquery "^0.1.2"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -3232,7 +3247,7 @@ prettier@^3.2.5, prettier@>=3.0.0:
   resolved "https://registry.npmjs.org/prettier/-/prettier-3.2.5.tgz"
   integrity sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==
 
-prop-types@^15.6.2:
+prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -3309,19 +3324,12 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.2.tgz"
   integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
 
-react-final-form@^6.5.9:
-  version "6.5.9"
-  resolved "https://registry.npmjs.org/react-final-form/-/react-final-form-6.5.9.tgz"
-  integrity sha512-x3XYvozolECp3nIjly+4QqxdjSSWfcnpGEL5K8OBT6xmGrq5kBqbA6+/tOqoom9NwqIPPbxPNsOViFlbKgowbA==
-  dependencies:
-    "@babel/runtime" "^7.15.4"
-
 react-hook-form@^7.0.0, react-hook-form@^7.52.1:
   version "7.52.1"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.1.tgz"
   integrity sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==
 
-react-is@^16.13.1, react-is@^16.7.0:
+react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -3338,6 +3346,16 @@ react-refresh@^0.14.0:
   version "0.14.0"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
+
+react-responsive@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.npmjs.org/react-responsive/-/react-responsive-10.0.0.tgz"
+  integrity sha512-N6/UiRLGQyGUqrarhBZmrSmHi2FXSD++N5VbSKsBBvWfG0ZV7asvUBluSv5lSzdMyEVjzZ6Y8DL4OHABiztDOg==
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmediaquery "^0.4.2"
+    prop-types "^15.6.1"
+    shallow-equal "^3.1.0"
 
 react-router-dom@^6.16.0:
   version "6.22.3"
@@ -3613,6 +3631,11 @@ setprototypeof@1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
+
+shallow-equal@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/shallow-equal/-/shallow-equal-3.1.0.tgz"
+  integrity sha512-pfVOw8QZIXpMbhBWvzBISicvToTiM5WBF1EeAUZDDSb5Dt29yl4AYbyywbJFSEsRUMr7gJaxqCdr4L3tQf9wVg==
 
 shebang-command@^2.0.0:
   version "2.0.0"
@@ -4100,11 +4123,13 @@ vite-plugin-svgr@^4.1.0:
   resolved "file:packages/frontend"
   dependencies:
     "@blueprintjs/core" "^5.4.0"
+    "@blueprintjs/select" "^5.2.2"
     "@emotion/css" "^11.11.2"
     "@hookform/resolvers" "^3.9.0"
     axios "^1.5.1"
     classnames "^2.3.2"
     final-form "^4.20.10"
+    joi "^17.13.3"
     react "^18.2.0"
     react-dom "^18.2.0"
     react-final-form "^6.5.9"

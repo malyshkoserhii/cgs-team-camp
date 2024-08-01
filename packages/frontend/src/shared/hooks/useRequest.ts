@@ -3,41 +3,55 @@ import { useCallback, useEffect, useState } from 'react';
 import { notificationService } from '~shared/services/notificationService';
 
 interface RequestOptions<T> {
-	request: () => Promise<AxiosResponse<T>>;
+	request: (data?: T) => Promise<AxiosResponse<T>>;
+	message?: string;
+	initCall?: boolean;
 }
 
-interface UseRequestReturn<T> {
+export interface UseRequestReturn<T> {
 	data: T | null;
 	loading: boolean;
 	error: string | null;
-	refetch: () => void;
+	fetch: (data?: T) => void;
 }
 
 export const useRequest = <T>({
 	request,
+	initCall = true,
+	message,
 }: RequestOptions<T>): UseRequestReturn<T> => {
 	const [data, setData] = useState<T | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const fetchData = useCallback(async () => {
-		setLoading(true);
-		setError(null);
+	const fetchData = useCallback(
+		async (data?: T) => {
+			setLoading(true);
+			setError(null);
 
-		try {
-			const response = await request();
-			setData(response.data);
-		} catch (error) {
-			notificationService.error(error.response.data.error);
-			setError(error.response.data.error);
-		} finally {
-			setLoading(false);
-		}
-	}, [request]);
+			try {
+				const response = data ? await request(data) : await request();
+				setData(response.data);
+				if (message) {
+					notificationService.success(message);
+				}
+			} catch (error) {
+				const errorMessage =
+					error.response?.data?.error || 'An error occurred';
+				notificationService.error(errorMessage);
+				setError(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[request],
+	);
 
 	useEffect(() => {
-		fetchData();
+		if (initCall) {
+			fetchData();
+		}
 	}, []);
 
-	return { data, loading, error, refetch: fetchData };
+	return { data, loading, error, fetch: fetchData };
 };
