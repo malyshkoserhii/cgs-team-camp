@@ -14,7 +14,28 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // tasks     Todo[]
+}
+
+model Todo {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  status      TodoStatus @default(Todo)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // assigneeId  String
+  // assignee    User     @relation(fields: [assigneeId], references: [id])
+}
+
+enum TodoStatus {
+  Todo
+  InProgress
+  OnHold
+  Done
 }
