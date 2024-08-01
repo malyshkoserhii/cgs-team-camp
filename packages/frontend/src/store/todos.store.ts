@@ -2,13 +2,18 @@ import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import TodosService from '~shared/services/todos.service';
-import { CreateTodoType, Todo, UpdateTodoType } from '~shared/types/Todo.types';
+import {
+	CreateTodoType,
+	GetAllTodoType,
+	Todo,
+	UpdateTodoType,
+} from '~shared/types/Todo.types';
 
 const todosService = new TodosService();
 
 interface TodoState {
 	todo: Todo;
-	todos: Todo[];
+	todos: GetAllTodoType;
 	loading: boolean;
 	error: AxiosError | null;
 	fetchTodos: () => Promise<void>;
@@ -21,18 +26,18 @@ interface TodoState {
 export const useTodoStore = create<TodoState>()(
 	immer((set) => ({
 		todo: null,
-		isLastPage: false,
+
 		todos: [],
 
 		loading: false,
 		error: null,
-		pages: null,
+
 		fetchTodos: async (): Promise<void> => {
 			set({ loading: true });
 			try {
 				const { data } = await todosService.fetchAllTodos();
 				set({
-					todos: data.todos,
+					todos: data,
 				});
 			} catch (error) {
 				console.error('Failed to fetch todos', error);

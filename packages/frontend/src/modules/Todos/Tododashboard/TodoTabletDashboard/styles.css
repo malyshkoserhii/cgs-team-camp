@@ -1,0 +1,34 @@
+.swiper {
+	height: 400px;
+}
+
+.swiper-slide {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding-inline: 0;
+	border: 1px solid black;
+	background: lightblue;
+}
+.swiper-slide h3 {
+	margin-top: 20px;
+	font-size: 24px;
+}
+.swiper-slide p {
+	margin-top: 20px;
+	font-size: 22px;
+}
+
+/* .swiper-slide > div {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+} */
+
+.swiper-pagination-bullet {
+	background-color: #000;
+}

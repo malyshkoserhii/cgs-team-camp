@@ -9,4 +9,4 @@ export type Todo = {
 export type CreateTodoType = Omit<Todo, 'id'>;
 export type UpdateTodoType = Partial<Todo>;
 
-export type GetAllTodoType = { todos: Todo[] };
+export type GetAllTodoType = Todo[];

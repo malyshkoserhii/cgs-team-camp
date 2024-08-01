@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 
+import classNames from 'classnames';
 import { Field } from 'react-final-form';
+import { ErrorStlyes } from '../form/form.styles';
 import { InputProps } from '../input/input.component';
-import { UtilLabelStyles } from '../input/input.styles';
+import { UtilInputStyles, UtilLabelStyles } from '../input/input.styles';
 
 export const Textarea: FC<InputProps> = ({
 	name,
 	placeholder = '',
 	title,
 	additionalStyles,
-	submitFailed = false,
 }) => {
 	return (
 		<Field
@@ -19,8 +20,17 @@ export const Textarea: FC<InputProps> = ({
 					{title && (
 						<label className={UtilLabelStyles}>{title}</label>
 					)}
-					<textarea placeholder={placeholder} {...input} />
-					{submitFailed && meta.error && <span>{meta.error}</span>}
+					<textarea
+						className={classNames(
+							UtilInputStyles,
+							meta.error && meta.submitFailed && ErrorStlyes,
+						)}
+						placeholder={placeholder}
+						{...input}
+					/>
+					{meta.submitFailed && meta.error && (
+						<span>{meta.error}</span>
+					)}
 				</div>
 			)}
 		/>

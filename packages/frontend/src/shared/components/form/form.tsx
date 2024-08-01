@@ -2,7 +2,7 @@ import { Schema } from 'joi';
 import React, { useEffect, useRef } from 'react';
 import { Form } from 'react-final-form';
 
-import { validate } from '~shared/utils/formValidator';
+import { validate } from '~shared/utils/form.validator';
 import Button from '../button/button.component';
 import { FormContainer } from './form.styles';
 
