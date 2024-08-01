@@ -13,7 +13,7 @@ const App = (): React.ReactNode => {
 
 	return (
 		<>
-			<h1>Todo project</h1>
+			<h1>Todo</h1>
 			<p>{count}</p>
 			<Button text="Increase" onClick={onIncrease} />
 		</>
