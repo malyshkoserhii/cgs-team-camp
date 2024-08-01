@@ -18,3 +18,13 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Todo {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  public      Boolean  @default(true)
+  createAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
