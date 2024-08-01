@@ -1,9 +1,17 @@
 import { Router } from 'express';
+import todoController from '@/controllers/todo.controller';
 
-import todoController from '../../controllers/todo.controller';
+const todoRouter = Router();
 
-const todosRouter: Router = Router();
+todoRouter.get('/', todoController.getTodoItem.bind(todoController));
+todoRouter.post('/create', todoController.createTodoItem.bind(todoController));
+todoRouter.put(
+	'/update/:id',
+	todoController.updateTodoItem.bind(todoController),
+);
+todoRouter.delete(
+	'/delete/:id',
+	todoController.deleteTodoItem.bind(todoController),
+);
 
-todosRouter.get('/all', todoController.getAllTodo.bind(todoController));
-
-export default todosRouter;
+export default todoRouter;

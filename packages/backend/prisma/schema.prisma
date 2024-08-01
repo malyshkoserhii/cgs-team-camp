@@ -24,14 +24,14 @@ model User {
 }
 
 model Dashboard {
-  id       Int        @id @default(autoincrement())
-  owner    User       @relation(fields: [userId], references: [id])
-  name     String
-  descr    String?
-  date     DateTime
-  private  Boolean
-  userId   Int
-  TodoItem TodoItem[]
+  id        Int        @id @default(autoincrement())
+  owner     User       @relation(fields: [ownername], references: [username])
+  name      String
+  descr     String?
+  date      DateTime
+  private   Boolean
+  ownername String
+  TodoItem  TodoItem[]
 }
 
 model TodoItem {
@@ -39,9 +39,9 @@ model TodoItem {
   owner       User      @relation(fields: [userId], references: [id])
   name        String
   descr       String?
-  date        DateTime
+  date        DateTime  @default(now())
   updateTime  DateTime?
-  status      String?   @default("ToDo")
+  status      String    @default("ToDo")
   userId      Int
   dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
   dashboardId Int
