@@ -1,5 +1,8 @@
 import { cx } from '@emotion/css';
 import { FunctionComponent, ReactElement } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { breakpoints } from '~shared/styles/breakpoints';
+import { TodoSwiper } from '../todo/todoSwiper';
 import { generateGridStyles } from './grid.styles';
 
 export type ResponsiveColumns = {
@@ -37,6 +40,14 @@ export const AppGrid = <T extends { id: number }>({
 	className,
 	...otherProps
 }: Props<T>): ReactElement => {
+	const isTablet = useMediaQuery({
+		query: `(min-width: ${breakpoints.md}) and (max-width: ${breakpoints.lg})`,
+	});
+
+	if (isTablet) {
+		return <TodoSwiper<T> items={items} component={Component} />;
+	}
+
 	const gridStyles = generateGridStyles(columns, columnGap, rowGap);
 
 	return (

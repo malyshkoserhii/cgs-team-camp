@@ -42,6 +42,9 @@
             ],
             "~todoList/*": [
                 "src/components/todoList/*"
+            ],
+            "~AuthPage/*": [
+                "src/pages/AuthPage/*"
             ]
         }
     }

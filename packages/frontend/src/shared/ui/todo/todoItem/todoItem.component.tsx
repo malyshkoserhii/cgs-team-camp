@@ -21,6 +21,9 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 		changeStatusIsLoading,
 		deleteIsLoading,
 	} = useTodoStore();
+	const isMobileAndTablet = useMediaQuery({
+		query: `(max-width: ${breakpoints.lg})`,
+	});
 
 	const onUpdateStatus = async (): Promise<void> => {
 		await changeStatusById(
@@ -36,14 +39,12 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 		await deleteTodoById(id);
 		fetchTodos();
 	};
+
 	const handleOpenModal = (): void => {
 		openModal({
 			children: <TodoForm variant="noStyle" isEdit todo={todo} />,
 		});
 	};
-	const isMobileAndTablet = useMediaQuery({
-		query: `(max-width: ${breakpoints.lg})`,
-	});
 
 	return (
 		<Flex

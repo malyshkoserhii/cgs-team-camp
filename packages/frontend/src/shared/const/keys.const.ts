@@ -3,6 +3,7 @@ export const enum ROUTER_KEYS {
 	LOGIN = '/login',
 	DASHBOARD = '/',
 	CREATE_TODO = '/create',
+	AUTH = '/auth',
 }
 
 export const STORAGE_KEYS = Object.freeze({

@@ -6,4 +6,5 @@ export const DashboardPage = lazy(
 export const CreateTodoPage = lazy(
 	() => import('./CreateTodoPage/CreateTodoPage'),
 );
+export const AuthPage = lazy(() => import('./AuthPage/AuthPage'));
 export { ErrorPage } from './ErrorPage/ErrorPage';

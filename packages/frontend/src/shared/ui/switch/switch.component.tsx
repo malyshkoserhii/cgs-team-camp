@@ -1,5 +1,6 @@
 import { Switch as BlueprintSwitch, SwitchProps } from '@blueprintjs/core';
 import React, { ReactElement } from 'react';
+import { switchStyles } from './switch.styles';
 
 type Props = SwitchProps & {
 	checked?: boolean;
@@ -13,6 +14,7 @@ export const Switch = ({
 }: Props): ReactElement => {
 	return (
 		<BlueprintSwitch
+			className={switchStyles}
 			checked={checked}
 			onChange={onChange}
 			large

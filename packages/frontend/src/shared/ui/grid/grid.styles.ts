@@ -16,14 +16,36 @@ export const generateGridStyles = (
 
 		@media (min-width: ${breakpoints.lg}) {
 			grid-template-columns: 1fr;
+
+			li {
+				border-radius: 8px;
+				padding: 10px;
+			}
+
+			li:nth-child(1n) {
+				background: #383838;
+			}
+
+			li:nth-child(2n) {
+				background: #484848;
+			}
 		}
 
 		@media (min-width: ${breakpoints.md}) and (max-width: ${breakpoints.lg}) {
 			display: flex;
+			flex-wrap: nowrap;
 			overflow-x: auto;
-			flex-direction: row;
 			gap: ${typeof columnGap === 'object' ? columnGap?.md : columnGap}px;
 			align-items: flex-start;
+			& > * {
+				flex: 0 0
+					calc(
+						33.333% -
+							${typeof columnGap === 'object'
+								? columnGap?.md
+								: columnGap}px
+					);
+			}
 		}
 
 		@media (max-width: ${breakpoints.sm}) {

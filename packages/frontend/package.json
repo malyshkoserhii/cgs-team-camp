@@ -24,6 +24,7 @@
 		"react-responsive": "^10.0.0",
 		"react-router-dom": "^6.16.0",
 		"react-toastify": "^10.0.5",
+		"swiper": "^11.1.9",
 		"vite-plugin-svgr": "^4.1.0",
 		"zustand": "^4.4.3"
 	},
