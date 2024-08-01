@@ -10,6 +10,8 @@ import Button from '~shared/ui/button/button.component';
 import { Switch } from '~shared/ui/switch';
 import useModalStore from '~store/modal.store';
 import { useTodoStore } from '~store/todos.store';
+import { todoBoxStyles } from './todoItem.styles';
+import { TodoItemCard } from './todoItemCard.component';
 
 export const TodoItem = (todo: TodoI): ReactElement => {
 	const { description, name } = todo;
@@ -40,15 +42,30 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 		fetchTodos();
 	};
 
-	const handleOpenModal = (): void => {
+	const onOpenModal = (): void => {
 		openModal({
 			children: <TodoForm variant="noStyle" isEdit todo={todo} />,
 		});
 	};
 
+	if (isMobileAndTablet) {
+		return (
+			<TodoItemCard
+				todo={todo}
+				onUpdateStatus={onUpdateStatus}
+				onOpenModal={onOpenModal}
+				onDelete={onDelete}
+				changeStatusIsLoading={false}
+				deleteIsLoading={false}
+				isMobileAndTablet={isMobileAndTablet}
+			/>
+		);
+	}
+
 	return (
 		<Flex
 			as="li"
+			className={todoBoxStyles}
 			justify="space-between"
 			direction={isMobileAndTablet ? 'column' : 'row'}
 		>
@@ -59,7 +76,6 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 				direction={isMobileAndTablet ? 'column' : 'row'}
 			>
 				<Flex direction="column" gap="5px">
-					<Text size="small">Status</Text>
 					<Switch
 						onChange={onUpdateStatus}
 						disabled={changeStatusIsLoading}
@@ -67,21 +83,18 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 					/>
 				</Flex>
 				<Flex direction="column" gap="5px">
-					<Text size="small">Title</Text>
 					<Text size="small">{name}</Text>
 				</Flex>
 				<Flex direction="column" gap="5px">
-					<Text size="small">Description</Text>
 					<Text size="small">{description}</Text>
 				</Flex>
 			</Flex>
 			<Flex direction="column" gap="10px">
-				<Text size="small">Actions</Text>
 				<Flex gap="10px">
 					<Button
 						fullWidth={false}
 						icon="edit"
-						onClick={handleOpenModal}
+						onClick={onOpenModal}
 					/>
 					<Button
 						onClick={() => onDelete(String(todo.id))}
