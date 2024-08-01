@@ -3,7 +3,11 @@ import prisma from '@/client';
 
 export default class TodoService {
 	async findAll(): Promise<Todo[]> {
-		return await prisma.todo.findMany();
+		return await prisma.todo.findMany({
+			orderBy: {
+				createdAt: 'desc',
+			},
+		});
 	}
 
 	async create(todo: Todo): Promise<Todo> {

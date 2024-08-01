@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
-import { useCreateTodo } from '~shared/api/hooks/useCreateTodo.hook';
-import { useUpdateTodo } from '~shared/api/hooks/useUpdateTodo.hook';
+import { useNavigate } from 'react-router-dom';
+import { ROUTER_KEYS } from '~shared/const/keys.const';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { todoSchemaResolver } from '~shared/joiSchemas/joiSchemas/todo/todo.schema';
 import { TodoFormModel } from '~shared/models/todo.model';
 import { Form } from '~shared/ui/form';
 import { FormVariant } from '~shared/ui/form/ui/Form';
+import { useTodoStore } from '~store/todos.store';
 import { options } from '../model/formOptions';
 
 type Props = {
@@ -19,17 +20,25 @@ export const TodoForm = ({
 	variant = 'default',
 	todo,
 }: Props): ReactElement => {
-	const { loading, fetch } = useCreateTodo();
-	const { loading: editIsLoading, fetch: fetchEdit } = useUpdateTodo(
-		String(todo?.id),
-	);
+	const {
+		fetchTodos,
+		updateTodoById,
+		createIsLoading,
+		editLoading,
+		createTodo,
+	} = useTodoStore();
+	const navigate = useNavigate();
 
-	const onSubmit = (data: TodoFormModel): void => {
+	const onSubmit = async (data: TodoFormModel): Promise<void> => {
 		data.isPrivate = JSON.parse(data.isPrivate);
 		if (isEdit) {
-			fetchEdit(data);
+			await updateTodoById(todo.id, data);
+			await fetchTodos();
 		} else {
-			fetch(data);
+			try {
+				await createTodo(data);
+				navigate(ROUTER_KEYS.DASHBOARD);
+			} catch {}
 		}
 	};
 
@@ -41,7 +50,7 @@ export const TodoForm = ({
 			defaultValues={new TodoFormModel(todo)}
 			formValidationSchema={todoSchemaResolver}
 			onSubmit={onSubmit}
-			isLoading={loading || editIsLoading}
+			isLoading={createIsLoading || editLoading}
 		/>
 	);
 };

@@ -28,7 +28,7 @@ class TodoService extends HttpService {
 		});
 	}
 
-	async deleteById(id: number): Promise<AxiosResponse<void>> {
+	async deleteById(id: string): Promise<AxiosResponse<void>> {
 		return await this.delete({
 			config: {
 				url: `${ApiPath.TODOS}/${id}`,
@@ -61,13 +61,13 @@ class TodoService extends HttpService {
 	}
 
 	async changeStatusById(
-		id: number,
+		id: string,
 		status: TodoStatusE,
 	): Promise<AxiosResponse<TodoI>> {
 		return await this.patch({
 			config: {
 				url: `${ApiPath.TODOS}/${id}`,
-				data: status,
+				data: { status },
 			},
 			withAuth: false,
 		});

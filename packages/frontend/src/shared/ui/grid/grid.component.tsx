@@ -1,8 +1,8 @@
-import { css, cx } from '@emotion/css';
+import { cx } from '@emotion/css';
 import { FunctionComponent, ReactElement } from 'react';
-import { breakpoints } from '~shared/styles/breakpoints';
+import { generateGridStyles } from './grid.styles';
 
-type ResponsiveColumns = {
+export type ResponsiveColumns = {
 	base?: number;
 	xs?: number;
 	sm?: number;
@@ -11,7 +11,7 @@ type ResponsiveColumns = {
 	xl?: number;
 };
 
-type ResponsiveGap = {
+export type ResponsiveGap = {
 	base?: number;
 	sm?: number;
 	md?: number;
@@ -26,37 +26,6 @@ type Props<T> = {
 	columnGap?: number | ResponsiveGap;
 	rowGap?: number | ResponsiveGap;
 	className?: string;
-};
-
-const generateGridStyles = (
-	columns?: ResponsiveColumns,
-	columnGap?: number | ResponsiveGap,
-	rowGap?: number | ResponsiveGap,
-): string => {
-	return css`
-		display: grid;
-		gap: ${typeof columnGap === 'number'
-				? columnGap
-				: columnGap?.base || 0}px
-			${typeof rowGap === 'number' ? rowGap : rowGap?.base || 0}px;
-
-		@media (min-width: ${breakpoints.lg}) {
-			grid-template-columns: 1fr;
-		}
-
-		@media (min-width: ${breakpoints.md}) and (max-width: ${breakpoints.lg}) {
-			display: flex;
-			overflow-x: auto;
-			flex-direction: row;
-			gap: ${typeof columnGap === 'object' ? columnGap?.md : columnGap}px;
-			align-items: flex-start;
-		}
-
-		@media (max-width: ${breakpoints.sm}) {
-			grid-template-columns: 1fr;
-			overflow-x: hidden;
-		}
-	`;
 };
 
 export const AppGrid = <T extends { id: number }>({
