@@ -3,7 +3,7 @@ export const enum ROUTER_KEYS {
 	DASHBOARD = '/',
 	CREATE_TODO = '/create',
 	LOGIN = '/login',
-	REGISTER = '/REGISTER',
+	REGISTER = '/register',
 	CHANGE_PASSWORD = '/change-password',
 	RESET_PASSWORD = '/reset-password',
 }
