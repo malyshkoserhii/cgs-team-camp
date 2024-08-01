@@ -8,7 +8,7 @@ interface ICounterStore {
 
 export const useCounterStore = create<ICounterStore>((set) => {
 	return {
-		counter: 0,
+		counter: 2,
 		updateCounter: (offset: number) => {
 			return (): void => {
 				set((state) => {

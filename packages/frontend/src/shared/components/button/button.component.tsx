@@ -29,6 +29,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 		if (isDisabled) {
 			return;
 		}
+		console.log('click');
 
 		onClick?.();
 	};

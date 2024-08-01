@@ -42,6 +42,9 @@
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~interfaces/*": [
+				"src/shared/interfaces/*"
 			]
 		}
 	},
