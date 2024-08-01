@@ -35,6 +35,12 @@ module.exports = {
         caughtErrorsIgnorePattern: '^_',
       },
     ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     'no-unused-vars': 'off',
     // indent: ['error', 'tab'],
     quotes: ['error', 'single'],

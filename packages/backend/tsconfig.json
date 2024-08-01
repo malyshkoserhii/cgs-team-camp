@@ -1,5 +1,8 @@
 {
-	"typeRoots": ["@types/node", "./src/types"],
+	"typeRoots": [
+		"@types/node",
+		"./src/types"
+	],
 	"compilerOptions": {
 		"strict": true,
 		"module": "CommonJS",
@@ -18,9 +21,16 @@
 		"baseUrl": ".",
 		"noImplicitAny": true,
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": [
+				"./src/*"
+			]
 		}
 	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules"]
+	"include": [
+		"src/**/*",
+		"src/middleware"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

@@ -1,15 +1,34 @@
 import { Response, Request } from 'express';
-import TodoService from '@/services/todo.service';
+import { TodoService } from '../services/todo.service';
+
+const todoService = new TodoService();
 
 export class TodoController {
-	constructor(private todoService: TodoService) {}
+	async getAllTodos(req: Request, res: Response): Promise<void> {
+		const todos = await todoService.getAllTodos();
+		res.json(todos);
+	}
 
-	async getAllTodo(_: Request, res: Response): Promise<void> {
-		// TODO: Write your implementation here
-		const todos = await this.todoService.findAll();
-		res.send(todos);
+	async getTodoById(req: Request, res: Response): Promise<void> {
+		const id = parseInt(req.params.id);
+		const todo = await todoService.getTodoById(id);
+		res.json(todo);
+	}
+
+	async createTodo(req: Request, res: Response): Promise<void> {
+		const todo = await todoService.createTodo(req.body);
+		res.status(201).json(todo);
+	}
+
+	async updateTodo(req: Request, res: Response): Promise<void> {
+		const id = parseInt(req.params.id);
+		const todo = await todoService.updateTodo(id, req.body);
+		res.json(todo);
+	}
+
+	async deleteTodo(req: Request, res: Response): Promise<void> {
+		const id = parseInt(req.params.id);
+		await todoService.deleteTodo(id);
+		res.status(204).send();
 	}
 }
-
-const todoController = new TodoController(new TodoService());
-export default todoController;
