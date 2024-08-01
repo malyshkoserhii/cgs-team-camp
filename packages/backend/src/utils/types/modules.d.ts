@@ -1,9 +1,18 @@
+import { User } from '@prisma/client';
+
 declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
 			TEST: string;
 			DATABASE_URL: string;
 		}
+	}
+}
+
+declare module 'express-serve-static-core' {
+	interface Request {
+		entity?: PrismaModelType<unknown>;
+		user?: User;
 	}
 }
 

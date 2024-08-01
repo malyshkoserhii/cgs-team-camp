@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Button from '~shared/components/button/button.component';
 
 const App = (): React.ReactNode => {
