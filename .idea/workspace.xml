@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240801092151_todo/migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240302121448_init/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/todos.type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/types/todos.type.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="iruskevych" />
+        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,25 +40,25 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/todo-crud-backend",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.11.1",
-    "javascript.nodejs.core.library.typings.version": "20.11.30",
-    "last_opened_file_path": "D:/FSDev-advanced",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-backend&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
