@@ -1,12 +1,9 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import TodoService from '../../services/todo.service';
-import UserService from '../../services/user.service';
-import { GetExistRequest, GetTodoRequest } from '../../types/requests.types';
+import { GetExistRequest } from '../../types/requests.types';
 import { ERRORS } from '../../constants';
-import { IUserSession } from '@/types/user.type';
-
-type FindServices = TodoService | UserService;
+import UserService from '@/services/user.service';
+import Service from '@/services/index.service';
 
 export const validateRequestBody =
 	(schema: Joi.ObjectSchema) =>
@@ -24,7 +21,7 @@ export const validateRequestBody =
 	};
 
 export const isExist =
-	<T extends FindServices>(EntityClass: new () => T) =>
+	<T extends Service>(EntityClass: new () => T) =>
 	async (
 		req: GetExistRequest,
 		res: Response,
@@ -33,9 +30,24 @@ export const isExist =
 		try {
 			const entity = new EntityClass();
 
-			if (entity instanceof TodoService) {
+			if (entity instanceof UserService) {
+				// const { email } = req.body;
+				// try {
+				// 	await entity.findOne(email);
+				// 	if (req.route.path !== '/register') {
+				// 		return next();
+				// 	}
+				// } catch (error) {
+				// 	if (req.route.path === '/register') {
+				// 		return next();
+				// 	}
+				// 	throw new Error(ERRORS.USER.NOT_EXIST);
+				// }
+				// throw new Error(ERRORS.USER.NOT_EXIST);
+			} else {
 				const { id } = req.params;
-				if (!id) throw new Error(ERRORS.ID_UNDEFINED);
+				if (Number.isNaN(Number(id)))
+					throw new Error(ERRORS.ID_UNDEFINED);
 
 				await entity.findOne(Number(id));
 			}
