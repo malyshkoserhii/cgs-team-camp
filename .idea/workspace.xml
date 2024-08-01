@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/packages/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/http-errors.constant.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/helpers/ctrlWrapper.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/helpers/http-error.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/generalErrorHandler.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/isExist.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/validateBody.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schema/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schema/todo.schema.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/prisma/prisma.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/http-errors.type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/prisma.types.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
+        <entry key="$PROJECT_DIR$" value="feature/todo-crud-frontend" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

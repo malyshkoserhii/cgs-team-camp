@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { prismaClient } from '@/prisma/prismaClient';
-import { reqBodySchema, todoSchema } from '@/schema';
+import { reqBodySchema, todoSchema } from 'src/schemas';
 import { genericValidatorMiddleware, isExistMiddleware } from '@/middlewares';
 import {
 	ctrAddNewTodo,

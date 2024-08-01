@@ -1,16 +1,19 @@
 import Joi from 'joi';
+import { joiErrorMessages } from '@/constants';
 
-export const createTodoSchema = Joi.object({
-	title: Joi.string().required(),
-	description: Joi.string().required(),
-	isCompleted: Joi.boolean().required(),
-	isPrivate: Joi.boolean().required(),
+export const todoSchema = Joi.object().keys({
+	title: Joi.string().required().messages(joiErrorMessages.string('Title')),
+	description: Joi.string()
+		.required()
+		.messages(joiErrorMessages.string('Description')),
+	isPrivate: Joi.boolean()
+		.required()
+		.messages(joiErrorMessages.boolean('Private/Public')),
+	isCompleted: Joi.boolean()
+		.required()
+		.messages(joiErrorMessages.boolean('Completed')),
 });
-export const UpdateTodoSchema = Joi.object({
-	title: Joi.string(),
-	description: Joi.string(),
-	status: Joi.boolean(),
-	id: Joi.number(),
-	AuthorId: Joi.number(),
-	private: Joi.boolean(),
-});
+
+export const reqBodySchema = Joi.object()
+	.min(1)
+	.messages(joiErrorMessages.objMin());
