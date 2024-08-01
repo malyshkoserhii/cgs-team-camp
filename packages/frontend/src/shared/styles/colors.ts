@@ -36,4 +36,15 @@ export const colors = Object.freeze({
 	grape: '#591CB8',
 	iris: '#623ECC',
 	brilliantLavender: '#FABAF0',
+
+	mainBgColor: '#202023',
+	secondaryBgColor: '#282828',
+	secondaryBgColorTransparent: '#28282860',
+	mainColor: '#ffffff',
+	errorColor: '#E53E3E',
+	successColor: '#2F855A',
+	accentColor: 'rgba(144, 144, 194)',
+	accentColorTransparent: 'rgba(144, 144, 194, 0.59)',
+	accentColorTransparentDarker: 'rgba(144, 144, 194, 0.30)',
+	accentColorTransparentDarkest: 'rgba(144, 144, 194, 0.1)',
 });

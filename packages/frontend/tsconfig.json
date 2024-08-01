@@ -1,59 +1,39 @@
 {
-	"compilerOptions": {
-		"jsx": "react",
-		"baseUrl": ".",
-		"module": "ES2022",
-		"declaration": true,
-		"removeComments": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"target": "ES2022",
-		"sourceMap": true,
-		"outDir": "./dist",
-		"incremental": true,
-		"useDefineForClassFields": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"composite": true,
-		"types": [
-			"vite/client"
-		],
-		"paths": {
-			"~assets/*": [
-				"src/assets/*"
-			],
-			"~modules/*": [
-				"src/modules/*"
-			],
-			"~router/*": [
-				"src/router/*"
-			],
-			"~shared/*": [
-				"src/shared/*"
-			],
-			"~store/*": [
-				"src/store/*"
-			],
-			"~typings/*": [
-				"src/typings/*"
-			],
-			"~/*": [
-				"src/*"
-			]
-		}
-	},
-	"include": [
-		"./src/**/*",
-		"./vite.config.ts",
-		".eslintrc.cjs"
-	],
-	"exclude": [
-		"./node_modules",
-		"test",
-		"./dist",
-		"**/*spec.ts"
-	]
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "~assets/*": [
+                "src/assets/*"
+            ],
+            "~shared/*": [
+                "src/shared/*"
+            ],
+            "~store/*": [
+                "src/store/*"
+            ],
+            "~typings/*": [
+                "src/typings/*"
+            ],
+            "~/*": [
+                "src/*"
+            ],
+            "~app/*": [
+                "src/app/*"
+            ],
+            "~pages/*": [
+                "src/pages/*"
+            ],
+            "~components/*": [
+                "src/components/*"
+            ],
+            "~LoginPage/*": [
+                "src/pages/LoginPage/*"
+            ]
+        }
+    }
 }
