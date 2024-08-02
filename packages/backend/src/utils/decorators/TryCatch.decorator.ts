@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { AsyncMethodType, FunctionType } from '@/utils/types/shared.type';
+import { ApiError } from '../helpers/ApiError.helper';
 
 function isAsyncFunction(target: FunctionType): boolean {
 	return target.constructor.name === 'AsyncFunction';
@@ -9,7 +10,6 @@ function TryCatchClass<T extends { new (...args: unknown[]): object }>(
 	target: T,
 ): T {
 	const methodNames = Object.getOwnPropertyNames(target.prototype);
-
 	methodNames.forEach((methodName) => {
 		const originalMethod = target.prototype[methodName];
 		if (typeof originalMethod !== 'function') return;
@@ -19,7 +19,7 @@ function TryCatchClass<T extends { new (...args: unknown[]): object }>(
 				req: Request,
 				res: Response,
 				next: NextFunction,
-			): Promise<void> {
+			): Promise<Response<unknown, Record<string, unknown>> | undefined> {
 				try {
 					const responseBody = await originalMethod.call(
 						this,
@@ -30,7 +30,12 @@ function TryCatchClass<T extends { new (...args: unknown[]): object }>(
 					if (responseBody) res.send(responseBody);
 				} catch (error) {
 					console.error(`Error in method ${methodName}:`, error);
-					next(error);
+					if (error instanceof ApiError) {
+						return res.status(error.status).json({
+							error: error.message,
+							status: error.status,
+						});
+					}
 				}
 			};
 		}

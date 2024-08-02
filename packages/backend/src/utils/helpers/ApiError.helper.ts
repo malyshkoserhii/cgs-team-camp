@@ -31,6 +31,13 @@ export class ApiError extends Error {
 		);
 	}
 
+	static ForbiddenError(message?: string): ApiError {
+		return new ApiError(
+			StatusCodes.forbidden,
+			message ?? ErrorMessages.forbidden,
+		);
+	}
+
 	static NotFoundError(message?: string): ApiError {
 		return new ApiError(
 			StatusCodes.notFound,

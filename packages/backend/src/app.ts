@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 router.init();
 app.use(errorMiddleware);
+
 app.listen(port, () => {
 	console.log(`Now listening on port ${port}`);
 });

@@ -12,7 +12,7 @@ declare global {
 declare module 'express-serve-static-core' {
 	interface Request {
 		entity?: PrismaModelType<unknown>;
-		user?: User;
+		user: User;
 	}
 }
 

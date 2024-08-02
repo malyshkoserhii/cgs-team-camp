@@ -1,17 +1,25 @@
-import { Todo } from '@prisma/client';
+import { Todo, User } from '@prisma/client';
 import prisma from '@/client';
 
 export default class TodoService {
-	async findAll(): Promise<Todo[]> {
+	async findAll(userId: number): Promise<Todo[]> {
 		return await prisma.todo.findMany({
+			where: {
+				OR: [{ isPrivate: false }, { userId }],
+			},
 			orderBy: {
 				createdAt: 'desc',
 			},
 		});
 	}
 
-	async create(todo: Todo): Promise<Todo> {
-		return await prisma.todo.create({ data: todo });
+	async create(todo: Todo, user: User): Promise<Todo> {
+		return await prisma.todo.create({
+			data: {
+				...todo,
+				userId: user.id,
+			},
+		});
 	}
 
 	async updateById(id: number, data: Todo): Promise<Todo | void> {
