@@ -30,4 +30,22 @@ export const mailService = {
 			console.log(e);
 		}
 	},
+	sendPasswordResetEmail: async (to: string, link: string): Promise<void> => {
+		try {
+			await transporter.sendMail({
+				from: process.env.DEV_SMTP_USER,
+				to,
+				subject: 'Password Reset Request',
+				html: `
+                    <div>
+                        <h1>Password Reset</h1>
+                        <p>Click the link below to reset your password:</p>
+                        <a href="${link}">${link}</a>
+                    </div>
+                `,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	},
 };

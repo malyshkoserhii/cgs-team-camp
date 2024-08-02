@@ -140,4 +140,52 @@ export default class UserService {
 			data: { refreshToken: hashedToken },
 		});
 	}
+
+	async requestPasswordReset(email: string): Promise<void> {
+		const user = await prisma.user.findUnique({ where: { email } });
+
+		if (!user) {
+			throw ApiError.NotFoundError(ErrorMessages.notFound());
+		}
+
+		const resetToken = uuidv4();
+
+		await prisma.user.update({
+			where: { email },
+			data: {
+				resetToken,
+				resetTokenExpiration: new Date(Date.now() + 3600000),
+			},
+		});
+
+		const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+		await mailService.sendPasswordResetEmail(email, resetLink);
+	}
+
+	async resetPassword(
+		resetToken: string,
+		newPassword: string,
+	): Promise<void> {
+		const user = await prisma.user.findUnique({
+			where: {
+				resetToken: resetToken,
+				resetTokenExpiration: { gte: new Date() },
+			},
+		});
+
+		if (!user) {
+			throw ApiError.BadRequestError('Invalid or expired reset token');
+		}
+
+		const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+		await prisma.user.update({
+			where: { id: user.id },
+			data: {
+				password: hashedPassword,
+				resetToken: null,
+				resetTokenExpiration: null,
+			},
+		});
+	}
 }

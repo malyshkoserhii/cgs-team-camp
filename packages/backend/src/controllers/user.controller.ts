@@ -51,6 +51,26 @@ export class UserController {
 		);
 		res.json(tokens);
 	}
+
+	async requestPasswordReset(req: Request, res: Response): Promise<void> {
+		const { email } = req.body;
+		await this.userService.requestPasswordReset(email);
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			message: 'Password reset email sent',
+		});
+	}
+
+	async resetPassword(req: Request, res: Response): Promise<void> {
+		const { token, password } = req.body;
+		await this.userService.resetPassword(token, password);
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			message: 'Password has been reset successfully',
+		});
+	}
 }
 
 export const userController = new UserController(new UserService());
