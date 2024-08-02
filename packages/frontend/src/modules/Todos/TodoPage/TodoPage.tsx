@@ -2,8 +2,7 @@ import { Dialog, DialogBody } from '@blueprintjs/core';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { TodoFormInitState } from '~shared/constants/form-initial-values/todo-form-init-values';
-import { UpdateTodoSchema } from '~shared/schemas/todo.schema';
+import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import { UpdateTodoType } from '~shared/types/Todo.types';
 import { useTodoStore } from '~store/todos.store';
 import { DialogContainer } from '../TodoForm/Form.styles';
@@ -34,14 +33,6 @@ const TodoPage: React.FC = () => {
 		updateTodo(+id, todo);
 		closeUpdateModal();
 	};
-	const initState = todo
-		? {
-				title: todo.title,
-				description: todo.description,
-				isCompleted: todo.isCompleted,
-				isPrivate: todo.isPrivate,
-			}
-		: TodoFormInitState;
 
 	return (
 		<div>
@@ -66,8 +57,8 @@ const TodoPage: React.FC = () => {
 					{
 						<AddTodoForm
 							onSubmit={updateTodoFunc}
-							initState={initState}
-							schema={UpdateTodoSchema}
+							todo={todo}
+							schema={AddTodoSchema}
 							SubmitButtonText="Update Todo"
 						/>
 					}

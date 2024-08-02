@@ -12,7 +12,6 @@ import TodoDesktopDashboard from '../Tododashboard/TodoDesktopDashboard/TodoDesk
 import TodoList from '../Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
 
 import Button from '~shared/components/button/button.component';
-import { TodoFormInitState } from '~shared/constants/form-initial-values/todo-form-init-values';
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import { useTodoStore } from '~store/todos.store';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
@@ -54,11 +53,13 @@ const TodoDashboardPage = (): React.ReactNode => {
 	};
 
 	const showContent = !error && !loading;
-
+	if (error) {
+		console.log(error);
+	}
 	return (
 		<>
 			<Button text="Create New Todo" onClick={openAddToDoModal} />
-			{error && <p>{error.message}</p>}
+			{error && <p>error</p>}
 			{loading && (
 				<div className={PageLoader}>
 					<Loader />
@@ -96,11 +97,7 @@ const TodoDashboardPage = (): React.ReactNode => {
 				canOutsideClickClose={false}
 			>
 				<DialogBody>
-					<AddTodoForm
-						onSubmit={createTodo}
-						initState={TodoFormInitState}
-						schema={AddTodoSchema}
-					/>
+					<AddTodoForm onSubmit={createTodo} schema={AddTodoSchema} />
 				</DialogBody>
 			</Dialog>
 		</>

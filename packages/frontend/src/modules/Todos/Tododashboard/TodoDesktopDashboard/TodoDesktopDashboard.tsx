@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {
 	TodoButtonsContainer,
-	TodoLink,
 	TodoSwitch,
 	nonFocusable,
 } from '~modules/Todos/TodoItem/TodoItem.styles';
 import { TodoListProps } from '~modules/Todos/Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
-import Button from '~shared/components/button/button.component';
 
+import { TodoItemActions } from '~modules/Todos/TodoItem/TodoItemActions';
 import CustomToggle from '~shared/components/toggle/toggle.component';
-import { ROUTER_KEYS } from '~shared/keys/router-keys';
 import {
 	ActionsColumn,
 	DescriptionColumn,
@@ -41,19 +38,10 @@ const TodoDesktopDashboard: React.FC<TodoListProps> = ({
 							</td>
 							<td className={ActionsColumn}>
 								<div className={TodoButtonsContainer}>
-									<Link
-										to={`${ROUTER_KEYS.DASHBOARD}/${todo.id}`}
-										className={TodoLink}
-									>
-										View
-									</Link>
-
-									<Button
-										text={'Delete'}
-										onClick={() => removeTodo(todo.id)}
-										type="button"
+									<TodoItemActions
+										todo={todo}
+										removeTodo={removeTodo}
 									/>
-
 									<div className={TodoSwitch}>
 										<CustomToggle
 											status={todo.isCompleted}

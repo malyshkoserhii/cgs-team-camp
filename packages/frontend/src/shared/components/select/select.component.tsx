@@ -8,7 +8,7 @@ type SelectProps = {
 
 	title: string;
 	additionalStyles?: string;
-	submitFailed: boolean;
+
 	parse?: (value: string) => boolean;
 	children: JSX.Element | JSX.Element[];
 };
@@ -18,7 +18,7 @@ export const Select: FC<SelectProps> = ({
 
 	title,
 	additionalStyles,
-	submitFailed = false,
+
 	children,
 	parse,
 }) => {
@@ -32,7 +32,9 @@ export const Select: FC<SelectProps> = ({
 						<label className={UtilLabelStyles}>{title}</label>
 					)}
 					<select {...input}>{children}</select>
-					{submitFailed && meta.error && <span>{meta.error}</span>}
+					{meta.submitFailed && meta.error && (
+						<span>{meta.error}</span>
+					)}
 				</div>
 			)}
 		/>

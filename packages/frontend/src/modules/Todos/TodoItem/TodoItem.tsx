@@ -13,6 +13,7 @@ import {
 	TodoSwitch,
 	nonFocusable,
 } from './TodoItem.styles';
+import { TodoItemActions } from './TodoItemActions';
 
 export type TodoItemProps = {
 	todo: Todo;
@@ -28,9 +29,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
 }) => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
-	const deleteTodo = (): void => {
-		removeTodo(todo.id);
-	};
+
 	const deleteTodoAndGoToList = (): void => {
 		removeTodo(todo.id);
 		navigate(ROUTER_KEYS.DASHBOARD);
@@ -60,19 +59,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
 						/>
 					</>
 				) : (
-					<>
-						<Link
-							to={`${ROUTER_KEYS.DASHBOARD}/${todo.id}`}
-							className={TodoLink}
-						>
-							View
-						</Link>
-						<Button
-							text={'Delete'}
-							onClick={deleteTodo}
-							type="button"
-						/>
-					</>
+					<TodoItemActions todo={todo} removeTodo={removeTodo} />
 				)}
 
 				<div className={TodoSwitch}>
