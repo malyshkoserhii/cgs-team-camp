@@ -42,6 +42,9 @@
             ],
             "~ResetPasswordConfirmPage/*": [
                 "src/pages/ResetPasswordConfirmPage/*"
+            ],
+            "~helpers/*": [
+                "src/shared/helpers/*"
             ]
         }
     }

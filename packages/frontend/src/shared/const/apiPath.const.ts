@@ -20,4 +20,5 @@ export const UserApiPath = {
 	PASSWORD_RESET_REQUEST: '/request-password-reset',
 	PASSWORD_RESET: '/reset-password',
 	ACTIVATE: '/activate',
+	CURRENT: '/current',
 };

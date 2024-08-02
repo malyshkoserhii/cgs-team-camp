@@ -11,5 +11,6 @@ export const enum ROUTER_KEYS {
 
 export const STORAGE_KEYS = Object.freeze({
 	TOKEN: 'TOKEN',
+	TOKEN_REFRESH: 'TOKEN_REFRESH',
 	THEME: 'theme',
 });

@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { Messages } from '~shared/const/messages.const';
+import { setTokens } from '~shared/helpers/setTokens';
 import { TokenI, UserI } from '~shared/interfaces/user.interface copy';
 import userService from '~shared/services/http/user.service';
 import { notificationService } from '~shared/services/notificationService';
@@ -24,10 +25,10 @@ interface UserStore {
 	}) => Promise<void>;
 	login: (data: { email: string; password: string }) => Promise<void>;
 	logout: () => Promise<void>;
-	refresh: (refreshToken: string) => Promise<void>;
 	requestPasswordReset: (email: string) => Promise<void>;
 	resetPassword: (token: string, password: string) => Promise<void>;
 	registerConfirmation: (id: string) => Promise<void>;
+	currentUser: () => Promise<void>;
 }
 
 const name = 'User';
@@ -66,6 +67,7 @@ export const useUserStore = create<UserStore>()(
 				});
 			}
 		},
+
 		login: async (data: {
 			email: string;
 			password: string;
@@ -76,6 +78,7 @@ export const useUserStore = create<UserStore>()(
 			});
 			try {
 				const response = await userService.login(data);
+				setTokens(response.data.tokens);
 				notificationService.success(Messages.LOGIN_SUCCESS(name));
 				set((state) => {
 					state.user = response.data.user;
@@ -89,6 +92,7 @@ export const useUserStore = create<UserStore>()(
 				});
 			}
 		},
+
 		logout: async (): Promise<void> => {
 			set((state) => {
 				state.logoutLoading = true;
@@ -109,24 +113,7 @@ export const useUserStore = create<UserStore>()(
 				});
 			}
 		},
-		refresh: async (refreshToken: string): Promise<void> => {
-			set((state) => {
-				state.refreshLoading = true;
-				state.error = null;
-			});
-			try {
-				const response = await userService.refresh(refreshToken);
-				set((state) => {
-					state.tokens = response.data;
-					state.refreshLoading = false;
-				});
-			} catch (error) {
-				set((state) => {
-					state.error = error as AxiosError;
-					state.refreshLoading = false;
-				});
-			}
-		},
+
 		requestPasswordReset: async (email: string): Promise<void> => {
 			set((state) => {
 				state.resetIsLoading = true;
@@ -147,6 +134,7 @@ export const useUserStore = create<UserStore>()(
 				});
 			}
 		},
+
 		resetPassword: async (
 			token: string,
 			password: string,
@@ -185,6 +173,25 @@ export const useUserStore = create<UserStore>()(
 				set((state) => {
 					state.error = error as AxiosError;
 					state.confirmTokenIsLoading = false;
+				});
+			}
+		},
+
+		currentUser: async (): Promise<void> => {
+			set((state) => {
+				state.loading = true;
+				state.error = null;
+			});
+			try {
+				const response = await userService.currentUser();
+				set((state) => {
+					state.user = response.data.user;
+					state.loading = false;
+				});
+			} catch (error) {
+				set((state) => {
+					state.error = error as AxiosError;
+					state.loading = false;
 				});
 			}
 		},

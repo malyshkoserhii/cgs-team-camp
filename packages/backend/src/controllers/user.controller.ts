@@ -33,28 +33,39 @@ export class UserController {
 
 	async login(req: Request, res: Response): Promise<void> {
 		const { user, tokens } = await this.userService.login(req.body);
-		res.json({ user, tokens });
+
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			data: { user, tokens },
+		});
 	}
 
 	async logout(req: Request, res: Response): Promise<void> {
 		await this.userService.logout(req.user.id);
+
 		res.status(StatusCodes.noContent).json({
 			code: StatusCodes.noContent,
 		});
 	}
 
 	async refresh(req: Request, res: Response): Promise<void> {
-		const { refreshToken } = req.body;
 		const tokens = await this.userService.refreshTokens(
 			req.user.id,
-			refreshToken,
+			req.user.refreshToken!,
 		);
-		res.json(tokens);
+
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			data: { tokens },
+		});
 	}
 
 	async requestPasswordReset(req: Request, res: Response): Promise<void> {
 		const { email } = req.body;
 		await this.userService.requestPasswordReset(email);
+
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
@@ -65,10 +76,21 @@ export class UserController {
 	async resetPassword(req: Request, res: Response): Promise<void> {
 		const { token, password } = req.body;
 		await this.userService.resetPassword(token, password);
+
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
 			message: 'Password has been reset successfully',
+		});
+	}
+
+	async currentUser(req: Request, res: Response): Promise<void> {
+		const user = await this.userService.currentUser(req.user.id);
+
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
+			data: { user },
 		});
 	}
 }

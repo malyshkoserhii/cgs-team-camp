@@ -46,21 +46,13 @@ export const Form = <T extends FieldValues>({
 	variant = 'default',
 	content,
 }: Props<T>): ReactElement => {
-	const {
-		handleSubmit,
-		reset,
-		control,
-		getValues,
-		trigger,
-		watch,
-		formState: { errors },
-	} = useForm<T>({
-		resolver: formValidationSchema,
-		defaultValues: defaultValues as DefaultValues<T>,
-		values,
-	});
+	const { handleSubmit, reset, control, getValues, trigger, watch } =
+		useForm<T>({
+			resolver: formValidationSchema,
+			defaultValues: defaultValues as DefaultValues<T>,
+			values,
+		});
 
-	console.log(errors);
 	const handleFormSubmit = handleSubmit(() => {
 		const formData = getValues();
 		const transformedData = transformData
