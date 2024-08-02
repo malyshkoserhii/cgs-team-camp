@@ -31,8 +31,17 @@
             "~components/*": [
                 "src/components/*"
             ],
-            "~LoginPage/*": [
-                "src/pages/LoginPage/*"
+            "~ActivatePage/*": [
+                "src/pages/ActivatePage/*"
+            ],
+            "~ResetPasswordPage/*": [
+                "src/pages/ResetPasswordPage/*"
+            ],
+            "~authForm copy/*": [
+                "src/components/changePasswordForm/*"
+            ],
+            "~ResetPasswordConfirmPage/*": [
+                "src/pages/ResetPasswordConfirmPage/*"
             ]
         }
     }

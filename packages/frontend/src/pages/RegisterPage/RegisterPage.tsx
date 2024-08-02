@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 import { AuthForm } from '~/components/authForm';
 import { PageWrapper } from '~shared/ui/pageWrapper';
 
-const LoginPage = (): ReactElement => {
+const RegisterPage = (): ReactElement => {
 	return (
 		<PageWrapper center>
-			<AuthForm isLogin />
+			<AuthForm />
 		</PageWrapper>
 	);
 };
 
-export default LoginPage;
+export default RegisterPage;

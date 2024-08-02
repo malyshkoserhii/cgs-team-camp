@@ -5,7 +5,8 @@ export const enum ROUTER_KEYS {
 	LOGIN = '/login',
 	REGISTER = '/register',
 	CHANGE_PASSWORD = '/change-password',
-	RESET_PASSWORD = '/reset-password',
+	CHANGE_PASSWORD_CONFIRM = '/change-password-confirm',
+	ACTIVATE_ACCOUNT = '/activate',
 }
 
 export const STORAGE_KEYS = Object.freeze({

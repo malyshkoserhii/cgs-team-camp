@@ -26,8 +26,7 @@ export default class UserService {
 			throw ApiError.ConflictError(ErrorMessages.ALREADY_EXISTS('User'));
 
 		const id = uuidv4();
-		const activationLink = `${process.env.FRONTEND_URL}/activate/${id}`;
-
+		const activationLink = `${process.env.FRONTEND_URL}/activate?token=${id}`;
 		const hashedPassword = await bcrypt.hash(data.password, 10);
 		const user = await prisma.user.create({
 			data: {
@@ -158,7 +157,7 @@ export default class UserService {
 			},
 		});
 
-		const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+		const resetLink = `${process.env.FRONTEND_URL}/change-password-confirm?token=${resetToken}`;
 		await mailService.sendPasswordResetEmail(email, resetLink);
 	}
 
