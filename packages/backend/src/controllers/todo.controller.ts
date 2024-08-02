@@ -40,28 +40,8 @@ export class TodoController {
 		res.status(200).json(todo);
 	}
 
-	async updateTodoById(
-		req: Request,
-		res: Response,
-		next: NextFunction,
-	): Promise<void> {
+	async updateTodoById(req: Request, res: Response): Promise<void> {
 		const reqId = req.params.id || req.body.id;
-		const isTodoExist: Todo | null = await this.todoService.findTodoByTitle(
-			req.body.title,
-		);
-
-		// Determine if the existing record is different from the one being updated
-		const isDifferentTodo = !!isTodoExist && isTodoExist.id !== reqId;
-
-		if (isDifferentTodo) {
-			return next(
-				ApiErrors.Conflict(
-					`Todo whit title: "${isTodoExist.title}" already exists`,
-				),
-			);
-		}
-
-		// update record
 		const todo = await this.todoService.updateTodo(reqId, req.body);
 		res.status(200).json(todo);
 	}
