@@ -2,13 +2,11 @@ import { HttpError } from '@/error/error';
 import { NextFunction, Request, Response } from 'express';
 import { ObjectSchema, ValidationResult } from 'joi';
 import { PrismaClient } from '@prisma/client';
+import { EntityWithId } from '@/types/unique.types';
 
 const prisma = new PrismaClient();
-const modelMapping = {
-	post: prisma.todo,
-};
 
-export const validateBody = <T>(schema: ObjectSchema<T>):Function => {
+export const validateBody = <T>(schema: ObjectSchema<T>) => {
 	return (req: Request, _: Response, next: NextFunction) => {
 		try {
 			const { body } = req;
@@ -34,25 +32,22 @@ export const validateBody = <T>(schema: ObjectSchema<T>):Function => {
 	};
 };
 
-export const isExistObject = (entityName: keyof typeof modelMapping) => {
+export const isExistObject = <T>(entity:EntityWithId<T>) => {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const id = parseInt(req.params.id, 10);
 			if (isNaN(id)) {
-				return res.status(400).json({ error: 'Invalid ID format' });
+				return next(HttpError(404,"check datatypes on request id"));
 			}
 
-			const entity = await modelMapping[entityName].findUnique({
-				where: { id },
-			});
-
-			if (entity) {
+			const potentialEntity = await entity.findUnique({where:{id}})
+			if (potentialEntity) {
 				return next();
 			}
 
-			return res.status(404).json({ error: `${entityName} not found` });
+			return next(HttpError(404,"No such record in database"));
 		} catch (error) {
-			return next(error);
+			return next(HttpError(500,"Server validation error"));
 		}
 	};
 };

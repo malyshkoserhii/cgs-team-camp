@@ -6,13 +6,16 @@ import {
 	validateBody,
 } from '@/middlewares/validator.middleware';
 import { todoValidationSchema } from '@/validations/todo.validations';
+import { ITodo } from '@/types/todos.type';
+import { PrismaClient } from '@prisma/client';
+const prisma  = new PrismaClient();
 
 const todosRouter: Router = Router();
 
 todosRouter.get('', todoController.GetAll.bind(todoController));
 todosRouter.get(
 	'/one/:id',
-	isExistObject('post'),
+	isExistObject<ITodo>(prisma.todo),
 	todoController.GetOne.bind(todoController),
 );
 todosRouter.post(
@@ -23,14 +26,14 @@ todosRouter.post(
 
 todosRouter.put(
 	'/:id',
-	isExistObject('post'),
+	isExistObject<ITodo>(prisma.todo),
 	validateBody(todoValidationSchema),
 	todoController.Update.bind(todoController),
 );
 
 todosRouter.delete(
 	'/:id',
-	isExistObject('post'),
+	isExistObject<ITodo>(prisma.todo),
 	todoController.Delete.bind(todoController),
 );
 export default todosRouter;
