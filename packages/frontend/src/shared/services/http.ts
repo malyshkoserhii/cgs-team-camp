@@ -15,7 +15,7 @@ class HttpServices {
 	constructor(
 		baseUrl = process.env.SERVER_URL,
 		fetchingService = axios,
-		apiVersion = 'api',
+		apiVersion = 'todos',
 	) {
 		this.baseUrl = baseUrl;
 		this.fetchingService = fetchingService;
@@ -66,6 +66,41 @@ class HttpServices {
 		return this.fetchingService.post(
 			this.getFullApiUrl(config.url),
 			config.data,
+			this.extractUrlAndDataFromConfig(config),
+		);
+	}
+
+	putch<T>(
+		config: IHttpServicesConfig,
+		withAuth: boolean = true,
+	): Promise<T> {
+		if (withAuth) {
+			config.headers = {
+				...config.headers,
+				...this.populeteTockenToHeaderConfig(),
+			};
+		}
+
+		return this.fetchingService.patch(
+			this.getFullApiUrl(config.url),
+			config.data,
+			this.extractUrlAndDataFromConfig(config),
+		);
+	}
+
+	delete<T>(
+		config: IHttpServicesConfig,
+		withAuth: boolean = true,
+	): Promise<T> {
+		if (withAuth) {
+			config.headers = {
+				...config.headers,
+				...this.populeteTockenToHeaderConfig(),
+			};
+		}
+
+		return this.fetchingService.delete(
+			this.getFullApiUrl(config.url),
 			this.extractUrlAndDataFromConfig(config),
 		);
 	}

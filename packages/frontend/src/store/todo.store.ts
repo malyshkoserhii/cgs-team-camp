@@ -10,6 +10,10 @@ interface ITodoStore {
 	loading: boolean;
 	error: AxiosError | null;
 	getAllTodo: () => Promise<void>;
+	getTodoById: (id: string) => Promise<void>;
+	createTodo: (body: ICreateTodo) => Promise<void>;
+	updateTodo: (id: string, body: Partial<ICreateTodo>) => Promise<void>;
+	deleteTodo: (id: string) => Promise<void>;
 }
 
 const todoService = new TodoService();
@@ -42,11 +46,11 @@ export const useTodoStore = create<ITodoStore>()(
 				}
 			},
 
-			getTodoById: async (): Promise<void> => {
+			getTodoById: async (id: string): Promise<void> => {
 				set({ loading: true });
 
 				try {
-					const { data } = await todoService.getTodoById();
+					const { data } = await todoService.getTodoById(id);
 
 					set({
 						todo: data.data,
@@ -67,10 +71,59 @@ export const useTodoStore = create<ITodoStore>()(
 				try {
 					const { data } = await todoService.createTodo(todo);
 
+					set((state) => ({
+						todos: [...state.todos, data.data],
+						loading: false,
+					}));
+				} catch (error) {
+					// macke up somthing better for errors
+					console.error('Fieled to featch data', error);
 					set({
-						todo: data.data,
+						error: error.message,
 						loading: false,
 					});
+				}
+			},
+
+			updateTodo: async (
+				id: string,
+				body: Partial<ICreateTodo>,
+			): Promise<void> => {
+				set({ loading: true });
+
+				try {
+					const { data } = await todoService.updateTodo(id, body);
+
+					set((state) => ({
+						todo: state.todos.map((todo) =>
+							todo.id === data.data.id ? data.data : todo,
+						),
+						loading: false,
+					}));
+				} catch (error) {
+					// macke up somthing better for errors
+					console.error('Fieled to featch data', error);
+					set({
+						error: error.message,
+						loading: false,
+					});
+				}
+			},
+
+			deleteTodo: async (id: string): Promise<void> => {
+				set({
+					loading: true,
+				});
+
+				try {
+					await todoService.deleteTodo(id);
+
+					set((state) => ({
+						todos: state.todos.filter(
+							(todo) => todo.id !== Number(id),
+						),
+						loading: false,
+					}));
 				} catch (error) {
 					// macke up somthing better for errors
 					console.error('Fieled to featch data', error);

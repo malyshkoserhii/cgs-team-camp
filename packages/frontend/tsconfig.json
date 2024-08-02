@@ -45,6 +45,9 @@
 			],
 			"~interfaces/*": [
 				"src/shared/interfaces/*"
+			],
+			"~pages/*": [
+				"src/shared/pages/*"
 			]
 		}
 	},

@@ -13,17 +13,28 @@ class TodoService extends HttpServices {
 
 	async getAllTodos(): Promise<AxiosResponse<BaseResponse<ITodo[]>>> {
 		// write const for endpoints strings
-		return this.get({ url: 'todos/all' }, false);
+		return this.get({ url: 'all' }, false);
 	}
 
-	async getTodoById(): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.get({ url: 'todos/2' }, false);
+	async getTodoById(id: string): Promise<AxiosResponse<BaseResponse<ITodo>>> {
+		return this.get({ url: id }, false);
 	}
 
 	async createTodo(
 		todo: ICreateTodo,
 	): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.post({ url: 'todos/', data: todo }, false);
+		return this.post({ url: '', data: todo }, false);
+	}
+
+	async updateTodo(
+		id: string,
+		data: Partial<ICreateTodo>,
+	): Promise<AxiosResponse<BaseResponse<ITodo>>> {
+		return this.putch({ url: id, data }, false);
+	}
+
+	async deleteTodo(id: string): Promise<AxiosResponse<BaseResponse<ITodo>>> {
+		return this.delete({ url: id }, false);
 	}
 }
 
