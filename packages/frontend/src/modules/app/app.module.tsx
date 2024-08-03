@@ -1,21 +1,32 @@
 import * as React from 'react';
+import { TodoContainer } from '~modules/todo/todo-container/todo-container.component';
+import { TodoForm } from '~modules/todo/todo-form/todo-form.component';
+import { ITodo } from '~modules/todo/todo-item/todo-item.component';
 
-import Button from '~shared/components/button/button.component';
+const todosArr: ITodo[] = [
+	{
+		id: 1,
+		title: 'Todo tite',
+		description: 'Todo desc',
+		isCompleted: true,
+		isPrivate: false,
+		createdAt: new Date(),
+	},
+	{
+		id: 2,
+		title: 'Todo tite',
+		description: 'Todo desc',
+		isCompleted: true,
+		isPrivate: false,
+		createdAt: new Date(),
+	},
+];
 
 const App = (): React.ReactNode => {
-	const [count, setCount] = React.useState(0);
-
-	const onIncrease = (): void => {
-		setCount((prev) => {
-			return prev + 1;
-		});
-	};
-
 	return (
 		<>
-			<h1>Todo project</h1>
-			<p>{count}</p>
-			<Button text="Increase" onClick={onIncrease} />
+			<TodoContainer todos={todosArr} />
+			<TodoForm initialValues={{title:"1", description:"1"}} onSubmit={()=>{}}/>
 		</>
 	);
 };
