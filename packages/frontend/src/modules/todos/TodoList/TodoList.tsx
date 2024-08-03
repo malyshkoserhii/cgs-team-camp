@@ -7,38 +7,39 @@ import {
 	buttonGroupStyle,
 	searchInputStyle,
 } from '~modules/todos/TodoList/TodoList.styles';
-import { StyledNavLink } from '~shared/components';
 import { ROUTER_KEYS } from '~shared/keys';
+import { StyledNavLink } from '~shared/components';
 import Button from '~shared/components/button/button.component';
 
 export const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchFilter, setSearchFilter] = useState('');
 	const [filter, setFilter] = useState<
 		'All' | 'Completed' | 'Private' | 'Public'
 	>('All');
-
-	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		setSearchTerm(e.target.value);
-	};
 
 	const filteredTodos = todos.filter((todo) => {
 		if (filter === 'Completed' && !todo.isCompleted) return false;
 		if (filter === 'Private' && !todo.isPrivate) return false;
 		if (filter === 'Public' && todo.isPrivate) return false;
 		if (
-			searchTerm &&
-			!todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+			searchFilter &&
+			!todo.title.toLowerCase().includes(searchFilter.toLowerCase())
 		)
 			return false;
 		return true;
 	});
+
+	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		setSearchFilter(e.target.value);
+	};
+
 	return (
 		<div>
 			<div className={wrapper}>
 				<input
 					type="text"
 					placeholder="Search todos..."
-					value={searchTerm}
+					value={searchFilter}
 					onChange={handleSearchChange}
 					className={searchInputStyle}
 				/>

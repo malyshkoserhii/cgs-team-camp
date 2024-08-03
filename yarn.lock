@@ -1413,6 +1413,11 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+css-mediaquery@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/css-mediaquery/-/css-mediaquery-0.1.2.tgz"
+  integrity sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==
+
 csstype@^3.0.2:
   version "3.1.3"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz"
@@ -2146,6 +2151,11 @@ husky@^9.0.10:
   resolved "https://registry.npmjs.org/husky/-/husky-9.0.11.tgz"
   integrity sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==
 
+hyphenate-style-name@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz"
+  integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
+
 iconv-lite@0.4.24:
   version "0.4.24"
   resolved "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
@@ -2404,6 +2414,13 @@ make-error@^1.1.1:
   version "1.3.6"
   resolved "https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
+
+matchmediaquery@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/matchmediaquery/-/matchmediaquery-0.4.2.tgz"
+  integrity sha512-wrZpoT50ehYOudhDjt/YvUJc6eUzcdFPdmbizfgvswCKNHD1/OBOHYJpHie+HXpu6bSkEGieFMYk6VuutaiRfA==
+  dependencies:
+    css-mediaquery "^0.1.2"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -2765,7 +2782,7 @@ prisma@*, prisma@^5.17.0:
   dependencies:
     "@prisma/engines" "5.17.0"
 
-prop-types@^15.6.2:
+prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -2871,6 +2888,16 @@ react-refresh@^0.14.0:
   version "0.14.0"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
+
+react-responsive@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.npmjs.org/react-responsive/-/react-responsive-10.0.0.tgz"
+  integrity sha512-N6/UiRLGQyGUqrarhBZmrSmHi2FXSD++N5VbSKsBBvWfG0ZV7asvUBluSv5lSzdMyEVjzZ6Y8DL4OHABiztDOg==
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmediaquery "^0.4.2"
+    prop-types "^15.6.1"
+    shallow-equal "^3.1.0"
 
 react-router-dom@^6.16.0:
   version "6.22.3"
@@ -3087,6 +3114,11 @@ setprototypeof@1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
+
+shallow-equal@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/shallow-equal/-/shallow-equal-3.1.0.tgz"
+  integrity sha512-pfVOw8QZIXpMbhBWvzBISicvToTiM5WBF1EeAUZDDSb5Dt29yl4AYbyywbJFSEsRUMr7gJaxqCdr4L3tQf9wVg==
 
 shebang-command@^2.0.0:
   version "2.0.0"
@@ -3476,6 +3508,7 @@ vite-plugin-svgr@^4.1.0:
     react-dom "^18.2.0"
     react-final-form "^6.5.9"
     react-router-dom "^6.16.0"
+    react-spinners "^0.14.1"
     react-toastify "^10.0.5"
     vite-plugin-svgr "^4.1.0"
     zustand "^4.4.3"

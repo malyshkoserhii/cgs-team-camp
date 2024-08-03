@@ -9,20 +9,32 @@ import {
 } from '~modules/todos/TodoItem/TodoItem.styles';
 import Button from '~shared/components/button/button.component';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '~shared/components';
 
 export const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
-	const { deleteTodo } = useTodoStore();
+	const { deleteTodo, patchTodoById, loading } = useTodoStore();
 	const navigate = useNavigate();
-	const { id, title, description } = todo;
+	const { id, title, description, isCompleted } = todo;
 
 	const handleView = (): void => {
 		navigate(`/view/${id}`);
-		console.log('go to view page');
 	};
 
 	const handleDelete = (): void => {
 		deleteTodo(id);
 	};
+
+	const handleCheckboxChange = async (
+		event: React.ChangeEvent<HTMLInputElement>,
+	): Promise<void> => {
+		await patchTodoById(id, {
+			isCompleted: event.target.checked,
+		});
+	};
+
+	if (loading) {
+		return <Loader loading={loading} />;
+	}
 
 	return (
 		<div className={elementStyle}>
@@ -35,6 +47,14 @@ export const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
 					onClick={handleDelete}
 				/>
 				<Button text={'View'} type={'button'} onClick={handleView} />
+				<label>
+					<input
+						type="checkbox"
+						checked={isCompleted}
+						onChange={(event) => handleCheckboxChange(event)}
+					/>
+					Completed
+				</label>
 			</div>
 		</div>
 	);

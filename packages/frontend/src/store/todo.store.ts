@@ -18,6 +18,7 @@ interface ITodoStore {
 	getTodoById: (id: string) => Promise<void>;
 	updateTodo: (id: string, todo: Todo) => Promise<void>;
 	deleteTodo: (id: string) => Promise<void>;
+	patchTodoById: (id: string, updates: Partial<Todo>) => Promise<void>;
 }
 
 export const useTodoStore = create<ITodoStore>()(
@@ -34,7 +35,7 @@ export const useTodoStore = create<ITodoStore>()(
 				set({ todos: data });
 			} catch (err) {
 				// set({ error: err.message });
-				toast.error(err.response.data.message);
+				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -48,7 +49,7 @@ export const useTodoStore = create<ITodoStore>()(
 				toast.success('Todo created successfully');
 			} catch (err) {
 				// set({ error: err.message });
-				toast.error(err.response.data.message);
+				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -61,7 +62,7 @@ export const useTodoStore = create<ITodoStore>()(
 			try {
 			} catch (err) {
 				// set({ error: err.message });
-				toast.error(err.response.data.message);
+				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -79,7 +80,7 @@ export const useTodoStore = create<ITodoStore>()(
 				toast.success('Todo updated successfully');
 			} catch (err) {
 				// set({ error: err });
-				toast.error(err.response.data.message);
+				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -95,7 +96,24 @@ export const useTodoStore = create<ITodoStore>()(
 				toast.success('Todo deleted successfully');
 			} catch (err) {
 				// set({ error: err.message });
-				toast.error(err.response.data.message);
+				toast.error(err.response?.data?.message);
+			} finally {
+				set({ loading: false });
+			}
+		},
+
+		patchTodoById: async (id, updates): Promise<void> => {
+			set({ loading: true });
+			try {
+				const { data } = await todosService.patchTodoById(id, updates);
+				set((state) => ({
+					todos: state.todos.map((item) =>
+						item.id === id ? { ...item, ...data } : item,
+					),
+				}));
+				toast.success('Todo status updated successfully');
+			} catch (err) {
+				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
 			}

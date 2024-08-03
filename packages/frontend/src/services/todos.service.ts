@@ -31,4 +31,11 @@ export class TodosService extends HttpService {
 	public async deleteTodo(id: string): Promise<AxiosResponse<void>> {
 		return this.delete({ url: API_KEYS.BY_ID(id) }, false);
 	}
+
+	public async patchTodoById(
+		id: string,
+		data: Partial<Todo>,
+	): Promise<AxiosResponse<Todo>> {
+		return this.patch({ url: API_KEYS.BY_ID(id), data }, false);
+	}
 }

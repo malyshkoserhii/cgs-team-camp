@@ -51,6 +51,26 @@ export class TodoController {
 		await this.todoService.deleteTodo(reqId);
 		res.status(204).end();
 	}
+
+	async patchTodoById(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const reqId = req.params.id;
+		const updatedFields = req.body;
+
+		if (Object.keys(updatedFields).length === 0) {
+			return next(ApiErrors.BadRequest('No fields provided for update'));
+		}
+
+		const updatedTodo = await this.todoService.updateTodoField(
+			reqId,
+			updatedFields,
+		);
+
+		res.status(200).json(updatedTodo);
+	}
 }
 
 const todoController = new TodoController(new TodoService());
@@ -70,4 +90,7 @@ export const ctrUpdateTodoById = tryCatchMiddleware(
 );
 export const ctrDeleteTodoById = tryCatchMiddleware(
 	todoController.deleteTodoById.bind(todoController),
+);
+export const ctrPatchTodoById = tryCatchMiddleware(
+	todoController.patchTodoById.bind(todoController),
 );

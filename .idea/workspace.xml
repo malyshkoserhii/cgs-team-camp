@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/frontend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/button/button.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/button/button.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/loader/loader.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/loader/loader.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +99,7 @@
       <workItem from="1722501699505" duration="1525000" />
       <workItem from="1722503402301" duration="226000" />
       <workItem from="1722503666978" duration="478000" />
-      <workItem from="1722605544402" duration="35144000" />
+      <workItem from="1722605544402" duration="45975000" />
     </task>
     <servers />
   </component>

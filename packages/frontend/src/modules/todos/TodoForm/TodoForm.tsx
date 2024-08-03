@@ -4,7 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useTodoStore } from '~store/todo.store';
 import { Todo } from '~typings/todo.types';
+import { ROUTER_KEYS } from '~shared/keys';
 import Button from '~shared/components/button/button.component';
+import { Loader } from '~shared/components';
 import {
 	container,
 	filedGroupWrapper,
@@ -12,8 +14,6 @@ import {
 	inputStyle,
 } from '~modules/todos/TodoForm/TodoForm.styles';
 import { buttonGroupStyle } from '~modules/todos/TodoItem/TodoItem.styles';
-import { ROUTER_KEYS } from '~shared/keys';
-import { Loader } from '~shared/components';
 
 export const TodoForm: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -31,8 +31,8 @@ export const TodoForm: React.FC = () => {
 	const initialValues: Todo = {
 		title: todo?.title || '',
 		description: todo?.description || '',
-		isCompleted: false,
-		isPrivate: false,
+		isCompleted: todo?.isCompleted || false,
+		isPrivate: todo?.isPrivate || false,
 	};
 
 	const handleSubmit = async (
@@ -76,7 +76,7 @@ export const TodoForm: React.FC = () => {
 								className={inputStyle}
 							/>
 						</div>
-						<label>
+						<label htmlFor="isPrivate">
 							<Field type="checkbox" name="isPrivate" />
 							Private
 						</label>

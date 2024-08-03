@@ -95,4 +95,21 @@ export class HttpService {
 			this.extractUrlAndDataFromConfig(config),
 		);
 	}
+
+	public patch<T>(
+		config: AxiosRequestConfig,
+		isAuth: boolean = true,
+	): Promise<AxiosResponse<T>> {
+		if (isAuth) {
+			config.headers = {
+				...config.headers,
+				...this.populateTokenToHeaderConfig(),
+			};
+		}
+		return this.fetchingService.patch<T>(
+			this.getFullApiUrl(config.url),
+			config.data,
+			this.extractUrlAndDataFromConfig(config),
+		);
+	}
 }
