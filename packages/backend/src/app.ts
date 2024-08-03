@@ -1,4 +1,5 @@
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import 'dotenv/config';
 import express, { Express, Request, Response } from 'express';
 
@@ -8,7 +9,7 @@ import AppRouter from './routes';
 const { PORT } = process.env;
 const app: Express = express();
 const router = new AppRouter(app);
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -9,8 +9,6 @@ export const createTodoSchema = Joi.object({
 export const UpdateTodoSchema = Joi.object({
 	title: Joi.string(),
 	description: Joi.string(),
-	status: Joi.boolean(),
-	id: Joi.number(),
-	AuthorId: Joi.number(),
-	private: Joi.boolean(),
+	isCompleted: Joi.boolean(),
+	isPrivate: Joi.boolean(),
 });

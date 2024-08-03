@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import * as React from 'react';
 import Loader from '../loader/loader.component';
-import classNames from 'classnames';
 
 import { btnContentWrapper, btnStyles, iconWrapper, mr } from './button.styles';
 
