@@ -18,4 +18,8 @@ authRouter.post(
 	localAuth,
 	ctrlWrapper(authController.login.bind(authController)),
 );
+authRouter.get(
+	'/verify/:id',
+	ctrlWrapper(authController.verifyEmail.bind(authController)),
+);
 export default authRouter;
