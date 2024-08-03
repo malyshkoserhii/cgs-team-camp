@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma schemas file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -14,7 +14,35 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int         @id @default(autoincrement())
+  email     String      @unique
+  name      String?
+  password  String
+  username  String      @unique
+  Dashboard Dashboard[]
+  TodoItem  TodoItem[]
+}
+
+model Dashboard {
+  id        Int        @id @default(autoincrement())
+  owner     User       @relation(fields: [ownername], references: [username])
+  name      String
+  descr     String?
+  date      DateTime
+  private   Boolean
+  ownername String
+  TodoItem  TodoItem[]
+}
+
+model TodoItem {
+  id          Int       @id @default(autoincrement())
+  owner       User      @relation(fields: [userId], references: [id])
+  name        String
+  descr       String?
+  date        DateTime  @default(now())
+  updateTime  DateTime?
+  status      String    @default("ToDo")
+  userId      Int
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+  dashboardId Int
 }
