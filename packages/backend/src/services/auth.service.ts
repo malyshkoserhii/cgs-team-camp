@@ -6,6 +6,7 @@ import {
 } from '@/types/user.types';
 import { prisma } from './prisma/prisma.service';
 
+
 export default class AuthService {
 	removeSensitiveInfo(user: UserType): UserNoSensitiveData {
 		const { password: _, ...userNoSensetiveData } = user;
@@ -15,7 +16,7 @@ export default class AuthService {
 	async register(data: CreateUserType): Promise<UserNoSensitiveData> {
 		const checkUser = await prisma.user.findFirst({
 			where: {
-				OR: [{ name: data.name }, { email: data.email }],
+				OR: [{ username: data.username }, { email: data.email }],
 			},
 		});
 
@@ -23,6 +24,8 @@ export default class AuthService {
 			throw HttpError(409, 'User alredy exists');
 		}
 		const newUser = await prisma.user.create({ data: { ...data } });
+	
+
 		return this.removeSensitiveInfo(newUser);
 	}
 }
