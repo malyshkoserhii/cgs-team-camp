@@ -26,8 +26,7 @@ export default class UserService {
 			throw ApiError.ConflictError(ErrorMessages.ALREADY_EXISTS('User'));
 
 		const id = uuidv4();
-		const activationLink = `${process.env.FRONTEND_URL}/activate/${id}`;
-
+		const activationLink = `${process.env.FRONTEND_URL}/activate?token=${id}`;
 		const hashedPassword = await bcrypt.hash(data.password, 10);
 		const user = await prisma.user.create({
 			data: {
@@ -122,10 +121,10 @@ export default class UserService {
 	generateTokens(userId: number): TokenI {
 		const payload = { id: userId };
 		const accessToken = jwt.sign(payload, process.env.JWT_SECRET!, {
-			expiresIn: REFRESH_TOKEN_EXPIRED_TIME,
+			expiresIn: ACCESS_TOKEN_EXPIRED_TIME,
 		});
 		const refreshToken = jwt.sign(payload, process.env.JWT_SECRET!, {
-			expiresIn: ACCESS_TOKEN_EXPIRED_TIME,
+			expiresIn: REFRESH_TOKEN_EXPIRED_TIME,
 		});
 		return { accessToken, refreshToken };
 	}
@@ -139,6 +138,16 @@ export default class UserService {
 			where: { id: userId },
 			data: { refreshToken: hashedToken },
 		});
+	}
+
+	async currentUser(id: number): Promise<UserResponseDto> {
+		const user = await prisma.user.findUnique({ where: { id } });
+
+		if (!user) {
+			throw ApiError.AuthorizationError();
+		}
+
+		return new UserResponseDto(user);
 	}
 
 	async requestPasswordReset(email: string): Promise<void> {
@@ -158,7 +167,7 @@ export default class UserService {
 			},
 		});
 
-		const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+		const resetLink = `${process.env.FRONTEND_URL}/change-password-confirm?token=${resetToken}`;
 		await mailService.sendPasswordResetEmail(email, resetLink);
 	}
 
