@@ -12,9 +12,7 @@ export const AppRouter = (): ReactElement => {
 			element={
 				<Suspense fallback={<Loader fullHeight />}>
 					{route.auth ? (
-						<ProtectedRoute hasAccess={route.auth}>
-							{route.element}
-						</ProtectedRoute>
+						<ProtectedRoute>{route.element}</ProtectedRoute>
 					) : (
 						route.element
 					)}

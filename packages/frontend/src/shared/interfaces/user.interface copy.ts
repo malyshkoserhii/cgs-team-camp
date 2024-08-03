@@ -1,5 +1,3 @@
-import { TodoI } from './todo.interface';
-
 export interface UserI {
 	id: number;
 	name: string;
@@ -10,7 +8,7 @@ export interface UserI {
 	isActivated: boolean;
 	createdAt: Date;
 	updatedAt: Date;
-	todos: TodoI[];
+	todos: number[];
 }
 
 export interface TokenI {

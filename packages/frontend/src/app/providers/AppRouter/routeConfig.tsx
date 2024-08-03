@@ -40,7 +40,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
 	[AppRoutes.CREATE_TODO]: {
 		path: ROUTER_KEYS.CREATE_TODO,
 		element: <CreateTodoPage />,
-		auth: false, // need to edit
+		auth: true,
 	},
 	[AppRoutes.LOGIN]: {
 		path: ROUTER_KEYS.LOGIN,

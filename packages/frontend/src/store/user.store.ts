@@ -1,11 +1,13 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { STORAGE_KEYS } from '~shared/const/keys.const';
 import { Messages } from '~shared/const/messages.const';
 import { setTokens } from '~shared/helpers/setTokens';
 import { TokenI, UserI } from '~shared/interfaces/user.interface copy';
 import userService from '~shared/services/http/user.service';
 import { notificationService } from '~shared/services/notificationService';
+import { storageApi } from '~shared/services/storage/storage';
 
 interface UserStore {
 	user: UserI | null;
@@ -15,6 +17,7 @@ interface UserStore {
 	loginLoading: boolean;
 	logoutLoading: boolean;
 	refreshLoading: boolean;
+	currentLoading: boolean;
 	confirmTokenIsLoading: boolean;
 	error: AxiosError | null;
 	resetIsLoading: boolean;
@@ -44,6 +47,7 @@ export const useUserStore = create<UserStore>()(
 		confirmTokenIsLoading: true,
 		refreshLoading: false,
 		resetIsLoading: false,
+		currentLoading: storageApi.get(STORAGE_KEYS.TOKEN) ? true : false,
 		error: null,
 		register: async (data: {
 			email: string;
@@ -179,19 +183,19 @@ export const useUserStore = create<UserStore>()(
 
 		currentUser: async (): Promise<void> => {
 			set((state) => {
-				state.loading = true;
+				state.currentLoading = true;
 				state.error = null;
 			});
 			try {
 				const response = await userService.currentUser();
 				set((state) => {
 					state.user = response.data.user;
-					state.loading = false;
+					state.currentLoading = false;
 				});
 			} catch (error) {
 				set((state) => {
 					state.error = error as AxiosError;
-					state.loading = false;
+					state.currentLoading = false;
 				});
 			}
 		},

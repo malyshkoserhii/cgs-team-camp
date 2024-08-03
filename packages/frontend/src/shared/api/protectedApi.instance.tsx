@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { ErrorMessages } from '~shared/const/errorMessages.const';
 import { STORAGE_KEYS } from '~shared/const/keys.const';
 import userService from '~shared/services/http/user.service';
 import { notificationService } from '~shared/services/notificationService';
@@ -14,8 +13,6 @@ $protectedApi.interceptors.request.use(
 		const accessToken = storageApi.get(STORAGE_KEYS.TOKEN);
 		if (accessToken) {
 			config.headers.Authorization = `Bearer ${accessToken}`;
-		} else {
-			notificationService.error(ErrorMessages.AUTHORIZATION_ERROR());
 		}
 		return config;
 	},
@@ -38,16 +35,15 @@ $protectedApi.interceptors.response.use(
 				return $protectedApi(request);
 			} catch (axiosError) {
 				const error = axiosError as AxiosError<{
-					message: string;
+					[x: string]: string;
 				}>;
-				notificationService.error(error?.response?.data?.message);
+				notificationService.error(error?.response?.data?.error);
 			}
 		}
 		if (!accessToken) {
 			return Promise.reject(error);
 		}
-
-		notificationService.error(error.response.data.message);
+		notificationService.error(error.response.data.error);
 		return Promise.reject(error);
 	},
 );

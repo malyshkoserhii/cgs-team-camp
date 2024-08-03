@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { authenticateJwt } from '@/middleware/auth.middleware';
 import { isExists } from '@/middleware/isExist.middleware';
+import { optionalAuthenticateJwt } from '@/middleware/optionalAuthenticateJwt.middleware';
 import { checkPermission } from '@/middleware/permission.middleware';
-import { optionalAuthenticateJwt } from '@/middleware/test.middleware';
 import { validateBodyMiddleware } from '@/middleware/validateBody.middleware';
 import { Entities } from '@/utils/enums/Entities.enum';
 import { todoSchema } from '@/utils/joiSchemas/todo/todo.schema';

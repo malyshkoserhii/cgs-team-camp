@@ -15,7 +15,7 @@ class TodoService extends HttpService {
 			config: {
 				url: `${ApiPath.TODOS}/${TodosApiPath.ALL}`,
 			},
-			withAuth: false,
+			withAuth: true,
 		});
 	}
 
@@ -33,7 +33,7 @@ class TodoService extends HttpService {
 			config: {
 				url: `${ApiPath.TODOS}/${id}`,
 			},
-			withAuth: false,
+			withAuth: true,
 		});
 	}
 
@@ -43,7 +43,7 @@ class TodoService extends HttpService {
 				url: ApiPath.TODOS,
 				data: data,
 			},
-			withAuth: false,
+			withAuth: true,
 		});
 	}
 
@@ -56,7 +56,7 @@ class TodoService extends HttpService {
 				url: `${ApiPath.TODOS}/${id}`,
 				data: todo,
 			},
-			withAuth: false,
+			withAuth: true,
 		});
 	}
 
@@ -69,7 +69,7 @@ class TodoService extends HttpService {
 				url: `${ApiPath.TODOS}/${id}`,
 				data: { status },
 			},
-			withAuth: false,
+			withAuth: true,
 		});
 	}
 }

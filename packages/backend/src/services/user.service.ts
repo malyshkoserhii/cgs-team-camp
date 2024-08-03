@@ -70,14 +70,30 @@ export default class UserService {
 		return { user: new UserResponseDto(validatedUser), tokens };
 	}
 
+	async currentUser(id: number): Promise<UserResponseDto> {
+		const user = await prisma.user.findUnique({
+			where: { id },
+			include: { todos: { select: { id: true } } },
+		});
+
+		if (!user) {
+			throw ApiError.AuthorizationError();
+		}
+
+		return new UserResponseDto(user);
+	}
+
 	async validateUser({
 		email,
 		password,
 	}: {
 		email: string;
 		password: string;
-	}): Promise<User> {
-		const user = await prisma.user.findUnique({ where: { email } });
+	}): Promise<User & { todos: { id: number }[] }> {
+		const user = await prisma.user.findUnique({
+			where: { email },
+			include: { todos: { select: { id: true } } },
+		});
 		if (!user) {
 			throw ApiError.AuthorizationError(
 				ErrorMessages.INVALID_CREDENTIALS,
@@ -138,16 +154,6 @@ export default class UserService {
 			where: { id: userId },
 			data: { refreshToken: hashedToken },
 		});
-	}
-
-	async currentUser(id: number): Promise<UserResponseDto> {
-		const user = await prisma.user.findUnique({ where: { id } });
-
-		if (!user) {
-			throw ApiError.AuthorizationError();
-		}
-
-		return new UserResponseDto(user);
 	}
 
 	async requestPasswordReset(email: string): Promise<void> {

@@ -31,20 +31,8 @@
             "~components/*": [
                 "src/components/*"
             ],
-            "~ActivatePage/*": [
-                "src/pages/ActivatePage/*"
-            ],
-            "~ResetPasswordPage/*": [
-                "src/pages/ResetPasswordPage/*"
-            ],
-            "~authForm copy/*": [
-                "src/components/changePasswordForm/*"
-            ],
-            "~ResetPasswordConfirmPage/*": [
-                "src/pages/ResetPasswordConfirmPage/*"
-            ],
-            "~helpers/*": [
-                "src/shared/helpers/*"
+            "~LoginPage/*": [
+                "src/pages/LoginPage/*"
             ]
         }
     }

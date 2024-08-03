@@ -1,20 +1,27 @@
 import { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { ROUTER_KEYS } from '~shared/const/keys.const';
+import { useAuth } from '~shared/hooks/useAuth.hook';
 
 interface RequireAuthProps {
 	children: ReactNode;
-	hasAccess: boolean;
 }
 
 export function ProtectedRoute({
 	children,
-	hasAccess,
 }: RequireAuthProps): ReactNode | null {
 	const location = useLocation();
+	const { shouldRedirect, isAuth } = useAuth();
 
-	if (!hasAccess) {
-		return <Navigate to="/test" state={{ from: location }} replace />;
+	if (shouldRedirect) {
+		return (
+			<Navigate
+				to={ROUTER_KEYS.DASHBOARD}
+				state={{ from: location }}
+				replace
+			/>
+		);
 	}
 
-	return hasAccess ? children : null;
+	return isAuth ? children : null;
 }

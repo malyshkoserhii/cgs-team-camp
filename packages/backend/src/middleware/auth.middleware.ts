@@ -49,13 +49,15 @@ export function authenticateJwt(
 		'jwt',
 		function (err: ApiError, user: User, _: unknown) {
 			if (err) return next(err);
-			if (!user)
+			if (!user) {
 				res.status(StatusCodes.unauthorized).json({
 					error: ErrorMessages.unauthorized,
 					code: StatusCodes.unauthorized,
 				});
-			req.user = user;
-			next();
+			} else {
+				req.user = user;
+				next();
+			}
 		},
 	)(req, res, next);
 }
