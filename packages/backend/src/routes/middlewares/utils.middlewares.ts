@@ -66,19 +66,25 @@ export const isExist =
 	};
 
 export const tryCatch =
-	(
+	<P = unknown, ResBody = unknown, ReqBody = unknown, ReqQuery = unknown>(
 		handler: (
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			req: Request<any, any, any, any>,
+			req: Request<P, ResBody, ReqBody, ReqQuery>,
 			res: Response,
 			next: NextFunction,
 		) => Promise<void>,
 	) =>
-	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+	async (
+		req: Request<P, ResBody, ReqBody, ReqQuery>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> => {
 		try {
 			await handler(req, res, next);
 		} catch (error) {
-			if (error instanceof Error)
+			if (error instanceof Error) {
 				res.status(400).json({ error: error.message });
+			} else {
+				next(error);
+			}
 		}
 	};

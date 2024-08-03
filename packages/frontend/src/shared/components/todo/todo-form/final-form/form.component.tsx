@@ -1,19 +1,17 @@
 import React from 'react';
 import {
 	VStack,
-	FormControl,
 	Input,
 	Button,
 	Textarea,
 	HStack,
-	FormErrorMessage,
 	Text,
 	Checkbox,
 } from '@chakra-ui/react';
 
 import { TodoSchema } from './validation.schema';
 import { ITodo } from '../../../../types/todo/todo.types';
-import { Field, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { FinalFormStyled } from './form.styled';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
@@ -21,6 +19,8 @@ import { useTodoStore } from '~/state/store/todo.store';
 import TodoModel from '~shared/types/todo/todo.model';
 import { validateFormValues } from '~/utils';
 import todoService from '../../todo.service';
+import { FormInput } from './form-input/form-input.component';
+import { FormButton } from './form-button/form-button';
 
 export interface FormikFormProps {
 	type: 'ADD' | 'UPDATE';
@@ -70,96 +70,43 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 					return (
 						<form onSubmit={handleSubmit}>
 							<VStack spacing={4} align="center">
-								<Field name="title">
-									{({ input, meta }) => (
-										<FormControl
-											isInvalid={
-												meta.touched && meta.error
-											}
-										>
-											<Input
-												{...input}
-												id="title"
-												type="text"
-												variant="filled"
-												placeholder="Title"
-											/>
-											{meta.touched && meta.error && (
-												<FormErrorMessage>
-													{meta.error}
-												</FormErrorMessage>
-											)}
-										</FormControl>
-									)}
-								</Field>
-								<Field name="description">
-									{({ input, meta }) => (
-										<FormControl
-											isInvalid={
-												meta.touched && meta.error
-											}
-										>
-											<Textarea
-												{...input}
-												id="description"
-												variant="filled"
-												placeholder="Description"
-											/>
-											{meta.touched && meta.error && (
-												<FormErrorMessage>
-													{meta.error}
-												</FormErrorMessage>
-											)}
-										</FormControl>
-									)}
-								</Field>
+								<FormInput
+									name="title"
+									placeholder="Title"
+									Component={Input}
+								/>
+								<FormInput
+									name="description"
+									placeholder="Description"
+									Component={Textarea}
+								/>
 								<HStack
 									width="80%"
 									justifyContent="space-between"
 									fontSize="x-large"
 								>
-									<Field name="completed" type="checkbox">
-										{({ input }) => {
-											return (
-												<Checkbox
-													defaultChecked={
-														input.checked
-													}
-													id="completed"
-													colorScheme="green"
-													onChange={(e) => {
-														form.change(
-															'completed',
-															e.target.checked,
-														);
-													}}
-												>
-													Completed
-												</Checkbox>
+									<FormInput
+										name="completed"
+										placeholder="Completed"
+										Component={Checkbox}
+										onChange={(e) => {
+											form.change(
+												'completed',
+												e.target.checked,
 											);
 										}}
-									</Field>
-									<Field name="private" type="checkbox">
-										{({ input }) => {
-											return (
-												<Checkbox
-													defaultChecked={
-														input.checked
-													}
-													id="private"
-													colorScheme="blue"
-													onChange={(e) => {
-														form.change(
-															'private',
-															e.target.checked,
-														);
-													}}
-												>
-													Private
-												</Checkbox>
+									/>
+									<FormInput
+										name="private"
+										placeholder="Private"
+										Component={Checkbox}
+										onChange={(e) => {
+											form.change(
+												'private',
+												e.target.checked,
 											);
 										}}
-									</Field>
+									/>
 								</HStack>
 								<Button
 									type="submit"
@@ -170,27 +117,25 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 								</Button>
 
 								{type === 'UPDATE' ? (
-									<Button
+									<FormButton
 										onClick={() => {
 											deleteTodo(values.id);
 											todoService.deleteTodo(values.id);
 											onClose();
 										}}
-										colorScheme="red"
-										width="full"
+										color="red"
 									>
 										DELETE
-									</Button>
+									</FormButton>
 								) : (
-									<Button
-										colorScheme="red"
-										width="full"
+									<FormButton
+										color="red"
 										onClick={() => {
 											navigate(ROUTER_KEYS.HOME);
 										}}
 									>
 										BACK
-									</Button>
+									</FormButton>
 								)}
 							</VStack>
 						</form>

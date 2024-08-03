@@ -23,8 +23,6 @@ export const TodoListContainer: React.FunctionComponent<
 				<StyledTableErrorMessage>
 					Something bad happend...
 				</StyledTableErrorMessage>
-			) : data.length === 0 ? (
-				<StyledTableErrorMessage>No data</StyledTableErrorMessage>
 			) : (
 				<SimpleGrid spacing={4} padding="1em" gap={10} width="100%">
 					{data?.map((todo) => (

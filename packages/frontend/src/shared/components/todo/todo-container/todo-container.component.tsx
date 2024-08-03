@@ -71,20 +71,6 @@ export const TodoContainer = () => {
 					<TodoListContainer data={todos} />
 				</StyledTodoMobileContainer>
 			</MobileOnlyView>
-
-			{/* {!(isMobile && !isMobileOnly) && (
-				<LoadMore
-					isDisabled={
-						!!params?.maxPages && params?.page
-							? params.page === params.maxPages
-							: false
-					}
-					colorScheme="teal"
-					variant={'outline'}
-					alignSelf={'center'}
-					onClick={fetchMore}
-				/>
-			)} */}
 		</TodoContainerStyled>
 	);
 };

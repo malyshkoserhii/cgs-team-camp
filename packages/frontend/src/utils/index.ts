@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { setIn } from 'final-form';
-import { ObjectSchema } from 'yup';
+import { ObjectSchema, ValidationError } from 'yup';
 
 export const validateFormValues =
 	<T>(schema: ObjectSchema<T> | (() => ObjectSchema<T>)) =>
@@ -12,20 +11,22 @@ export const validateFormValues =
 			await schema.validate(values, { abortEarly: false });
 			return {};
 		} catch (err) {
-			const errors = err.inner.reduce(
-				(
-					formError: Partial<Record<keyof T, string>>,
-					innerError: any,
-				) => {
-					return setIn(
-						formError,
-						innerError.path,
-						innerError.message,
-					);
-				},
-				{},
-			);
-
-			return errors;
+			if (err instanceof ValidationError) {
+				const errors = err.inner.reduce(
+					(
+						formError: Partial<Record<keyof T, string>>,
+						innerError: ValidationError,
+					) => {
+						return setIn(
+							formError,
+							innerError.path as keyof T as string,
+							innerError.message,
+						);
+					},
+					{},
+				);
+				return errors;
+			}
+			throw err;
 		}
 	};

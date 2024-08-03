@@ -5,12 +5,14 @@ import { TodoFilterEnum } from '../todo.enums';
 
 interface TodoFilterProps extends Omit<TabsProps, 'children'> {}
 
-/* eslint-disable */
-
-export const TodoFilter = ({ ...props }: TodoFilterProps) => (
-  <Tabs {...props}>
-    <TabList justifyContent={props.justifyContent} height="100%">
-      {Object.values(TodoFilterEnum)?.map((value, index) => <Tab key={index}>{value}</Tab>)}
-    </TabList>
-  </Tabs>
+export const TodoFilter: React.FunctionComponent<TodoFilterProps> = ({
+	...props
+}) => (
+	<Tabs {...props}>
+		<TabList justifyContent={props.justifyContent} height="100%">
+			{Object.values(TodoFilterEnum)?.map((value, index) => (
+				<Tab key={index}>{value}</Tab>
+			))}
+		</TabList>
+	</Tabs>
 );

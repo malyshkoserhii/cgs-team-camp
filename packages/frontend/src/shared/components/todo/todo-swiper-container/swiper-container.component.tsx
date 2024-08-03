@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { config } from 'react-spring';
 import Carousel from 'react-spring-3d-carousel';
@@ -11,7 +11,6 @@ import { TodoSwiperContainerStyled } from './swiper-container.styled';
 
 interface TodoListContainerProps {
 	data: ITodo[] | undefined;
-	// fetchMoreFunc: () => {};
 }
 
 const getTouches = (evt: React.TouchEvent<Element>): React.TouchList =>
@@ -33,74 +32,78 @@ export const TodoSwiperContainer: React.FunctionComponent<
 		yDown: null as number | null,
 	});
 
-	const slides =
-		data?.map((todo, index) => ({
-			key: index,
-			content: (
-				<TodoListCard
-					width="400px"
-					editClick={() => {
-						setInitialState(todo);
-						onOpen();
-					}}
-					todo={todo}
-				/>
-			),
-			onClick: () => setState({ ...state, goToSlide: index }),
-		})) || [];
+	const slides = useMemo(
+		() =>
+			data.map((todo, index) => ({
+				key: index,
+				content: (
+					<TodoListCard
+						width="400px"
+						editClick={() => {
+							setInitialState(todo);
+							onOpen();
+						}}
+						todo={todo}
+					/>
+				),
+				onClick: () => setState({ ...state, goToSlide: index }),
+			})),
+		[data, state],
+	);
 
-	const handleTouchStart = (evt: React.TouchEvent<Element>): void => {
-		if (!state.enableSwipe) {
-			return;
-		}
-
-		const firstTouch = getTouches(evt as React.TouchEvent)[0];
-		setState({
-			...state,
-			xDown: firstTouch.clientX,
-			yDown: firstTouch.clientY,
-		});
-	};
-
-	const handleTouchMove = (evt: React.TouchEvent): void => {
-		if (!state.enableSwipe || (!state.xDown && !state.yDown)) {
-			return;
-		}
-
-		const xUp = evt.touches[0].clientX;
-		const yUp = evt.touches[0].clientY;
-
-		const xDiff = state.xDown! - xUp;
-		const yDiff = state.yDown! - yUp;
-		if (Math.abs(xDiff) > Math.abs(yDiff)) {
-			if (xDiff > 0) {
-				/* left swipe */
-				setState({
-					...state,
-					goToSlide: state.goToSlide + 1,
-					xDown: null,
-					yDown: null,
-				});
-			} else {
-				/* right swipe */
-				setState({
-					...state,
-					goToSlide: state.goToSlide - 1,
-					xDown: null,
-					yDown: null,
-				});
+	const handleTouchStart = useCallback(
+		(evt: React.TouchEvent<Element>): void => {
+			if (!state.enableSwipe) {
+				return;
 			}
-		}
-	};
 
-	// useEffect(() => {
-	// 	if (
-	// 		state.goToSlide >= (data?.length ?? 0) - state.offsetRadius &&
-	// 		state.goToSlide === (data?.length ?? 1) - 1
-	// 	) {
-	// 		fetchMoreFunc();
-	// 	}
-	// }, [state.goToSlide]);
+			const firstTouch = getTouches(evt)[0];
+			setState((prevState) => ({
+				...prevState,
+				xDown: firstTouch.clientX,
+				yDown: firstTouch.clientY,
+			}));
+		},
+		[state.enableSwipe],
+	);
+
+	const handleTouchMove = useCallback(
+		(evt: React.TouchEvent): void => {
+			if (
+				!state.enableSwipe ||
+				(state.xDown === null && state.yDown === null)
+			) {
+				return;
+			}
+
+			const xUp = evt.touches[0].clientX;
+			const yUp = evt.touches[0].clientY;
+
+			const xDiff = state.xDown! - xUp;
+			const yDiff = state.yDown! - yUp;
+
+			if (Math.abs(xDiff) > Math.abs(yDiff)) {
+				if (xDiff > 0) {
+					/* left swipe */
+					setState((prevState) => ({
+						...prevState,
+						goToSlide: prevState.goToSlide + 1,
+						xDown: null,
+						yDown: null,
+					}));
+				} else {
+					/* right swipe */
+					setState((prevState) => ({
+						...prevState,
+						goToSlide: prevState.goToSlide - 1,
+						xDown: null,
+						yDown: null,
+					}));
+				}
+			}
+		},
+		[state.enableSwipe, state.xDown, state.yDown],
+	);
 
 	return (
 		<TodoSwiperContainerStyled>
