@@ -4,6 +4,7 @@ import { useTodoStore } from '~store/todo.store';
 import { Todo } from '~typings/todo.types';
 import {
 	buttonGroupStyle,
+	descriptionStyle,
 	elementStyle,
 } from '~modules/todos/TodoItem/TodoItem.styles';
 import Button from '~shared/components/button/button.component';
@@ -26,7 +27,7 @@ export const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
 	return (
 		<div className={elementStyle}>
 			<h3>{title}</h3>
-			<p>{description}</p>
+			<p className={descriptionStyle}>{description}</p>
 			<div className={buttonGroupStyle}>
 				<Button
 					text={'Delete'}

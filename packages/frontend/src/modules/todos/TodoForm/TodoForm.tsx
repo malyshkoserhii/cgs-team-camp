@@ -13,6 +13,7 @@ import {
 } from '~modules/todos/TodoForm/TodoForm.styles';
 import { buttonGroupStyle } from '~modules/todos/TodoItem/TodoItem.styles';
 import { ROUTER_KEYS } from '~shared/keys';
+import { Loader } from '~shared/components';
 
 export const TodoForm: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -49,7 +50,7 @@ export const TodoForm: React.FC = () => {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <Loader loading={loading} />;
 	}
 
 	return (

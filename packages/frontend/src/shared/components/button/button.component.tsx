@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Loader from '../loader/loader.component';
 import classNames from 'classnames';
 
 import { btnContentWrapper, btnStyles, iconWrapper, mr } from './button.styles';
+import { Loader } from '~shared/components';
 
 type IButtonProps = {
 	text: string;
@@ -44,7 +44,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 			)}
 		>
 			{Boolean(loading) ? (
-				<Loader />
+				<Loader loading={loading} />
 			) : (
 				<span className={btnContentWrapper}>
 					{icon && (
