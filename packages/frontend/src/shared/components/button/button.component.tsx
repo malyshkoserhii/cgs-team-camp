@@ -14,7 +14,7 @@ type IButtonProps = {
 	icon?: React.ReactNode;
 };
 
-const Button: React.FunctionComponent<IButtonProps> = ({
+export const Button: React.FunctionComponent<IButtonProps> = ({
 	text,
 	type = 'submit',
 	onClick,
@@ -62,5 +62,3 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 		</button>
 	);
 };
-
-export default Button;

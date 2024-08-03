@@ -1,5 +1,6 @@
 import { css } from '@emotion/css';
-import { COLORS, THEME } from '~shared/styles/theme';
+import { DEVICE } from '~shared/keys';
+import { SIZES } from '~shared/styles/theme';
 
 export const elementStyle = css`
 	display: flex;
@@ -10,6 +11,10 @@ export const elementStyle = css`
 	width: 100%;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+
+	@media ${DEVICE.tablet} {
+		width: 400px;
+	}
 `;
 
 export const buttonGroupStyle = css`
@@ -18,18 +23,11 @@ export const buttonGroupStyle = css`
 	gap: 10px;
 `;
 
-export const buttonStyle = css`
-	background-color: ${COLORS.primary};
-	color: white;
-	border: none;
-	padding: ${THEME.spaces.small};
-	border-radius: 4px;
-	cursor: pointer;
-
-	&:hover {
-		background-color: greenyellow;
-		//background-color: darken(${COLORS.primary}, 10%);
-	}
+export const labelWrapper = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: ${SIZES.xs};
 `;
 
 export const descriptionStyle = css`
@@ -38,4 +36,17 @@ export const descriptionStyle = css`
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
+`;
+
+export const swiperContainerStyle = css`
+	.swiper {
+		width: 100%;
+		height: 100%;
+	}
+	.swiper-slide {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 200px; /* змінити висоту слайдера за необхідністю */
+	}
 `;

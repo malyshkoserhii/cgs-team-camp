@@ -1,15 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useTodoStore } from '~store/todo.store';
 import { Todo } from '~typings/todo.types';
+import { Button, Loader } from '~shared/components';
 import {
 	buttonGroupStyle,
 	descriptionStyle,
 	elementStyle,
+	labelWrapper,
 } from '~modules/todos/TodoItem/TodoItem.styles';
-import Button from '~shared/components/button/button.component';
-import { useNavigate } from 'react-router-dom';
-import { Loader } from '~shared/components';
 
 export const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
 	const { deleteTodo, patchTodoById, loading } = useTodoStore();
@@ -47,7 +47,7 @@ export const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
 					onClick={handleDelete}
 				/>
 				<Button text={'View'} type={'button'} onClick={handleView} />
-				<label>
+				<label className={labelWrapper}>
 					<input
 						type="checkbox"
 						checked={isCompleted}

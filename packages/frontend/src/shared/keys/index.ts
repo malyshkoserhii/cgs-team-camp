@@ -24,9 +24,8 @@ const size = {
 };
 
 export const DEVICE = {
-	// untilLaptop: `(max-width: ${size.laptop - 0.02}px)`,
-	// untilTablet: `(max-width: ${size.tablet - 0.02}px)`,
-	mobile: `(max-width: ${size.mobile}px)`,
+	mobile: `(min-width: ${size.mobile}px)`,
+	untilTablet: `(max-width: ${size.tablet - 0.02}px)`,
 	tablet: `(min-width: ${size.tablet}px)`,
 	laptop: `(min-width: ${size.laptop}px)`,
 	desktop: `(min-width: ${size.desktop}px)`,

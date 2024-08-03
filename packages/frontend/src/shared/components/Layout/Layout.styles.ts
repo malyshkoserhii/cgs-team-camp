@@ -1,10 +1,9 @@
 import { css } from '@emotion/css';
-import { BREAKPOINTS, SIZES } from '~shared/styles/theme';
+import { BREAKPOINTS, COLORS, SIZES } from '~shared/styles/theme';
 
 export const MainContainer = css`
 	min-width: ${BREAKPOINTS.mobile};
 	margin: 0 auto;
-	padding: ${SIZES.s};
 	@media (min-width: ${BREAKPOINTS.tablet}) {
 		max-width: ${BREAKPOINTS.tablet};
 	}
@@ -25,6 +24,8 @@ export const HeaderContainer = css`
 	a {
 		text-decoration: none;
 		padding: ${SIZES.m};
+		border: 1px solid ${COLORS.primary};
+		border-radius: ${SIZES.m};
 		@media (min-width: ${BREAKPOINTS.tablet}) {
 			font-size: ${SIZES.m};
 		}

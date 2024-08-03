@@ -45,6 +45,12 @@
 			],
 			"~services/*": [
 				"src/services/*"
+			],
+			"~utils/*": [
+				"src/shared/utils/*"
+			],
+			"~hooks/*": [
+				"src/shared/hooks/*"
 			]
 		}
 	},

@@ -5,8 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTodoStore } from '~store/todo.store';
 import { Todo } from '~typings/todo.types';
 import { ROUTER_KEYS } from '~shared/keys';
-import Button from '~shared/components/button/button.component';
-import { Loader } from '~shared/components';
+import { Button, Loader } from '~shared/components';
 import {
 	container,
 	filedGroupWrapper,
