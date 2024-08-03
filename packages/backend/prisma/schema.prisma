@@ -16,7 +16,11 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
+  name  String @unique
+  password  String
+createdAt     DateTime  @default(now())
+updatedAt     DateTime  @updatedAt
+  todos TodoItem[]
 }
 model TodoItem {
   id            Int       @id @default(autoincrement())
@@ -26,4 +30,6 @@ model TodoItem {
   isPrivate     Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  authorId    Int
+  author      User    @relation(fields: [authorId], references: [id])
 }

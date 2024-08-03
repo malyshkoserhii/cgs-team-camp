@@ -1,12 +1,14 @@
-import { Router, Request, Response } from 'express';
+import authController from '@/controllers/auth.controller';
+import { ctrlWrapper } from '@/helpers/ctrlWrapper';
+import { validateBody } from '@/middlewars/validateBody';
+import { userRegisterSchema } from '@/schemas/user.schema';
+import { Router } from 'express';
 
-const router: Router = Router();
+const authRouter: Router = Router();
 
-// @route   POST api/user
-// @desc    Register user given their email and password, returns the token upon successful registration
-// @access  Public
-router.post('/register', async (_: Request, res: Response) => {
-	res.send('Add registration logic there');
-});
-
-export default router;
+authRouter.post(
+	'/register',
+	validateBody(userRegisterSchema),
+	ctrlWrapper(authController.register.bind(authController)),
+);
+export default authRouter;
