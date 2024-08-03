@@ -1,6 +1,9 @@
 body {
 	margin: 0;
 	overflow-x: hidden;
+  font-family: Manrope, sans-serif;
+  background-color: #FAFAFA;
+  color: #0B183B;
 }
 
 h1,

@@ -1,11 +1,27 @@
 import * as React from 'react';
-import App from '~modules/app/app.module';
+import { Routes, Route } from 'react-router-dom';
+import AddTodoPage from '~modules/todo/pages/AddTodoPage';
+import EditTodoPage from '~modules/todo/pages/EditTodoPage';
+import TodoPage from '~modules/todo/pages/TodoPage/TodoPage.component';
+import TodoDetailPage from '~modules/todo/pages/TodoDetailPage';
+import { ROUTER_KEYS } from '~shared/keys/router-keys';
 
-const Router: React.FunctionComponent = () => {
+const RouterComponent: React.FC = () => {
+	console.log('Router component rendered');
 	return (
-		// Implement Routes
-		<App />
+		<Routes>
+			<Route path={ROUTER_KEYS.DASHBOARD} element={<TodoPage />} />
+			<Route path={ROUTER_KEYS.ADD_TODO} element={<AddTodoPage />} />
+			<Route
+				path={`${ROUTER_KEYS.EDIT_TODO}/:id`}
+				element={<EditTodoPage />}
+			/>
+			<Route
+				path={`${ROUTER_KEYS.TODO}/:id`}
+				element={<TodoDetailPage />}
+			/>
+		</Routes>
 	);
 };
 
-export default Router;
+export default RouterComponent;

@@ -1,22 +1,21 @@
 import * as React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import RouterComponent from '~router/router';
 
-import Button from '~shared/components/button/button.component';
-
-const App = (): React.ReactNode => {
-	const [count, setCount] = React.useState(0);
-
-	const onIncrease = (): void => {
-		setCount((prev) => {
-			return prev + 1;
-		});
-	};
-
+const App: React.FunctionComponent = () => {
+	console.log('App component rendered'); // Debug statement
 	return (
-		<>
-			<h1>Todo project</h1>
-			<p>{count}</p>
-			<Button text="Increase" onClick={onIncrease} />
-		</>
+		<Router>
+			<div>
+				<header>
+					<h1>Todo Application</h1>
+				</header>
+				<main>
+					<RouterComponent />
+				</main>
+				<footer>{}</footer>
+			</div>
+		</Router>
 	);
 };
 
