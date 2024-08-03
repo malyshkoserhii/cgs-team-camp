@@ -9,7 +9,7 @@ export const STORAGE_KEYS = Object.freeze({
 });
 
 export const API_KEYS = {
-	ALL: '/todos/all',
-	CREATE: '/todos/create',
-	BY_ID: (id: string): string => `/todos/todo/${id}`,
-} as const;
+	ALL: 'todos/all',
+	CREATE: 'todos/create',
+	BY_ID: (id: string): string => `todos/todo/${id}`,
+};

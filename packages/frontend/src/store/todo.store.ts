@@ -2,11 +2,11 @@ import { create } from 'zustand';
 import { AxiosError } from 'axios';
 
 import { Todo } from '~typings/todo.types';
-import { immer } from 'zustand/middleware/immer';
 import { TodosService } from '~/services/todos.service';
+import { immer } from 'zustand/middleware/immer';
+import { toast } from 'react-toastify';
 
-const { getTodos, createTodo, getTodoById, updateTodo, deleteTodo } =
-	new TodosService();
+const todosService = new TodosService();
 
 interface ITodoStore {
 	todo: Todo;
@@ -17,7 +17,7 @@ interface ITodoStore {
 	createTodo: (todo: Todo) => Promise<void>;
 	getTodoById: (id: string) => Promise<void>;
 	updateTodo: (id: string, todo: Todo) => Promise<void>;
-	deleteTodo: (id: string, todo: Todo) => Promise<void>;
+	deleteTodo: (id: string) => Promise<void>;
 }
 
 export const useTodoStore = create<ITodoStore>()(
@@ -30,11 +30,11 @@ export const useTodoStore = create<ITodoStore>()(
 		getTodos: async (): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await getTodos();
+				const { data } = await todosService.getTodos();
 				set({ todos: data });
 			} catch (err) {
-				console.error('Failed to get todos', err);
 				set({ error: err.message });
+				toast.error(err.response.data.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -43,11 +43,12 @@ export const useTodoStore = create<ITodoStore>()(
 		createTodo: async (todo): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await createTodo(todo);
+				const { data } = await todosService.createTodo(todo);
 				set((state) => ({ todos: [...state.todos, data] }));
+				toast.success('Todo created successfully');
 			} catch (err) {
-				console.error('Failed to create todo', err);
 				set({ error: err.message });
+				toast.error(err.response.data.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -55,12 +56,12 @@ export const useTodoStore = create<ITodoStore>()(
 
 		getTodoById: async (id): Promise<void> => {
 			set({ loading: true });
-			const { data } = await getTodoById(id);
+			const { data } = await todosService.getTodoById(id);
 			set({ todo: data });
 			try {
 			} catch (err) {
-				console.error('Failed to get todo by id', err);
 				set({ error: err.message });
+				toast.error(err.response.data.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -69,15 +70,16 @@ export const useTodoStore = create<ITodoStore>()(
 		updateTodo: async (id, todo): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await updateTodo(id, todo);
+				const { data } = await todosService.updateTodo(id, todo);
 				set((state) => ({
-					todos: state.todos.map((item: { id: string }) =>
+					todos: state.todos.map((item) =>
 						item.id === id ? data : item,
 					),
 				}));
+				toast.success('Todo updated successfully');
 			} catch (err) {
-				console.error('Failed to create todo', err);
 				set({ error: err.message });
+				toast.error(err.response.data.message);
 			} finally {
 				set({ loading: false });
 			}
@@ -86,15 +88,14 @@ export const useTodoStore = create<ITodoStore>()(
 		deleteTodo: async (id): Promise<void> => {
 			set({ loading: true });
 			try {
-				await deleteTodo(id);
+				await todosService.deleteTodo(id);
 				set((state) => ({
-					todos: state.todos.filter(
-						(item: { id: string }) => item.id !== id,
-					),
+					todos: state.todos.filter((item) => item.id !== id),
 				}));
+				toast.success('Todo deleted successfully');
 			} catch (err) {
-				console.error('Failed to create todo', err);
 				set({ error: err.message });
+				toast.error(err.response.data.message);
 			} finally {
 				set({ loading: false });
 			}

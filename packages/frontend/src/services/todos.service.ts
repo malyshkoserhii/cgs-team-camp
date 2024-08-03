@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 
-import { HttpService } from '~/services/http.service';
 import { Todo } from '~typings/todo.types';
 import { API_KEYS } from '~shared/keys';
+import { HttpService } from '~services/http.service';
 
 export class TodosService extends HttpService {
 	constructor() {

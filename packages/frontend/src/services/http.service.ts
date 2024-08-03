@@ -3,7 +3,7 @@ import { STORAGE_KEYS } from '~shared/keys';
 
 export class HttpService {
 	constructor(
-		public baseUrl = process.env.SERVER_URL,
+		public baseUrl = process.env.SERVER_URL || '',
 		public fetchingService = axios,
 		public apiVersion = 'api',
 	) {
@@ -18,7 +18,7 @@ export class HttpService {
 
 	private populateTokenToHeaderConfig(): Record<string, string> {
 		return {
-			Authorization: localStorage.getItem(STORAGE_KEYS.TOKEN),
+			Authorization: localStorage.getItem(STORAGE_KEYS.TOKEN) || '',
 		};
 	}
 
@@ -39,6 +39,7 @@ export class HttpService {
 				...this.populateTokenToHeaderConfig(),
 			};
 		}
+
 		return this.fetchingService.get(
 			this.getFullApiUrl(config.url),
 			this.extractUrlAndDataFromConfig(config),
