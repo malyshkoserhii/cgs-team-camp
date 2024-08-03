@@ -8,8 +8,8 @@ import TryCatch from '@/utils/decorators/TryCatch.decorator';
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
-	async getAllTodo(_: Request, res: Response): Promise<void> {
-		const data = await this.todoService.findAll();
+	async getAllTodo(req: Request, res: Response): Promise<void> {
+		const data = await this.todoService.findAll(req?.user?.id);
 
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
@@ -36,7 +36,7 @@ export class TodoController {
 	}
 
 	async create(req: Request, res: Response): Promise<void> {
-		const data = await this.todoService.create(req.body);
+		const data = await this.todoService.create(req.body, req.user);
 
 		res.status(StatusCodes.created).json({
 			code: StatusCodes.created,

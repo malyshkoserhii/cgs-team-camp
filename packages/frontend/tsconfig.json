@@ -31,8 +31,26 @@
             "~components/*": [
                 "src/components/*"
             ],
-            "~LoginPage/*": [
-                "src/pages/LoginPage/*"
+            "~helpers/*": [
+                "src/shared/helpers/*"
+            ],
+            "~authForm/*": [
+                "src/components/authForm/*"
+            ],
+            "~changePasswordForm/*": [
+                "src/components/changePasswordForm/*"
+            ],
+            "~ActivatePage/*": [
+                "src/pages/ActivatePage/*"
+            ],
+            "~RegisterPage/*": [
+                "src/pages/RegisterPage/*"
+            ],
+            "~ResetPasswordConfirmPage/*": [
+                "src/pages/ResetPasswordConfirmPage/*"
+            ],
+            "~ResetPasswordPage/*": [
+                "src/pages/ResetPasswordPage/*"
             ]
         }
     }
