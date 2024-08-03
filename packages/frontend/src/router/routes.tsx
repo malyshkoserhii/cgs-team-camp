@@ -1,5 +1,15 @@
-import * as React from 'react';
+import React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { ROUTER_KEYS } from '~shared/keys';
 
-export const publicRoutes = <>// PUBLIC_ROUTES</>;
+export const ProtectedRoutes: React.FunctionComponent = () => {
+	const user = {};
 
-export const privateRoutes = <>// PRIVATE_ROUTES</>;
+	const navigate = useNavigate();
+
+	if (!user) {
+		navigate(ROUTER_KEYS.AUTH.LOGIN);
+	}
+
+	return <Outlet />;
+};

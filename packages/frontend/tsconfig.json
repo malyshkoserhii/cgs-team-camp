@@ -35,13 +35,28 @@
 				"src/shared/*"
 			],
 			"~store/*": [
-				"src/store/*"
+				"src/stores/*"
 			],
 			"~typings/*": [
 				"src/typings/*"
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~api/*": [
+				"src/api/*"
+			],
+			"~pages/*": [
+				"src/pages/*"
+			],
+			"~state/*": [
+				"src/state/*"
+			],
+			"~theme/*": [
+				"src/theme/*"
+			],
+			"~utils/*": [
+				"src/utils/*"
 			]
 		}
 	},
