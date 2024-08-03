@@ -26,7 +26,7 @@ const App = (): React.ReactNode => {
 	return (
 		<>
 			<TodoContainer todos={todosArr} />
-			<TodoForm initialValues={{title:"1", description:"1"}} onSubmit={()=>{}}/>
+			<TodoForm />
 		</>
 	);
 };

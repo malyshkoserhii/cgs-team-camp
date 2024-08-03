@@ -1,106 +1,55 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { FormikProps } from 'formik';
 import React from 'react';
+import { ITodo } from '../todo-item/todo-item.component';
 import {
-	buttonStyle,
-	checkboxStyle,
-	errorTextStyle,
-	formContainerStyle,
-	formFieldStyle,
-	inputStyle,
-	labelStyle,
+    CheckInput,
+	Form,
+	Horizontal,
+	HorizontalConatiner,
+	Input,
+	InputContainer,
+	TextArea,
+	TitleForm,
+	TitleInput,
 } from './todo-form.styled';
-import * as Yup from 'yup';
 
-export type TodoFormProps = {
-	initialValues: {
-		title: string;
-		description: string;
-	};
-	onSubmit: (values: { title: string; description: string }) => void;
-};
-
-const TodoSchema = Yup.object().shape({
-	title: Yup.string()
-		.max(50, 'Title is too long!')
-		.required('Title is required!'),
-	description: Yup.string()
-		.max(200, 'Description is too long!')
-		.required('Description is required!'),
-});
-
-export const TodoForm: React.FC<TodoFormProps> = ({initialValues,onSubmit,}) => {
-	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={TodoSchema}
-			onSubmit={(values, { setSubmitting }) => {     
-				onSubmit(values);
-				setSubmitting(false);
-			}}
-		>
-			{({ isSubmitting }) => (
-				<div className={formContainerStyle}>
-					<Form>
-						<div className={formFieldStyle}>
-							<label className={labelStyle} htmlFor="title">
-								Title
-							</label>
-							<Field
-								className={inputStyle}
-								type="text"
-								name="title"
-								id="title"
-							/>
-							<ErrorMessage
-								name="title"
-								component="div"
-								className={errorTextStyle}
-							/>
-						</div>
-						<div className={formFieldStyle}>
-							<label className={labelStyle} htmlFor="description">
-								Description
-							</label>
-							<Field
-								className={inputStyle}
-								as="textarea"
-								name="description"
-								id="description"
-								rows={4}
-							/>
-							<ErrorMessage
-								name="description"
-								component="div"
-								className={errorTextStyle}
-							/>
-						</div>
-
-                        <div className={formFieldStyle}>
-                            <label className={labelStyle} htmlFor="isCompleted">
-                                <Field css={checkboxStyle} type="checkbox" name="isCompleted" id="isCompleted" />
-                                Completed
-                            </label>
-                            <ErrorMessage name="isCompleted" component="div" className={errorTextStyle} />
-                        </div>
-                        <div className={formFieldStyle}>
-                            <label className={labelStyle} htmlFor="isPrivate">
-                                <Field className={checkboxStyle} type="checkbox" name="isPrivate" id="isPrivate" />
-                                Private
-                            </label>
-                            <ErrorMessage name="isPrivate" component="div" className={errorTextStyle} />
-                        </div>
-						<button
-							className={buttonStyle}
-							type="submit"
-							disabled={isSubmitting}
-						>
-							{initialValues.title
-								? 'Update Task'
-								: 'Create Task'}
-						</button>
-					</Form>
+export const TodoForm =
+	(/*{ formik }: { formik: FormikProps<ITodo> },isUpdate: boolean,todo?: ITodo*/) => {
+		return (
+			<form className={Form} action="">
+				<h1 className={TitleForm}>
+					{true ? 'Update TODO' : 'Create TODO'}
+				</h1>
+				<div className={InputContainer}>
+					<p className={TitleInput}> Title</p>
+					<input
+						className={Input}
+						name="title"
+						onChange={() => {}}
+						type="text"
+						placeholder={!true && 'Todo title . . .'}
+					/>
 				</div>
-			)}
-		</Formik>
-	);
-};
+				<div className={InputContainer}>
+					<p className={TitleInput}>Description</p>
+					<textarea className={TextArea} name="desc" id=""></textarea>
+				</div>
+				<div className={Horizontal}>
+					<div className={HorizontalConatiner}>
+						<p className={CheckInput}>Completeness</p>
+						<input type="checkbox" name="isCompleted" id="" />
+					</div>
+
+					<div className={HorizontalConatiner}>
+						<p className={CheckInput}>Private</p>
+						<input
+							defaultChecked
+							type="checkbox"
+							name="isPrivate"
+							id=""
+						/>
+					</div>
+				</div>
+			</form>
+		);
+	};
