@@ -2,6 +2,8 @@ export const enum ROUTER_KEYS {
 	ALL_MATCH = '/*',
 	LOGIN = '/login',
 	DASHBOARD = '/dashboard',
+	ADD_NEW = '/add',
+	VIEW = '/view/:id',
 }
 
 export const STORAGE_KEYS = Object.freeze({

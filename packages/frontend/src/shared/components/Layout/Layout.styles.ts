@@ -19,17 +19,24 @@ export const HeaderContainer = css`
 
 	justify-content: center;
 	gap: 100px;
-	margin-bottom: ${SIZES.xxl};
-	padding-inline: ${SIZES.xxl};
+	margin-bottom: ${SIZES.m};
+	padding-inline: ${SIZES.m};
 	padding-block: ${SIZES.m};
 	a {
 		text-decoration: none;
 		padding: ${SIZES.m};
 		@media (min-width: ${BREAKPOINTS.tablet}) {
-			font-size: ${SIZES.xl};
+			font-size: ${SIZES.m};
 		}
 		@media (min-width: ${BREAKPOINTS.desktop}) {
-			font-size: ${SIZES.xxl};
+			font-size: ${SIZES.m};
 		}
 	}
+`;
+
+export const NavContainer = css`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
 `;

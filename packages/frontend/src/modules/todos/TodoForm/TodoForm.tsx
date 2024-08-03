@@ -12,6 +12,7 @@ import {
 	inputStyle,
 } from '~modules/todos/TodoForm/TodoForm.styles';
 import { buttonGroupStyle } from '~modules/todos/TodoItem/TodoItem.styles';
+import { ROUTER_KEYS } from '~shared/keys';
 
 export const TodoForm: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -41,21 +42,15 @@ export const TodoForm: React.FC = () => {
 			await updateTodo(id, values);
 			resetForm();
 		} else {
-			resetForm();
 			await createTodo(values);
+			resetForm();
 		}
-		navigate('/');
+		navigate(ROUTER_KEYS.DASHBOARD);
 	};
 
 	if (loading) {
 		return <div>Loading...</div>;
 	}
-
-	// if (error) {
-	// 	toast.error(`Error: ${error.message}`, {
-	// 		position: 'bottom-right',
-	// 	});
-	// }
 
 	return (
 		<>
@@ -97,7 +92,7 @@ export const TodoForm: React.FC = () => {
 							<Button
 								text="Back"
 								type="button"
-								onClick={() => navigate('/')}
+								onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
 							/>
 						</div>
 					</Form>

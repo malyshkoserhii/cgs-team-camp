@@ -5,18 +5,18 @@ import {
 	Route,
 	RouterProvider,
 } from 'react-router-dom';
-// import { Layout } from '~shared/components/Layout/Layout';
 import { TodosModule } from '~modules/todos/todos.module';
 import { TodoForm } from '~modules/todos/TodoForm/TodoForm';
 import App from '~modules/app/app.module';
+import { ROUTER_KEYS } from '~shared/keys';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		// <Route path={'/'} element={<Layout />}>
 		<Route path={'/'} element={<App />}>
-			<Route index element={<TodosModule />} />
-			<Route path={'/add'} element={<TodoForm />} />
-			<Route path={'/view/:id'} element={<TodoForm />} />
+			<Route path={ROUTER_KEYS.DASHBOARD} element={<TodosModule />} />
+			<Route path={ROUTER_KEYS.ADD_NEW} element={<TodoForm />} />
+			<Route path={`${ROUTER_KEYS.VIEW}`} element={<TodoForm />} />
 		</Route>,
 	),
 );
