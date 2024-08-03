@@ -87,7 +87,6 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 								>
 									<FormInput
 										name="completed"
-										placeholder="Completed"
 										Component={Checkbox}
 										onChange={(e) => {
 											form.change(
@@ -95,10 +94,11 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
-									/>
+									>
+										Completed
+									</FormInput>
 									<FormInput
 										name="private"
-										placeholder="Private"
 										Component={Checkbox}
 										onChange={(e) => {
 											form.change(
@@ -106,7 +106,9 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
-									/>
+									>
+										Private
+									</FormInput>
 								</HStack>
 								<Button
 									type="submit"

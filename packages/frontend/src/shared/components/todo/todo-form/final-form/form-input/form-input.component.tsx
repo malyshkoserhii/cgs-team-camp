@@ -10,7 +10,7 @@ import { Field } from 'react-final-form';
 
 interface FormInputProps extends InputProps {
 	name: string;
-	placeholder: string;
+	placeholder?: string;
 	Component:
 		| ComponentWithAs<'input', InputProps>
 		| ComponentWithAs<'textarea', TextareaProps>;
@@ -19,6 +19,7 @@ interface FormInputProps extends InputProps {
 export const FormInput: React.FunctionComponent<FormInputProps> = ({
 	name,
 	placeholder,
+	children,
 	Component,
 }) => {
 	return (
@@ -31,7 +32,9 @@ export const FormInput: React.FunctionComponent<FormInputProps> = ({
 						type="text"
 						variant="filled"
 						placeholder={placeholder}
-					/>
+					>
+						{children}
+					</Component>
 					{meta.touched && meta.error && (
 						<FormErrorMessage>{meta.error}</FormErrorMessage>
 					)}
