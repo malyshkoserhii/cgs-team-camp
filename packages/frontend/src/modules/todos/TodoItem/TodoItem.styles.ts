@@ -32,10 +32,12 @@ export const elementStyle = css`
 export const buttonGroupStyle = css`
 	display: grid;
 	grid-template-columns: repeat(3, auto);
-	justify-content: space-between;
 	grid-gap: ${SIZES.s};
+	width: 100%;
+	justify-content: space-between;
 
 	@media ${DEVICE.laptop} {
+		justify-content: flex-start;
 		grid-template-columns: auto auto auto;
 		grid-template-areas: 'view delete completed';
 	}

@@ -1,9 +1,10 @@
 import { css } from '@emotion/css';
 import { DEVICE } from '~shared/keys';
+import { COLORS } from '~shared/styles/theme';
 
 export const linkStyle = css`
 	text-decoration: none;
-	color: blue;
+	color: ${COLORS.primary};
 	&:hover {
 		color: darkblue;
 	}
