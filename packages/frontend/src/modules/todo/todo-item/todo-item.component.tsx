@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { ITodo } from '~/types/todo.type';
 
 
 
@@ -10,20 +11,13 @@ import React from 'react';
 // createdAt   DateTime @default(now())
 
 
-export interface ITodo {
-    id:number,
-    title:string,
-    description:string,
-    isCompleted:boolean,
-    isPrivate:boolean,
-    createdAt:Date
-}
+
 
 export type TodoProps = {
     todo:ITodo,
 }
 
-export const TodoItem  :React.FC<TodoProps> = ({todo}) => {
+export const TodoItem = (todo:ITodo):ReactElement => {
     return(
         <div>
             <h2>{todo.title}</h2>

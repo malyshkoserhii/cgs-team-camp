@@ -1,55 +1,66 @@
 import { FormikProps } from 'formik';
 import React from 'react';
-import { ITodo } from '../todo-item/todo-item.component';
 import {
-    CheckInput,
+	CheckInput,
 	Form,
 	Horizontal,
 	HorizontalConatiner,
 	Input,
 	InputContainer,
+	SubmitButton,
 	TextArea,
 	TitleForm,
 	TitleInput,
 } from './todo-form.styled';
+import { ITodo, ITodoCreate } from '~/types/todo.type';
 
-export const TodoForm =
-	(/*{ formik }: { formik: FormikProps<ITodo> },isUpdate: boolean,todo?: ITodo*/) => {
-		return (
-			<form className={Form} action="">
-				<h1 className={TitleForm}>
-					{true ? 'Update TODO' : 'Create TODO'}
-				</h1>
-				<div className={InputContainer}>
-					<p className={TitleInput}> Title</p>
-					<input
-						className={Input}
-						name="title"
-						onChange={() => {}}
-						type="text"
-						placeholder={!true && 'Todo title . . .'}
-					/>
-				</div>
-				<div className={InputContainer}>
-					<p className={TitleInput}>Description</p>
-					<textarea className={TextArea} name="desc" id=""></textarea>
-				</div>
-				<div className={Horizontal}>
-					<div className={HorizontalConatiner}>
-						<p className={CheckInput}>Completeness</p>
-						<input type="checkbox" name="isCompleted" id="" />
-					</div>
+export const TodoForm = ({
+	formik,
+}: {
+	formik: FormikProps<ITodo | ITodoCreate>;
+	isUpdate: boolean;
+	todo?: ITodo;
+}) => {
+	return (
+		<form onSubmit={formik.handleSubmit} className={Form} action="">
+			<h1 className={TitleForm}>
+				{true ? 'Update TODO' : 'Create TODO'}
+			</h1>
+			<div className={InputContainer}>
+				<p className={TitleInput}> Title</p>
+				<input
+					value={formik.values.title}
+					onChange={formik.handleChange}
+					className={Input}
+					name="title"
+					type="text"
+					placeholder={!true && 'Todo title . . .'}
+				/>
+			</div>
+			<div className={InputContainer}>
+				<p className={TitleInput}>Description</p>
+				<textarea
+					value={formik.values.description}
+					className={TextArea}
+					name="desc"
+					id=""
+					onChange={formik.handleChange}
+				></textarea>
+			</div>
 
-					<div className={HorizontalConatiner}>
-						<p className={CheckInput}>Private</p>
-						<input
-							defaultChecked
-							type="checkbox"
-							name="isPrivate"
-							id=""
-						/>
-					</div>
-				</div>
-			</form>
-		);
-	};
+			<div className={HorizontalConatiner}>
+				<p className={CheckInput}>Private</p>
+				<input
+					checked={formik.values.isPrivate}
+					onChange={formik.handleChange}
+					defaultChecked
+					type="checkbox"
+					name="isPrivate"
+					id=""
+				/>
+			</div>
+
+			<button className={SubmitButton}>Save</button>
+		</form>
+	);
+};

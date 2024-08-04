@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { ITodo } from '~/types/todo.type';
 import { TodoContainer } from '~modules/todo/todo-container/todo-container.component';
-import { TodoForm } from '~modules/todo/todo-form/todo-form.component';
-import { ITodo } from '~modules/todo/todo-item/todo-item.component';
+import AddAndUpdateForm from '~modules/todo/todo-form/add-update.component-form';
 
 const todosArr: ITodo[] = [
 	{
@@ -26,7 +26,7 @@ const App = (): React.ReactNode => {
 	return (
 		<>
 			<TodoContainer todos={todosArr} />
-			<TodoForm />
+			{/* <AddAndUpdateForm/> */}
 		</>
 	);
 };
