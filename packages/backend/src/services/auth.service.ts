@@ -1,5 +1,6 @@
 import { HttpError } from '@/helpers/http-error';
 import {
+	ChangePasswordType,
 	CreateUserType,
 	UserNoSensitiveData,
 	UserType,
@@ -71,11 +72,19 @@ export default class AuthService {
 	}
 	async changePassword(
 		user: UserType,
-		newPassword: string,
+		data: ChangePasswordType,
 	): Promise<UserNoSensitiveData> {
+		const checkUser = await prisma.user.findFirst({
+			where: {
+				password: data.oldPassword,
+			},
+		});
+		if (!checkUser) {
+			throw HttpError(403, 'Wrong password');
+		}
 		const updatedUser = await prisma.user.update({
 			where: { id: user.id },
-			data: { password: newPassword },
+			data: { password: data.newPassword },
 		});
 
 		return this.removeSensitiveInfo(updatedUser);
@@ -89,5 +98,53 @@ export default class AuthService {
 			data: { username: username },
 		});
 		return this.removeSensitiveInfo(newUser);
+	}
+	async forgetPassword(email: string): Promise<UserNoSensitiveData> {
+		const user = await prisma.user.findUnique({ where: { email } });
+
+		if (!user) {
+			throw HttpError(404, 'Not found');
+		}
+
+		const passwordResetRequest = await prisma.passwordReset.create({
+			data: {
+				userId: user.id,
+			},
+		});
+		await this.mailService.sendForgotPasswordEmail(
+			user.email,
+			passwordResetRequest.id,
+		);
+
+		return this.removeSensitiveInfo(user);
+	}
+	async resetPassword(
+		passwordResetRequestId: string,
+		newPassword: string,
+	): Promise<UserNoSensitiveData> {
+		const passwordResetRequest = await prisma.passwordReset.findUnique({
+			where: {
+				id: passwordResetRequestId,
+			},
+		});
+
+		if (!passwordResetRequest) {
+			throw HttpError(404, 'Reset token not found');
+		}
+
+		const updatedUser = await prisma.user.update({
+			where: {
+				id: passwordResetRequest.userId,
+			},
+			data: {
+				password: newPassword,
+			},
+		});
+
+		await prisma.passwordReset.delete({
+			where: passwordResetRequest,
+		});
+
+		return this.removeSensitiveInfo(updatedUser);
 	}
 }

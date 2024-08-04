@@ -34,10 +34,10 @@ export class AuthController {
 	}
 	async changePassword(req: Request, res: Response): Promise<void> {
 		const user = req.user as UserType;
-		const newPassword = req.body.newPassword;
+
 		const updatedUser = await this.authService.changePassword(
 			user,
-			newPassword,
+			req.body,
 		);
 
 		res.send(updatedUser);
@@ -47,6 +47,20 @@ export class AuthController {
 		const { username } = req.body;
 		const updatedUser = await this.authService.updateUser(user, username);
 		res.send(updatedUser);
+	}
+	async forgetPassword(req: Request, res: Response): Promise<void> {
+		const { email } = req.body;
+		const result = await this.authService.forgetPassword(email);
+
+		res.send(result);
+	}
+
+	async resetPassword(req: Request, res: Response): Promise<void> {
+		const { id } = req.params;
+		const { newPassword } = req.body;
+		const result = await this.authService.resetPassword(id, newPassword);
+
+		res.send(result);
 	}
 }
 const authController = new AuthController(new AuthService(new MailService()));
