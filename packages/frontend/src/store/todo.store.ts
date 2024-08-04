@@ -5,9 +5,9 @@ import { immer } from 'zustand/middleware/immer';
 import todoService from "~shared/services/todo/todo";
 
 interface ITodoStore {
-    items: ITodo[] | null, // Исправлено тип items на массив ITodo[]
+    items: ITodo[] | null, 
     error: AxiosError | null,
-    fetchTodos: () => Promise<void>, // Исправлено название метода
+    fetchTodos: () => Promise<void>, 
     fetchOneTodo: (id: number) => Promise<void>,
     createTodo: (data: ITodoCreate) => Promise<void>,
     updateTodo: (id: number, data: ITodoCreate) => Promise<void>,
