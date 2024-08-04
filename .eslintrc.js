@@ -43,9 +43,6 @@ module.exports = {
     {
       // enable the rule specifically for TypeScript files
       files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': ['error'],
-      },
       // parserOptions: { project: ['./tsconfig.json'] },
     },
   ],
