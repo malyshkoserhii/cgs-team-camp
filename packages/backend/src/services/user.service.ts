@@ -156,6 +156,16 @@ export default class UserService {
 		});
 	}
 
+	async currentUser(id: number): Promise<UserResponseDto> {
+		const user = await prisma.user.findUnique({ where: { id } });
+
+		if (!user) {
+			throw ApiError.AuthorizationError();
+		}
+
+		return new UserResponseDto(user);
+	}
+
 	async requestPasswordReset(email: string): Promise<void> {
 		const user = await prisma.user.findUnique({ where: { email } });
 

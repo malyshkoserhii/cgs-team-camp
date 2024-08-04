@@ -31,9 +31,6 @@
             "~components/*": [
                 "src/components/*"
             ],
-            "~LoginPage/*": [
-                "src/pages/LoginPage/*"
-            ],
             "~helpers/*": [
                 "src/shared/helpers/*"
             ],
@@ -54,12 +51,6 @@
             ],
             "~ResetPasswordPage/*": [
                 "src/pages/ResetPasswordPage/*"
-            ],
-            "~ProfilePage/*": [
-                "src/pages/ProfilePage/*"
-            ],
-            "~updateUserForm/*": [
-                "src/components/updateUserForm/*"
             ]
         }
     }
