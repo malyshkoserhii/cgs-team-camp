@@ -70,19 +70,6 @@ export default class UserService {
 		return { user: new UserResponseDto(validatedUser), tokens };
 	}
 
-	async currentUser(id: number): Promise<UserResponseDto> {
-		const user = await prisma.user.findUnique({
-			where: { id },
-			include: { todos: { select: { id: true } } },
-		});
-
-		if (!user) {
-			throw ApiError.AuthorizationError();
-		}
-
-		return new UserResponseDto(user);
-	}
-
 	async validateUser({
 		email,
 		password,
@@ -157,7 +144,10 @@ export default class UserService {
 	}
 
 	async currentUser(id: number): Promise<UserResponseDto> {
-		const user = await prisma.user.findUnique({ where: { id } });
+		const user = await prisma.user.findUnique({
+			where: { id },
+			include: { todos: { select: { id: true } } },
+		});
 
 		if (!user) {
 			throw ApiError.AuthorizationError();
