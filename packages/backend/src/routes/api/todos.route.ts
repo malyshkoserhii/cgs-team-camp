@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { ctrlWrapper } from '@/helpers/ctrlWrapper';
+import { jwtAuth } from '@/middlewars/auth/jwtAuth';
 import { isExist } from '@/middlewars/isExist';
 import { validateBody } from '@/middlewars/validateBody';
 import { createTodoSchema, UpdateTodoSchema } from '@/schemas/todo.schema';
@@ -12,30 +13,31 @@ const todosRouter: Router = Router();
 
 todosRouter.get(
 	'/all',
+	jwtAuth,
 	ctrlWrapper(todoController.getAllTodo.bind(todoController)),
 );
 todosRouter.get(
 	'/:id',
-
+	jwtAuth,
 	isExist<TodoType>(prisma.todoItem),
 	ctrlWrapper(todoController.getTodoById.bind(todoController)),
 );
 todosRouter.post(
 	'/add',
-
+	jwtAuth,
 	validateBody(createTodoSchema),
 	ctrlWrapper(todoController.create.bind(todoController)),
 );
 todosRouter.delete(
 	'/:id',
-
+	jwtAuth,
 	isExist<TodoType>(prisma.todoItem),
 	ctrlWrapper(todoController.delete.bind(todoController)),
 );
 
 todosRouter.put(
 	'/:id',
-
+	jwtAuth,
 	isExist<TodoType>(prisma.todoItem),
 	validateBody(UpdateTodoSchema),
 	ctrlWrapper(todoController.update.bind(todoController)),
