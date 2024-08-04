@@ -42,6 +42,39 @@
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~services/*": [
+				"src/services/*"
+			],
+			"~api/*": [
+				"src/api/*"
+			],
+			"~utils/*": [
+				"src/utils/*"
+			],
+			"~views/*": [
+				"src/views/*"
+			],
+			"~dashboard/*": [
+				"src/views/dashboard/*"
+			],
+			"~layout/*": [
+				"src/shared/layout/*"
+			],
+			"~hooks/*": [
+				"src/api/hooks/*"
+			],
+			"~providers/*": [
+				"src/providers/*"
+			],
+			"~forms/*": [
+				"src/shared/forms/*"
+			],
+			"~todo/*": [
+				"src/views/todo/*"
+			],
+			"~modals/*": [
+				"src/shared/modals/*"
 			]
 		}
 	},
