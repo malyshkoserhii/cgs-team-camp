@@ -5,6 +5,7 @@ import {
 	CreateTodoPage,
 	DashboardPage,
 	LoginPage,
+	ProfilePage,
 	RegisterPage,
 } from '~/pages';
 import ResetPasswordConfirmPage from '~/pages/ResetPasswordConfirmPage/ResetPasswordConfirmPage';
@@ -19,6 +20,7 @@ export enum AppRoutes {
 	ACTIVATE_ACCOUNT = 'activate',
 	CHANGE_PASSWORD = 'change-password',
 	CHANGE_PASSWORD_CONFIRM = 'change-password-confirm',
+	PROFILE = 'profile',
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -40,6 +42,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
 	[AppRoutes.CREATE_TODO]: {
 		path: ROUTER_KEYS.CREATE_TODO,
 		element: <CreateTodoPage />,
+		auth: true,
+	},
+	[AppRoutes.PROFILE]: {
+		path: ROUTER_KEYS.PROFILE,
+		element: <ProfilePage />,
 		auth: true,
 	},
 	[AppRoutes.LOGIN]: {

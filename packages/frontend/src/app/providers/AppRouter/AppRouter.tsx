@@ -20,9 +20,15 @@ export const AppRouter = (): ReactElement => {
 			}
 		>
 			{route.children && (
-				<Route>
-					{renderRoutesRecursive(route.children as AppRoutesProps)}
-				</Route>
+				<>
+					{route && (
+						<Route>
+							{renderRoutesRecursive(
+								route.children as AppRoutesProps,
+							)}
+						</Route>
+					)}
+				</>
 			)}
 		</Route>
 	);

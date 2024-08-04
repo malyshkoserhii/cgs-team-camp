@@ -1,12 +1,14 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { ROUTER_KEYS } from '~shared/const/keys.const';
 import { Messages } from '~shared/const/messages.const';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFormModel } from '~shared/models/todo.model';
 import todoService from '~shared/services/http/todos.service';
 import { notificationService } from '~shared/services/notificationService';
+import { useUserStore } from './user.store';
 
 interface TodoStore {
 	items: TodoI[] | null;
@@ -18,7 +20,10 @@ interface TodoStore {
 	error: AxiosError | null;
 	fetchTodos: () => Promise<void>;
 	fetchTodoById: (id: number) => Promise<void>;
-	createTodo: (data: TodoFormModel) => Promise<void>;
+	createTodo: (
+		data: TodoFormModel,
+		navigate: (route: string) => void,
+	) => Promise<void>;
 	updateTodoById: (id: number, data: TodoFormModel) => Promise<void>;
 	changeStatusById: (id: string, status: TodoStatusE) => Promise<void>;
 	deleteTodoById: (id: string) => Promise<void>;
@@ -71,16 +76,18 @@ export const useTodoStore = create<TodoStore>()(
 				});
 			}
 		},
-		createTodo: async (data: TodoFormModel): Promise<void> => {
+		createTodo: async (data: TodoFormModel, navigate): Promise<void> => {
 			set((state) => {
 				state.createIsLoading = true;
 				state.error = null;
 			});
 			try {
 				await todoService.create(data);
+				await useUserStore.getState().currentUser();
 				notificationService.success(
 					Messages.CREATED_SUCCESSFULLY(name),
 				);
+				navigate(ROUTER_KEYS.DASHBOARD);
 				set((state) => {
 					state.createIsLoading = false;
 				});

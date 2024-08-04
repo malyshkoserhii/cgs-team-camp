@@ -1,13 +1,14 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import { STORAGE_KEYS } from '~shared/const/keys.const';
+import { ROUTER_KEYS, STORAGE_KEYS } from '~shared/const/keys.const';
 import { Messages } from '~shared/const/messages.const';
 import { setTokens } from '~shared/helpers/setTokens';
 import { TokenI, UserI } from '~shared/interfaces/user.interface copy';
 import userService from '~shared/services/http/user.service';
 import { notificationService } from '~shared/services/notificationService';
 import { storageApi } from '~shared/services/storage/storage';
+import { useTodoStore } from './todos.store';
 
 interface UserStore {
 	user: UserI | null;
@@ -21,16 +22,28 @@ interface UserStore {
 	confirmTokenIsLoading: boolean;
 	error: AxiosError | null;
 	resetIsLoading: boolean;
+	updatedUserLoading: boolean;
 	register: (data: {
 		email: string;
 		password: string;
 		name: string;
 	}) => Promise<void>;
-	login: (data: { email: string; password: string }) => Promise<void>;
+	login: (
+		data: { email: string; password: string },
+		navigate: (route: string) => void,
+	) => Promise<void>;
 	logout: () => Promise<void>;
 	requestPasswordReset: (email: string) => Promise<void>;
-	resetPassword: (token: string, password: string) => Promise<void>;
+	resetPassword: (
+		token: string,
+		password: string,
+		navigate: (route: string) => void,
+	) => Promise<void>;
 	registerConfirmation: (id: string) => Promise<void>;
+	updateUser: (
+		data: Partial<UserI>,
+		navigate: (route: string) => void,
+	) => Promise<void>;
 	currentUser: () => Promise<void>;
 }
 
@@ -47,6 +60,7 @@ export const useUserStore = create<UserStore>()(
 		confirmTokenIsLoading: true,
 		refreshLoading: false,
 		resetIsLoading: false,
+		updatedUserLoading: false,
 		currentLoading: storageApi.get(STORAGE_KEYS.TOKEN) ? true : false,
 		error: null,
 		register: async (data: {
@@ -72,10 +86,13 @@ export const useUserStore = create<UserStore>()(
 			}
 		},
 
-		login: async (data: {
-			email: string;
-			password: string;
-		}): Promise<void> => {
+		login: async (
+			data: {
+				email: string;
+				password: string;
+			},
+			navigate: (route: string) => void,
+		): Promise<void> => {
 			set((state) => {
 				state.loginLoading = true;
 				state.error = null;
@@ -84,6 +101,7 @@ export const useUserStore = create<UserStore>()(
 				const response = await userService.login(data);
 				setTokens(response.data.tokens);
 				notificationService.success(Messages.LOGIN_SUCCESS(name));
+				navigate(ROUTER_KEYS.DASHBOARD);
 				set((state) => {
 					state.user = response.data.user;
 					state.tokens = response.data.tokens;
@@ -109,6 +127,8 @@ export const useUserStore = create<UserStore>()(
 					state.tokens = null;
 					state.logoutLoading = false;
 				});
+				storageApi.clear();
+				useTodoStore.getState().fetchTodos();
 				notificationService.success(Messages.LOGOUT_SUCCESS(name));
 			} catch (error) {
 				set((state) => {
@@ -142,6 +162,7 @@ export const useUserStore = create<UserStore>()(
 		resetPassword: async (
 			token: string,
 			password: string,
+			navigate,
 		): Promise<void> => {
 			set((state) => {
 				state.resetIsLoading = true;
@@ -152,6 +173,8 @@ export const useUserStore = create<UserStore>()(
 				notificationService.success(
 					Messages.PASSWORD_RESET_SUCCESSFUL(name),
 				);
+				navigate(ROUTER_KEYS.LOGIN);
+
 				set((state) => {
 					state.resetIsLoading = false;
 				});
@@ -196,6 +219,32 @@ export const useUserStore = create<UserStore>()(
 				set((state) => {
 					state.error = error as AxiosError;
 					state.currentLoading = false;
+				});
+			}
+		},
+
+		updateUser: async (
+			data: Partial<UserI>,
+			navigate: (route: string) => void,
+		): Promise<void> => {
+			set((state) => {
+				state.updatedUserLoading = true;
+				state.error = null;
+			});
+			try {
+				const response = await userService.updateUser(data);
+				notificationService.success(
+					Messages.UPDATED_SUCCESSFULLY(name),
+				);
+				navigate(ROUTER_KEYS.DASHBOARD);
+				set((state) => {
+					state.user = response.data.user;
+					state.updatedUserLoading = false;
+				});
+			} catch (error) {
+				set((state) => {
+					state.error = error as AxiosError;
+					state.updatedUserLoading = false;
 				});
 			}
 		},

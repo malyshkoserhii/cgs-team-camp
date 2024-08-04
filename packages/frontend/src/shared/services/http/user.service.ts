@@ -104,6 +104,18 @@ class UserService extends HttpService {
 			withAuth: true,
 		});
 	}
+
+	async updateUser(
+		data: Partial<UserI>,
+	): Promise<AxiosResponse<{ user: UserI }>> {
+		return await this.put({
+			config: {
+				url: `${ApiPath.USER}${UserApiPath.UPDATE}`,
+				data,
+			},
+			withAuth: true,
+		});
+	}
 }
 
 const userService = new UserService();

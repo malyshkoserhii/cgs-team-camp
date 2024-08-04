@@ -7,13 +7,15 @@ export const optionsConfirm: FormOption<FormVariantsEnum>[] = [
 		name: 'Password',
 		isRequired: true,
 		placeholder: 'Write your password...',
+		type: 'password',
 	},
 	{
 		id: 'confirmPassword',
 		variant: FormVariantsEnum.Input,
 		name: 'Confirm password',
 		isRequired: true,
-		placeholder: 'Confirm your name...',
+		placeholder: 'Confirm your password...',
+		type: 'password',
 	},
 ];
 

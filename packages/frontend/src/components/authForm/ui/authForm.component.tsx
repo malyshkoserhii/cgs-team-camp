@@ -18,8 +18,7 @@ type Props = {
 };
 
 export const AuthForm = ({ isLogin }: Props): ReactElement => {
-	const { login, register, registerLoading, loginLoading, error } =
-		useUserStore();
+	const { login, register, registerLoading, loginLoading } = useUserStore();
 	const navigate = useNavigate();
 
 	const changePage = (): void => {
@@ -30,10 +29,7 @@ export const AuthForm = ({ isLogin }: Props): ReactElement => {
 
 	const onSubmit = async (data: UserFormModel): Promise<void> => {
 		if (isLogin) {
-			await login(data);
-			if (!error) {
-				navigate(ROUTER_KEYS.DASHBOARD);
-			}
+			await login(data, navigate);
 		} else {
 			await register(data);
 		}

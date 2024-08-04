@@ -54,6 +54,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 	if (isMobileAndTablet) {
 		return (
 			<TodoItemCard
+				isUsersTodo={isUsersTodo}
 				todo={todo}
 				onUpdateStatus={onUpdateStatus}
 				onOpenModal={onOpenModal}

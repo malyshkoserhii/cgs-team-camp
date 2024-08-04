@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ROUTER_KEYS } from '~shared/const/keys.const';
 import { requestPasswordChangeSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/requestPasswordChange.schema';
 import { resetPasswordSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/resetPassword.schema';
 import { Form } from '~shared/ui/form';
@@ -23,10 +22,10 @@ type SecondStepValues = {
 
 export const ChangePasswordForm = ({ firstStep }: Props): ReactElement => {
 	const [searchParams] = useSearchParams();
-	const token = searchParams.get('token');
-	const { requestPasswordReset, resetPassword, resetIsLoading, error } =
+	const { requestPasswordReset, resetPassword, resetIsLoading } =
 		useUserStore();
 	const navigate = useNavigate();
+	const token = searchParams.get('token');
 
 	const onSubmit = async (
 		data: FirstStepValues | SecondStepValues,
@@ -37,10 +36,7 @@ export const ChangePasswordForm = ({ firstStep }: Props): ReactElement => {
 		} else {
 			const { password } = data as SecondStepValues;
 			if (token) {
-				await resetPassword(token, password);
-				if (!error) {
-					navigate(ROUTER_KEYS.LOGIN);
-				}
+				await resetPassword(token, password, navigate);
 			}
 		}
 	};

@@ -21,6 +21,7 @@ export const optionsRegister: FormOption<FormVariantsEnum>[] = [
 		name: 'Password',
 		isRequired: true,
 		placeholder: 'Write your password...',
+		type: 'password',
 	},
 ];
 
@@ -38,5 +39,6 @@ export const optionsLogin: FormOption<FormVariantsEnum>[] = [
 		name: 'Password',
 		isRequired: true,
 		placeholder: 'Write your password...',
+		type: 'password',
 	},
 ];

@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ROUTER_KEYS } from '~shared/const/keys.const';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { todoSchemaResolver } from '~shared/joiSchemas/joiSchemas/todo/todo.schema';
 import { TodoFormModel } from '~shared/models/todo.model';
@@ -35,10 +34,7 @@ export const TodoForm = ({
 			await updateTodoById(todo.id, data);
 			await fetchTodos();
 		} else {
-			try {
-				await createTodo(data);
-				navigate(ROUTER_KEYS.DASHBOARD);
-			} catch {}
+			await createTodo(data, navigate);
 		}
 	};
 

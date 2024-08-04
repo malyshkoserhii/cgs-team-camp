@@ -203,4 +203,21 @@ export default class UserService {
 			},
 		});
 	}
+
+	async updateUser(
+		id: number,
+		data: Partial<User>,
+	): Promise<UserResponseDto> {
+		if (data.password) {
+			data.password = await bcrypt.hash(data.password, 10);
+		}
+
+		const user = await prisma.user.update({
+			where: { id },
+			include: { todos: { select: { id: true } } },
+			data,
+		});
+
+		return new UserResponseDto(user);
+	}
 }

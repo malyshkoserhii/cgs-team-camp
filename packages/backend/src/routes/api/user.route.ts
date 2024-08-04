@@ -5,6 +5,7 @@ import { validateBodyMiddleware } from '@/middleware/validateBody.middleware';
 import { loginSchema } from '@/utils/joiSchemas/user/loginSchema';
 import { requestPasswordChange } from '@/utils/joiSchemas/user/requestPasswordChange.schema';
 import { resetPasswordSchema } from '@/utils/joiSchemas/user/resetPassword.schema';
+import { updateUserSchema } from '@/utils/joiSchemas/user/updateUser.schema';
 import { userSchema } from '@/utils/joiSchemas/user/user.schema';
 
 const router: Router = Router();
@@ -36,6 +37,12 @@ router.get(
 	'/current',
 	authenticateJwt,
 	userController.currentUser.bind(userController),
+);
+router.put(
+	'/update',
+	authenticateJwt,
+	validateBodyMiddleware(updateUserSchema),
+	userController.updateUser.bind(userController),
 );
 
 export default router;

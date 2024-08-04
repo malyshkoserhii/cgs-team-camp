@@ -9,4 +9,6 @@ export const CreateTodoPage = lazy(
 export const LoginPage = lazy(() => import('./LoginPage/LoginPage'));
 export const RegisterPage = lazy(() => import('./RegisterPage/RegisterPage'));
 export const ActivatePage = lazy(() => import('./ActivatePage/ActivatePage'));
+export const ProfilePage = lazy(() => import('./ProfilePage/ProfilePage'));
+
 export { ErrorPage } from './ErrorPage/ErrorPage';
