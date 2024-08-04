@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ApiPath, TodosApiPath } from '~shared/const/apiPath.const';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
+import { encodeSearchParams } from '~shared/helpers/searchParams';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFormModel } from '~shared/models/todo.model';
 import HttpService from './http.service';
@@ -10,10 +11,13 @@ class TodoService extends HttpService {
 		super();
 	}
 
-	async findAll(): Promise<AxiosResponse<TodoI[]>> {
+	async findAll(
+		params: Record<string, string>,
+	): Promise<AxiosResponse<TodoI[]>> {
 		return await this.get({
 			config: {
-				url: `${ApiPath.TODOS}/${TodosApiPath.ALL}`,
+				url: `${ApiPath.TODOS}${TodosApiPath.ALL}`,
+				params: encodeSearchParams(params),
 			},
 			withAuth: true,
 		});

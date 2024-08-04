@@ -75,7 +75,7 @@ export const Select = <T extends FieldValues>({
 							<Button
 								text={
 									options?.find((el) => el.value === value)
-										.label || options[0].label
+										?.label || options[0]?.label
 								}
 								variant="outline"
 								rightIcon="double-caret-vertical"

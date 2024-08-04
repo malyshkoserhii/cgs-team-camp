@@ -18,7 +18,7 @@ interface TodoStore {
 	createIsLoading: boolean;
 	changeStatusIsLoading: boolean;
 	error: AxiosError | null;
-	fetchTodos: () => Promise<void>;
+	fetchTodos: (params: TodoFormModel) => Promise<void>;
 	fetchTodoById: (id: number) => Promise<void>;
 	createTodo: (
 		data: TodoFormModel,
@@ -40,13 +40,13 @@ export const useTodoStore = create<TodoStore>()(
 		createIsLoading: false,
 		changeStatusIsLoading: false,
 		error: null,
-		fetchTodos: async (): Promise<void> => {
+		fetchTodos: async (params): Promise<void> => {
 			set((state) => {
 				state.loading = state.items ? false : true;
 				state.error = null;
 			});
 			try {
-				const response = await todoService.findAll();
+				const response = await todoService.findAll(params);
 				set((state) => {
 					state.items = response.data;
 					state.loading = false;
