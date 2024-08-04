@@ -19,6 +19,22 @@ model Todo {
   description String
   isPrivate   Boolean  @default(false)
   isCompleted Boolean  @default(false)
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
+}
+
+model User {
+  id                   String    @id @default(uuid())
+  email                String    @unique
+  password             String
+  username             String
+  activationToken      String?
+  activationStatus     Boolean   @default(false)
+  refreshToken         String?
+  resetToken           String?   @unique
+  resetTokenExpiration DateTime?
+  todos                Todo[]
+  createdAt            DateTime  @default(now())
 }
