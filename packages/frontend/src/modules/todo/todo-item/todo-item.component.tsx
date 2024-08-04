@@ -19,13 +19,13 @@ export type TodoProps = {
 
 export const TodoItem = (todo:ITodo):ReactElement => {
     return(
-        <div>
+        <li>
             <h2>{todo.title}</h2>
             <p>{todo.description}</p>
             <ul>
                 <li><button>update</button></li>
                 <li><button>delete</button></li>
             </ul>
-        </div>
+        </li>
     )
 };

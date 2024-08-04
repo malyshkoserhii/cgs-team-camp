@@ -45,6 +45,9 @@
 			],
 			"~types/*": [
 				"src/types/*"
+			],
+			"~consts/*": [
+				"src/shared/consts/*"
 			]
 		}
 	},

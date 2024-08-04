@@ -1,7 +1,8 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { VIEW } from '~shared/styles/breakepoints';
+import { BREAKPOINTS, VIEW } from '~shared/styles/breakepoints';
 import { Swiper } from '../swipper/swiper.component';
+import { mainLayout } from './layout.styled';
 
 
 
@@ -18,14 +19,19 @@ export const Layout = <T extends { id: number }>({
 	...otherProps
 }:Props<T>): ReactElement => {
     const isTablet = useMediaQuery({
-        query: VIEW.tablet,
+        query: VIEW.tabletToDesktop,
+
     });
+
+    if (isTablet){
+        return <Swiper/>
+    }
+    
+    console.log(isTablet)
     return (
-        isTablet ? (
-            <Swiper/>
-        ) :
+       
         (
-            <ul>
+            <ul className={mainLayout}>
                 {
                     items.map(item=>(
                         <Component key={item.id} {...item}/>

@@ -2,14 +2,14 @@ import { css } from "@emotion/css";
 import { VIEW } from "~shared/styles/breakepoints";
 
 
-const mainLayout = css`
+export const mainLayout = css`
     display: grid;
-    @media ${VIEW.mobile} {
+    @media ${VIEW.mobileToTablet} {
         grid-template-columns: 1;
         gap: 5px;
         overflow-x: hidden;
     }
     @media ${VIEW.desktop} {
-        grid-template-columns: 4;
+        grid-template-columns: 2;
     }
 `
