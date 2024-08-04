@@ -7,12 +7,17 @@ export const createTodoSchema = Joi.object({
 	status: Joi.string()
 		.valid(...Object.values(TodoStatus))
 		.default('Todo'),
+	isPrivate: Joi.boolean().default(false),
 });
 
 export const updateTodoSchema = Joi.object({
+	id: Joi.string().optional(),
 	name: Joi.string().optional(),
-	description: Joi.string().optional(),
+	description: Joi.string().allow(''),
 	status: Joi.string()
 		.valid(...Object.values(TodoStatus))
 		.optional(),
+	isPrivate: Joi.boolean().optional(),
+	createdAt: Joi.date().optional(),
+	updatedAt: Joi.date().optional(),
 });

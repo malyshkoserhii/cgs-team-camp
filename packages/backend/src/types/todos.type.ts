@@ -1,10 +1,6 @@
-// TODO: Put a real types here
-
 enum TodoStatus {
-	Todo,
 	InProgress,
-	OnHold,
-	Done,
+	Completed,
 }
 
 export type Todo = {

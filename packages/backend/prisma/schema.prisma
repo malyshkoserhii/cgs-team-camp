@@ -23,19 +23,18 @@ model User {
 }
 
 model Todo {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String?
-  status      TodoStatus @default(Todo)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  status      TodoStatus @default(InProgress)
+  isPrivate   Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   // assigneeId  String
   // assignee    User     @relation(fields: [assigneeId], references: [id])
 }
 
 enum TodoStatus {
-  Todo
   InProgress
-  OnHold
-  Done
+  Completed
 }
