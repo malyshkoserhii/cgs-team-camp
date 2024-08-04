@@ -9,21 +9,22 @@ export const container = css`
 		justify-content: space-between;
 	}
 `;
+
 export const wrapper = css`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20px;
+	margin-bottom: ${SIZES.m};
 
 	@media ${DEVICE.tablet} {
 		flex-direction: row-reverse;
 		justify-content: space-between;
-		gap: 20px;
+		gap: ${SIZES.m};
 	}
 `;
 
 export const searchInputStyle = css`
-	padding: 8px;
+	padding: ${SIZES.xs};
 	box-sizing: border-box;
 	border: 1px solid blue;
 `;
@@ -31,6 +32,15 @@ export const searchInputStyle = css`
 export const buttonGroupStyle = css`
 	display: flex;
 	gap: ${SIZES.m};
-	//justify-content: space-around;
 	margin-bottom: ${SIZES.m};
+`;
+
+export const todosContainer = css`
+	display: flex;
+	flex-direction: column;
+	gap: ${SIZES.m};
+
+	@media ${DEVICE.tablet} {
+		display: block;
+	}
 `;

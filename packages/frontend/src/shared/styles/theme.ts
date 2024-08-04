@@ -45,7 +45,6 @@ export const SIZES = Object.freeze({
 
 export const BREAKPOINTS = Object.freeze({
 	mobile: '360px',
-	untilTablet: '767,98',
 	tablet: '768px',
 	desktop: '1024',
 });

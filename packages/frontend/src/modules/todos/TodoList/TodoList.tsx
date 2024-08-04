@@ -10,11 +10,11 @@ import {
 	buttonGroupStyle,
 	searchInputStyle,
 	container,
+	todosContainer,
 } from '~modules/todos/TodoList/TodoList.styles';
 import { swiperContainerStyle } from '~modules/todos/TodoItem/TodoItem.styles';
 import { ROUTER_KEYS } from '~shared/keys';
 import { Button, StyledNavLink } from '~shared/components';
-// import Button from '~shared/components';
 import { useDeviceType } from '~shared/hooks';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -26,7 +26,7 @@ export const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
 		'All' | 'Completed' | 'Private' | 'Public'
 	>('All');
 
-	const { isMobile, isTablet } = useDeviceType();
+	const { isMobile, isTablet, isLaptop } = useDeviceType();
 
 	const filteredTodos = todos.filter((todo) => {
 		if (filter === 'Completed' && !todo.isCompleted) return false;
@@ -103,28 +103,34 @@ export const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
 					/>
 				</div>
 			</div>
-
-			{isMobile &&
-				filteredTodos.map((item) => (
-					<TodoItem key={item.id} todo={item} />
-				))}
-
-			{isTablet && (
-				<Swiper
-					className={swiperContainerStyle}
-					spaceBetween={10}
-					slidesPerView={'auto'}
-					pagination={{ clickable: true }}
-					navigation
-					modules={[Navigation, Pagination]}
-				>
-					{filteredTodos.map((item) => (
-						<SwiperSlide key={item.id}>
-							<TodoItem todo={item} />
-						</SwiperSlide>
+			<div className={todosContainer}>
+				{isMobile &&
+					filteredTodos.map((item) => (
+						<TodoItem key={item.id} todo={item} />
 					))}
-				</Swiper>
-			)}
+
+				{isTablet && (
+					<Swiper
+						className={swiperContainerStyle}
+						spaceBetween={10}
+						slidesPerView={'auto'}
+						pagination={{ clickable: true }}
+						navigation
+						modules={[Navigation, Pagination]}
+					>
+						{filteredTodos.map((item) => (
+							<SwiperSlide key={item.id}>
+								<TodoItem todo={item} />
+							</SwiperSlide>
+						))}
+					</Swiper>
+				)}
+
+				{isLaptop &&
+					filteredTodos.map((item) => (
+						<TodoItem key={item.id} todo={item} />
+					))}
+			</div>
 		</div>
 	);
 };

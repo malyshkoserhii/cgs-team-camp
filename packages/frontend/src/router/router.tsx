@@ -17,6 +17,7 @@ const router = createBrowserRouter(
 			<Route path={ROUTER_KEYS.DASHBOARD} element={<TodosModule />} />
 			<Route path={ROUTER_KEYS.ADD_NEW} element={<TodoForm />} />
 			<Route path={`${ROUTER_KEYS.VIEW}`} element={<TodoForm />} />
+			<Route path={`${ROUTER_KEYS.PROFILE}`} element={<h1>Profile</h1>} />
 		</Route>,
 	),
 );

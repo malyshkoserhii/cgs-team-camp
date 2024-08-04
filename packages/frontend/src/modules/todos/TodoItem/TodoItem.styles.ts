@@ -1,33 +1,56 @@
 import { css } from '@emotion/css';
-import { DEVICE } from '~shared/keys';
+
 import { SIZES } from '~shared/styles/theme';
+import { DEVICE } from '~shared/keys';
 
 export const elementStyle = css`
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	margin-bottom: 10px;
-	padding: 10px;
+	display: grid;
+	grid-template-rows: auto auto auto;
+	grid-gap: ${SIZES.s};
+	padding: ${SIZES.xs};
 	width: 100%;
 	border: 1px solid #ccc;
-	border-radius: 5px;
+	border-radius: ${SIZES.xxs};
+	align-items: center;
 
 	@media ${DEVICE.tablet} {
 		width: 400px;
 	}
+
+	@media ${DEVICE.laptop} {
+		grid-template-rows: none;
+		grid-template-columns: 1fr 2fr auto auto auto;
+		grid-template-areas:
+			'title description delete view completed'
+			'title description delete view completed'
+			'title description delete view completed';
+		align-items: center;
+		grid-gap: 0;
+	}
 `;
 
 export const buttonGroupStyle = css`
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(3, auto);
 	justify-content: space-between;
-	gap: 10px;
+	grid-gap: ${SIZES.s};
+
+	@media ${DEVICE.laptop} {
+		grid-template-columns: auto auto auto;
+		grid-template-areas: 'view delete completed';
+	}
 `;
 
 export const labelWrapper = css`
-	display: flex;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-items: center;
 	align-items: center;
-	gap: ${SIZES.xs};
+	grid-gap: ${SIZES.xs};
+
+	@media ${DEVICE.laptop} {
+		grid-area: completed;
+	}
 `;
 
 export const descriptionStyle = css`
@@ -36,6 +59,10 @@ export const descriptionStyle = css`
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
+
+	@media ${DEVICE.laptop} {
+		grid-area: description;
+	}
 `;
 
 export const swiperContainerStyle = css`
@@ -44,9 +71,9 @@ export const swiperContainerStyle = css`
 		height: 100%;
 	}
 	.swiper-slide {
-		display: flex;
-		justify-content: center;
+		display: grid;
+		justify-items: center;
 		align-items: center;
-		height: 200px; /* змінити висоту слайдера за необхідністю */
+		height: 400px;
 	}
 `;

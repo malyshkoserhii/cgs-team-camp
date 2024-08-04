@@ -4,6 +4,7 @@ export const enum ROUTER_KEYS {
 	DASHBOARD = '/dashboard',
 	ADD_NEW = '/add',
 	VIEW = '/view/:id',
+	PROFILE = '/profile',
 }
 
 export const STORAGE_KEYS = Object.freeze({
@@ -26,7 +27,7 @@ const size = {
 export const DEVICE = {
 	mobile: `(min-width: ${size.mobile}px)`,
 	untilTablet: `(max-width: ${size.tablet - 0.02}px)`,
-	tablet: `(min-width: ${size.tablet}px)`,
+	tablet: `(min-width: ${size.tablet}px) and (max-width: ${size.laptop - 0.02}px)`,
 	laptop: `(min-width: ${size.laptop}px)`,
 	desktop: `(min-width: ${size.desktop}px)`,
 };
