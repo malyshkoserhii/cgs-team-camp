@@ -6,10 +6,9 @@ class TodoService extends HttpService {
   constructor() {
     super();
   }
-  getAllTodos(params: object) {
+  getAllTodos() {
     return this.get({
       url: 'todos',
-      params
     }, true)
   }
   editTodo(todo: ITodo) {
@@ -18,7 +17,7 @@ class TodoService extends HttpService {
       data: {...todo, id: undefined},
     }, true)
   }
-  deleteTodo(todoId: string) {
+  deleteTodo(todoId: number) {
     return this.delete({
       url: `todos/${todoId}`,
     }, true)
@@ -29,12 +28,12 @@ class TodoService extends HttpService {
       data: todo,
     }, true)
   }
-  getOneTodo(todoId: string) {
+  getOneTodo(todoId: number) {
     return this.get({
       url: `todos/one/${todoId}`,
     }, true)
   }
-  completeTodo(todoId: string) {
+  completeTodo(todoId: number) {
     return this.get({
       url: `todos/complete/${todoId}`,
     }, true)
