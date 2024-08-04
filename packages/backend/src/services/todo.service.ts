@@ -7,26 +7,53 @@ export default class TodoService {
 		this.prisma = new PrismaClient();
 	}
 
-	async create(newTodo: Prisma.TodoCreateInput): Promise<Todo> {
-		return this.prisma.todo.create({ data: newTodo });
+	async create(
+		newTodo: Omit<Prisma.TodoCreateInput, 'user'>,
+		userId: string,
+	): Promise<Todo> {
+		return this.prisma.todo.create({
+			data: {
+				...newTodo,
+				user: {
+					connect: { id: userId },
+				},
+			},
+		});
 	}
 
 	async update(
 		id: string,
-		data: Prisma.TodoUpdateInput,
+		data: Omit<Prisma.TodoUpdateInput, 'user'>,
+		userId: string,
 	): Promise<Todo | null> {
+		const todo = await this.prisma.todo.findUnique({ where: { id } });
+		if (!todo || todo.userId !== userId) {
+			return null;
+		}
 		return this.prisma.todo.update({ where: { id }, data });
 	}
 
-	async findAll(): Promise<Todo[]> {
-		return this.prisma.todo.findMany();
+	async findAll(userId: string): Promise<Todo[]> {
+		return this.prisma.todo.findMany({
+			where: {
+				OR: [{ userId }, { isPrivate: false }],
+			},
+		});
 	}
 
-	async findById(id: string): Promise<Todo | null> {
-		return this.prisma.todo.findUnique({ where: { id } });
+	async findById(id: string, userId: string): Promise<Todo | null> {
+		const todo = await this.prisma.todo.findUnique({ where: { id } });
+		if (!todo || (todo.isPrivate && todo.userId !== userId)) {
+			return null;
+		}
+		return todo;
 	}
 
-	async delete(id: string): Promise<Todo> {
+	async delete(id: string, userId: string): Promise<Todo | null> {
+		const todo = await this.prisma.todo.findUnique({ where: { id } });
+		if (!todo || todo.userId !== userId) {
+			return null;
+		}
 		return this.prisma.todo.delete({ where: { id } });
 	}
 }

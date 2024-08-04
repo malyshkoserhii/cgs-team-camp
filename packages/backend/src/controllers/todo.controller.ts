@@ -1,20 +1,21 @@
-import { Response, Request, NextFunction } from 'express';
-
 import TodoService from '@/services/todo.service';
 import { responseMessages } from '@/const/responseMessages';
 import { responseCodes } from '@/const/responseCodes';
+
+import type { Response, Request, NextFunction } from 'express';
+import type { User } from '@prisma/client';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
 	async createTodo(
-		req: Request,
+		req: Request & { user?: User },
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const todo = await this.todoService.create(req.body);
-
+			const userId = req.user!.id;
+			const todo = await this.todoService.create(req.body, userId);
 			res.status(responseCodes.CREATED).json(todo);
 		} catch (e) {
 			next(e);
@@ -22,13 +23,26 @@ export class TodoController {
 	}
 
 	async updateTodo(
-		req: Request,
+		req: Request & { user?: User },
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
 		try {
 			const { id } = req.params;
-			const updatedTodo = await this.todoService.update(id, req.body);
+			const userId = req.user!.id;
+
+			const updatedTodo = await this.todoService.update(
+				id,
+				req.body,
+				userId,
+			);
+
+			if (!updatedTodo) {
+				res.status(responseCodes.FORBIDDEN).json({
+					message: responseMessages.FORBIDDEN,
+				});
+				return;
+			}
 
 			res.status(responseCodes.OK).json(updatedTodo);
 		} catch (e) {
@@ -37,13 +51,13 @@ export class TodoController {
 	}
 
 	async getAllTodo(
-		_: Request,
+		req: Request & { user?: User },
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const todos = await this.todoService.findAll();
-
+			const userId = req.user!.id;
+			const todos = await this.todoService.findAll(userId);
 			res.json(todos);
 		} catch (e) {
 			next(e);
@@ -51,13 +65,21 @@ export class TodoController {
 	}
 
 	async getTodoById(
-		req: Request,
+		req: Request & { user?: User },
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
 		try {
 			const { id } = req.params;
-			const todo = await this.todoService.findById(id);
+			const userId = req.user!.id;
+			const todo = await this.todoService.findById(id, userId);
+
+			if (!todo) {
+				res.status(responseCodes.NOT_FOUND).json({
+					message: responseMessages.NOT_FOUND,
+				});
+				return;
+			}
 
 			res.json(todo);
 		} catch (e) {
@@ -66,13 +88,21 @@ export class TodoController {
 	}
 
 	async deleteTodo(
-		req: Request,
+		req: Request & { user?: User },
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
 		try {
 			const { id } = req.params;
-			await this.todoService.delete(id);
+			const userId = req.user!.id;
+			const deletedTodo = await this.todoService.delete(id, userId);
+
+			if (!deletedTodo) {
+				res.status(responseCodes.FORBIDDEN).json({
+					message: responseMessages.FORBIDDEN,
+				});
+				return;
+			}
 
 			res.status(responseCodes.NO_CONTENT).json({
 				message: responseMessages.DELETED,

@@ -8,4 +8,13 @@ export const responseMessages = {
 	NOT_FOUND: 'Not found',
 	INTERNAL_SERVER_ERROR: 'Internal server error',
 	TAKEN_EMAIL: 'This email is already taken',
+	PASSWORD_RESET_FAIL: 'Failed to change password',
+	INVALID_CREDENTIALS: 'Invalid credentials',
+	INVALID_RESET_TOKEN: 'Invalid or expired reset token',
+	RESET_EMAIL_SENT: 'Password reset email sent',
+	EMAIL_NOT_VERIFIED: 'Email not verified',
+	EMAIL_ALREADY_VERIFIED: 'Email is already verified',
+	EMAIL_VERIFIED: 'Email is now verified',
+	INVALID_VERIFICATION_TOKEN: 'Verification token is invalid',
+	VERIFICATION_EMAIL_SENT: 'Verification email is sent',
 };
