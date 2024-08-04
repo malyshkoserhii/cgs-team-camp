@@ -1,5 +1,5 @@
 export const BREAKPOINTS = {
-    mobile: 425,
+    mobile: 320,
     tablet: 768,
     smallTablet: 576,
     desktop: 1200

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { ITodo } from '~/types/todo.type';
+import { deleteButton, panelButton, todoDesc, todoItem, todoTitle, updateButton } from './todo-item.styled';
 
 
 
@@ -19,13 +20,14 @@ export type TodoProps = {
 
 export const TodoItem = (todo:ITodo):ReactElement => {
     return(
-        <li>
-            <h2>{todo.title}</h2>
-            <p>{todo.description}</p>
-            <ul>
-                <li><button>update</button></li>
-                <li><button>delete</button></li>
+        <div className={todoItem}>
+            <h2 className={todoTitle}>{todo.title}</h2>
+            <p className={todoDesc}>{todo.description}</p>
+            <ul className={panelButton}>
+                <li><button className={updateButton}>update</button></li>
+                <li><button className={deleteButton}>delete</button></li>
             </ul>
-        </li>
+            <p className={todoDesc}>{todo.isCompleted ? "Yes" : "No"}</p>
+        </div>
     )
 };

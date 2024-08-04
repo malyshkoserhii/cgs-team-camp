@@ -3248,6 +3248,11 @@ svg-parser@^2.0.4:
   resolved "https://registry.npmjs.org/svg-parser/-/svg-parser-2.0.4.tgz"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
 
+swiper@^11.1.9:
+  version "11.1.9"
+  resolved "https://registry.npmjs.org/swiper/-/swiper-11.1.9.tgz"
+  integrity sha512-rflu8zvfGa3x1v/aeSufk4zRJffhOQowyvtJlp46sUBnOqAuk1Rdv5Ldj0AWWBV595iZ+ZMk7VB35ZRtRUomtA==
+
 synckit@^0.8.6:
   version "0.8.8"
   resolved "https://registry.npmjs.org/synckit/-/synckit-0.8.8.tgz"
@@ -3488,6 +3493,7 @@ vite-plugin-svgr@^4.1.0:
     react "^18.2.0"
     react-dom "^18.2.0"
     react-final-form "^6.5.9"
+    react-responsive "^10.0.0"
     react-router-dom "^6.16.0"
     vite-plugin-svgr "^4.1.0"
     yup "^1.4.0"
