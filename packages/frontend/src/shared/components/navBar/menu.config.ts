@@ -3,7 +3,7 @@ import { ROUTER_KEYS } from '~shared/keys';
 export const menuConfig = [
 	{
 		title: 'Home Page',
-		path: ROUTER_KEYS.ALL_MATCH,
+		path: ROUTER_KEYS.HOME,
 	},
 	{
 		title: 'Dashboard',
