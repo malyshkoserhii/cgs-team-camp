@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import 'dotenv/config';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import AppRouter from './routes';
@@ -10,6 +11,7 @@ const app: Express = express();
 const router = new AppRouter(app);
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req: Request, res: Response) => {
