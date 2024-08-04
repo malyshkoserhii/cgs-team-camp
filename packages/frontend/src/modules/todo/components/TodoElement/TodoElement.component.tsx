@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { todoElementStyles } from './TodoElement.styles';
 
 interface TodoElementProps {
 	id: number;
@@ -15,14 +16,7 @@ const TodoElement: React.FC<TodoElementProps> = ({
 	onClick,
 }) => {
 	return (
-		<div
-			onClick={onClick}
-			style={{
-				border: '1px solid black',
-				margin: '10px',
-				padding: '10px',
-			}}
-		>
+		<div onClick={onClick} className={todoElementStyles}>
 			<h3>{title}</h3>
 			<p>{description}</p>
 			<p>{completed ? 'Completed' : 'Not Completed'}</p>

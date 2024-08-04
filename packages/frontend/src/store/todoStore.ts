@@ -42,7 +42,6 @@ export const useTodoStore = create<TodoState>()(
 				set({ todos: data });
 			} catch (error) {
 				if (error instanceof Error) {
-					console.error('Failed to fetch todos', error);
 					set({ error: new FetchTodosError(error.message).message });
 				}
 			} finally {
@@ -57,7 +56,6 @@ export const useTodoStore = create<TodoState>()(
 				set((state) => ({ todos: [...state.todos, data] }));
 			} catch (error) {
 				if (error instanceof Error) {
-					console.error('Failed to add todo', error);
 					set({ error: new AddTodoError(error.message).message });
 				}
 			} finally {
@@ -74,7 +72,6 @@ export const useTodoStore = create<TodoState>()(
 				}));
 			} catch (error) {
 				if (error instanceof Error) {
-					console.error('Failed to remove todo', error);
 					set({ error: new RemoveTodoError(error.message).message });
 				}
 			} finally {
@@ -96,7 +93,6 @@ export const useTodoStore = create<TodoState>()(
 				}));
 			} catch (error) {
 				if (error instanceof Error) {
-					console.error('Failed to update todo', error);
 					set({ error: new UpdateTodoError(error.message).message });
 				}
 			} finally {

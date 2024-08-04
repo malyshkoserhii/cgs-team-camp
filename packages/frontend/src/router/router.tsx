@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AddTodoPage from '~modules/todo/pages/AddTodoPage';
 import EditTodoPage from '~modules/todo/pages/EditTodoPage';
-import TodoPage from '~modules/todo/pages/TodoPage/TodoPage.component';
+import TodoPage from '~modules/todo/pages/TodoPage/TodoMainPage';
 import TodoDetailPage from '~modules/todo/pages/TodoDetailPage';
 import { ROUTER_KEYS } from '~shared/keys/router-keys';
 

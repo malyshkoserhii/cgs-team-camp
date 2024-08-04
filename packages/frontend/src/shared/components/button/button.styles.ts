@@ -1,19 +1,17 @@
 import { css } from '@emotion/css';
-import { THEME } from '~shared/styles/theme';
+import { colors } from '../../styles';
 
 export const btnStyles = (disabled: boolean): string => {
 	return css`
 		width: 100%;
-		padding: ${THEME.spacing.medium} 0;
-		font-size: ${THEME.fontSizes.medium};
+		padding: 17px 0;
+		font-size: 20px;
 		font-weight: 700;
-		color: ${disabled ? THEME.colors.secondary : THEME.colors.text};
-		background-color: ${disabled
-			? THEME.colors.border
-			: THEME.colors.primary};
+		color: ${disabled ? colors.imperial : colors.white};
+		background-color: ${disabled ? colors.grape : colors.UCLABlue};
 		border: none;
-		border-radius: ${THEME.borders.radius};
-		box-shadow: ${THEME.shadows.small};
+		border-radius: 28px;
+		box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.06);
 		text-align: center;
 	`;
 };

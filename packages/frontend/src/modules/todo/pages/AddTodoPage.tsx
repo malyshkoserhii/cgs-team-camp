@@ -1,17 +1,18 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { css } from '@emotion/css';
 import Button from '~shared/components/button/button.component';
 import { ValidationError } from '~/utils/errors';
 import { CreateTodoType } from '~/utils/types';
 import { useTodoStore } from '~store/todoStore';
-
-const formStyles = css`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-`;
+import {
+	formContainerStyles,
+	labelStyles,
+	inputStyles,
+	checkboxStyles,
+	buttonContainerStyles,
+	inputContainerStyles,
+} from './TodoPage.styles';
 
 const AddTodoPage: React.FC = () => {
 	const {
@@ -37,31 +38,47 @@ const AddTodoPage: React.FC = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmitHandler)} className={formStyles}>
-			<div>
-				<label htmlFor="title">Title</label>
+		<form
+			onSubmit={handleSubmit(onSubmitHandler)}
+			className={formContainerStyles}
+		>
+			<div className={inputContainerStyles}>
+				<label htmlFor="title" className={labelStyles}>
+					Title
+				</label>
 				<input
 					id="title"
 					type="text"
 					{...register('title', { required: 'Title is required' })}
+					className={inputStyles}
 				/>
 				{errors.title && <p>{errors.title.message}</p>}
 			</div>
-			<div>
-				<label htmlFor="description">Description</label>
-				<textarea id="description" {...register('description')} />
+			<div className={inputContainerStyles}>
+				<label htmlFor="description" className={labelStyles}>
+					Description
+				</label>
+				<textarea
+					id="description"
+					{...register('description')}
+					className={inputStyles}
+				/>
 			</div>
-			<div>
-				<label htmlFor="completed">
+			<div className={inputContainerStyles}>
+				<label htmlFor="completed" className={labelStyles}>
+					Completed
 					<input
 						id="completed"
 						type="checkbox"
 						{...register('completed')}
+						className={checkboxStyles}
 					/>
-					Completed
 				</label>
 			</div>
-			<Button type="submit" text="Add Todo" />
+			<div className={buttonContainerStyles}>
+				<Button type="submit" text="Add Todo" />
+				<Button text="Back" onClick={() => navigate(-1)} />
+			</div>
 		</form>
 	);
 };

@@ -4,7 +4,9 @@ class HttpService {
 	private baseUrl: string;
 	private fetchingService: AxiosInstance;
 
-	constructor(baseUrl: string = 'http://localhost:3030/api') {
+	constructor(
+		baseUrl: string = process.env.REACT_APP_API_BASE_URL as string,
+	) {
 		this.baseUrl = baseUrl;
 		this.fetchingService = axios.create({ baseURL: this.baseUrl });
 	}

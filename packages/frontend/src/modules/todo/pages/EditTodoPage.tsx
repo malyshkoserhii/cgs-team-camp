@@ -3,6 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTodoStore } from '~store/todoStore';
 import { UpdateTodoType } from '~/utils/types';
+import {
+	formContainerStyles,
+	labelStyles,
+	inputStyles,
+	checkboxStyles,
+	buttonContainerStyles,
+	inputContainerStyles,
+} from './TodoPage.styles';
+import Button from '~shared/components/button/button.component';
 
 interface EditTodoFormValues {
 	title: string;
@@ -14,7 +23,9 @@ const EditTodoPage: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 	const { getTodoById, updateTodo } = useTodoStore();
-	const [todo, setTodo] = useState(() => getTodoById(Number(id)));
+	const [todo, setTodo] = useState<EditTodoFormValues | undefined>(() =>
+		getTodoById(Number(id)),
+	);
 
 	useEffect(() => {
 		setTodo(getTodoById(Number(id)));
@@ -24,6 +35,7 @@ const EditTodoPage: React.FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<EditTodoFormValues>({
 		defaultValues: {
 			title: todo?.title || '',
@@ -32,9 +44,17 @@ const EditTodoPage: React.FC = () => {
 		},
 	});
 
+	useEffect(() => {
+		reset({
+			title: todo?.title || '',
+			description: todo?.description || '',
+			completed: todo?.completed || false,
+		});
+	}, [todo, reset]);
+
 	const onSubmit: SubmitHandler<EditTodoFormValues> = async (data) => {
 		if (todo) {
-			await updateTodo(todo.id, data as UpdateTodoType);
+			await updateTodo(Number(id), data as UpdateTodoType);
 			navigate('/');
 		}
 	};
@@ -44,36 +64,44 @@ const EditTodoPage: React.FC = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<div>
-				<label htmlFor="title">Title</label>
+		<form onSubmit={handleSubmit(onSubmit)} className={formContainerStyles}>
+			<div className={inputContainerStyles}>
+				<label htmlFor="title" className={labelStyles}>
+					Title
+				</label>
 				<input
 					id="title"
 					{...register('title', { required: 'Title is required' })}
+					className={inputStyles}
 				/>
-				{errors.title && <span>{errors.title.message}</span>}
+				{errors.title && <p>{errors.title.message}</p>}
 			</div>
-			<div>
-				<label htmlFor="description">Description</label>
-				<input
+			<div className={inputContainerStyles}>
+				<label htmlFor="description" className={labelStyles}>
+					Description
+				</label>
+				<textarea
 					id="description"
-					{...register('description', {
-						required: 'Description is required',
-					})}
+					{...register('description')}
+					className={inputStyles}
 				/>
-				{errors.description && (
-					<span>{errors.description.message}</span>
-				)}
+				{errors.description && <p>{errors.description.message}</p>}
 			</div>
-			<div>
-				<label htmlFor="completed">Completed</label>
-				<input
-					type="checkbox"
-					id="completed"
-					{...register('completed')}
-				/>
+			<div className={inputContainerStyles}>
+				<label htmlFor="completed" className={labelStyles}>
+					Completed
+					<input
+						type="checkbox"
+						id="completed"
+						{...register('completed')}
+						className={checkboxStyles}
+					/>
+				</label>
 			</div>
-			<button type="submit">Save</button>
+			<div className={buttonContainerStyles}>
+				<Button type="submit" text="Save" />
+				<Button text="Back" onClick={() => navigate(-1)} />
+			</div>
 		</form>
 	);
 };

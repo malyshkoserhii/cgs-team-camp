@@ -8,7 +8,7 @@ import {
 } from '~/utils/types';
 
 class TodosService {
-	private apiUrl = 'http://localhost:3030/api';
+	private apiUrl = process.env.REACT_APP_API_BASE_URL as string;
 
 	public async fetchAllTodos(): Promise<AxiosResponse<GetAllTodoType>> {
 		return axios.get<GetAllTodoType>(
