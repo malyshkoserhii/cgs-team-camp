@@ -2,7 +2,6 @@ import { Divider } from '@blueprintjs/core';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { optionsConfirm } from '~/components/changePasswordForm/model/formOptions';
-import { ROUTER_KEYS } from '~shared/const/keys.const';
 import { useAuth } from '~shared/hooks/useAuth.hook';
 import { resetPasswordSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/resetPassword.schema';
 import { updateUserNameSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/updateUser.schema';
@@ -13,15 +12,12 @@ import { optionsName } from '../model/formOptions';
 import { dividerStyle } from './updateUserForm.styles';
 
 export const UpdateUserForm = (): ReactElement => {
-	const { updateUser, currentLoading, error } = useUserStore();
+	const { updateUser, currentLoading } = useUserStore();
 	const { user } = useAuth();
 	const navigate = useNavigate();
 
 	const onSubmitUsername = async (data: { name: string }): Promise<void> => {
 		updateUser(data, navigate);
-		if (!error) {
-			navigate(ROUTER_KEYS.DASHBOARD);
-		}
 	};
 
 	const onSubmitPassword = async (data: {
