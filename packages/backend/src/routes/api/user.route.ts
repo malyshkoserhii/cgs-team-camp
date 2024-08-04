@@ -1,7 +1,7 @@
 import authController from '@/controllers/auth.controller';
 import { ctrlWrapper } from '@/helpers/ctrlWrapper';
-import { jwtAuth } from '@/middlewars/auth/jwtAuth';
-import { localAuth } from '@/middlewars/auth/localAuth';
+import { jwtAuth, localAuth } from '@/middlewars/auth.middleware';
+
 import { validateBody } from '@/middlewars/validateBody';
 import {
 	changePasswordSchema,

@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
 import { ctrlWrapper } from '@/helpers/ctrlWrapper';
-import { jwtAuth } from '@/middlewars/auth/jwtAuth';
+
+import { jwtAuth } from '@/middlewars/auth.middleware';
 import { isExist } from '@/middlewars/isExist';
 import { validateBody } from '@/middlewars/validateBody';
 import { createTodoSchema, UpdateTodoSchema } from '@/schemas/todo.schema';
