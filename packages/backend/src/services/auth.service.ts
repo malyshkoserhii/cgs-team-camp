@@ -30,7 +30,7 @@ export default class AuthService {
 			throw HttpError(409, 'User alredy exists');
 		}
 		const newUser = await prisma.user.create({ data: { ...data } });
-		// const verificationToken = tokenService.createToken(newUser.id);
+
 		const emailVerification = await prisma.emailVerification.create({
 			data: {
 				userId: newUser.id,
@@ -79,5 +79,15 @@ export default class AuthService {
 		});
 
 		return this.removeSensitiveInfo(updatedUser);
+	}
+	async updateUser(
+		user: UserType,
+		username: string,
+	): Promise<UserNoSensitiveData> {
+		const newUser = await prisma.user.update({
+			where: { id: user.id },
+			data: { username: username },
+		});
+		return this.removeSensitiveInfo(newUser);
 	}
 }

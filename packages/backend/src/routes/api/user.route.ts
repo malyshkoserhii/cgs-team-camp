@@ -5,6 +5,7 @@ import { localAuth } from '@/middlewars/auth/localAuth';
 import { validateBody } from '@/middlewars/validateBody';
 import {
 	changePasswordSchema,
+	updateUserSchema,
 	userLoginSchema,
 	userRegisterSchema,
 } from '@/schemas/user.schema';
@@ -37,5 +38,11 @@ authRouter.post(
 	jwtAuth,
 	validateBody(changePasswordSchema),
 	ctrlWrapper(authController.changePassword.bind(authController)),
+);
+authRouter.post(
+	'/update-user',
+	jwtAuth,
+	validateBody(updateUserSchema),
+	ctrlWrapper(authController.updateUser.bind(authController)),
 );
 export default authRouter;

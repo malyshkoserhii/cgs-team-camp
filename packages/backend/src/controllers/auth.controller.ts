@@ -23,9 +23,9 @@ export class AuthController {
 	async verifyEmail(req: Request, res: Response): Promise<void> {
 		const id = req.params.id;
 
-		const updateUser = await this.authService.verifyEmail(id);
+		const updatedUser = await this.authService.verifyEmail(id);
 
-		res.send(updateUser);
+		res.send(updatedUser);
 	}
 	async getCurrentUser(req: Request, res: Response): Promise<void> {
 		const user = req.user as UserType;
@@ -40,6 +40,12 @@ export class AuthController {
 			newPassword,
 		);
 
+		res.send(updatedUser);
+	}
+	async updateUser(req: Request, res: Response): Promise<void> {
+		const user = req.user as UserType;
+		const { username } = req.body;
+		const updatedUser = await this.authService.updateUser(user, username);
 		res.send(updatedUser);
 	}
 }
