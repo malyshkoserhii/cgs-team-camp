@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DashboardLayout from '~shared/components/layout/Dashboard.component';
+import DashboardLayout from '~shared/components/layout/dashboard.component';
 import { routes } from './routes';
 
 const Router: React.FunctionComponent = () => {

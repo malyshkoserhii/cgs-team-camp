@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from '~router/routes';
+import NavBar from '../navBar/navBar.component';
+import { menuConfig } from '../navBar/menu.config';
 
 interface IDashboardLayout {
 	children: React.ReactNode;
@@ -10,16 +10,10 @@ const DashboardLayout = ({
 	children,
 }: IDashboardLayout): React.ReactElement => {
 	return (
-		<div style={{ display: 'flex', gap: 200 }}>
+		<div>
 			<div>
 				<h2>User menu</h2>
-				<nav>
-					{routes.map((rout) => (
-						<Link key={rout.path} to={rout.path}>
-							{rout.title}
-						</Link>
-					))}
-				</nav>
+				<NavBar config={menuConfig} />
 			</div>
 
 			<div>{children}</div>

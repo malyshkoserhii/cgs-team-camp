@@ -14,7 +14,7 @@ export interface ITodo {
 }
 
 export interface ICreateTodo {
-	title: string;
+	title?: string;
 	description?: string;
 	public?: boolean;
 	completed?: boolean;

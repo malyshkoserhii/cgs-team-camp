@@ -48,6 +48,15 @@
 			],
 			"~pages/*": [
 				"src/shared/pages/*"
+			],
+			"~schemas/*": [
+				"src/shared/schemas/*"
+			],
+			"~utils/*": [
+				"src/shared/utils/*"
+			],
+			"~constants/*": [
+				"src/shared/constants/*"
 			]
 		}
 	},

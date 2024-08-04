@@ -3,6 +3,8 @@ import { create } from 'zustand';
 import { ICreateTodo, ITodo } from '~shared/interfaces/todo.interface';
 import TodoService from '~shared/services/todo.service';
 import { immer } from 'zustand/middleware/immer';
+import { enqueueSnackbar } from 'notistack';
+import { ERROR_MESSAGES } from '~shared/constants/errorMessages';
 
 interface ITodoStore {
 	todo: ITodo;
@@ -35,10 +37,12 @@ export const useTodoStore = create<ITodoStore>()(
 					set({
 						todos: data.data,
 						loading: false,
+						error: null,
 					});
 				} catch (error) {
-					// macke up somthing better for errors
-					console.error('Fieled to featch data', error);
+					enqueueSnackbar(ERROR_MESSAGES.NOT_FOUND, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
@@ -54,10 +58,13 @@ export const useTodoStore = create<ITodoStore>()(
 
 					set({
 						todo: data.data,
+						loading: false,
+						error: null,
 					});
 				} catch (error) {
-					// macke up somthing better for errors
-					console.error('Fieled to featch data', error);
+					enqueueSnackbar(ERROR_MESSAGES.NOT_FOUND, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
@@ -74,10 +81,12 @@ export const useTodoStore = create<ITodoStore>()(
 					set((state) => ({
 						todos: [...state.todos, data.data],
 						loading: false,
+						error: null,
 					}));
 				} catch (error) {
-					// macke up somthing better for errors
-					console.error('Fieled to featch data', error);
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
@@ -99,10 +108,12 @@ export const useTodoStore = create<ITodoStore>()(
 							todo.id === data.data.id ? data.data : todo,
 						),
 						loading: false,
+						error: null,
 					}));
 				} catch (error) {
-					// macke up somthing better for errors
-					console.error('Fieled to featch data', error);
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
@@ -123,10 +134,12 @@ export const useTodoStore = create<ITodoStore>()(
 							(todo) => todo.id !== Number(id),
 						),
 						loading: false,
+						error: null,
 					}));
 				} catch (error) {
-					// macke up somthing better for errors
-					console.error('Fieled to featch data', error);
+					enqueueSnackbar(ERROR_MESSAGES.NOT_FOUND, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
