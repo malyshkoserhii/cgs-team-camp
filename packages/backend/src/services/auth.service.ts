@@ -69,4 +69,15 @@ export default class AuthService {
 		});
 		return this.removeSensitiveInfo(updatedUser);
 	}
+	async changePassword(
+		user: UserType,
+		newPassword: string,
+	): Promise<UserNoSensitiveData> {
+		const updatedUser = await prisma.user.update({
+			where: { id: user.id },
+			data: { password: newPassword },
+		});
+
+		return this.removeSensitiveInfo(updatedUser);
+	}
 }

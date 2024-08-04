@@ -27,6 +27,21 @@ export class AuthController {
 
 		res.send(updateUser);
 	}
+	async getCurrentUser(req: Request, res: Response): Promise<void> {
+		const user = req.user as UserType;
+
+		res.send(this.authService.removeSensitiveInfo(user));
+	}
+	async changePassword(req: Request, res: Response): Promise<void> {
+		const user = req.user as UserType;
+		const newPassword = req.body.newPassword;
+		const updatedUser = await this.authService.changePassword(
+			user,
+			newPassword,
+		);
+
+		res.send(updatedUser);
+	}
 }
 const authController = new AuthController(new AuthService(new MailService()));
 export default authController;
