@@ -1,6 +1,4 @@
-import * as process from 'node:process';
 import sgMail from '@sendgrid/mail';
-import 'dotenv/config';
 
 const { SENDGRID_API_KEY, SENDGRID_EMAIL_FROM, BASE_URL } = process.env;
 

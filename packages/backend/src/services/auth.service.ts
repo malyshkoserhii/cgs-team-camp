@@ -6,8 +6,10 @@ import { MailService } from '@/services/mail.service';
 export class AuthService {
 	constructor(private mailService: MailService) {}
 
-	async getUserDataToSend(data: User): Promise<Omit<User, 'password'>> {
-		const { password: _, ...userDataToSend } = data;
+	async getUserDataToSend(
+		data: User,
+	): Promise<Omit<User, 'password' | 'id'>> {
+		const { password: _password, id: _id, ...userDataToSend } = data;
 		return userDataToSend;
 	}
 
