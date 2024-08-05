@@ -2,14 +2,15 @@ import TodoService from '@/services/todo.service';
 import { responseMessages } from '@/const/responseMessages';
 import { responseCodes } from '@/const/responseCodes';
 
-import type { Response, Request, NextFunction } from 'express';
-import type { User } from '@prisma/client';
+import type { Response, NextFunction } from 'express';
+
+import type { RequestWithUser } from '@/types/request.type';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
 	async createTodo(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -23,7 +24,7 @@ export class TodoController {
 	}
 
 	async updateTodo(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -51,7 +52,7 @@ export class TodoController {
 	}
 
 	async getAllTodo(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -65,7 +66,7 @@ export class TodoController {
 	}
 
 	async getTodoById(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -88,7 +89,7 @@ export class TodoController {
 	}
 
 	async deleteTodo(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -114,4 +115,5 @@ export class TodoController {
 }
 
 const todoController = new TodoController(new TodoService());
+
 export default todoController;

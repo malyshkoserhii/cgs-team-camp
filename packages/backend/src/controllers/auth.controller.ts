@@ -7,13 +7,14 @@ import {
 } from '@/helpers/email.helper';
 
 import type { Request, Response, NextFunction } from 'express';
-import type { User } from '@prisma/client';
+
+import type { RequestWithUser } from '@/types/request.type';
 
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	async getUserById(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -144,7 +145,7 @@ export class AuthController {
 	}
 
 	async changePassword(
-		req: Request & { user?: User },
+		req: RequestWithUser,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
