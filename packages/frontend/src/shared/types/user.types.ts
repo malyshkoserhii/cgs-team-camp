@@ -27,3 +27,12 @@ export type changePasswordType = {
 	oldPassword: string;
 	newPassword: string;
 };
+export type forgetPasswordType = {
+	email: string;
+};
+export type EditUserType = {
+	username: string;
+};
+export type resetPasswordType = {
+	newPassword: string;
+};
