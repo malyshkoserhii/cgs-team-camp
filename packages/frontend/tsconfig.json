@@ -45,6 +45,12 @@
 			],
 			"~services/*": [
 				"src/services/*"
+			],
+			"~schemas/*": [
+				"src/shared/schemas/*"
+			],
+			"~constants/*": [
+				"src/shared/constants/*"
 			]
 		}
 	},

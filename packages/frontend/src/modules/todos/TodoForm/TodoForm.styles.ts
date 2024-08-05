@@ -11,13 +11,6 @@ export const formStyle = css`
 	}
 `;
 
-export const inputStyle = css`
-	padding: ${THEME.spaces.small};
-	font-size: ${THEME.fontSizes.medium};
-	border: 1px solid ${COLORS.primary};
-	border-radius: 4px;
-`;
-
 export const buttonStyle = css`
 	background-color: ${COLORS.primary};
 	color: white;
@@ -49,10 +42,4 @@ export const container = css`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-`;
-
-export const filedGroupWrapper = css`
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
 `;

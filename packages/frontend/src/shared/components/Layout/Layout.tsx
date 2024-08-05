@@ -17,7 +17,9 @@ export const Layout: React.FC = () => {
 					<StyledNavLink to={ROUTER_KEYS.DASHBOARD}>
 						Todo List
 					</StyledNavLink>
-					<StyledNavLink to={'/profile'}>Profile</StyledNavLink>
+					<StyledNavLink to={ROUTER_KEYS.PROFILE}>
+						Profile
+					</StyledNavLink>
 				</nav>
 			</header>
 
