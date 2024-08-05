@@ -1,9 +1,7 @@
 import { Intent } from '@blueprintjs/core';
-
 import { responseCodes } from '~/api/responseCodes';
 import { responseMessages } from '~/api/responseMessages';
 import { showToast } from '~/utils/showToast';
-
 import type { AxiosError } from 'axios';
 
 class ApiError extends Error {
@@ -16,52 +14,30 @@ class ApiError extends Error {
 	}
 }
 
+const errorMap: { [key: number]: string } = {
+	[responseCodes.BAD_REQUEST]: responseMessages.BAD_REQUEST,
+	[responseCodes.UNAUTHORIZED]: responseMessages.UNAUTHORIZED,
+	[responseCodes.FORBIDDEN]: responseMessages.FORBIDDEN,
+	[responseCodes.NOT_FOUND]: responseMessages.NOT_FOUND,
+	[responseCodes.INTERNAL_SERVER_ERROR]:
+		responseMessages.INTERNAL_SERVER_ERROR,
+};
+
 export const errorHandler = (axiosError: AxiosError): ApiError => {
 	let apiError: ApiError;
 
-	switch (axiosError.response?.status) {
-		case responseCodes.BAD_REQUEST:
-			apiError = new ApiError(
-				responseMessages.BAD_REQUEST,
-				responseCodes.BAD_REQUEST,
-			);
-			break;
-		case responseCodes.UNAUTHORIZED:
-			apiError = new ApiError(
-				responseMessages.UNAUTHORIZED,
-				responseCodes.UNAUTHORIZED,
-			);
-			break;
-		case responseCodes.FORBIDDEN:
-			apiError = new ApiError(
-				responseMessages.FORBIDDEN,
-				responseCodes.FORBIDDEN,
-			);
-			break;
-		case responseCodes.NOT_FOUND:
-			apiError = new ApiError(
-				responseMessages.NOT_FOUND,
-				responseCodes.NOT_FOUND,
-			);
-			break;
-		case responseCodes.INTERNAL_SERVER_ERROR:
-			apiError = new ApiError(
-				responseMessages.INTERNAL_SERVER_ERROR,
-				responseCodes.INTERNAL_SERVER_ERROR,
-			);
-			break;
-		default:
-			if (axiosError.response) {
-				apiError = new ApiError(
-					`Request failed with status ${axiosError?.response.status}`,
-					axiosError.response.status,
-				);
-			} else if (axiosError.request) {
-				apiError = new ApiError(responseMessages.NO_RESPONSE, 0);
-			} else {
-				apiError = new ApiError(responseMessages.REQUEST_ERROR, 0);
-			}
-			break;
+	const status = axiosError.response?.status;
+	if (status && status in errorMap) {
+		apiError = new ApiError(errorMap[status], status);
+	} else if (axiosError.response) {
+		apiError = new ApiError(
+			`Request failed with status ${axiosError.response.status}`,
+			axiosError.response.status,
+		);
+	} else if (axiosError.request) {
+		apiError = new ApiError(responseMessages.NO_RESPONSE, 0);
+	} else {
+		apiError = new ApiError(responseMessages.REQUEST_ERROR, 0);
 	}
 
 	showToast(apiError.message, Intent.DANGER);

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button, FormGroup, InputGroup, Switch } from '@blueprintjs/core';
 import * as Yup from 'yup';
 
-import { formWrapperStyles } from './todo-form.styles';
+import { actionButtonsWrapper, formWrapperStyles } from './todo-form.styles';
+import { getErrorMessage } from '~/utils/getErrorMessage';
 
 import { TodoStatus, type Todo } from '~typings/todo';
 
@@ -25,13 +26,47 @@ const TodoForm: React.FC<TodoFormProps> = ({
 	initialValues,
 	onSubmit,
 }) => {
-	const defaultValues = {
-		name: initialValues?.name ?? '',
-		description: initialValues?.description ?? '',
-		status: initialValues?.status ?? TodoStatus.InProgress,
-		isPrivate: initialValues?.isPrivate ?? false,
-		...initialValues,
-	};
+	const defaultValues = useMemo(
+		() => ({
+			name: initialValues?.name ?? '',
+			description: initialValues?.description ?? '',
+			status: initialValues?.status ?? TodoStatus.InProgress,
+			isPrivate: initialValues?.isPrivate ?? false,
+			...initialValues,
+		}),
+		[initialValues],
+	);
+
+	const handleStatusChange = useCallback(
+		(
+			setFieldValue: (field: string, value: TodoStatus) => void,
+			currentStatus: TodoStatus,
+		) => {
+			setFieldValue(
+				'status',
+				currentStatus === TodoStatus.Completed
+					? TodoStatus.InProgress
+					: TodoStatus.Completed,
+			);
+		},
+		[],
+	);
+
+	const handlePrivateChange = useCallback(
+		(
+			setFieldValue: (field: string, value: boolean) => void,
+			currentIsPrivate: boolean,
+		) => {
+			setFieldValue('isPrivate', !currentIsPrivate);
+		},
+		[],
+	);
+
+	const handleFormSubmit = useCallback((values, { setSubmitting }) => {
+		onSubmit(values);
+		setSubmitting(false);
+		onClose();
+	}, []);
 
 	return (
 		<div className={formWrapperStyles}>
@@ -39,18 +74,16 @@ const TodoForm: React.FC<TodoFormProps> = ({
 			<Formik
 				initialValues={defaultValues}
 				validationSchema={TodoSchema}
-				onSubmit={(values, { setSubmitting }) => {
-					onSubmit(values);
-					setSubmitting(false);
-					onClose();
-				}}
+				onSubmit={handleFormSubmit}
 			>
 				{({ errors, touched, isSubmitting, values, setFieldValue }) => (
 					<Form>
 						<FormGroup
 							label="Name"
 							labelFor="name"
-							helperText={touched.name && errors.name}
+							helperText={
+								touched.name && getErrorMessage(errors.name)
+							}
 							intent={
 								touched.name && errors.name ? 'danger' : 'none'
 							}
@@ -67,7 +100,8 @@ const TodoForm: React.FC<TodoFormProps> = ({
 							label="Description"
 							labelFor="description"
 							helperText={
-								touched.description && errors.description
+								touched.description &&
+								getErrorMessage(errors.description)
 							}
 							intent={
 								touched.description && errors.description
@@ -86,7 +120,9 @@ const TodoForm: React.FC<TodoFormProps> = ({
 						<FormGroup
 							label="Status"
 							labelFor="status"
-							helperText={touched.status && errors.status}
+							helperText={
+								touched.status && getErrorMessage(errors.status)
+							}
 							intent={
 								touched.status && errors.status
 									? 'danger'
@@ -100,21 +136,22 @@ const TodoForm: React.FC<TodoFormProps> = ({
 										? 'Completed'
 										: 'In Progress'
 								}
-								onChange={() => {
-									setFieldValue(
-										'status',
-										values.status === TodoStatus.Completed
-											? TodoStatus.InProgress
-											: TodoStatus.Completed,
-									);
-								}}
+								onChange={() =>
+									handleStatusChange(
+										setFieldValue,
+										values.status,
+									)
+								}
 							/>
 						</FormGroup>
 
 						<FormGroup
 							label="Access"
 							labelFor="isPrivate"
-							helperText={touched.isPrivate && errors.isPrivate}
+							helperText={
+								touched.isPrivate &&
+								getErrorMessage(errors.isPrivate)
+							}
 							intent={
 								touched.isPrivate && errors.isPrivate
 									? 'danger'
@@ -124,22 +161,16 @@ const TodoForm: React.FC<TodoFormProps> = ({
 							<Switch
 								checked={values.isPrivate}
 								label={values.isPrivate ? 'Private' : 'Public'}
-								onChange={() => {
-									setFieldValue(
-										'isPrivate',
-										!values.isPrivate,
-									);
-								}}
+								onChange={() =>
+									handlePrivateChange(
+										setFieldValue,
+										values.isPrivate,
+									)
+								}
 							/>
 						</FormGroup>
 
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'flex-end',
-								gap: '10px',
-							}}
-						>
+						<div className={actionButtonsWrapper}>
 							<Button onClick={onClose}>Cancel</Button>
 							<Button
 								type="submit"
