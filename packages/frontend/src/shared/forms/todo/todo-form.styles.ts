@@ -8,3 +8,9 @@ export const formWrapperStyles = css`
 	grid-template-columns: 1fr;
 	gap: 6px;
 `;
+
+export const actionButtonsWrapper = css`
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+`;

@@ -41,10 +41,4 @@ export class TodoService extends HttpService {
 			apiRoute: `${this.apiRoute}/${id}`,
 		});
 	}
-
-	// // Toggle todo completion status
-	// async toggleTodoCompletion(id: number): Promise<Todo> {
-	// 	const todo = await this.getTodoById(id);
-	// 	return this.updateTodo(id, { completed: !todo.completed });
-	// }
 }
