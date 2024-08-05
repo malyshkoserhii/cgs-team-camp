@@ -1,6 +1,7 @@
 import passport, { PassportStatic } from 'passport';
 
 import { IStrategyOptions, Strategy as LocalStrategy } from 'passport-local';
+import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 
 import { prismaClient } from '@/prisma/prismaClient';
 import { User } from '@prisma/client';
@@ -12,7 +13,7 @@ const optionsLocal: IStrategyOptions = {
 	passwordField: 'password',
 };
 
-export function useLocalStrategy(passport: PassportStatic): void {
+export const useLocalStrategy = (passport: PassportStatic): void => {
 	passport.use(
 		new LocalStrategy(optionsLocal, async function (
 			email: string,
@@ -42,11 +43,43 @@ export function useLocalStrategy(passport: PassportStatic): void {
 			}
 		}),
 	);
-}
+};
+
+// JWT strategy
+const optionsJwt = {
+	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	secretOrKey: process.env.SECRET_KEY_JWT!,
+};
+
+export const useJwtStrategy = (passport: PassportStatic): void => {
+	passport.use(
+		new JwtStrategy(optionsJwt, async function (
+			jwt_payload: Pick<User, 'id'>,
+			done: (error: Error | null, user?: User | false) => void,
+		) {
+			try {
+				const user = await prismaClient.user.findUnique({
+					where: { id: jwt_payload.id },
+				});
+				if (!user) {
+					return done(
+						ApiErrors.NotFound('No user with this email'),
+						false,
+					);
+				} else {
+					return done(null, user);
+				}
+			} catch (error) {
+				return done(ApiErrors.BadRequest('Bad request'), false);
+			}
+		}),
+	);
+};
 
 // Create passport service
 const passportService: PassportStatic = passport;
 
 useLocalStrategy(passportService);
+useJwtStrategy(passportService);
 
 export default passportService;

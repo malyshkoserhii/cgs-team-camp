@@ -19,7 +19,6 @@ export class AuthController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		// TODO check for isUserExist doubling with PrismaError
 		const isUserExist = await this.authService.findUserByEmail(
 			req.body.email,
 		);
@@ -43,12 +42,47 @@ export class AuthController {
 		const user = req.user as User;
 
 		const accessToken = this.tokenService.createToken(user.id);
-		const loggedUser = await this.authService.getUserDataToSend(user);
+		const userDataToSend = await this.authService.getUserDataToSend(user);
 
-		res.status(200).json({ user: { ...loggedUser, accessToken } });
+		res.status(200).json({ user: { ...userDataToSend, accessToken } });
+	}
+
+	async verifyEmail(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const token = req.params.token;
+
+		const activationToken =
+			await this.authService.verifyActivationToken(token);
+
+		if (!activationToken) {
+			return next(
+				ApiErrors.NotFound('User not found. Try register again later'),
+			);
+		}
+
+		const user = await this.authService.findUserById(
+			activationToken.userId,
+		);
+
+		if (user?.isEmailVerified) {
+			return next(ApiErrors.Conflict('Email already verified'));
+		}
+
+		const verifiedUser = await this.authService.updateUserById(
+			activationToken.userId,
+			{ isEmailVerified: true },
+		);
+
+		if (verifiedUser?.isEmailVerified) {
+			res.status(200).json({ message: 'Email verified successfully' });
+		}
 	}
 }
 
+// export controllers
 const mailService = new MailService();
 const tokenService = new TokenService();
 
@@ -64,4 +98,7 @@ export const ctrRegister = tryCatchMiddleware(
 
 export const ctrLogin = tryCatchMiddleware(
 	authController.login.bind(authController),
+);
+export const ctrVerifyEmail = tryCatchMiddleware(
+	authController.verifyEmail.bind(authController),
 );

@@ -5,20 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/backend/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240805104112_user/migration.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/auth.middleware.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/services/passport.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/services/token.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/backend/src/controllers/user.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804230213_user/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240805104112_user/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewares/auth.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/auth.middleware.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/user.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/user.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/auth.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/passport.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/passport.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/token.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/token.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,25 +57,25 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/authorization-backend",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.11.1",
-    "javascript.nodejs.core.library.typings.version": "20.11.30",
-    "last_opened_file_path": "D:/FSDev-advanced/test-CGS/cgs-team-camp/packages/backend/src/services",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/authorization-backend&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced/test-CGS/cgs-team-camp/packages/backend/src/services&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\FSDev-advanced\test-CGS\cgs-team-camp\packages\backend\src\services" />
@@ -100,6 +103,10 @@
       <workItem from="1722501699505" duration="1525000" />
       <workItem from="1722503402301" duration="226000" />
       <workItem from="1722503666978" duration="478000" />
+      <workItem from="1722886478348" duration="131000" />
+      <workItem from="1722886625169" duration="163000" />
+      <workItem from="1722886809960" duration="3171000" />
+      <workItem from="1722890026318" duration="1437000" />
     </task>
     <servers />
   </component>

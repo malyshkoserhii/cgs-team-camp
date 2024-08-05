@@ -1,7 +1,8 @@
 import { Application } from 'express';
-import todosRouter from './api/todos.route';
-import userRouter from './api/user.route';
+
 import authRouter from './api/auth.route';
+import userRouter from './api/user.route';
+import todosRouter from './api/todos.route';
 
 class AppRouter {
 	constructor(private app: Application) {}

@@ -27,11 +27,20 @@ export class AuthService {
 		});
 	}
 
-	async updateUser(id: string, data: User): Promise<User | null> {
+	async updateUserById(
+		id: string,
+		data: Partial<User>,
+	): Promise<User | null> {
 		return prismaClient.user.update({ where: { id }, data });
 	}
 
 	async createActivationToken(userId: string): Promise<ActivationToken> {
 		return prismaClient.activationToken.create({ data: { userId } });
+	}
+
+	async verifyActivationToken(
+		token: string,
+	): Promise<ActivationToken | null> {
+		return prismaClient.activationToken.findUnique({ where: { token } });
 	}
 }

@@ -34,6 +34,7 @@ model User {
   updatedAt       DateTime         @updatedAt
   todos           Todo[]
   activationToken ActivationToken?
+  isEmailVerified Boolean          @default(false)
 }
 
 model ActivationToken {
