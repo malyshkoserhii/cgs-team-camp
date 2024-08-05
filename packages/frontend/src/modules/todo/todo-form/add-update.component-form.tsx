@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import { ITodoCreate } from "~/types/todo.type"
 import { TodoForm } from "./todo-form.component"
-import React from "react"
+import React, { ReactElement } from "react"
 
 const INITIAL_VALUES = {
     title: '',
@@ -10,7 +10,7 @@ const INITIAL_VALUES = {
     isPrivate: false,
 }
 
-const AddAndUpdateForm = () => {
+const AddAndUpdateForm = ():ReactElement => {
     const formik = useFormik<ITodoCreate>({
         initialValues: INITIAL_VALUES,
         onSubmit: ()=>{}, //write submit query

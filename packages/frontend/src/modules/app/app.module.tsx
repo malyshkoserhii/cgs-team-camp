@@ -5,7 +5,9 @@ import { ITodo } from '~/types/todo.type';
 import { TodoContainer } from '~modules/todo/todo-container/todo-container.component';
 import AddAndUpdateForm from '~modules/todo/todo-form/add-update.component-form';
 import { Container } from '~shared/components/container/container.components';
-
+import { ROUTER_KEYS } from '~shared/consts/app-keys.const';
+import { Dialog } from '@blueprintjs/core';
+import { Modal } from '~shared/components/modal/modal.component';
 const todosArr: ITodo[] = [
 	{
 		id: 1,
@@ -28,13 +30,14 @@ const todosArr: ITodo[] = [
 const App = (): React.ReactNode => {
 	return (
 		<>
+		
 			<Container>
 				<Routes>
-					<Route path='/' element={<HomePage/>}/>
+					<Route path={ROUTER_KEYS.HOME} element={<HomePage/>}/>
 				</Routes>
 				
 			</Container>
-
+				
 			{/* <AddAndUpdateForm/> */}
 		</>
 	);
