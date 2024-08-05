@@ -16,4 +16,6 @@ export const ApiAuthEndpoints = {
 	RESET_PASSWORD: (id: string) => `${ApiResources.USER}/reset-password/${id}`,
 	CURRENT_USER: `${ApiResources.USER}/current-user`,
 	UPDATE_USER: `${ApiResources.USER}/update-user`,
+	CONFIRM_EMAIL_VERIFICATION: (id: string) =>
+		`${ApiResources.USER}/verify/${id}`,
 } as const;

@@ -10,7 +10,7 @@ import {
 	RegisterUserType,
 	User,
 	UserNoSensetiveData,
-} from '~shared/types/User.types';
+} from '~shared/types/user.types';
 
 const authService = new AuthService();
 
@@ -18,7 +18,7 @@ interface AuthStoreState {
 	user: User | UserNoSensetiveData | null;
 
 	loading: boolean;
-	error: AxiosError | null;
+	authError: AxiosError | null;
 	login: (user: LoginUserType) => Promise<void>;
 	register: (user: RegisterUserType) => Promise<void>;
 	isLoggedIn: boolean;
@@ -28,6 +28,7 @@ interface AuthStoreState {
 	getCurrentUser: () => Promise<void>;
 	resetPassword: (token: string, password: string) => Promise<void>;
 	forgetPassword: (email: string) => Promise<void>;
+	verifyEmail: (id: string) => void;
 }
 
 export const useAuthStore = create(
@@ -35,7 +36,7 @@ export const useAuthStore = create(
 		(set) => ({
 			user: null,
 			loading: false,
-			error: null,
+			authError: null,
 			isLoggedIn: !!localStorage.getItem(STORAGE_KEYS.TOKEN),
 			login: async (user: LoginUserType): Promise<void> => {
 				set({ loading: true });
@@ -45,7 +46,7 @@ export const useAuthStore = create(
 					set({ user: response.user, isLoggedIn: true });
 				} catch (error) {
 					console.error('Failed to login', error);
-					set({ error: error.message });
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}
@@ -58,7 +59,7 @@ export const useAuthStore = create(
 					set({ user: response });
 				} catch (error) {
 					console.error('Failed to register', error);
-					set({ error: error.message });
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}
@@ -69,7 +70,9 @@ export const useAuthStore = create(
 					await authService.changePassword(data);
 				} catch (error) {
 					console.error('Failed to change password', error);
-					set({ error: error.message });
+					set({
+						authError: error.message,
+					});
 				} finally {
 					set({ loading: false });
 				}
@@ -84,20 +87,31 @@ export const useAuthStore = create(
 					await authService.updateUser(data);
 				} catch (error) {
 					console.error('Failed to update User', error);
-					set({ error: error.message });
+					set({ authError: error.message });
+				} finally {
+					set({ loading: false });
+				}
+			},
+			verifyEmail: async (id: string): Promise<void> => {
+				set({ loading: true });
+				try {
+					await authService.confirmEmailVerification(id);
+				} catch (error) {
+					console.error('Failed to update User', error);
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}
 			},
 			getCurrentUser: async (): Promise<void> => {
-				set({ loading: true });
+				set({ loading: true, authError: null });
 				try {
 					const response = await authService.getCurrentUser();
 
-					set({ user: response, isLoggedIn: true });
+					set({ user: response, isLoggedIn: true, authError: null });
 				} catch (error) {
 					console.error('Error with User', error);
-					set({ error: error.message });
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}
@@ -112,7 +126,7 @@ export const useAuthStore = create(
 					await authService.resetPassword(token, password);
 				} catch (error) {
 					console.error('Error with resetting password', error);
-					set({ error: error.message });
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}
@@ -123,7 +137,7 @@ export const useAuthStore = create(
 					await authService.forgetPassword(email);
 				} catch (error) {
 					console.error('Error request', error);
-					set({ error: error.message });
+					set({ authError: error.message });
 				} finally {
 					set({ loading: false });
 				}

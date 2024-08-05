@@ -1,13 +1,14 @@
 import { STORAGE_KEYS } from '~shared/keys/router-keys';
 
 import { ApiAuthEndpoints } from '~shared/keys/api-keys';
+
 import {
 	changePasswordType,
 	LoginUserResponse,
 	LoginUserType,
 	RegisterUserType,
 	UserNoSensetiveData,
-} from '~shared/types/User.types';
+} from '~shared/types/user.types';
 import HttpService from './http.service';
 
 class AuthService extends HttpService {
@@ -49,7 +50,7 @@ class AuthService extends HttpService {
 		);
 	}
 	async updateUser(username: string): Promise<void> {
-		await this.post<void>(
+		await this.put<void>(
 			{
 				url: ApiAuthEndpoints.UPDATE_USER,
 				data: { username },
@@ -67,11 +68,11 @@ class AuthService extends HttpService {
 
 		return response.data;
 	}
-	async resetPassword(password: string, token: string): Promise<string> {
+	async resetPassword(newPassword: string, token: string): Promise<string> {
 		const response = await this.post<string>(
 			{
 				url: ApiAuthEndpoints.RESET_PASSWORD(token),
-				data: { password },
+				data: { newPassword },
 			},
 			false,
 		);
@@ -88,6 +89,11 @@ class AuthService extends HttpService {
 		);
 
 		return response.data;
+	}
+	async confirmEmailVerification(id: string): Promise<void> {
+		await this.get<UserNoSensetiveData>({
+			url: ApiAuthEndpoints.CONFIRM_EMAIL_VERIFICATION(id),
+		});
 	}
 }
 
