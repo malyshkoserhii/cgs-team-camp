@@ -62,6 +62,7 @@ export function UtilForm<T>({
 						type="submit"
 						text={submitButtonText}
 						disabled={submitting}
+						loading={submitting}
 					/>
 				</form>
 			)}
