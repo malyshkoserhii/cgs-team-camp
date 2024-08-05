@@ -5,30 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomCheckbox/CustomCheckbox.styles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomCheckbox/CustomCheckbox.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.styles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/constants/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/constants/joiErrors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/schemas/todo.schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/button/button.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/button/button.styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/styles/global-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/styles/global-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/styles/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/styles/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

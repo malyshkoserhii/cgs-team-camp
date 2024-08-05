@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Button, ButtonGroup } from '@blueprintjs/core';
 import { toast } from 'react-toastify';
 
 import { useTodoStore } from '~store/todo.store';
-import { Loader, StyledNavLink } from '~shared/components';
+import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
 import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
 import { TodoList } from '~modules/todos/TodoList/TodoList';
 import {
-	buttonGroupStyle,
 	container,
 	searchInputStyle,
 	wrapper,
@@ -52,33 +50,12 @@ export const TodosModule = (): React.ReactNode => {
 						Add new
 					</StyledNavLink>
 				</div>
+
+				<FilterSelect
+					selectedFilter={filter}
+					onFilterChange={handleFilterChange}
+				/>
 			</div>
-			<ButtonGroup className={buttonGroupStyle}>
-				<Button
-					active={filter === FILTER_KEYS.ALL}
-					onClick={() => handleFilterChange(FILTER_KEYS.ALL)}
-				>
-					All
-				</Button>
-				<Button
-					active={filter === FILTER_KEYS.COMPLETED}
-					onClick={() => handleFilterChange(FILTER_KEYS.COMPLETED)}
-				>
-					Completed
-				</Button>
-				<Button
-					active={filter === FILTER_KEYS.PRIVATE}
-					onClick={() => handleFilterChange(FILTER_KEYS.PRIVATE)}
-				>
-					Private
-				</Button>
-				<Button
-					active={filter === FILTER_KEYS.PUBLIC}
-					onClick={() => handleFilterChange(FILTER_KEYS.PUBLIC)}
-				>
-					Public
-				</Button>
-			</ButtonGroup>
 
 			{!loading && !error && <TodoList filteredTodos={todos} />}
 			{loading && <Loader loading={loading} />}

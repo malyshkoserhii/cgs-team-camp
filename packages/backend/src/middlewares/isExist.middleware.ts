@@ -26,24 +26,6 @@ export const isExistMiddleware = (model: ModelType) => {
 				);
 			}
 
-			if (req.method === 'PUT') {
-				const isTodoExist: Todo | null = await findTodoByTitle(
-					req.body.title,
-				);
-
-				// Determine if the existing record is different from the one being updated
-				const isDifferentTodo =
-					!!isTodoExist && isTodoExist.id !== reqId;
-
-				if (isDifferentTodo) {
-					return next(
-						ApiErrors.Conflict(
-							`Todo whit title: "${isTodoExist.title}" already exists`,
-						),
-					);
-				}
-			}
-
 			next();
 		} catch (err) {
 			next(err);
