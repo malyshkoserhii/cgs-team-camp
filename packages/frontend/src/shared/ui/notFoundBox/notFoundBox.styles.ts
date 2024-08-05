@@ -1,12 +1,11 @@
 import { css } from '@emotion/css';
 import { colors } from '~shared/styles';
 
-export const containerStyle = css`
+export const containerStyle = (fullHeight: boolean): string => css`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
-	background-color: ${colors.mainBgColor};
+	height: ${fullHeight ? '100vh' : 'auto'};
 `;
 
 export const contentStyle = css`
@@ -14,7 +13,6 @@ export const contentStyle = css`
 	background: ${colors.secondaryBgColor};
 	border-radius: 8px;
 	padding: 2rem;
-	box-shadow: 0 4px 8px ${colors.blackCoral};
 `;
 
 export const titleStyle = css`

@@ -13,11 +13,19 @@ import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
 import { Switch } from '~shared/ui/switch';
 import useModalStore from '~store/modal.store';
 import { useTodoStore } from '~store/todos.store';
-import { todoBoxStyles } from './todoItem.styles';
+import {
+	headingActionsStyle,
+	headingDescriptionStyle,
+	headingStatusStyle,
+	headingTitleStyle,
+	privacyStyle,
+	todoBoxStyles,
+	todoRowContainerStyles,
+} from './todoItem.styles';
 import { TodoItemCard } from './todoItemCard.component';
 
 export const TodoItem = (todo: TodoI): ReactElement => {
-	const { description, name, id } = todo;
+	const { description, name, id, isPrivate } = todo;
 	const openModal = useModalStore((state) => state.openModal);
 	const { params } = useFilter<TodoFormModel>();
 	const {
@@ -31,7 +39,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 	const isMobileAndTablet = useMediaQuery({
 		query: `(max-width: ${breakpoints.lg})`,
 	});
-	const isUsersTodo = !user?.todos?.some((elId) => elId === id);
+	const isUsersTodo = !user?.todos?.find((elId) => elId === id);
 
 	const onUpdateStatus = async (): Promise<void> => {
 		await changeStatusById(
@@ -62,6 +70,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 				onUpdateStatus={onUpdateStatus}
 				onOpenModal={onOpenModal}
 				onDelete={onDelete}
+				isPrivate={isPrivate}
 				changeStatusIsLoading={false}
 				deleteIsLoading={false}
 				isMobileAndTablet={isMobileAndTablet}
@@ -75,27 +84,48 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 			className={todoBoxStyles}
 			justify="space-between"
 			direction={isMobileAndTablet ? 'column' : 'row'}
+			align="center"
 		>
 			<Flex
 				gap="25px"
 				justify="flex-start"
 				align="center"
 				direction={isMobileAndTablet ? 'column' : 'row'}
+				className={todoRowContainerStyles}
 			>
-				<Switch
-					onChange={onUpdateStatus}
-					disabled={changeStatusIsLoading || isUsersTodo}
-					checked={todo.status === TodoStatusE.Completed}
-				/>
-				<Flex direction="column" gap="5px">
+				<Flex align="flex-start" className={headingStatusStyle}>
+					<Switch
+						onChange={onUpdateStatus}
+						disabled={changeStatusIsLoading || isUsersTodo}
+						checked={todo.status === TodoStatusE.Completed}
+					/>
+				</Flex>
+				<Flex className={headingTitleStyle}>
 					<Text size="small">{name}</Text>
 				</Flex>
-				<Flex direction="column" gap="5px">
+				<Flex className={headingDescriptionStyle}>
 					<Text size="small">{description}</Text>
 				</Flex>
+				<Flex className={privacyStyle}>
+					{isPrivate ? (
+						<Button
+							toolTipMessage="Private task."
+							variant="clear"
+							icon="lock"
+							fullWidth={false}
+						/>
+					) : (
+						<Button
+							toolTipMessage="Public task."
+							variant="clear"
+							fullWidth={false}
+							icon="eye-open"
+						/>
+					)}
+				</Flex>
 			</Flex>
-			<Flex direction="column" gap="10px">
-				<Flex gap="10px">
+			<Flex align="flex-end" className={headingActionsStyle}>
+				<Flex gap="10px" align="center">
 					<Button
 						disabled={isUsersTodo}
 						fullWidth={false}
@@ -103,6 +133,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 						onClick={onOpenModal}
 					/>
 					<Button
+						toolTipMessage="Delete task"
 						disabled={isUsersTodo}
 						onClick={() => onDelete(String(todo.id))}
 						loading={deleteIsLoading}

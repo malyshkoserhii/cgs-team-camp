@@ -36,12 +36,17 @@ export const TodoList = (): ReactElement => {
 				<Filter
 					options={isAuth ? filterOptionsWithAuth : filterOptions}
 					defaultValues={new TodoFilterModel(params)}
+					resetValues={new TodoFilterModel()}
+					withResetButton
 				/>
 			</div>
 			<div className={listBoxStyle}>
 				<Heading className={headingStyle}>Tasks</Heading>
 				{items?.length === 0 ? (
-					<NotFoundBox withCode={false} />
+					<NotFoundBox
+						message="Nothing found by your query."
+						withCode={false}
+					/>
 				) : (
 					<AppGrid<TodoI> items={items || []} renderItem={TodoItem} />
 				)}

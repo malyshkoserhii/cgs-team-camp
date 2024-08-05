@@ -2,6 +2,7 @@ import { cx } from '@emotion/css';
 import { ReactElement, useCallback, useEffect } from 'react';
 import { DefaultValues, FieldValues, useForm } from 'react-hook-form';
 import { useDebouncedCallback } from '~shared/hooks/useDebouncedCallback.hook';
+import { Flex } from '~shared/ui/base/flex';
 import Button from '~shared/ui/button/button.component';
 import { renderFormBlock } from '~shared/ui/form/model/renderFormBlock.service';
 import { FormOption, FormVariantsEnum } from '~shared/ui/form/types/form.type';
@@ -29,7 +30,7 @@ export const Filter = <T extends FieldValues>({
 }: Props<T>): ReactElement => {
 	const { onUpdateFilter, onResetFilter } = useFilter();
 	const { control, handleSubmit, watch, reset } = useForm<T>({
-		defaultValues: { ...defaultValues } as DefaultValues<T>,
+		defaultValues: defaultValues as DefaultValues<T>,
 		values,
 	});
 
@@ -58,8 +59,17 @@ export const Filter = <T extends FieldValues>({
 
 	return (
 		<form className={cx(filterStyles)}>
-			{options.map((option) => renderFormBlock({ option, control }))}
-			{withResetButton && <Button onClick={resetFilter}>Reset</Button>}
+			<Flex gap="10px" wrap="wrap">
+				{options.map((option) => renderFormBlock({ option, control }))}
+			</Flex>
+			{withResetButton && (
+				<Button
+					fullWidth={false}
+					onClick={resetFilter}
+					rightIcon="reset"
+					text="Reset"
+				/>
+			)}
 		</form>
 	);
 };

@@ -7,8 +7,8 @@ import { Text } from '~shared/ui/base/text';
 import Button from '~shared/ui/button/button.component';
 import { Switch } from '~shared/ui/switch';
 import {
-	actionsBoxStyles,
 	todoBoxStyles,
+	todoCardContentStyle,
 	todoCardHeading,
 } from './todoItem.styles';
 
@@ -21,6 +21,7 @@ type TodoItemCardProps = {
 	deleteIsLoading: boolean;
 	isMobileAndTablet: boolean;
 	isUsersTodo: boolean;
+	isPrivate: boolean;
 };
 
 export const TodoItemCard = ({
@@ -31,22 +32,45 @@ export const TodoItemCard = ({
 	changeStatusIsLoading,
 	deleteIsLoading,
 	isUsersTodo,
+	isPrivate,
 }: TodoItemCardProps): ReactElement => {
 	return (
 		<li className={todoBoxStyles}>
-			<Heading level={3} size="small" className={todoCardHeading}>
-				{todo.name}
-			</Heading>
-			<Text size="medium" align="left">
-				{todo.description}
-			</Text>
-			<Flex
-				gap="10px"
-				justify="space-between"
-				align="baseline"
-				className={actionsBoxStyles}
-			>
-				<Flex gap="10px">
+			<div>
+				<Flex>
+					<Heading level={3} size="small" className={todoCardHeading}>
+						{todo.name}
+					</Heading>
+					{isPrivate ? (
+						<Button
+							variant="clear"
+							fullWidth={false}
+							text="Private"
+						/>
+					) : (
+						<Button
+							variant="clear"
+							fullWidth={false}
+							text="Public"
+						/>
+					)}
+				</Flex>
+				<Text size="medium" align="left">
+					{todo.description}
+				</Text>
+			</div>
+			<div className={todoCardContentStyle}>
+				<Flex justify="space-between">
+					<Text size="medium" align="left">
+						Competed
+					</Text>
+					<Switch
+						onChange={onUpdateStatus}
+						disabled={changeStatusIsLoading || isUsersTodo}
+						checked={todo.status === TodoStatusE.Completed}
+					/>
+				</Flex>
+				<Flex gap="10px" justify="flex-end">
 					<Button
 						fullWidth={false}
 						text="Edit"
@@ -62,12 +86,7 @@ export const TodoItemCard = ({
 						disabled={isUsersTodo}
 					/>
 				</Flex>
-				<Switch
-					onChange={onUpdateStatus}
-					disabled={changeStatusIsLoading || isUsersTodo}
-					checked={todo.status === TodoStatusE.Completed}
-				/>
-			</Flex>
+			</div>
 		</li>
 	);
 };

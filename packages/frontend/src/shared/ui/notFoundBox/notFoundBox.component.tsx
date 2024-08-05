@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Text } from '../base/text';
 import {
 	containerStyle,
 	contentStyle,
@@ -9,17 +10,21 @@ import {
 type Props = {
 	message?: string;
 	withCode?: boolean;
+	fullHeight?: boolean;
 };
 
 export const NotFoundBox = ({
 	message = 'Page Not Found',
 	withCode = true,
+	fullHeight = false,
 }: Props): ReactElement => {
 	return (
-		<div className={containerStyle}>
+		<div className={containerStyle(fullHeight)}>
 			<div className={contentStyle}>
-				{withCode && <h1 className={titleStyle}>404</h1>}
-				<p className={messageStyle}>{message}</p>
+				{withCode && <Text className={titleStyle}>404</Text>}
+				<Text bold className={messageStyle}>
+					{message}
+				</Text>
 			</div>
 		</div>
 	);

@@ -24,14 +24,14 @@ export const buttonStyle = css`
 export const outlineButtonStyle = css`
 	color: ${colors.accentColor};
 	background: transparent !important;
-	border: 2px solid ${colors.accentColor} !important;
+	border: 1px solid ${colors.accentColor} !important;
 	border-radius: 10px;
 	transition: all 0.3s ease;
 
 	&:hover {
 		background: ${colors.accentColor} !important;
 		color: ${colors.mainColor} !important;
-		border: 2px solid transparent !important;
+		border: 1px solid transparent !important;
 	}
 	&:active {
 		background: ${colors.accentColor} !important;
@@ -40,7 +40,29 @@ export const outlineButtonStyle = css`
 	}
 	&:disabled {
 		color: ${colors.disabledColor} !important;
-		border: 2px solid ${colors.disabledColor} !important;
+		border: 1px solid ${colors.disabledColor} !important;
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+`;
+
+export const clearButtonStyle = css`
+	color: ${colors.accentColor};
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+
+	&:hover {
+		background: transparent !important;
+		color: ${colors.accentColor};
+	}
+	&:active {
+		background: transparent !important;
+		color: ${colors.accentColor};
+		opacity: 0.9;
+	}
+	&:disabled {
+		color: ${colors.disabledColor} !important;
 		cursor: not-allowed;
 		opacity: 0.6;
 	}
