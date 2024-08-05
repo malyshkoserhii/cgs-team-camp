@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiErrors } from '@/utils';
-import { ModelType, Todo } from '@/types/todos.type';
-import TodoService from '@/services/todo.service';
-
-const { findTodoByTitle } = new TodoService();
+import { ModelType } from '@/types/todos.type';
 
 export const isExistMiddleware = (model: ModelType) => {
 	return async (
