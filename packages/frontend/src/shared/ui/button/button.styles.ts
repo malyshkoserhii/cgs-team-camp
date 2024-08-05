@@ -13,6 +13,12 @@ export const buttonStyle = css`
 	&:active {
 		opacity: 0.9;
 	}
+	&:disabled {
+		background: ${colors.disabledColor} !important;
+		color: ${colors.disabledTextColor} !important;
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
 `;
 
 export const outlineButtonStyle = css`
@@ -32,7 +38,14 @@ export const outlineButtonStyle = css`
 		color: ${colors.mainColor} !important;
 		opacity: 0.9;
 	}
+	&:disabled {
+		color: ${colors.disabledColor} !important;
+		border: 2px solid ${colors.disabledColor} !important;
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
 `;
+
 export const fullWidthStyle = (icon: ReactNode): string => css`
 	display: flex;
 	justify-content: ${icon ? 'space-between' : 'center'};

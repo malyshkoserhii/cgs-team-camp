@@ -47,4 +47,6 @@ export const colors = Object.freeze({
 	accentColorTransparent: 'rgba(144, 144, 194, 0.59)',
 	accentColorTransparentDarker: 'rgba(144, 144, 194, 0.30)',
 	accentColorTransparentDarkest: 'rgba(144, 144, 194, 0.1)',
+	disabledColor: 'rgba(200, 200, 194, 0.5)',
+	disabledTextColor: '#ffffff',
 });

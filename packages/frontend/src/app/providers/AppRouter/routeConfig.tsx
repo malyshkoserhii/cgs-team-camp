@@ -1,12 +1,26 @@
 import { ReactNode } from 'react';
 import { RouteProps } from 'react-router-dom';
-import { AuthPage, CreateTodoPage, DashboardPage } from '~/pages';
+import {
+	ActivatePage,
+	CreateTodoPage,
+	DashboardPage,
+	LoginPage,
+	ProfilePage,
+	RegisterPage,
+} from '~/pages';
+import ResetPasswordConfirmPage from '~/pages/ResetPasswordConfirmPage/ResetPasswordConfirmPage';
+import ResetPasswordPage from '~/pages/ResetPasswordPage/ResetPasswordPage';
 import { ROUTER_KEYS } from '~shared/const/keys.const';
 
 export enum AppRoutes {
 	MAIN = 'dashboard',
 	CREATE_TODO = 'create-todo',
 	LOGIN = 'login',
+	REGISTER = 'register',
+	ACTIVATE_ACCOUNT = 'activate',
+	CHANGE_PASSWORD = 'change-password',
+	CHANGE_PASSWORD_CONFIRM = 'change-password-confirm',
+	PROFILE = 'profile',
 }
 
 export type AppRoutesProps = Omit<RouteProps, 'children'> & {
@@ -28,10 +42,31 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
 	[AppRoutes.CREATE_TODO]: {
 		path: ROUTER_KEYS.CREATE_TODO,
 		element: <CreateTodoPage />,
-		auth: false, // need to edit
+		auth: true,
+	},
+	[AppRoutes.PROFILE]: {
+		path: ROUTER_KEYS.PROFILE,
+		element: <ProfilePage />,
+		auth: true,
 	},
 	[AppRoutes.LOGIN]: {
 		path: ROUTER_KEYS.LOGIN,
-		element: <AuthPage />,
+		element: <LoginPage />,
+	},
+	[AppRoutes.REGISTER]: {
+		path: ROUTER_KEYS.REGISTER,
+		element: <RegisterPage />,
+	},
+	[AppRoutes.ACTIVATE_ACCOUNT]: {
+		path: ROUTER_KEYS.ACTIVATE_ACCOUNT,
+		element: <ActivatePage />,
+	},
+	[AppRoutes.CHANGE_PASSWORD]: {
+		path: ROUTER_KEYS.CHANGE_PASSWORD,
+		element: <ResetPasswordPage />,
+	},
+	[AppRoutes.CHANGE_PASSWORD_CONFIRM]: {
+		path: ROUTER_KEYS.CHANGE_PASSWORD_CONFIRM,
+		element: <ResetPasswordConfirmPage />,
 	},
 };

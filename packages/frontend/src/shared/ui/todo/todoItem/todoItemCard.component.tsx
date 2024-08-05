@@ -20,6 +20,7 @@ type TodoItemCardProps = {
 	changeStatusIsLoading: boolean;
 	deleteIsLoading: boolean;
 	isMobileAndTablet: boolean;
+	isUsersTodo: boolean;
 };
 
 export const TodoItemCard = ({
@@ -29,6 +30,7 @@ export const TodoItemCard = ({
 	onDelete,
 	changeStatusIsLoading,
 	deleteIsLoading,
+	isUsersTodo,
 }: TodoItemCardProps): ReactElement => {
 	return (
 		<li className={todoBoxStyles}>
@@ -49,6 +51,7 @@ export const TodoItemCard = ({
 						fullWidth={false}
 						text="Edit"
 						onClick={onOpenModal}
+						disabled={isUsersTodo}
 					/>
 					<Button
 						onClick={() => onDelete(String(todo.id))}
@@ -56,11 +59,12 @@ export const TodoItemCard = ({
 						variant="outline"
 						fullWidth={false}
 						text="Delete"
+						disabled={isUsersTodo}
 					/>
 				</Flex>
 				<Switch
 					onChange={onUpdateStatus}
-					disabled={changeStatusIsLoading}
+					disabled={changeStatusIsLoading || isUsersTodo}
 					checked={todo.status === TodoStatusE.Completed}
 				/>
 			</Flex>

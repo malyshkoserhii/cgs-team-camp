@@ -4,6 +4,7 @@ import { colors } from '~shared/styles';
 export const formContainerStyle = css`
 	margin-left: auto;
 	margin-right: auto;
+	width: 100%;
 	max-width: 800px;
 	background-color: ${colors.secondaryBgColor};
 	padding: 20px;

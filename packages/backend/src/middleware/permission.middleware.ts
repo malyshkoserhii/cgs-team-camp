@@ -7,7 +7,7 @@ export const checkPermission = () => {
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): Promise<Response<unknown, Record<string, unknown>> | undefined> => {
+	): Promise<void> => {
 		try {
 			if (req.entity.userId !== req.user.id) {
 				throw ApiError.ForbiddenError();
@@ -16,7 +16,7 @@ export const checkPermission = () => {
 			next();
 		} catch (error) {
 			if (error instanceof ApiError) {
-				return res.status(StatusCodes.badRequest).json({
+				res.status(StatusCodes.badRequest).json({
 					error: error.message,
 					status: error.status,
 				});

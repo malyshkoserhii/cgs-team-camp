@@ -10,7 +10,7 @@ $publicApi.interceptors.response.use(
 		return response.data;
 	},
 	async (error) => {
-		notificationService.error(error.response.data.message);
+		notificationService.error(error.response.data.error);
 		return Promise.reject(error);
 	},
 );

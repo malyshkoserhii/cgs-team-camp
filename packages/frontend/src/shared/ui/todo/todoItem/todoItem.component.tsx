@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
+import { useAuth } from '~shared/hooks/useAuth.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '~shared/ui/base/flex';
@@ -14,7 +15,7 @@ import { todoBoxStyles } from './todoItem.styles';
 import { TodoItemCard } from './todoItemCard.component';
 
 export const TodoItem = (todo: TodoI): ReactElement => {
-	const { description, name } = todo;
+	const { description, name, id } = todo;
 	const openModal = useModalStore((state) => state.openModal);
 	const {
 		deleteTodoById,
@@ -23,9 +24,11 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 		changeStatusIsLoading,
 		deleteIsLoading,
 	} = useTodoStore();
+	const { user } = useAuth();
 	const isMobileAndTablet = useMediaQuery({
 		query: `(max-width: ${breakpoints.lg})`,
 	});
+	const isUsersTodo = !user?.todos?.some((elId) => elId === id);
 
 	const onUpdateStatus = async (): Promise<void> => {
 		await changeStatusById(
@@ -51,6 +54,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 	if (isMobileAndTablet) {
 		return (
 			<TodoItemCard
+				isUsersTodo={isUsersTodo}
 				todo={todo}
 				onUpdateStatus={onUpdateStatus}
 				onOpenModal={onOpenModal}
@@ -78,7 +82,7 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 				<Flex direction="column" gap="5px">
 					<Switch
 						onChange={onUpdateStatus}
-						disabled={changeStatusIsLoading}
+						disabled={changeStatusIsLoading || isUsersTodo}
 						checked={todo.status === TodoStatusE.Completed}
 					/>
 				</Flex>
@@ -92,11 +96,13 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 			<Flex direction="column" gap="10px">
 				<Flex gap="10px">
 					<Button
+						disabled={isUsersTodo}
 						fullWidth={false}
 						icon="edit"
 						onClick={onOpenModal}
 					/>
 					<Button
+						disabled={isUsersTodo}
 						onClick={() => onDelete(String(todo.id))}
 						loading={deleteIsLoading}
 						variant="outline"

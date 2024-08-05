@@ -12,6 +12,10 @@ export class UserController {
 		this.logout = this.logout.bind(this);
 		this.refresh = this.refresh.bind(this);
 		this.registerConfirmation = this.registerConfirmation.bind(this);
+		this.requestPasswordReset = this.requestPasswordReset.bind(this);
+		this.resetPassword = this.resetPassword.bind(this);
+		this.currentUser = this.currentUser.bind(this);
+		this.updateUser = this.updateUser.bind(this);
 	}
 
 	async register(req: Request, res: Response): Promise<void> {
@@ -91,6 +95,15 @@ export class UserController {
 			code: StatusCodes.ok,
 			status: Status.success,
 			data: { user },
+		});
+	}
+
+	async updateUser(req: Request, res: Response): Promise<void> {
+		await this.userService.updateUser(req.user.id, req.body);
+
+		res.status(StatusCodes.ok).json({
+			code: StatusCodes.ok,
+			status: Status.success,
 		});
 	}
 }

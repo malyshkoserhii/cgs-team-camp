@@ -4,7 +4,7 @@ import { PageWrapper } from '~shared/ui/pageWrapper';
 
 const CreateTodoPage = (): ReactElement => {
 	return (
-		<PageWrapper>
+		<PageWrapper center>
 			<TodoForm />
 		</PageWrapper>
 	);

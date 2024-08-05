@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import { DefaultValues, FieldValues, Resolver, useForm } from 'react-hook-form';
 import Button from '~shared/ui/button/button.component';
 import { renderFormBlock } from '../model/renderFormBlock.service';
@@ -25,6 +25,7 @@ type Props<T> = {
 	onCancel?: () => void;
 	ButtonComponent?: typeof Button;
 	variant?: FormVariant;
+	content?: ReactNode;
 };
 
 export const Form = <T extends FieldValues>({
@@ -43,6 +44,7 @@ export const Form = <T extends FieldValues>({
 	ButtonComponent,
 	values,
 	variant = 'default',
+	content,
 }: Props<T>): ReactElement => {
 	const { handleSubmit, reset, control, getValues, trigger, watch } =
 		useForm<T>({
@@ -93,6 +95,7 @@ export const Form = <T extends FieldValues>({
 			{heading && <FormHeader heading={heading} />}
 			<form onSubmit={handleFormSubmit}>
 				{options.map((option) => renderFormBlock({ option, control }))}
+				{content}
 				{onSubmit && (
 					<div>
 						{ButtonComponent ? (

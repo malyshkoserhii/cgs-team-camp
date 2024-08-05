@@ -5,6 +5,7 @@ import { validateBodyMiddleware } from '@/middleware/validateBody.middleware';
 import { loginSchema } from '@/utils/joiSchemas/user/loginSchema';
 import { requestPasswordChange } from '@/utils/joiSchemas/user/requestPasswordChange.schema';
 import { resetPasswordSchema } from '@/utils/joiSchemas/user/resetPassword.schema';
+import { updateUserSchema } from '@/utils/joiSchemas/user/updateUser.schema';
 import { userSchema } from '@/utils/joiSchemas/user/user.schema';
 
 const router: Router = Router();
@@ -19,7 +20,7 @@ router.post(
 	validateBodyMiddleware(loginSchema),
 	userController.login.bind(userController),
 );
-router.post('/refresh', userController.refresh);
+router.post('/refresh', authenticateJwt, userController.refresh);
 router.post('/logout', authenticateJwt, userController.logout);
 router.get('/activate/:id', userController.registerConfirmation);
 router.post(
@@ -31,6 +32,17 @@ router.post(
 	'/reset-password',
 	validateBodyMiddleware(resetPasswordSchema),
 	userController.resetPassword.bind(userController),
+);
+router.get(
+	'/current',
+	authenticateJwt,
+	userController.currentUser.bind(userController),
+);
+router.put(
+	'/update',
+	authenticateJwt,
+	validateBodyMiddleware(updateUserSchema),
+	userController.updateUser.bind(userController),
 );
 
 export default router;
