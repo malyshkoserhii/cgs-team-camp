@@ -1,9 +1,11 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import { GetExistRequest } from '../../types/requests.types';
+import { GetTodoRequest } from '../../types/requests.types';
 import { ERRORS } from '../../constants';
 import UserService from '@/services/user.service';
 import Service from '@/services/index.service';
+import { prismaClient } from '@/modules/prisma';
+import { IUserSession } from '@/types/user.type';
 
 export const validateRequestBody =
 	(schema: Joi.ObjectSchema) =>
@@ -16,38 +18,38 @@ export const validateRequestBody =
 					.join(', '),
 			});
 		}
-
+		req.body = validationResult.value;
 		next();
 	};
 
 export const isExist =
 	<T extends Service>(EntityClass: new () => T) =>
-	async (
-		req: GetExistRequest,
-		res: Response,
-		next: NextFunction,
-	): Promise<void> => {
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		try {
 			const entity = new EntityClass();
 
 			if (entity instanceof UserService) {
-				// const { email } = req.body;
-				// try {
-				// 	await entity.findOne(email);
-				// 	if (req.route.path !== '/register') {
-				// 		return next();
-				// 	}
-				// } catch (error) {
-				// 	if (req.route.path === '/register') {
-				// 		return next();
-				// 	}
-				// 	throw new Error(ERRORS.USER.NOT_EXIST);
-				// }
-				// throw new Error(ERRORS.USER.NOT_EXIST);
+				const { email } = req.body;
+				try {
+					await entity.findOne(email);
+					if (req.route.path !== '/register') {
+						return next();
+					}
+				} catch (error) {
+					if (req.route.path === '/register') {
+						return next();
+					}
+					res.status(400).json({ error: ERRORS.USER.NOT_EXIST });
+					return;
+				}
+				res.status(400).json({ error: ERRORS.USER.NOT_EXIST });
+				return;
 			} else {
 				const { id } = req.params;
-				if (Number.isNaN(Number(id)))
-					throw new Error(ERRORS.ID_UNDEFINED);
+				if (Number.isNaN(Number(id))) {
+					res.status(400).json({ error: ERRORS.ID_UNDEFINED });
+					return;
+				}
 
 				await entity.findOne(Number(id));
 			}
@@ -61,26 +63,56 @@ export const isExist =
 							? ERRORS.NOT_FOUND
 							: error.message,
 				});
+			} else {
+				res.status(500).json({ error: 'Internal Server Error' });
 			}
 		}
 	};
 
+export const isTodoCreator = async (
+	req: GetTodoRequest,
+	res: Response,
+	next: NextFunction,
+): Promise<void> => {
+	try {
+		const { id: userId } = req.user as IUserSession;
+		const { id: todoId } = req.params;
+
+		const isCreator = await prismaClient.todo.findFirstOrThrow({
+			where: { id: Number(todoId), user: { id: userId } },
+		});
+
+		if (!isCreator) throw Error('NOT_CREATOR');
+
+		next();
+	} catch (error) {
+		if (error instanceof Error)
+			res.status(400).json({ error: error.message });
+	}
+};
+
 export const tryCatch =
-	<P = unknown, ResBody = unknown, ReqBody = unknown, ReqQuery = unknown>(
+	<
+		Params = unknown,
+		ResBody = unknown,
+		ReqBody = unknown,
+		ReqQuery = unknown,
+	>(
 		handler: (
-			req: Request<P, ResBody, ReqBody, ReqQuery>,
+			req: Request<Params, ResBody, ReqBody, ReqQuery>,
 			res: Response,
 			next: NextFunction,
 		) => Promise<void>,
 	) =>
 	async (
-		req: Request<P, ResBody, ReqBody, ReqQuery>,
+		req: Request<Params, ResBody, ReqBody, ReqQuery>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> => {
 		try {
 			await handler(req, res, next);
 		} catch (error) {
+			console.log(error);
 			if (error instanceof Error) {
 				res.status(400).json({ error: error.message });
 			} else {
