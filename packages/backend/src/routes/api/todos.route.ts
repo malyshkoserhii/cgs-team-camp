@@ -1,9 +1,45 @@
 import { Router } from 'express';
 
-import todoController from '../../controllers/todo.controller';
+import { prismaClient } from '@/prisma/prismaClient';
+import { reqBodySchema, todoSchema } from '@/schemas';
+import { genericValidatorMiddleware, isExistMiddleware } from '@/middlewares';
+import {
+	ctrAddNewTodo,
+	ctrDeleteTodoById,
+	ctrGetAllTodo,
+	ctrGetTodoById,
+	ctrUpdateTodoById,
+} from '@/controllers';
 
 const todosRouter: Router = Router();
 
-todosRouter.get('/all', todoController.getAllTodo.bind(todoController));
+todosRouter.post(
+	'/create',
+	genericValidatorMiddleware(reqBodySchema),
+	genericValidatorMiddleware(todoSchema),
+	ctrAddNewTodo,
+);
+
+todosRouter.get('/all', ctrGetAllTodo);
+
+todosRouter.get(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrGetTodoById,
+);
+
+todosRouter.put(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	genericValidatorMiddleware(reqBodySchema),
+	genericValidatorMiddleware(todoSchema),
+	ctrUpdateTodoById,
+);
+
+todosRouter.delete(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrDeleteTodoById,
+);
 
 export default todosRouter;

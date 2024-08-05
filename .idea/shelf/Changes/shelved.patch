@@ -1,0 +1,164 @@
+Index: packages/frontend/tsconfig.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n\t\"compilerOptions\": {\r\n\t\t\"jsx\": \"react\",\r\n\t\t\"baseUrl\": \".\",\r\n\t\t\"module\": \"ES2022\",\r\n\t\t\"declaration\": true,\r\n\t\t\"removeComments\": true,\r\n\t\t\"emitDecoratorMetadata\": true,\r\n\t\t\"experimentalDecorators\": true,\r\n\t\t\"allowSyntheticDefaultImports\": true,\r\n\t\t\"target\": \"ES2022\",\r\n\t\t\"sourceMap\": true,\r\n\t\t\"outDir\": \"./dist\",\r\n\t\t\"incremental\": true,\r\n\t\t\"useDefineForClassFields\": true,\r\n\t\t\"skipLibCheck\": true,\r\n\t\t\"forceConsistentCasingInFileNames\": true,\r\n\t\t\"esModuleInterop\": true,\r\n\t\t\"moduleResolution\": \"node\",\r\n\t\t\"composite\": true,\r\n\t\t\"types\": [\r\n\t\t\t\"vite/client\"\r\n\t\t],\r\n\t\t\"paths\": {\r\n\t\t\t\"~assets/*\": [\r\n\t\t\t\t\"src/assets/*\"\r\n\t\t\t],\r\n\t\t\t\"~modules/*\": [\r\n\t\t\t\t\"src/modules/*\"\r\n\t\t\t],\r\n\t\t\t\"~router/*\": [\r\n\t\t\t\t\"src/router/*\"\r\n\t\t\t],\r\n\t\t\t\"~shared/*\": [\r\n\t\t\t\t\"src/shared/*\"\r\n\t\t\t],\r\n\t\t\t\"~store/*\": [\r\n\t\t\t\t\"src/store/*\"\r\n\t\t\t],\r\n\t\t\t\"~typings/*\": [\r\n\t\t\t\t\"src/typings/*\"\r\n\t\t\t],\r\n\t\t\t\"~/*\": [\r\n\t\t\t\t\"src/*\"\r\n\t\t\t]\r\n\t\t}\r\n\t},\r\n\t\"include\": [\r\n\t\t\"./src/**/*\",\r\n\t\t\"./vite.config.ts\",\r\n\t\t\".eslintrc.cjs\"\r\n\t],\r\n\t\"exclude\": [\r\n\t\t\"./node_modules\",\r\n\t\t\"test\",\r\n\t\t\"./dist\",\r\n\t\t\"**/*spec.ts\"\r\n\t]\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/packages/frontend/tsconfig.json b/packages/frontend/tsconfig.json
+--- a/packages/frontend/tsconfig.json	(revision da16f977b620836ea62200d4737d1f4941f590d1)
++++ b/packages/frontend/tsconfig.json	(date 1722518732200)
+@@ -42,6 +42,12 @@
+ 			],
+ 			"~/*": [
+ 				"src/*"
++			],
++			"~services/*": [
++				"src/services/*"
++			],
++			"~http.service.ts/*": [
++				"src/services/http.service.ts/*"
+ 			]
+ 		}
+ 	},
+Index: packages/frontend/.env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/packages/frontend/.env b/packages/frontend/.env
+new file mode 100644
+--- /dev/null	(date 1722518732138)
++++ b/packages/frontend/.env	(date 1722518732138)
+@@ -0,0 +1,1 @@
++BASE_URL=
+Index: packages/frontend/src/services/http.service.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/packages/frontend/src/services/http.service.ts b/packages/frontend/src/services/http.service.ts
+new file mode 100644
+--- /dev/null	(date 1722518595871)
++++ b/packages/frontend/src/services/http.service.ts	(date 1722518595871)
+@@ -0,0 +1,12 @@
++import axios from "axios";
++import * as process from "node:process";
++
++export default class HttpService {
++	constructor(
++        this.baseUrl = process.env.BASE_URL;
++    this.fetchingService = axios;
++    this.apiVersion = apiVersion
++) {
++
++}
++}
+Index: packages/frontend/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n\t\"name\": \"vite-template\",\r\n\t\"private\": true,\r\n\t\"version\": \"0.0.0\",\r\n\t\"type\": \"module\",\r\n\t\"scripts\": {\r\n\t\t\"dev\": \"vite\",\r\n\t\t\"build\": \"tsc && vite build\",\r\n\t\t\"lint\": \"npx eslint ./src\",\r\n\t\t\"lint:fix\": \"npx eslint ./src --fix\",\r\n\t\t\"preview\": \"vite preview\"\r\n\t},\r\n\t\"dependencies\": {\r\n\t\t\"@blueprintjs/core\": \"^5.4.0\",\r\n\t\t\"@emotion/css\": \"^11.11.2\",\r\n\t\t\"axios\": \"^1.5.1\",\r\n\t\t\"classnames\": \"^2.3.2\",\r\n\t\t\"final-form\": \"^4.20.10\",\r\n\t\t\"react\": \"^18.2.0\",\r\n\t\t\"react-dom\": \"^18.2.0\",\r\n\t\t\"react-final-form\": \"^6.5.9\",\r\n\t\t\"react-router-dom\": \"^6.16.0\",\r\n\t\t\"vite-plugin-svgr\": \"^4.1.0\",\r\n\t\t\"zustand\": \"^4.4.3\"\r\n\t},\r\n\t\"devDependencies\": {\r\n\t\t\"@types/react\": \"^18.2.15\",\r\n\t\t\"@types/react-dom\": \"^18.2.7\",\r\n\t\t\"@typescript-eslint/eslint-plugin\": \"^6.0.0\",\r\n\t\t\"@typescript-eslint/parser\": \"^6.0.0\",\r\n\t\t\"@vitejs/plugin-react\": \"^4.0.3\",\r\n\t\t\"eslint\": \"^8.45.0\",\r\n\t\t\"eslint-config-prettier\": \"^9.1.0\",\r\n\t\t\"eslint-plugin-prettier\": \"^5.1.3\",\r\n\t\t\"eslint-plugin-react-hooks\": \"^4.6.0\",\r\n\t\t\"eslint-plugin-react-refresh\": \"^0.4.3\",\r\n\t\t\"prettier\": \"^3.2.5\",\r\n\t\t\"typescript\": \"^5.0.2\",\r\n\t\t\"vite\": \"^4.4.5\",\r\n\t\t\"vite-aliases\": \"^0.11.6\",\r\n\t\t\"vite-plugin-environment\": \"^1.1.3\"\r\n\t},\r\n\t\"packageManager\": \"yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610\"\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/packages/frontend/package.json b/packages/frontend/package.json
+--- a/packages/frontend/package.json	(revision da16f977b620836ea62200d4737d1f4941f590d1)
++++ b/packages/frontend/package.json	(date 1722518678306)
+@@ -15,6 +15,7 @@
+ 		"@emotion/css": "^11.11.2",
+ 		"axios": "^1.5.1",
+ 		"classnames": "^2.3.2",
++		"dotenv": "^16.4.5",
+ 		"final-form": "^4.20.10",
+ 		"react": "^18.2.0",
+ 		"react-dom": "^18.2.0",
+Index: packages/frontend/src/main.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import * as React from 'react';\r\nimport * as ReactDOM from 'react-dom/client';\r\nimport { PortalProvider } from '@blueprintjs/core';\r\nimport './shared/styles/global-styles.css';\r\nimport '@blueprintjs/core/lib/css/blueprint.css';\r\nimport Router from './router/router';\r\n\r\nReactDOM.createRoot(document.getElementById('root')!).render(\r\n\t<PortalProvider portalClassName=\"my-custom-class\">\r\n\t\t<Router />\r\n\t</PortalProvider>,\r\n);\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/packages/frontend/src/main.tsx b/packages/frontend/src/main.tsx
+--- a/packages/frontend/src/main.tsx	(revision da16f977b620836ea62200d4737d1f4941f590d1)
++++ b/packages/frontend/src/main.tsx	(date 1722517801659)
+@@ -4,9 +4,12 @@
+ import './shared/styles/global-styles.css';
+ import '@blueprintjs/core/lib/css/blueprint.css';
+ import Router from './router/router';
++import { BrowserRouter } from 'react-router-dom';
+ 
+ ReactDOM.createRoot(document.getElementById('root')!).render(
+ 	<PortalProvider portalClassName="my-custom-class">
+-		<Router />
++		<BrowserRouter>
++			<Router />
++		</BrowserRouter>
+ 	</PortalProvider>,
+ );
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"6a5380da-e808-4405-b496-696e09db4c2e\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dbnavigator.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dbnavigator.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/.env.example\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/prisma/schema.prisma\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/packages/backend/prisma/schema.prisma\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/constants/http-errors.constant.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/helpers/ctrlWrapper.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/helpers/http-error.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/middlewars/generalErrorHandler.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/middlewars/isExist.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/middlewars/validateBody.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/schema/index.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/packages/backend/src/schemas/index.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/schema/todo.schema.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/services/prisma/prisma.service.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/types/http-errors.type.ts\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/packages/backend/src/types/prisma.types.ts\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"feature/todo-crud-frontend\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"ProjectErrors\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;customColor&quot;: &quot;&quot;,\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2k3A4aMHq73cE7hFDbx1Ia1XT1d\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"autoscrollToSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"openDirectoriesWithSingleClick\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"sortByType\" value=\"true\" />\r\n    <option name=\"sortKey\" value=\"BY_TYPE\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-backend&quot;,\r\n    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,\r\n    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,\r\n    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,\r\n    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\\\FSDev-advanced\\\\test-CGS\\\\cgs-team-camp\\\\node_modules\\\\prettier&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\r\n    &quot;ts.external.directory.path&quot;: &quot;D:\\\\FSDev-advanced\\\\test-CGS\\\\cgs-team-camp\\\\node_modules\\\\typescript\\\\lib&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17890.13\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"6a5380da-e808-4405-b496-696e09db4c2e\" name=\"Changes\" comment=\"\" />\r\n      <created>1722501696731</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1722501696731</updated>\r\n      <workItem from=\"1722501699505\" duration=\"1525000\" />\r\n      <workItem from=\"1722503402301\" duration=\"226000\" />\r\n      <workItem from=\"1722503666978\" duration=\"478000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision da16f977b620836ea62200d4737d1f4941f590d1)
++++ b/.idea/workspace.xml	(date 1722518974462)
+@@ -5,23 +5,13 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/packages/frontend/.env" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/.env.example" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/http-errors.constant.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/helpers/ctrlWrapper.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/helpers/http-error.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/generalErrorHandler.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/isExist.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewars/validateBody.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schema/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/index.ts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schema/todo.schema.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/prisma/prisma.service.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/http-errors.type.ts" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/prisma.types.ts" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/packages/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/main.tsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -31,7 +21,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="feature/todo-crud-frontend" />
++        <entry key="$PROJECT_DIR$" value="feature/todo-crud-backend" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -60,7 +50,7 @@
+   &quot;keyToString&quot;: {
+     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-backend&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-frontend&quot;,
+     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+@@ -93,6 +83,7 @@
+       <workItem from="1722501699505" duration="1525000" />
+       <workItem from="1722503402301" duration="226000" />
+       <workItem from="1722503666978" duration="478000" />
++      <workItem from="1722516771185" duration="2184000" />
+     </task>
+     <servers />
+   </component>
