@@ -17,7 +17,7 @@ import { useTodoStore } from '~store/todos.store';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
 import { PageLoader } from './TodoDashboardPage.styles';
 
-const TodoDashboardPage = (): React.ReactNode => {
+const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
 	const isDesktop = useMediaQuery({
 		minWidth: `${parseInt(BREAKPOINTS.desktop, 10) + 1}px`,
@@ -53,13 +53,15 @@ const TodoDashboardPage = (): React.ReactNode => {
 	};
 
 	const showContent = !error && !loading;
-	if (error) {
-		console.log(error);
-	}
+
 	return (
 		<>
 			<Button text="Create New Todo" onClick={openAddToDoModal} />
-			{error && <p>error</p>}
+			{error && (
+				<p>
+					Something went wrong <>{error}</>
+				</p>
+			)}
 			{loading && (
 				<div className={PageLoader}>
 					<Loader />

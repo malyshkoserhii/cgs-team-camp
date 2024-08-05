@@ -16,17 +16,17 @@ class TodosService extends HttpService {
 	}
 
 	public async getTodoById(id: number): Promise<AxiosResponse<Todo>> {
-		return this.get({ url: ApiTodoEndpoints.GETTODOBYID(id) }, false);
+		return this.get({ url: ApiTodoEndpoints.GETTODOBYID(id) }, true);
 	}
 
 	public async fetchAllTodos(): Promise<AxiosResponse<GetAllTodoType>> {
-		return this.get({ url: ApiTodoEndpoints.ALL }, false);
+		return this.get({ url: ApiTodoEndpoints.ALL }, true);
 	}
 
 	public async createTodo(
 		todo: CreateTodoType,
 	): Promise<AxiosResponse<Todo>> {
-		return this.post({ url: ApiTodoEndpoints.CREATE, data: todo }, false);
+		return this.post({ url: ApiTodoEndpoints.CREATE, data: todo }, true);
 	}
 
 	public async updateTodo(
@@ -35,12 +35,12 @@ class TodosService extends HttpService {
 	): Promise<AxiosResponse<Todo>> {
 		return this.put(
 			{ url: ApiTodoEndpoints.GETTODOBYID(id), data: todo },
-			false,
+			true,
 		);
 	}
 
 	public async removeTodo(id: number): Promise<AxiosResponse<Todo>> {
-		return this.delete({ url: ApiTodoEndpoints.GETTODOBYID(id) }, false);
+		return this.delete({ url: ApiTodoEndpoints.GETTODOBYID(id) }, true);
 	}
 }
 
