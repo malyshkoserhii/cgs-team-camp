@@ -5,14 +5,13 @@ import Button from '~shared/components/button/button.component';
 import { ValidationError } from '~/utils/errors';
 import { CreateTodoType } from '~/utils/types';
 import { useTodoStore } from '~store/todoStore';
-import {
-	formContainerStyles,
-	labelStyles,
-	inputStyles,
-	checkboxStyles,
-	buttonContainerStyles,
-	inputContainerStyles,
-} from './TodoPage.styles';
+import { ROUTER_KEYS } from '~shared/keys/router-keys';
+import Input from './Input';
+import Textarea from './Textarea';
+import Checkbox from './Checkbox';
+import { formContainerStyles, buttonContainerStyles } from './TodoPage.styles';
+import { createTodoSchema } from '~/utils/validationSchema';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 const AddTodoPage: React.FC = () => {
 	const {
@@ -20,14 +19,16 @@ const AddTodoPage: React.FC = () => {
 		handleSubmit,
 		setError,
 		formState: { errors },
-	} = useForm<CreateTodoType>();
+	} = useForm<CreateTodoType>({
+		resolver: joiResolver(createTodoSchema),
+	});
 	const navigate = useNavigate();
 	const { addTodo } = useTodoStore();
 
 	const onSubmitHandler: SubmitHandler<CreateTodoType> = async (data) => {
 		try {
 			await addTodo(data);
-			navigate('/');
+			navigate(ROUTER_KEYS.DASHBOARD);
 		} catch (error) {
 			if (error instanceof ValidationError) {
 				setError('title', { type: 'manual', message: error.message });
@@ -37,47 +38,36 @@ const AddTodoPage: React.FC = () => {
 		}
 	};
 
+	const handleBackClick = (): void => {
+		navigate(-1);
+	};
+
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmitHandler)}
 			className={formContainerStyles}
 		>
-			<div className={inputContainerStyles}>
-				<label htmlFor="title" className={labelStyles}>
-					Title
-				</label>
-				<input
-					id="title"
-					type="text"
-					{...register('title', { required: 'Title is required' })}
-					className={inputStyles}
-				/>
-				{errors.title && <p>{errors.title.message}</p>}
-			</div>
-			<div className={inputContainerStyles}>
-				<label htmlFor="description" className={labelStyles}>
-					Description
-				</label>
-				<textarea
-					id="description"
-					{...register('description')}
-					className={inputStyles}
-				/>
-			</div>
-			<div className={inputContainerStyles}>
-				<label htmlFor="completed" className={labelStyles}>
-					Completed
-					<input
-						id="completed"
-						type="checkbox"
-						{...register('completed')}
-						className={checkboxStyles}
-					/>
-				</label>
-			</div>
+			<Input<CreateTodoType>
+				id="title"
+				label="Title"
+				register={register}
+				errors={errors.title}
+				required
+			/>
+			<Textarea<CreateTodoType>
+				id="description"
+				label="Description"
+				register={register}
+				errors={errors.description}
+			/>
+			<Checkbox<CreateTodoType>
+				id="completed"
+				label="Completed"
+				register={register}
+			/>
 			<div className={buttonContainerStyles}>
 				<Button type="submit" text="Add Todo" />
-				<Button text="Back" onClick={() => navigate(-1)} />
+				<Button text="Back" onClick={handleBackClick} />
 			</div>
 		</form>
 	);

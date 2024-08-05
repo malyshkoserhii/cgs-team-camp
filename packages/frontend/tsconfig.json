@@ -46,14 +46,11 @@
 			"~services/*": [
 				"src/services/*"
 			],
-			"~themes/*": [
-				"src/shared/styles/themes/*"
-			],
 			"~utils/*": [
 				"src/utils/*"
 			],
-			"~hooks/*": [
-				"src/hooks/*"
+			"~validators/*": [
+				"src/validators/*"
 			]
 		}
 	},
