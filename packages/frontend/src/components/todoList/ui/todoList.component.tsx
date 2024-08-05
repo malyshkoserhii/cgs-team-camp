@@ -9,6 +9,7 @@ import { Filter } from '~shared/ui/filter/ui/filter.component';
 import { AppGrid } from '~shared/ui/grid';
 import { Loader } from '~shared/ui/loader';
 import { NotFoundBox } from '~shared/ui/notFoundBox/notFoundBox.component';
+import { Pagination } from '~shared/ui/paginator';
 import { TodoItem } from '~shared/ui/todo';
 import { useTodoStore } from '~store/todos.store';
 import { filterOptions, filterOptionsWithAuth } from '../model/filterOptions';
@@ -50,6 +51,7 @@ export const TodoList = (): ReactElement => {
 				) : (
 					<AppGrid<TodoI> items={items || []} renderItem={TodoItem} />
 				)}
+				<Pagination />
 			</div>
 		</>
 	);

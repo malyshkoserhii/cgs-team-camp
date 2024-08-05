@@ -16,6 +16,12 @@ interface UseFilterReturn<T> {
 	onResetFilter: () => void;
 }
 
+type SearchParams =
+	| string
+	| URLSearchParams
+	| string[][]
+	| Record<string, string>;
+
 export const useFilter = <T>(): UseFilterReturn<T> => {
 	const { isAuth } = useAuth();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -31,31 +37,26 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
 				delete filters.isPrivate;
 			}
 
-			const flattenedData = Object.entries(filters).reduce(
-				(acc, [key, value]) => {
-					if (
-						typeof value === 'object' &&
-						!Array.isArray(value) &&
-						value !== null
-					) {
-						return { ...acc, ...(value as object) };
-					}
-					return { ...acc, [key]: value };
-				},
-				{},
+			const currentParams = Object.fromEntries(searchParams.entries());
+			const newFilters = options.resetPage
+				? { ...currentParams, ...filters, page: 1 }
+				: { ...currentParams, ...filters };
+			const filteredParams = Object.fromEntries(
+				Object.entries(newFilters).filter(
+					([_, value]) => value != null,
+				),
 			);
 
-			const newFilters = options.resetPage
-				? { ...flattenedData, page: 1 }
-				: flattenedData;
-
-			setSearchParams(new URLSearchParams(newFilters));
+			const newSearchParams = new URLSearchParams(
+				filteredParams as SearchParams,
+			);
+			setSearchParams(newSearchParams);
 
 			if (options.resetPage) {
-				navigate({ search: `?${new URLSearchParams(newFilters)}` });
+				navigate({ search: `?${newSearchParams.toString()}` });
 			}
 		},
-		[setSearchParams, navigate],
+		[isAuth, searchParams, setSearchParams, navigate],
 	);
 
 	const onResetFilter = useCallback((): void => {
