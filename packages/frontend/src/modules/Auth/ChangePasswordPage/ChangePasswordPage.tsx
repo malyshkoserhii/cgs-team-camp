@@ -11,7 +11,8 @@ type ChangePasswordType = {
 	confirmPassword: string;
 };
 const ChangePassword: React.FC = () => {
-	const { changePassword } = useAuthStore();
+	const changePassword = useAuthStore((state) => state.changePassword);
+	const error = useAuthStore((state) => state.authError);
 
 	const onSubmit = async (values: ChangePasswordType): Promise<void> => {
 		const { oldPassword, newPassword } = values;
@@ -25,6 +26,7 @@ const ChangePassword: React.FC = () => {
 				initialValues={ChangePasswordInitState}
 				schema={ChangePasswordSchema}
 				submitButtonText="Change Password"
+				serverError={error}
 			>
 				<Input
 					name="oldPassword"

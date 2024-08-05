@@ -15,8 +15,7 @@ const RegisterPage = (): React.ReactNode => {
 	const navigate = useNavigate();
 	const onregister = async (values: User): Promise<void> => {
 		await authStore.register(values);
-
-		navigate(ROUTER_KEYS.LOGIN);
+		if (!authStore.authError) navigate(ROUTER_KEYS.LOGIN);
 	};
 
 	return (
@@ -26,6 +25,7 @@ const RegisterPage = (): React.ReactNode => {
 				initialValues={RegisterInitState}
 				schema={UserRegisterSchema}
 				submitButtonText="Register"
+				serverError={authStore.authError}
 			>
 				<Input
 					name="username"

@@ -1,3 +1,4 @@
+import { HttpStatus } from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import {
 	ChangePasswordType,
@@ -80,7 +81,7 @@ export default class AuthService {
 			},
 		});
 		if (!checkUser) {
-			throw HttpError(403, 'Wrong password');
+			throw HttpError(HttpStatus.NotFound, 'Wrong password');
 		}
 		const updatedUser = await prisma.user.update({
 			where: { id: user.id },
@@ -103,7 +104,7 @@ export default class AuthService {
 		const user = await prisma.user.findUnique({ where: { email } });
 
 		if (!user) {
-			throw HttpError(404, 'Not found');
+			throw HttpError(404, 'No user with such email');
 		}
 
 		const passwordResetRequest = await prisma.passwordReset.create({

@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '~shared/keys/router-keys';
@@ -18,7 +17,7 @@ interface AuthStoreState {
 	user: User | UserNoSensetiveData | null;
 
 	loading: boolean;
-	authError: AxiosError | null;
+	authError: string | null;
 	login: (user: LoginUserType) => Promise<void>;
 	register: (user: RegisterUserType) => Promise<void>;
 	isLoggedIn: boolean;
@@ -29,6 +28,7 @@ interface AuthStoreState {
 	resetPassword: (token: string, password: string) => Promise<void>;
 	forgetPassword: (email: string) => Promise<void>;
 	verifyEmail: (id: string) => void;
+	resetError: () => void;
 }
 
 export const useAuthStore = create(
@@ -38,12 +38,17 @@ export const useAuthStore = create(
 			loading: false,
 			authError: null,
 			isLoggedIn: !!localStorage.getItem(STORAGE_KEYS.TOKEN),
+			resetError: (): void => set({ authError: null }),
 			login: async (user: LoginUserType): Promise<void> => {
 				set({ loading: true });
 				try {
 					const response = await authService.login(user);
 
-					set({ user: response.user, isLoggedIn: true });
+					set({
+						user: response.user,
+						isLoggedIn: true,
+						authError: null,
+					});
 				} catch (error) {
 					console.error('Failed to login', error);
 					set({ authError: error.message });
@@ -56,7 +61,7 @@ export const useAuthStore = create(
 				try {
 					const response = await authService.register(user);
 
-					set({ user: response });
+					set({ user: response, authError: null });
 				} catch (error) {
 					console.error('Failed to register', error);
 					set({ authError: error.message });
@@ -68,8 +73,8 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.changePassword(data);
+					set({ authError: null });
 				} catch (error) {
-					console.error('Failed to change password', error);
 					set({
 						authError: error.message,
 					});
@@ -79,12 +84,13 @@ export const useAuthStore = create(
 			},
 			logout: (): void => {
 				localStorage.removeItem(STORAGE_KEYS.TOKEN);
-				set({ user: null, isLoggedIn: false });
+				set({ user: null, isLoggedIn: false, authError: null });
 			},
 			updateUser: async (data: string): Promise<void> => {
 				set({ loading: true });
 				try {
 					await authService.updateUser(data);
+					set({ authError: null });
 				} catch (error) {
 					console.error('Failed to update User', error);
 					set({ authError: error.message });
@@ -96,6 +102,7 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.confirmEmailVerification(id);
+					set({ authError: null });
 				} catch (error) {
 					console.error('Failed to update User', error);
 					set({ authError: error.message });
@@ -124,6 +131,7 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.resetPassword(token, password);
+					set({ authError: null });
 				} catch (error) {
 					console.error('Error with resetting password', error);
 					set({ authError: error.message });
@@ -135,6 +143,7 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.forgetPassword(email);
+					set({ authError: null });
 				} catch (error) {
 					console.error('Error request', error);
 					set({ authError: error.message });
