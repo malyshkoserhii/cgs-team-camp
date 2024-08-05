@@ -18,6 +18,7 @@ export default class TodoService {
 				title: data.title,
 				description: data.description,
 				completed: data.completed,
+				user: { connect: { id: data.userId } },
 			},
 		});
 	}
