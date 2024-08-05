@@ -1,5 +1,7 @@
-// TODO: Put a real types here
+import { TodoStatus } from '@prisma/client';
 
-export type TodoType = {
-	data: string;
+export type TodoFilterParams = {
+	status: TodoStatus;
+	name: string;
+	isPrivate: string;
 };

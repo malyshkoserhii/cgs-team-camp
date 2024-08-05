@@ -11,15 +11,17 @@ export const decodeSearchParams = (
 
 	[...searchParams.entries()].forEach(([key, val]) => {
 		const match = key.match(duplicateKeyRegex);
+		const value = val === '' ? '' : isNaN(Number(val)) ? val : Number(val);
+
 		if (match) {
 			const [, baseKey, index] = match;
 			if (!decodedParams[baseKey]) {
 				decodedParams[baseKey] = [];
 			}
 			(decodedParams[baseKey] as (string | number)[])[parseInt(index)] =
-				isNaN(Number(val)) ? val : Number(val);
+				value;
 		} else {
-			decodedParams[key] = isNaN(Number(val)) ? val : Number(val);
+			decodedParams[key] = value;
 		}
 	});
 

@@ -12,12 +12,12 @@ class TodoService extends HttpService {
 	}
 
 	async findAll(
-		params: Record<string, string>,
+		params?: Record<string, string>,
 	): Promise<AxiosResponse<TodoI[]>> {
 		return await this.get({
 			config: {
 				url: `${ApiPath.TODOS}${TodosApiPath.ALL}`,
-				params: encodeSearchParams(params),
+				params: params ? encodeSearchParams(params) : {},
 			},
 			withAuth: true,
 		});

@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css';
 import { ReactElement, useCallback, useEffect } from 'react';
 import { DefaultValues, FieldValues, useForm } from 'react-hook-form';
 import { useDebouncedCallback } from '~shared/hooks/useDebouncedCallback.hook';
@@ -5,6 +6,7 @@ import Button from '~shared/ui/button/button.component';
 import { renderFormBlock } from '~shared/ui/form/model/renderFormBlock.service';
 import { FormOption, FormVariantsEnum } from '~shared/ui/form/types/form.type';
 import { useFilter } from '../model/useFilter.hook';
+import { filterStyles } from './filter.styles';
 
 interface Props<T> {
 	options: FormOption<FormVariantsEnum>[];
@@ -55,7 +57,7 @@ export const Filter = <T extends FieldValues>({
 	}, [handleSubmit, onSubmit, watch]);
 
 	return (
-		<form>
+		<form className={cx(filterStyles)}>
 			{options.map((option) => renderFormBlock({ option, control }))}
 			{withResetButton && <Button onClick={resetFilter}>Reset</Button>}
 		</form>

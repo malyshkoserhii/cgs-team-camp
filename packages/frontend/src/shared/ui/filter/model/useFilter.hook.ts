@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { decodeSearchParams, FilterKeys } from '~shared/helpers/searchParams';
+import { useAuth } from '~shared/hooks/useAuth.hook';
 
 export interface OnUpdateOptions {
 	resetPage?: boolean;
@@ -16,6 +17,7 @@ interface UseFilterReturn<T> {
 }
 
 export const useFilter = <T>(): UseFilterReturn<T> => {
+	const { isAuth } = useAuth();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const params = decodeSearchParams(searchParams) as T;
 	const navigate = useNavigate();
@@ -25,6 +27,10 @@ export const useFilter = <T>(): UseFilterReturn<T> => {
 			filters: Partial<FilterKeys>,
 			options: OnUpdateOptions = { resetPage: false },
 		) => {
+			if (!isAuth) {
+				delete filters.isPrivate;
+			}
+
 			const flattenedData = Object.entries(filters).reduce(
 				(acc, [key, value]) => {
 					if (

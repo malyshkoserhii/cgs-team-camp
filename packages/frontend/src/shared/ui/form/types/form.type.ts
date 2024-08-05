@@ -12,6 +12,8 @@ interface BaseFormOption {
 	isRequired?: boolean;
 	isDisabled?: boolean;
 	placeholder?: string;
+	withError?: boolean;
+	maxWidth?: string;
 	type?: string;
 	min?: number;
 	max?: number;

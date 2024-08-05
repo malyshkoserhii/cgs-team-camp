@@ -4,10 +4,12 @@ import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { useAuth } from '~shared/hooks/useAuth.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
+import { TodoFormModel } from '~shared/models/todo.model';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '~shared/ui/base/flex';
 import { Text } from '~shared/ui/base/text';
 import Button from '~shared/ui/button/button.component';
+import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
 import { Switch } from '~shared/ui/switch';
 import useModalStore from '~store/modal.store';
 import { useTodoStore } from '~store/todos.store';
@@ -17,6 +19,7 @@ import { TodoItemCard } from './todoItemCard.component';
 export const TodoItem = (todo: TodoI): ReactElement => {
 	const { description, name, id } = todo;
 	const openModal = useModalStore((state) => state.openModal);
+	const { params } = useFilter<TodoFormModel>();
 	const {
 		deleteTodoById,
 		fetchTodos,
@@ -37,12 +40,12 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 				? TodoStatusE.InProgress
 				: TodoStatusE.Completed,
 		);
-		fetchTodos();
+		fetchTodos(params);
 	};
 
 	const onDelete = async (id: string): Promise<void> => {
 		await deleteTodoById(id);
-		fetchTodos();
+		fetchTodos(params);
 	};
 
 	const onOpenModal = (): void => {
@@ -79,13 +82,11 @@ export const TodoItem = (todo: TodoI): ReactElement => {
 				align="center"
 				direction={isMobileAndTablet ? 'column' : 'row'}
 			>
-				<Flex direction="column" gap="5px">
-					<Switch
-						onChange={onUpdateStatus}
-						disabled={changeStatusIsLoading || isUsersTodo}
-						checked={todo.status === TodoStatusE.Completed}
-					/>
-				</Flex>
+				<Switch
+					onChange={onUpdateStatus}
+					disabled={changeStatusIsLoading || isUsersTodo}
+					checked={todo.status === TodoStatusE.Completed}
+				/>
 				<Flex direction="column" gap="5px">
 					<Text size="small">{name}</Text>
 				</Flex>

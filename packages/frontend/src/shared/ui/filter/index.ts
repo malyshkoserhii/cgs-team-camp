@@ -1,1 +1,1 @@
-export { Filter } from './ui/filter';
+export { Filter } from './ui/filter.component';

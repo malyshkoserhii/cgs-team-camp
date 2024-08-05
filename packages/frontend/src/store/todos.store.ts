@@ -8,6 +8,7 @@ import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFormModel } from '~shared/models/todo.model';
 import todoService from '~shared/services/http/todos.service';
 import { notificationService } from '~shared/services/notificationService';
+import useModalStore from './modal.store';
 import { useUserStore } from './user.store';
 
 interface TodoStore {
@@ -18,7 +19,7 @@ interface TodoStore {
 	createIsLoading: boolean;
 	changeStatusIsLoading: boolean;
 	error: AxiosError | null;
-	fetchTodos: (params: TodoFormModel) => Promise<void>;
+	fetchTodos: (params?: TodoFormModel) => Promise<void>;
 	fetchTodoById: (id: number) => Promise<void>;
 	createTodo: (
 		data: TodoFormModel,
@@ -108,6 +109,7 @@ export const useTodoStore = create<TodoStore>()(
 			});
 			try {
 				await todoService.updateById(id.toString(), data);
+				useModalStore.getState().closeModal();
 				notificationService.success(
 					Messages.UPDATED_SUCCESSFULLY(name),
 				);

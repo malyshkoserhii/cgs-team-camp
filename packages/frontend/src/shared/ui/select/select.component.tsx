@@ -23,6 +23,7 @@ type Props = Omit<
 	isRequired?: boolean;
 	control?: unknown;
 	options: OptionI[];
+	withError: boolean;
 };
 
 export const Select = <T extends FieldValues>({
@@ -31,6 +32,7 @@ export const Select = <T extends FieldValues>({
 	isRequired,
 	control,
 	options,
+	withError = true,
 	...otherProps
 }: Props): ReactElement => {
 	return (
@@ -38,7 +40,7 @@ export const Select = <T extends FieldValues>({
 			name={id as Path<T>}
 			control={control as Control<T>}
 			render={({ field: { onChange, value }, fieldState: { error } }) => (
-				<>
+				<div>
 					{name && (
 						<Flex justify="flex-start">
 							<Text bold className={labelStyle}>
@@ -64,7 +66,7 @@ export const Select = <T extends FieldValues>({
 									key={item.value}
 									text={item.label}
 									onClick={handleClick}
-									active={modifiers.active}
+									active={item.value === value}
 									disabled={modifiers.disabled}
 								/>
 							)}
@@ -82,12 +84,14 @@ export const Select = <T extends FieldValues>({
 							/>
 						</BlueprintSelect>
 					</div>
-					<div className={boxStyle}>
-						<Text className={emptyMessageStyle}>
-							{error?.message || ''}
-						</Text>
-					</div>
-				</>
+					{withError && (
+						<div className={boxStyle}>
+							<Text className={emptyMessageStyle}>
+								{error?.message || ''}
+							</Text>
+						</div>
+					)}
+				</div>
 			)}
 		/>
 	);

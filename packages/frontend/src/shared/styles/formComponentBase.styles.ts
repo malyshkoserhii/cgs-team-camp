@@ -4,7 +4,7 @@ import { fontSizeMap, spacingMap } from './fontSizes';
 
 export const labelStyle = css`
 	font-size: ${fontSizeMap[200]};
-	margin-bottom: 2px;
+	margin-bottom: ${spacingMap[200]};
 `;
 
 export const emptyMessageStyle = css`

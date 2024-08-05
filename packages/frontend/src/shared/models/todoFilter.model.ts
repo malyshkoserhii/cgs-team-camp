@@ -5,9 +5,9 @@ export class TodoFilterModel {
 	public isPrivate: string;
 	public name: string;
 
-	constructor(model?: TodoFilterModel) {
+	constructor(model?: Partial<TodoFilterModel>) {
 		this.name = model?.name || '';
-		this.status = model?.status || TodoStatusE.InProgress;
-		this.isPrivate = JSON.parse(model?.isPrivate) ? 'true' : 'false';
+		this.status = model?.status || TodoStatusE.All;
+		this.isPrivate = model?.isPrivate ? model.isPrivate : '';
 	}
 }
