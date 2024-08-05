@@ -1,44 +1,48 @@
+import { ITodo, ITodoCreate } from "~/types/todo.type";
+import HttpService from "../http/http";
 
-import { ITodo, ITodoCreate } from '~/types/todo.type';
-import HttpService from '../http/http';
 
 class TodoService extends HttpService {
   constructor() {
-    super();
+      super();
   }
-  getAllTodos() {
-    return this.get({
-      url: 'todos',
-    }, true)
+
+  async getAllTodos() {
+      return await this.get({ url: 'todos' });
   }
-  editTodo(todo: ITodo) {
-    return this.put({
-      url: `todos/${todo.id}`,
-      data: {...todo, id: undefined},
-    }, true)
+
+  async editTodo(todo: ITodo) {
+      return await this.put({
+          url: `todos/${todo.id}`,
+          data: { ...todo, id: undefined },
+      });
   }
-  deleteTodo(todoId: number) {
-    return this.delete({
-      url: `todos/${todoId}`,
-    }, true)
+
+  async deleteTodo(todoId: number) {
+      return await this.delete({
+          url: `todos/${todoId}`,
+      });
   }
-  createTodo(todo: ITodoCreate) {
-    return this.post({
-      url: 'todos',
-      data: todo,
-    }, true)
+
+  async createTodo(todo: ITodoCreate) {
+      return await this.post({
+          url: 'todos',
+          data: todo,
+      });
   }
-  getOneTodo(todoId: number) {
-    return this.get({
-      url: `todos/one/${todoId}`,
-    }, true)
+
+  async getOneTodo(todoId: number) {
+      return await this.get({
+          url: `todos/one/${todoId}`,
+      });
   }
-  completeTodo(todoId: number) {
-    return this.get({
-      url: `todos/complete/${todoId}`,
-    }, true)
+
+  async completeTodo(todoId: number) {
+      return await this.get({
+          url: `todos/complete/${todoId}`,
+      });
   }
 }
 
-const todoService = new TodoService()
-export default todoService
+const todoService = new TodoService();
+export default todoService;

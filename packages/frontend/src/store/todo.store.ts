@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { create } from "zustand";
 import { ITodo, ITodoCreate } from "~/types/todo.type";
 import { immer } from 'zustand/middleware/immer';
@@ -6,6 +6,7 @@ import todoService from "~shared/services/todo/todo";
 
 interface ITodoStore {
     items: ITodo[] | null, 
+    itemOne: ITodo | null,
     error: AxiosError | null,
     fetchTodos: () => Promise<void>, 
     fetchOneTodo: (id: number) => Promise<void>,
@@ -16,16 +17,18 @@ interface ITodoStore {
 
 export const useTodoStore = create<ITodoStore>()(
     immer((set) => ({
-        items: null,
+        items: [],
         error: null,
+        itemOne:null,
         fetchTodos: async (): Promise<void> => {
             set((state) => {
                 state.error = null;
             });
             try {
                 const response = await todoService.getAllTodos();
+                console.log(response,"TODOODODODOD")
                 set((state) => {
-                    state.items = response.data;
+                    state.items = response;
                 });
             } catch (error) {
                 set((state) => {
@@ -40,7 +43,7 @@ export const useTodoStore = create<ITodoStore>()(
             try {
                 const response = await todoService.getOneTodo(id);
                 set((state) => {
-                    state.items = [response.data];
+                    state.itemOne = response;
                 });
             } catch (error) {
                 set((state) => {

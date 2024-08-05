@@ -1,72 +1,75 @@
-import axios from 'axios' // It could be any fetching services, such as default fetch, call api, xhr, etc.
-import { APP_KEYS } from '~shared/consts'
-import { SERVER_URL } from '~shared/consts/app-keys.const'
+import axios from "axios"
+import { APP_KEYS } from "~shared/consts";
+import { SERVER_URL } from "~shared/consts/app-keys.const";
 
-export default class HttpService {
-    constructor(public baseUrl = SERVER_URL, public fetchingService = axios, public apiVersion = 'api') {
-        this.baseUrl = baseUrl
-        this.fetchingService = axios
-        this.apiVersion = apiVersion
-    }
+class HttpService {
+    constructor(
+        public baseUrl: string = SERVER_URL,
+        public fetchingService: typeof axios = axios,
+        public apiVersion: string = 'api'
+    ) {}
 
-    private getFullApiUrl(url: string) {
-        return `${this.baseUrl}/${this.apiVersion}/${url}`
+    private getFullApiUrl(url: string): string {
+        return `${this.baseUrl}/${this.apiVersion}/${url}`;
     }
 
     private populateTokenToHeaderConfig() {
         return {
-            'Authorization': localStorage.getItem(APP_KEYS.STORAGE_KEYS.TOKEN),
-        }
+            'Authorization': localStorage.getItem(APP_KEYS.STORAGE_KEYS.TOKEN) || '',
+        };
     }
 
-    private extractUrlAndDataFromConfig({data, url, ...configWithoutDataAndUrl}: any) {
-        return configWithoutDataAndUrl
+    private extractUrlAndDataFromConfig({ data, url, ...configWithoutDataAndUrl }: any): any {
+        return configWithoutDataAndUrl;
     }
 
-    get(config: any, withAuth = true) {
+    async get(config: any, withAuth: boolean = true) {
         if (withAuth) {
             config.headers = {
                 ...config.headers,
                 ...this.populateTokenToHeaderConfig(),
-            }
+            };
         }
-        return this.fetchingService.get(this.getFullApiUrl(config.url), this.extractUrlAndDataFromConfig(config))
-            .then(res => res.data)
+        const response = await this.fetchingService.get(this.getFullApiUrl(config.url), this.extractUrlAndDataFromConfig(config));
+        return response.data;
     }
 
-    post(config: any, withAuth = true) {
+    async post(config: any, withAuth: boolean = true) {
         if (withAuth) {
             config.headers = {
                 ...config.headers,
                 ...this.populateTokenToHeaderConfig(),
-            }
+            };
         }
-        return this.fetchingService.post(this.getFullApiUrl(config.url), config.data, this.extractUrlAndDataFromConfig(config)).then(res => {
-            if (config.recieveAuthHeader) {
-                const token = res.headers['authorization']
-                localStorage.setItem(APP_KEYS.STORAGE_KEYS.TOKEN, token)
-            }
-            return res.data
-        })
+        const response = await this.fetchingService.post(this.getFullApiUrl(config.url), config.data, this.extractUrlAndDataFromConfig(config));
+        if (config.receiveAuthHeader) {
+            const token = response.headers['authorization'];
+            localStorage.setItem(APP_KEYS.STORAGE_KEYS.TOKEN, token);
+        }
+        return response.data;
     }
 
-    put(config: any, withAuth = true) {
+    async put(config: any, withAuth: boolean = true) {
         if (withAuth) {
             config.headers = {
                 ...config.headers,
                 ...this.populateTokenToHeaderConfig(),
-            }
+            };
         }
-        return this.fetchingService.put(this.getFullApiUrl(config.url), config.data, this.extractUrlAndDataFromConfig(config)).then(res => res.data)
+        const response = await this.fetchingService.put(this.getFullApiUrl(config.url), config.data, this.extractUrlAndDataFromConfig(config));
+        return response.data;
     }
 
-    delete(config: any, withAuth = true) {
+    async delete(config: any, withAuth: boolean = true) {
         if (withAuth) {
             config.headers = {
                 ...config.headers,
                 ...this.populateTokenToHeaderConfig(),
-            }
+            };
         }
-        return this.fetchingService.delete(this.getFullApiUrl(config.url), this.extractUrlAndDataFromConfig(config)).then(res => res.data)
+        const response = await this.fetchingService.delete(this.getFullApiUrl(config.url), this.extractUrlAndDataFromConfig(config));
+        return response.data;
     }
 }
+
+export default HttpService;

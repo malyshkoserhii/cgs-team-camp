@@ -48,6 +48,9 @@
 			],
 			"~consts/*": [
 				"src/shared/consts/*"
+			],
+			"~pages/*": [
+				"src/pages/*"
 			]
 		}
 	},

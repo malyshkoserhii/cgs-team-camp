@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from '~/pages/home.page';
 import { ITodo } from '~/types/todo.type';
 import { TodoContainer } from '~modules/todo/todo-container/todo-container.component';
 import AddAndUpdateForm from '~modules/todo/todo-form/add-update.component-form';
@@ -26,10 +28,13 @@ const todosArr: ITodo[] = [
 const App = (): React.ReactNode => {
 	return (
 		<>
-		<Container>
-			<TodoContainer todos={todosArr} />
-		</Container>
-			
+			<Container>
+				<Routes>
+					<Route path='/' element={<HomePage/>}/>
+				</Routes>
+				
+			</Container>
+
 			{/* <AddAndUpdateForm/> */}
 		</>
 	);
