@@ -4,35 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804230213_user/migration.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/services/auth.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" afterDir="false" />
+    <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_32__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_32__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_35__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804082819_todo/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804082819_todo/migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/constants/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/joiErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/constants/joiErrors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/regex.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/constants/regex.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/StyledNavLink/StyledNavLink.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/StyledNavLink/StyledNavLink.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/styles/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/styles/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,16 +21,19 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/todo-crud-backend" />
+        <entry key="$PROJECT_DIR$" value="feature/todo-crud-frontend" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2kBbCUWx8GSK41SnEq24Yzd4etT" />
+  <component name="ProjectId" id="2k3A4aMHq73cE7hFDbx1Ia1XT1d" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -68,7 +50,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/authorization-backend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-backend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
@@ -93,15 +75,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="" />
-      <created>1722759792004</created>
+      <changelist id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="" />
+      <created>1722501696731</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1722759792004</updated>
-      <workItem from="1722759794914" duration="8517000" />
-      <workItem from="1722768504790" duration="6600000" />
-      <workItem from="1722843602128" duration="146000" />
-      <workItem from="1722843774120" duration="1304000" />
+      <updated>1722501696731</updated>
+      <workItem from="1722501699505" duration="1525000" />
+      <workItem from="1722503402301" duration="226000" />
+      <workItem from="1722503666978" duration="478000" />
     </task>
     <servers />
   </component>
@@ -110,6 +91,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
