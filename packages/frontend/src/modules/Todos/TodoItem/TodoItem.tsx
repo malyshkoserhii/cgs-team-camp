@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Button from '~shared/components/button/button.component';
 import CustomToggle from '~shared/components/toggle/toggle.component';
 import { ROUTER_KEYS } from '~shared/keys/router-keys';
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 
 import {
 	TodoButtonsContainer,

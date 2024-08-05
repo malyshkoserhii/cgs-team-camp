@@ -7,7 +7,7 @@ import {
 	GetAllTodoType,
 	Todo,
 	UpdateTodoType,
-} from '~shared/types/Todo.types';
+} from '~shared/types/todo.types';
 import HttpService from './http.service';
 
 class TodosService extends HttpService {

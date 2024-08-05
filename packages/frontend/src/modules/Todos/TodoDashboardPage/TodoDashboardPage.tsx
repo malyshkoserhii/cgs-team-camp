@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import Loader from '~shared/components/loader/loader.component';
 
 import { BREAKPOINTS } from '~shared/styles';
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 
 import { DialogContainer } from '../TodoForm/Form.styles';
 import { AddTodoForm } from '../TodoForm/TodoForm';

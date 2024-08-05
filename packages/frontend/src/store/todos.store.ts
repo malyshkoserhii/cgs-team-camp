@@ -7,7 +7,7 @@ import {
 	GetAllTodoType,
 	Todo,
 	UpdateTodoType,
-} from '~shared/types/Todo.types';
+} from '~shared/types/todo.types';
 
 const todosService = new TodosService();
 
