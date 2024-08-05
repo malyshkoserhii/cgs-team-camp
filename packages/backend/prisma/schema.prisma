@@ -14,10 +14,17 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  // todos Todo[]
+  id                        Int       @id @default(autoincrement())
+  email                     String    @unique
+  name                      String?
+  password                  String
+  todos                     Todo[]
+  refreshToken              String?
+  refreshTokenExpires       DateTime?
+  verificationToken         String?
+  isVerified                Boolean   @default(false)
+  resetPasswordToken        String?   @unique
+  resetPasswordTokenExpires DateTime?
 }
 
 model Todo {
@@ -26,6 +33,6 @@ model Todo {
   description String?
   public      Boolean @default(false)
   completed   Boolean @default(false)
-  // userId      Int
-  // user        User    @relation(fields: [userId], references: [id])
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
 }
