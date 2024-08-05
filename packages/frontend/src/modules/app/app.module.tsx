@@ -30,14 +30,12 @@ const todosArr: ITodo[] = [
 const App = (): React.ReactNode => {
 	return (
 		<>
-		
 			<Container>
 				<Routes>
-					<Route path={ROUTER_KEYS.HOME} element={<HomePage/>}/>
+					<Route path={ROUTER_KEYS.HOME} element={<HomePage />} />
 				</Routes>
-				
 			</Container>
-				
+
 			{/* <AddAndUpdateForm/> */}
 		</>
 	);
