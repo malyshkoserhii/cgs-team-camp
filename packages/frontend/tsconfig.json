@@ -42,6 +42,15 @@
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~types/*": [
+				"src/types/*"
+			],
+			"~consts/*": [
+				"src/shared/consts/*"
+			],
+			"~pages/*": [
+				"src/pages/*"
 			]
 		}
 	},
