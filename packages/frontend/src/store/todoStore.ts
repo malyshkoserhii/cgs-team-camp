@@ -38,7 +38,7 @@ export const useTodoStore = create<TodoState>()(
 		fetchTodos: async (): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await todosService.fetchAllTodos();
+				const data = await todosService.fetchAllTodos();
 				set({ todos: data });
 			} catch (error) {
 				if (error instanceof Error) {
@@ -52,7 +52,7 @@ export const useTodoStore = create<TodoState>()(
 		addTodo: async (newTodo: CreateTodoType): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await todosService.createTodo(newTodo);
+				const data = await todosService.createTodo(newTodo);
 				set((state) => ({ todos: [...state.todos, data] }));
 			} catch (error) {
 				if (error instanceof Error) {
@@ -85,7 +85,7 @@ export const useTodoStore = create<TodoState>()(
 		): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await todosService.updateTodo(id, updatedTodo);
+				const data = await todosService.updateTodo(id, updatedTodo);
 				set((state) => ({
 					todos: state.todos.map((todo) =>
 						todo.id === id ? data : todo,

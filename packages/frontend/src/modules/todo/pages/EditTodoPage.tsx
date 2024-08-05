@@ -3,15 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTodoStore } from '~store/todoStore';
 import { UpdateTodoType } from '~/utils/types';
-import {
-	formContainerStyles,
-	labelStyles,
-	inputStyles,
-	checkboxStyles,
-	buttonContainerStyles,
-	inputContainerStyles,
-} from './TodoPage.styles';
+import { formContainerStyles, buttonContainerStyles } from './TodoPage.styles';
 import Button from '~shared/components/button/button.component';
+import Input from './Input';
+import Textarea from './Textarea';
+import Checkbox from './Checkbox';
 
 interface EditTodoFormValues {
 	title: string;
@@ -63,44 +59,33 @@ const EditTodoPage: React.FC = () => {
 		return <div>Todo not found</div>;
 	}
 
+	const handleBackClick = (): void => {
+		navigate(-1);
+	};
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={formContainerStyles}>
-			<div className={inputContainerStyles}>
-				<label htmlFor="title" className={labelStyles}>
-					Title
-				</label>
-				<input
-					id="title"
-					{...register('title', { required: 'Title is required' })}
-					className={inputStyles}
-				/>
-				{errors.title && <p>{errors.title.message}</p>}
-			</div>
-			<div className={inputContainerStyles}>
-				<label htmlFor="description" className={labelStyles}>
-					Description
-				</label>
-				<textarea
-					id="description"
-					{...register('description')}
-					className={inputStyles}
-				/>
-				{errors.description && <p>{errors.description.message}</p>}
-			</div>
-			<div className={inputContainerStyles}>
-				<label htmlFor="completed" className={labelStyles}>
-					Completed
-					<input
-						type="checkbox"
-						id="completed"
-						{...register('completed')}
-						className={checkboxStyles}
-					/>
-				</label>
-			</div>
+			<Input<EditTodoFormValues>
+				id="title"
+				label="Title"
+				register={register}
+				errors={errors.title}
+				required
+			/>
+			<Textarea<EditTodoFormValues>
+				id="description"
+				label="Description"
+				register={register}
+				errors={errors.description}
+			/>
+			<Checkbox<EditTodoFormValues>
+				id="completed"
+				label="Completed"
+				register={register}
+			/>
 			<div className={buttonContainerStyles}>
 				<Button type="submit" text="Save" />
-				<Button text="Back" onClick={() => navigate(-1)} />
+				<Button text="Back" onClick={handleBackClick} />
 			</div>
 		</form>
 	);

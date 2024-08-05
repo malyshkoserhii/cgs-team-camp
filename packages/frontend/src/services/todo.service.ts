@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import HttpService from './http.service';
 import { ApiTodoEndpoints } from '~shared/keys/api-keys';
 import {
 	Todo,
@@ -8,43 +8,49 @@ import {
 } from '~/utils/types';
 
 class TodosService {
-	private apiUrl = process.env.REACT_APP_API_BASE_URL as string;
+	private httpService: HttpService;
 
-	public async fetchAllTodos(): Promise<AxiosResponse<GetAllTodoType>> {
-		return axios.get<GetAllTodoType>(
-			`${this.apiUrl}/${ApiTodoEndpoints.ALL}`,
-		);
+	constructor() {
+		this.httpService = new HttpService();
 	}
 
-	public async createTodo(
-		newTodo: CreateTodoType,
-	): Promise<AxiosResponse<Todo>> {
-		return axios.post<Todo>(
-			`${this.apiUrl}/${ApiTodoEndpoints.CREATE}`,
-			newTodo,
-		);
+	public async fetchAllTodos(): Promise<GetAllTodoType> {
+		const response = await this.httpService.get<GetAllTodoType>({
+			url: ApiTodoEndpoints.ALL,
+		});
+		return response.data;
 	}
 
-	public async getTodoById(id: number): Promise<AxiosResponse<Todo>> {
-		return axios.get<Todo>(
-			`${this.apiUrl}/${ApiTodoEndpoints.GETBYID(id)}`,
-		);
+	public async createTodo(newTodo: CreateTodoType): Promise<Todo> {
+		const response = await this.httpService.post<Todo>({
+			url: ApiTodoEndpoints.CREATE,
+			data: newTodo,
+		});
+		return response.data;
+	}
+
+	public async getTodoById(id: number): Promise<Todo> {
+		const response = await this.httpService.get<Todo>({
+			url: ApiTodoEndpoints.GETBYID(id),
+		});
+		return response.data;
 	}
 
 	public async updateTodo(
 		id: number,
 		updatedTodo: UpdateTodoType,
-	): Promise<AxiosResponse<Todo>> {
-		return axios.put<Todo>(
-			`${this.apiUrl}/${ApiTodoEndpoints.GETBYID(id)}`,
-			updatedTodo,
-		);
+	): Promise<Todo> {
+		const response = await this.httpService.put<Todo>({
+			url: ApiTodoEndpoints.GETBYID(id),
+			data: updatedTodo,
+		});
+		return response.data;
 	}
 
-	public async removeTodo(id: number): Promise<AxiosResponse<void>> {
-		return axios.delete<void>(
-			`${this.apiUrl}/${ApiTodoEndpoints.GETBYID(id)}`,
-		);
+	public async removeTodo(id: number): Promise<void> {
+		await this.httpService.delete<void>({
+			url: ApiTodoEndpoints.GETBYID(id),
+		});
 	}
 }
 

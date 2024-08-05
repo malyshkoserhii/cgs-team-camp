@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import TodoPage from '~modules/todo/pages/TodoPage/TodoMainPage';
+import TodoPage from '~modules/todo/pages/TodoMainPage/TodoMainPage';
 
 export const publicRoutes = (
 	<Routes>
