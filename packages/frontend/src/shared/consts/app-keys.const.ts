@@ -1,18 +1,9 @@
-// Local storage keys
+
 export const STORAGE_KEYS = {
-    JWT_TOKEN_STUDENT: 'JWT_TOKEN_STUDENT',
-    JWT_TOKEN_INSTRUCTOR: 'JWT_TOKEN_INSTRUCTOR',
-    ADDRESS: 'ADDRESS',
     TOKEN: 'TOKEN',
-    EMAIL: 'EMAIL'
   };
   
-  // React-query keys
-  export const QUERY_KEYS = {
-    TODOS: 'todos',
-    GET_USER: 'get-user',
-  };
-    
+  
   export const ROUTER_KEYS = {
     ROOT: '/',
     HOME: '/home',
