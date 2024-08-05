@@ -1,22 +1,25 @@
 import * as React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import RouterComponent from '~router/router';
+import {
+	appContainerStyles,
+	headerStyles,
+	mainStyles,
+	titleStyles,
+} from './App.styles';
 
-import Button from '~shared/components/button/button.component';
-
-const App = (): React.ReactNode => {
-	const [count, setCount] = React.useState(0);
-
-	const onIncrease = (): void => {
-		setCount((prev) => {
-			return prev + 1;
-		});
-	};
-
+const App: React.FunctionComponent = () => {
 	return (
-		<>
-			<h1>Todo project</h1>
-			<p>{count}</p>
-			<Button text="Increase" onClick={onIncrease} />
-		</>
+		<Router>
+			<div className={appContainerStyles}>
+				<header className={headerStyles}>
+					<h1 className={titleStyles}>Todo Application</h1>
+				</header>
+				<main className={mainStyles}>
+					<RouterComponent />
+				</main>
+			</div>
+		</Router>
 	);
 };
 

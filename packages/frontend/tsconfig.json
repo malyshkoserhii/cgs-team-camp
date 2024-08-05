@@ -42,6 +42,15 @@
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~services/*": [
+				"src/services/*"
+			],
+			"~utils/*": [
+				"src/utils/*"
+			],
+			"~validators/*": [
+				"src/validators/*"
 			]
 		}
 	},
