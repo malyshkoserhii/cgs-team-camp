@@ -7,13 +7,12 @@ import { ROUTER_KEYS } from '~shared/keys';
 import { useTodoStore } from '~store/todo.store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { upadteTodoSchema } from '~shared/schemas/todo.schema';
+import NotFoundPage from '../notFoundPage/NotFoundPage';
 
 const editTodoPage = (): React.ReactNode => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
-	const updateTodo = useTodoStore((state) => state.updateTodo);
-	const getTodoById = useTodoStore((state) => state.getTodoById);
-	const selectedTodo = useTodoStore((state) => state.todo);
+	const { updateTodo, getTodoById, todo: selectedTodo } = useTodoStore();
 
 	const {
 		handleSubmit,
@@ -25,7 +24,7 @@ const editTodoPage = (): React.ReactNode => {
 	});
 
 	const onSubmit = (data: ICreateTodo): void => {
-		navigate(ROUTER_KEYS.ALL_MATCH);
+		navigate(ROUTER_KEYS.HOME);
 		updateTodo(id, data);
 		reset;
 	};
@@ -47,7 +46,7 @@ const editTodoPage = (): React.ReactNode => {
 				/>
 			)}
 
-			{!selectedTodo && <div>Todo Not Found</div>}
+			{!selectedTodo && <NotFoundPage />}
 		</div>
 	);
 };

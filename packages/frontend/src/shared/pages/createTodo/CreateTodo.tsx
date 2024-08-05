@@ -10,7 +10,7 @@ import { createTodoSchema } from '~shared/schemas/todo.schema';
 
 const CreateTodo = (): React.ReactNode => {
 	const navigate = useNavigate();
-	const createTodo = useTodoStore((state) => state.createTodo);
+	const { createTodo } = useTodoStore();
 	const {
 		handleSubmit,
 		reset,
@@ -21,7 +21,7 @@ const CreateTodo = (): React.ReactNode => {
 	});
 
 	const onSubmit = (data: ICreateTodo): void => {
-		navigate(ROUTER_KEYS.ALL_MATCH);
+		navigate(ROUTER_KEYS.HOME);
 
 		createTodo(data);
 		reset();

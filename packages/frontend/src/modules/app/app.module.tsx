@@ -4,8 +4,7 @@ import TodoList from '~shared/components/todoList/todoList.component';
 import { useTodoStore } from '~store/todo.store';
 
 const App = (): React.ReactNode => {
-	const todos = useTodoStore((state) => state.todos);
-	const getAllTodo = useTodoStore((state) => state.getAllTodo);
+	const { todos, getAllTodo } = useTodoStore();
 
 	React.useEffect(() => {
 		getAllTodo();

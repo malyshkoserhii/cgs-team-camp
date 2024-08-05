@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { STORAGE_KEYS } from '~shared/keys';
 
 interface IHttpServicesConfig {
 	url: string;
@@ -27,9 +28,8 @@ class HttpServices {
 	}
 
 	private populeteTockenToHeaderConfig(): { Authorization: string | null } {
-		// винести в змінну ключ для локал стору
 		return {
-			Authorization: `Bearer ${localStorage.getItem('token')}`,
+			Authorization: `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`,
 		};
 	}
 
@@ -40,7 +40,6 @@ class HttpServices {
 		return configWithoutDataAndUrl;
 	}
 
-	// check return type
 	get<T>(config: IHttpServicesConfig, withAuth: boolean = true): Promise<T> {
 		if (withAuth) {
 			config.headers = {

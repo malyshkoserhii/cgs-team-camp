@@ -12,7 +12,6 @@ class TodoService extends HttpServices {
 	}
 
 	async getAllTodos(): Promise<AxiosResponse<BaseResponse<ITodo[]>>> {
-		// write const for endpoints strings
 		return this.get({ url: 'all' }, false);
 	}
 
