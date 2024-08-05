@@ -1,10 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
+import { RequestWithUser } from '@/types/request.type';
 
-const tryCatch = (
-	fn: (req: Request, res: Response, next: NextFunction) => Promise<void>,
-): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
-	return (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		return Promise.resolve(fn(req, res, next)).catch(next);
+type AsyncRequestHandler = (
+	req: RequestWithUser,
+	res: Response,
+	next: NextFunction,
+) => Promise<void>;
+
+const tryCatch = (fn: AsyncRequestHandler) => {
+	return async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> => {
+		try {
+			await fn(req as RequestWithUser, res, next);
+		} catch (error) {
+			next(error);
+		}
 	};
 };
 
