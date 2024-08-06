@@ -1,21 +1,19 @@
 import * as React from 'react';
 
-import Button from '~shared/components/button/button.component';
+import TodoList from '~shared/components/todoList/todoList.component';
+import { useTodoStore } from '~store/todo.store';
 
 const App = (): React.ReactNode => {
-	const [count, setCount] = React.useState(0);
+	const { todos, getAllTodo } = useTodoStore();
 
-	const onIncrease = (): void => {
-		setCount((prev) => {
-			return prev + 1;
-		});
-	};
+	React.useEffect(() => {
+		getAllTodo();
+	}, []);
 
 	return (
 		<>
-			<h1>Todo project</h1>
-			<p>{count}</p>
-			<Button text="Increase" onClick={onIncrease} />
+			<h1>My todos</h1>
+			<TodoList todos={todos} />
 		</>
 	);
 };

@@ -42,6 +42,15 @@
 			],
 			"~/*": [
 				"src/*"
+			],
+			"~schemas/*": [
+				"src/shared/schemas/*"
+			],
+			"~utils/*": [
+				"src/shared/utils/*"
+			],
+			"~constants/*": [
+				"src/shared/constants/*"
 			]
 		}
 	},
