@@ -4,25 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.styles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/MainPage/MainPage.styles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/MainPage/MainPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" afterDir="false" />
+    <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="Merge branch 'iruskevych/main'">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/app/app.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/app/app.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,6 +111,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Merge branch 'iruskevych/main'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'iruskevych/main'" />
   </component>
 </project>

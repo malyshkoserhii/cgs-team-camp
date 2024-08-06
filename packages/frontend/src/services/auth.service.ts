@@ -12,6 +12,10 @@ export class AuthService extends HttpService {
 		return this.post({ url: API_KEYS.REGISTER, data: user });
 	}
 
+	async loginUser(user: User): Promise<AxiosResponse<User>> {
+		return this.post({ url: API_KEYS.LOGIN, data: user });
+	}
+
 	async verifyEmail(token: string): Promise<AxiosResponse<User>> {
 		console.log(
 			'API_KEYS.VERIFY_EMAIL(token)',

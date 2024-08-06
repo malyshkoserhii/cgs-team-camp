@@ -14,6 +14,8 @@ interface IUserStore {
 	loading: boolean;
 	error: AxiosError | null;
 	register: (user: User) => Promise<void>;
+	login: (user: User) => Promise<void>;
+
 	// isLoggedIn: boolean;
 }
 
@@ -30,6 +32,19 @@ export const useAuthStore = create<IUserStore>()(
 
 				try {
 					const { data } = await authService.registerUser(user);
+					set({ user: data });
+				} catch (err) {
+					toast.error(err.response?.data?.message);
+				} finally {
+					set({ loading: false });
+				}
+			},
+
+			login: async (user: User): Promise<void> => {
+				set({ loading: true });
+
+				try {
+					const { data } = await authService.loginUser(user);
 					set({ user: data });
 				} catch (err) {
 					toast.error(err.response?.data?.message);

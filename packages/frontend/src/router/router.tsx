@@ -14,6 +14,7 @@ import { ROUTER_KEYS } from '~shared/keys';
 import { MainPage } from '~modules/MainPage/MainPage';
 import { RegistrationForm } from '../modules/Authorization/RegisterForm';
 import { VerifyEmail } from '~shared/components/VerifyEmail/VerifyEmail';
+import { LoginForm } from '../modules/Authorization/LoginForm';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -23,8 +24,7 @@ const router = createBrowserRouter(
 			<Route path={ROUTER_KEYS.ADD_NEW} element={<TodoForm />} />
 			<Route path={`${ROUTER_KEYS.VIEW}`} element={<TodoForm />} />
 			<Route path={`${ROUTER_KEYS.PROFILE}`} element={<h1>Profile</h1>} />
-			<Route path={`${ROUTER_KEYS.LOGIN}`} element={<h1>Login</h1>} />
-			{/*<Route path={`${ROUTER_KEYS.REGISTER}`} element={<h1>Reg</h1>} />*/}
+			<Route path={`${ROUTER_KEYS.LOGIN}`} element={<LoginForm />} />
 			<Route
 				path={`${ROUTER_KEYS.REGISTER}`}
 				element={<RegistrationForm />}
