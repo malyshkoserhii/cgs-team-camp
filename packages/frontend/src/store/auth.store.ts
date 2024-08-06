@@ -1,8 +1,18 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import {
+	AuthErrorMessages,
+	AuthMessages,
+} from '~shared/enums/auth-messages.enum';
+
 import { STORAGE_KEYS } from '~shared/keys/router-keys';
 import AuthService from '~shared/services/auth.service';
+import {
+	errorNotification,
+	successNotification,
+	warnNotification,
+} from '~shared/services/notifications.service';
 
 import {
 	changePasswordType,
@@ -50,6 +60,12 @@ export const useAuthStore = create(
 						isLoggedIn: true,
 						authError: null,
 					});
+					successNotification(
+						AuthMessages.LOGIN_SUCCESS(response.user.username),
+					);
+					if (!response.user.emailVerified) {
+						warnNotification(AuthMessages.EMAIL_VERIFICATION_WARN);
+					}
 				} catch (error) {
 					if (error instanceof AxiosError) {
 						set({
@@ -60,6 +76,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.LOGIN_FAILED(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -80,6 +101,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.REGISTER_FAILED(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -88,6 +114,7 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.changePassword(data);
+					successNotification(AuthMessages.PASSWORD_CHANGED);
 					set({ authError: null });
 				} catch (error) {
 					if (error instanceof AxiosError) {
@@ -99,6 +126,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.GENERAL_ERROR_MESSAGE(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -111,7 +143,9 @@ export const useAuthStore = create(
 				set({ loading: true });
 				try {
 					await authService.updateUser(data);
+
 					set({ authError: null });
+					successNotification(AuthMessages.USER_UPDATED);
 				} catch (error) {
 					if (error instanceof AxiosError) {
 						set({
@@ -122,6 +156,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.UPDATE_USER_ERROR(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -131,9 +170,22 @@ export const useAuthStore = create(
 				try {
 					await authService.confirmEmailVerification(id);
 					set({ authError: null });
+					successNotification(AuthMessages.EMAIL_SEND);
 				} catch (error) {
-					console.error('Failed to update User', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
+					errorNotification(
+						AuthErrorMessages.GENERAL_ERROR_MESSAGE(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -154,6 +206,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.CURRENT_USER_ERROR(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -177,6 +234,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.GENERAL_ERROR_MESSAGE(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
@@ -196,6 +258,11 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
+					errorNotification(
+						AuthErrorMessages.GENERAL_ERROR_MESSAGE(
+							error.response.data.message || error.message,
+						),
+					);
 				} finally {
 					set({ loading: false });
 				}
