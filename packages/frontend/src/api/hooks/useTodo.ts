@@ -5,13 +5,14 @@ import { todoKeys } from '../queryKeys';
 import { showToast } from '~/utils/showToast';
 
 import type { Todo } from '~typings/todo';
+import type { FilterQueryParams } from '~typings/api';
 
 const todoService = new TodoService();
 
-export const useGetAllTodos = () => {
+export const useGetAllTodos = (filters: FilterQueryParams) => {
 	return useQuery({
 		queryKey: todoKeys.todos,
-		queryFn: () => todoService.getAllTodos(),
+		queryFn: () => todoService.getAllTodos(filters),
 	});
 };
 
