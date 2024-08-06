@@ -7,4 +7,5 @@ import {
 export const updateUserSchema = Joi.object({
 	name: usernameValidationOptional,
 	password: passwordValidationOptional,
+	oldPassword: Joi.string(),
 }).or('name', 'password');

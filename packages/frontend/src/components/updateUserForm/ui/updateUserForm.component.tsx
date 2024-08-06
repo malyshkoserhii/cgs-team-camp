@@ -1,14 +1,13 @@
 import { Divider } from '@blueprintjs/core';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { optionsConfirm } from '~/components/changePasswordForm/model/formOptions';
 import { useAuth } from '~shared/hooks/useAuth.hook';
-import { resetPasswordSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/resetPassword.schema';
+import { updatePasswordSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/resetPassword.schema';
 import { updateUserNameSchemaResolver } from '~shared/joiSchemas/joiSchemas/user/updateUser.schema';
 import { Form } from '~shared/ui/form';
 import { formContainerStyle } from '~shared/ui/form/ui/Form.styles';
 import { useUserStore } from '~store/user.store';
-import { optionsName } from '../model/formOptions';
+import { optionsName, optionsUpdatePassword } from '../model/formOptions';
 import { dividerStyle } from './updateUserForm.styles';
 
 export const UpdateUserForm = (): ReactElement => {
@@ -21,10 +20,14 @@ export const UpdateUserForm = (): ReactElement => {
 	};
 
 	const onSubmitPassword = async (data: {
+		oldPassword: string;
 		password: string;
 		confirmPassword: string;
 	}): Promise<void> => {
-		updateUser({ password: data.password }, navigate);
+		updateUser(
+			{ password: data.password, oldPassword: data.oldPassword },
+			navigate,
+		);
 	};
 
 	return (
@@ -44,12 +47,13 @@ export const UpdateUserForm = (): ReactElement => {
 			<Divider className={dividerStyle} />
 			<Form
 				variant="noStyle"
-				options={optionsConfirm}
+				options={optionsUpdatePassword}
 				defaultValues={{
+					oldPassword: '',
 					password: '',
 					confirmPassword: '',
 				}}
-				formValidationSchema={resetPasswordSchemaResolver}
+				formValidationSchema={updatePasswordSchemaResolver}
 				onSubmit={onSubmitPassword}
 				buttonLabel="Change password"
 				isLoading={currentLoading}

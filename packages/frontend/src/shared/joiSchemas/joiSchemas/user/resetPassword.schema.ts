@@ -7,4 +7,11 @@ export const resetPasswordSchema = Joi.object({
 	confirmPassword: confirmPasswordValidation,
 });
 
+export const updatePasswordSchema = Joi.object({
+	oldPassword: Joi.string().required(),
+	password: passwordValidation,
+	confirmPassword: confirmPasswordValidation,
+});
+
 export const resetPasswordSchemaResolver = joiResolver(resetPasswordSchema);
+export const updatePasswordSchemaResolver = joiResolver(updatePasswordSchema);

@@ -206,18 +206,35 @@ export default class UserService {
 
 	async updateUser(
 		id: number,
-		data: Partial<User>,
+		data: { name: string; password: string; oldPassword: string },
 	): Promise<UserResponseDto> {
+		const user = await prisma.user.findUnique({
+			where: { id },
+		});
+
+		if (!user) {
+			throw ApiError.AuthorizationError();
+		}
+
+		const isOldPasswordValid = await bcrypt.compare(
+			data.oldPassword,
+			user.password,
+		);
+
+		if (!isOldPasswordValid) {
+			throw ApiError.AuthorizationError('Old password is incorrect');
+		}
+
 		if (data.password) {
 			data.password = await bcrypt.hash(data.password, 10);
 		}
 
-		const user = await prisma.user.update({
+		const updatedUser = await prisma.user.update({
 			where: { id },
 			include: { todos: { select: { id: true } } },
-			data,
+			data: { password: data.password, name: data.name },
 		});
 
-		return new UserResponseDto(user);
+		return new UserResponseDto(updatedUser);
 	}
 }

@@ -99,11 +99,12 @@ export class UserController {
 	}
 
 	async updateUser(req: Request, res: Response): Promise<void> {
-		await this.userService.updateUser(req.user.id, req.body);
+		const user = await this.userService.updateUser(req.user.id, req.body);
 
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,
 			status: Status.success,
+			data: { user },
 		});
 	}
 }
