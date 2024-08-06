@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240805202532_user/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240806083557_user/migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/constants/joiErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/constants/joiErrors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/utils/PrismaErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/utils/PrismaErrors.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,25 +40,25 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/authorization-backend&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced/test-CGS/cgs-team-camp/packages/backend/src/services&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/authorization-frontend",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "20.11.1",
+    "javascript.nodejs.core.library.typings.version": "20.11.30",
+    "last_opened_file_path": "D:/FSDev-advanced/test-CGS/cgs-team-camp/packages/backend/src/services",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\FSDev-advanced\test-CGS\cgs-team-camp\packages\backend\src\services" />

@@ -5,6 +5,14 @@ export const enum ROUTER_KEYS {
 	ADD_NEW = '/add',
 	VIEW = '/view/:id',
 	PROFILE = '/profile',
+	MAIN = '/',
+}
+
+export const enum FILTER_KEYS {
+	ALL = 'All',
+	COMPLETED = 'Completed',
+	PRIVATE = 'Private',
+	PUBLIC = 'Public',
 }
 
 export const STORAGE_KEYS = Object.freeze({

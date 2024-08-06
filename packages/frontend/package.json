@@ -27,6 +27,7 @@
 		"react-toastify": "^10.0.5",
 		"swiper": "^11.1.9",
 		"vite-plugin-svgr": "^4.1.0",
+		"yup": "^1.4.0",
 		"zustand": "^4.4.3"
 	},
 	"devDependencies": {

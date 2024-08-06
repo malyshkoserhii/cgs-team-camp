@@ -29,7 +29,7 @@ export const searchInputStyle = css`
 
 export const buttonGroupStyle = css`
 	display: flex;
-	gap: ${SIZES.m};
+	gap: ${SIZES.xs};
 	margin-bottom: ${SIZES.m};
 `;
 
