@@ -1,5 +1,4 @@
 import { Todo } from '@prisma/client';
-import { IUser, IUserSession } from './user.type';
 
 export interface Status {
 	message?: string;
