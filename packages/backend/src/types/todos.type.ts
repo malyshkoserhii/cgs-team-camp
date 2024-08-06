@@ -3,6 +3,7 @@ export interface ITodo {
 	description: string;
 	completed: boolean;
 	private: boolean;
+	completed: boolean;
 	creatorId: number;
 }
 

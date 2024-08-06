@@ -46,9 +46,9 @@ export class TodoController {
 		req: CreateTodoRequest,
 		res: Response<GetTodoResponse>,
 	): Promise<void> {
-		const { id } = req.user as IUserSession;
+		// const { id } = req.user as IUserSession;
 		const todoBody = req.body;
-		todoBody.creatorId = id;
+		todoBody.creatorId = 1;
 
 		const todos = await this.todoService.create(todoBody);
 
