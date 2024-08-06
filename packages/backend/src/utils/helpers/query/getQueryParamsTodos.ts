@@ -34,11 +34,9 @@ export const getQueryParamsTodos = (params: TodoFilterParams): ReturnType => {
 	if (status) {
 		query.status = status as TodoStatus;
 	}
-
 	if (isPrivate) {
 		query.isPrivate = isPrivate === 'true' ? true : false;
 	}
-
 	if (Boolean(name)) {
 		query.name = {
 			contains: name,
