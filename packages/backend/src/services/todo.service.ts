@@ -1,9 +1,10 @@
-import { Prisma, PrismaClient, Todo } from '@prisma/client';
+import { Prisma, Todo } from '@prisma/client';
 import { ITodo, TodoFilters } from '../types/todos.type';
 import Service from './index.service';
+import { prismaClient } from '@/modules/prisma';
 
 export default class TodoService extends Service {
-	todoRepository = new PrismaClient().todo;
+	todoRepository = prismaClient.todo;
 	selectTemplate: Prisma.TodoSelect = {
 		id: true,
 		title: true,
@@ -25,7 +26,7 @@ export default class TodoService extends Service {
 			select: this.selectTemplate,
 		};
 
-		const [count, todos] = await new PrismaClient().$transaction([
+		const [count, todos] = await prismaClient.$transaction([
 			this.todoRepository.count({ where: findArgs.where }),
 			this.todoRepository.findMany(findArgs),
 		]);

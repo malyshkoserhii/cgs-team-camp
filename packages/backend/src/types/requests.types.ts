@@ -20,3 +20,18 @@ export interface GetTodoRequest extends Express.Request {
 
 export interface UpdateTodoRequest extends CreateTodoRequest, GetTodoRequest {}
 
+export interface CreateUserRequest extends Express.Request {
+	body: IUser;
+}
+
+export interface LoginUserRequest extends CreateUserRequest {}
+
+export interface ResetPasswordRequest extends Express.Request {
+	body: ResetPasswordData;
+}
+
+export interface GetExistRequest extends GetTodoRequest, CreateUserRequest {
+	route: {
+		path: string;
+	};
+}

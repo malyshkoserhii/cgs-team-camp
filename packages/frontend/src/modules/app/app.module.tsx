@@ -1,7 +1,12 @@
 import * as React from 'react';
+import MainRouter from '~router/router';
 
 const App = (): React.ReactNode => {
-	return <></>;
+	return (
+		<>
+			<MainRouter />
+		</>
+	);
 };
 
 export default App;
