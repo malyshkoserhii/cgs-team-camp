@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Loader from '../loader/loader.component';
 import classNames from 'classnames';
 
 import { btnContentWrapper, btnStyles, iconWrapper, mr } from './button.styles';
+import { Loader } from '~shared/components';
 
 type IButtonProps = {
 	text: string;
@@ -14,7 +14,7 @@ type IButtonProps = {
 	icon?: React.ReactNode;
 };
 
-const Button: React.FunctionComponent<IButtonProps> = ({
+export const Button: React.FunctionComponent<IButtonProps> = ({
 	text,
 	type = 'submit',
 	onClick,
@@ -44,7 +44,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 			)}
 		>
 			{Boolean(loading) ? (
-				<Loader />
+				<Loader loading={loading} />
 			) : (
 				<span className={btnContentWrapper}>
 					{icon && (
@@ -62,5 +62,3 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 		</button>
 	);
 };
-
-export default Button;

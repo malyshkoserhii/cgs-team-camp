@@ -25,4 +25,14 @@ export default class TodoService {
 	async findTodoByTitle(title: string): Promise<Todo | null> {
 		return prismaClient.todo.findUnique({ where: { title } });
 	}
+
+	async updateTodoField(
+		id: string,
+		field: Partial<Todo>,
+	): Promise<Todo | null> {
+		return prismaClient.todo.update({
+			where: { id },
+			data: field,
+		});
+	}
 }

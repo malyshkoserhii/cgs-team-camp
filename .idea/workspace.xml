@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_32__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_32__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_08_2024_12_35__Changes_.xml" afterDir="false" />
+    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,19 +23,16 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/todo-crud-frontend" />
+        <entry key="$PROJECT_DIR$" value="feature/authorization-backend" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2k3A4aMHq73cE7hFDbx1Ia1XT1d" />
+  <component name="ProjectId" id="2kBbCUWx8GSK41SnEq24Yzd4etT" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -50,8 +49,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-backend&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/todo-crud-frontend-v2&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced&quot;,
@@ -75,14 +73,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="" />
-      <created>1722501696731</created>
+      <changelist id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="" />
+      <created>1722759792004</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1722501696731</updated>
-      <workItem from="1722501699505" duration="1525000" />
-      <workItem from="1722503402301" duration="226000" />
-      <workItem from="1722503666978" duration="478000" />
+      <updated>1722759792004</updated>
+      <workItem from="1722759794914" duration="8517000" />
+      <workItem from="1722768504790" duration="805000" />
     </task>
     <servers />
   </component>
@@ -91,5 +88,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
