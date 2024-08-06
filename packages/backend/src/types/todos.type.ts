@@ -1,5 +1,12 @@
-// TODO: Put a real types here
+export interface ITodo {
+	title: string;
+	description: string;
+	private: boolean;
+	completed: boolean;
+	creatorId: number;
+}
 
-export type TodoType = {
-	data: string;
-};
+export enum TodoFilters {
+	PRIVATE = 'private',
+	COMPLETED = 'completed',
+}

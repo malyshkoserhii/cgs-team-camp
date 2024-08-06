@@ -1,8 +1,13 @@
 declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
-			TEST: string;
 			DATABASE_URL: string;
+			JWT_SECRET: string;
+			JWT_EXPIRATION: string;
+			CLIENT_URL: string;
+			BACK_URL: string;
+			EMAIL_USERNAME: string;
+			EMAIL_PASSWORD: string;
 		}
 	}
 }

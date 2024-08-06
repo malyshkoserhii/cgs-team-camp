@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: "cgs-todo"
+      POSTGRES_USER: "kokush"
+      POSTGRES_PASSWORD: "kokush"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../cgs-todo-database:/docker-entrypoint-initdb.d
+      - cgs-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  cgs-data:
