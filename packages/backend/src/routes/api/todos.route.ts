@@ -8,6 +8,7 @@ import {
 	ctrDeleteTodoById,
 	ctrGetAllTodo,
 	ctrGetTodoById,
+	ctrPatchTodoById,
 	ctrUpdateTodoById,
 } from '@/controllers';
 
@@ -40,6 +41,12 @@ todosRouter.delete(
 	'/todo/:id',
 	isExistMiddleware(prismaClient.todo),
 	ctrDeleteTodoById,
+);
+
+todosRouter.patch(
+	'/todo/:id',
+	isExistMiddleware(prismaClient.todo),
+	ctrPatchTodoById,
 );
 
 export default todosRouter;
