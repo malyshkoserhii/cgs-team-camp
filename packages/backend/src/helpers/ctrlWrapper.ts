@@ -8,7 +8,7 @@ export const ctrlWrapper = (ctrl: ActionType): HandlerType => {
 		next: NextFunction,
 	): Promise<void> => {
 		try {
-			await ctrl(req, res);
+			await ctrl(req, res, next);
 		} catch (error) {
 			next(error);
 		}

@@ -1,12 +1,13 @@
 import { HttpStatus } from '@/constants/http-errors.constant';
 import { ResponseError } from '@/types/http-errors.type';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-export const generalErrorHandler = (
+export function generalErrorHandler(
 	err: ResponseError,
-	req: Request,
+	_: Request,
 	res: Response,
-): void => {
+	__: NextFunction,
+): void {
 	if (err.status && err.message) {
 		res.status(err.status).json({
 			status: err.status,
@@ -18,4 +19,4 @@ export const generalErrorHandler = (
 			message: 'Internal Server Error',
 		});
 	}
-};
+}

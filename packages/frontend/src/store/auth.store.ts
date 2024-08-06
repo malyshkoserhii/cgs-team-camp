@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '~shared/keys/router-keys';
@@ -50,8 +51,15 @@ export const useAuthStore = create(
 						authError: null,
 					});
 				} catch (error) {
-					console.error('Failed to login', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -63,8 +71,15 @@ export const useAuthStore = create(
 
 					set({ user: response, authError: null });
 				} catch (error) {
-					console.error('Failed to register', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -75,9 +90,15 @@ export const useAuthStore = create(
 					await authService.changePassword(data);
 					set({ authError: null });
 				} catch (error) {
-					set({
-						authError: error.message,
-					});
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -92,8 +113,15 @@ export const useAuthStore = create(
 					await authService.updateUser(data);
 					set({ authError: null });
 				} catch (error) {
-					console.error('Failed to update User', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -117,8 +145,15 @@ export const useAuthStore = create(
 
 					set({ user: response, isLoggedIn: true, authError: null });
 				} catch (error) {
-					console.error('Error with User', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -133,8 +168,15 @@ export const useAuthStore = create(
 					await authService.resetPassword(token, password);
 					set({ authError: null });
 				} catch (error) {
-					console.error('Error with resetting password', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}
@@ -145,8 +187,15 @@ export const useAuthStore = create(
 					await authService.forgetPassword(email);
 					set({ authError: null });
 				} catch (error) {
-					console.error('Error request', error);
-					set({ authError: error.message });
+					if (error instanceof AxiosError) {
+						set({
+							authError: error.response?.data?.message,
+						});
+					} else {
+						set({
+							authError: error.message,
+						});
+					}
 				} finally {
 					set({ loading: false });
 				}

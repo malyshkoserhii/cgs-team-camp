@@ -19,6 +19,7 @@ app.get('/', (req: Request, res: Response) => {
 
 router.init();
 app.use(generalErrorHandler);
+
 app.listen(PORT, () => {
 	console.log(`Now listening on port ${PORT}`);
 });
