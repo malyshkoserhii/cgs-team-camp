@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="Merge branch 'iruskevych/main'">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/ForgetPassword.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/ResetPasswordForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +104,7 @@
       <workItem from="1722924830180" duration="10801000" />
       <workItem from="1722942862268" duration="5448000" />
       <workItem from="1722948400239" duration="7536000" />
+      <workItem from="1722965178269" duration="1192000" />
     </task>
     <servers />
   </component>

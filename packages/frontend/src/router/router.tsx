@@ -16,6 +16,7 @@ import { RegistrationForm } from '../modules/Authorization/RegisterForm';
 import { VerifyEmail } from '~shared/components/VerifyEmail/VerifyEmail';
 import { LoginForm } from '../modules/Authorization/LoginForm';
 import { ForgetPasswordForm } from '../modules/Authorization/ForgetPassword';
+import { ResetPasswordForm } from '../modules/Authorization/ResetPasswordForm';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -33,6 +34,10 @@ const router = createBrowserRouter(
 			<Route
 				path={`${ROUTER_KEYS.FORGET_PSW}`}
 				element={<ForgetPasswordForm />}
+			/>
+			<Route
+				path={`${ROUTER_KEYS.RESET_PSW}`}
+				element={<ResetPasswordForm />}
 			/>
 			<Route
 				path={ROUTER_KEYS.ALL_MATCH}

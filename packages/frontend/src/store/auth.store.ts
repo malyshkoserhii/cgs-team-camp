@@ -16,6 +16,7 @@ interface IUserStore {
 	register: (user: User) => Promise<void>;
 	login: (user: User) => Promise<void>;
 	forgetPassword: (email: User) => Promise<void>;
+	resetPassword: (password: string, token: string) => Promise<void>;
 }
 
 export const useAuthStore = create<IUserStore>()(
@@ -57,6 +58,21 @@ export const useAuthStore = create<IUserStore>()(
 
 				try {
 					await authService.forgetPassword(email);
+				} catch (err) {
+					toast.error(err.response?.data?.message);
+				} finally {
+					set({ loading: false });
+				}
+			},
+
+			resetPassword: async (
+				password: string,
+				token: string,
+			): Promise<void> => {
+				set({ loading: true });
+
+				try {
+					await authService.resetPassword(password, token);
 				} catch (err) {
 					toast.error(err.response?.data?.message);
 				} finally {

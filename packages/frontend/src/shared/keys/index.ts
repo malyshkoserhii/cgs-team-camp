@@ -3,6 +3,7 @@ export const enum ROUTER_KEYS {
 	LOGIN = '/login',
 	REGISTER = '/register',
 	FORGET_PSW = '/forget-password',
+	RESET_PSW = '/reset-password/:token',
 	DASHBOARD = '/dashboard',
 	VERIFY_EMAIL = '/verify-email/:token',
 	ADD_NEW = '/add',
@@ -31,6 +32,7 @@ export const API_KEYS = {
 	LOGIN: 'auth/login',
 	FORGOT_PSW: 'auth/forgot-password',
 	VERIFY_EMAIL: (token: string): string => `auth/verify-email/${token}`,
+	RESET_PSW: 'auth/reset-password',
 };
 
 const size = {

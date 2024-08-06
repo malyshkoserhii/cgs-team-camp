@@ -125,9 +125,7 @@ export class AuthController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const token = req.params.token;
-		const { password } = req.body;
-
+		const { password, token } = req.body;
 		if (!password && !token) {
 			return next(ApiErrors.BadRequest());
 		}

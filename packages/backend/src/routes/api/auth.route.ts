@@ -31,7 +31,7 @@ authRouter.post(
 	ctrForgotPassword,
 );
 authRouter.post(
-	'/reset-password/:token',
+	'/reset-password',
 	genericValidatorMiddleware(resetPasswordSchema),
 	ctrResetPassword,
 );

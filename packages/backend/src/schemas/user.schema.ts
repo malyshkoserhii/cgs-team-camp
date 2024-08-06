@@ -40,6 +40,9 @@ export const resetPasswordSchema = Joi.object()
 			.required()
 			.messages(joiErrorMessages.string('Password'))
 			.messages(joiErrorMessages.passwordPattern()),
+		token: Joi.string()
+			.required()
+			.messages(joiErrorMessages.string('Token')),
 	})
 	.min(1)
 	.messages(joiErrorMessages.objMin());
