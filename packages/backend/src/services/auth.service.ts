@@ -1,3 +1,4 @@
+import { AuthErrorMessages } from '@/constants/auth-messages.constant';
 import { HttpStatus } from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import {
@@ -29,7 +30,7 @@ export default class AuthService {
 		});
 
 		if (checkUser) {
-			throw HttpError(409, 'User alredy exists');
+			throw HttpError(HttpStatus.Conflict, AuthErrorMessages.USER_EXISTS);
 		}
 		const newUser = await prisma.user.create({ data: { ...data } });
 
@@ -56,7 +57,10 @@ export default class AuthService {
 		});
 
 		if (!emailVerification) {
-			throw HttpError(404, 'Not found');
+			throw HttpError(
+				HttpStatus.NotFound,
+				AuthErrorMessages.EMAIL_VERIFICATION_NOT_FOUND,
+			);
 		}
 
 		await prisma.emailVerification.delete({ where: emailVerification });
@@ -81,7 +85,10 @@ export default class AuthService {
 			},
 		});
 		if (!checkUser) {
-			throw HttpError(HttpStatus.NotFound, 'Wrong password');
+			throw HttpError(
+				HttpStatus.NotFound,
+				AuthErrorMessages.WRONG_PASSWORD,
+			);
 		}
 		const updatedUser = await prisma.user.update({
 			where: { id: user.id },
@@ -104,7 +111,10 @@ export default class AuthService {
 		const user = await prisma.user.findUnique({ where: { email } });
 
 		if (!user) {
-			throw HttpError(404, 'No user with such email');
+			throw HttpError(
+				HttpStatus.NotFound,
+				AuthErrorMessages.NO_USER_WITH_EMAIL,
+			);
 		}
 
 		const passwordResetRequest = await prisma.passwordReset.create({
@@ -130,7 +140,10 @@ export default class AuthService {
 		});
 
 		if (!passwordResetRequest) {
-			throw HttpError(404, 'Reset token not found');
+			throw HttpError(
+				HttpStatus.NotFound,
+				AuthErrorMessages.PASSWORD_RESET_REQUEST_NOT_FOUND,
+			);
 		}
 
 		const updatedUser = await prisma.user.update({

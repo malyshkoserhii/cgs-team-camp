@@ -13,5 +13,11 @@ export const errorMessageList: { [key in HttpStatus]: string } = {
 	[HttpStatus.Forbidden]: 'Forbidden',
 	[HttpStatus.NotFound]: 'Not Found',
 	[HttpStatus.InternalServerError]: 'Internal Server Error',
-	[HttpStatus.Conflict]: 'Internal Server Error',
+	[HttpStatus.Conflict]: 'Conflict',
 };
+
+export enum GeneralErrorMessageList {
+	NO_ID = 'No such id in this model',
+	WRONG_TYPE = 'Wrong type',
+	NOT_FOUND = 'Not found',
+}
