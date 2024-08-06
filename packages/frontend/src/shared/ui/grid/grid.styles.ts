@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+import { colors } from '~shared/styles';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { ResponsiveColumns, ResponsiveGap } from './grid.component';
 
@@ -15,19 +16,16 @@ export const generateGridStyles = (
 			${typeof rowGap === 'number' ? rowGap : rowGap?.base || 0}px;
 
 		@media (min-width: ${breakpoints.lg}) {
+			border: 2px solid ${colors.accentColor};
 			grid-template-columns: 1fr;
 
 			li {
-				border-radius: 8px;
 				padding: 10px;
+				border-bottom: 2px solid ${colors.accentColor};
 			}
 
-			li:nth-child(1n) {
-				background: #383838;
-			}
-
-			li:nth-child(2n) {
-				background: #484848;
+			li:last-child {
+				border-bottom: none;
 			}
 		}
 

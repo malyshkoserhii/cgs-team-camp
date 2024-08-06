@@ -10,13 +10,8 @@ type Props<T> = {
 
 const getCarouselConfig = (): SwiperProps => {
 	return {
-		autoplay: {
-			delay: 5000,
-			disableOnInteraction: true,
-		},
 		modules: [Autoplay],
 		slidesPerView: 1,
-		loop: true,
 		breakpoints: {
 			640: {
 				slidesPerView: 2,

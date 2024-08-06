@@ -1,13 +1,14 @@
 import { css } from '@emotion/css';
 import { colors } from '~shared/styles';
 
-export const inputWrapperStyle = css`
+export const inputWrapperStyle = (maxWidth: string): string => css`
 	display: flex;
 	align-items: center;
 	border-radius: 10px;
 	padding: 8px 16px;
 	border: 2px solid ${colors.accentColor};
 	width: 100%;
+	max-width: ${maxWidth ? maxWidth : '100%'};
 
 	&.s {
 		height: 32px;

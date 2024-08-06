@@ -28,6 +28,8 @@ interface InputProps extends HTMLInputProps {
 	addonRight?: ReactNode;
 	size?: InputSize;
 	control?: unknown;
+	maxWidth: string;
+	withError: boolean;
 }
 
 export const Input = memo(
@@ -44,6 +46,8 @@ export const Input = memo(
 			addonRight,
 			size = 'm',
 			control,
+			maxWidth,
+			withError = true,
 			...otherProps
 		} = props;
 
@@ -55,7 +59,7 @@ export const Input = memo(
 					field: { onChange, value, ref },
 					fieldState: { error },
 				}) => (
-					<>
+					<div>
 						{name && (
 							<Flex justify="flex-start">
 								<Text bold className={labelStyle}>
@@ -68,7 +72,7 @@ export const Input = memo(
 						)}
 						<div
 							className={cx(
-								inputWrapperStyle,
+								inputWrapperStyle(maxWidth),
 								className,
 								size,
 								{
@@ -92,12 +96,14 @@ export const Input = memo(
 							/>
 							<div className={addonStyle}>{addonRight}</div>
 						</div>
-						<div className={boxStyle}>
-							<Text className={emptyMessageStyle}>
-								{error?.message || ''}
-							</Text>
-						</div>
-					</>
+						{withError && (
+							<div className={boxStyle}>
+								<Text className={emptyMessageStyle}>
+									{error?.message || ''}
+								</Text>
+							</div>
+						)}
+					</div>
 				)}
 			/>
 		);

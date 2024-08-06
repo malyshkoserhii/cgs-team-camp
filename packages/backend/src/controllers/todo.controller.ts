@@ -3,13 +3,17 @@ import TodoService from '@/services/todo.service';
 import { Status } from '@/utils/const/status';
 import { StatusCodes } from '@/utils/const/statusCodes';
 import TryCatch from '@/utils/decorators/TryCatch.decorator';
+import { TodoFilterParams } from '@/utils/types/todos.type';
 
 @TryCatch
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
 	async getAllTodo(req: Request, res: Response): Promise<void> {
-		const data = await this.todoService.findAll(req?.user?.id);
+		const data = await this.todoService.findAll(
+			req?.user?.id,
+			req.query as TodoFilterParams,
+		);
 
 		res.status(StatusCodes.ok).json({
 			code: StatusCodes.ok,

@@ -2,6 +2,7 @@ import { cx } from '@emotion/css';
 import { FunctionComponent, ReactElement } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { breakpoints } from '~shared/styles/breakpoints';
+import { TodoItemHeading } from '../todo/todoItem/todoItemHeading.component';
 import { TodoSwiper } from '../todo/todoSwiper';
 import { generateGridStyles } from './grid.styles';
 
@@ -43,6 +44,9 @@ export const AppGrid = <T extends { id: number }>({
 	const isTablet = useMediaQuery({
 		query: `(min-width: ${breakpoints.md}) and (max-width: ${breakpoints.lg})`,
 	});
+	const isMobileAndTablet = useMediaQuery({
+		query: `(max-width: ${breakpoints.lg})`,
+	});
 
 	if (isTablet) {
 		return <TodoSwiper<T> items={items} component={Component} />;
@@ -52,6 +56,7 @@ export const AppGrid = <T extends { id: number }>({
 
 	return (
 		<ul className={cx(gridStyles, className)} {...otherProps}>
+			{!isMobileAndTablet && <TodoItemHeading />}
 			{items.map((item, index) => {
 				const id = item.id || `${index}-${new Date().getTime()}`;
 				return <Component key={id} {...item} />;

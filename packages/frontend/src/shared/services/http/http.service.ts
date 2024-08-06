@@ -6,7 +6,7 @@ interface HttpServiceConfig {
 	url: string;
 	data?: unknown;
 	headers?: Record<string, string>;
-	params?: Record<string, unknown>;
+	params?: Record<string, string>;
 }
 
 interface HttpServiceOptions {
@@ -72,7 +72,7 @@ class HttpService {
 		return axiosInstance[method]<T>(
 			config.url,
 			method === 'get' || method === 'delete'
-				? undefined
+				? { params: requestConfig.params }
 				: requestConfig.data,
 			requestConfig,
 		);

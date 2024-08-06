@@ -25,3 +25,11 @@ export const listBoxStyle = css`
 export const headingStyle = css`
 	margin-bottom: ${spacingMap[300]};
 `;
+
+export const filterBoxStyles = css`
+	background-color: ${colors.secondaryBgColor};
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: ${spacingMap[300]};
+`;

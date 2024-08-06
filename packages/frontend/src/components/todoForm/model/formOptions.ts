@@ -1,3 +1,4 @@
+import { privacyOptions, statusOptions } from '~shared/const/options.const';
 import { FormOption, FormVariantsEnum } from '~shared/ui/form/types/form.type';
 
 export const options: FormOption<FormVariantsEnum>[] = [
@@ -20,19 +21,13 @@ export const options: FormOption<FormVariantsEnum>[] = [
 		variant: FormVariantsEnum.Select,
 		name: 'Status',
 		isRequired: true,
-		options: [
-			{ label: 'In progress', value: 'inProgress' },
-			{ label: 'Completed', value: 'completed' },
-		],
+		options: statusOptions,
 	},
 	{
 		id: 'isPrivate',
 		variant: FormVariantsEnum.Radio_Group,
 		name: 'Privacy',
 		isRequired: true,
-		options: [
-			{ label: 'Public', value: 'false' },
-			{ label: 'Private', value: 'true' },
-		],
+		options: privacyOptions,
 	},
 ];

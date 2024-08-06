@@ -10,7 +10,7 @@ import {
 } from '~shared/styles/formComponentBase.styles';
 import { Flex } from '../base/flex';
 import { Text } from '../base/text';
-import { radioGroupWrapperStyle } from './radioGroup.styles';
+import { radioGroupWrapperStyle, radioStyle } from './radioGroup.styles';
 
 interface RadioGroupProps {
 	id?: string;
@@ -19,6 +19,7 @@ interface RadioGroupProps {
 	control?: unknown;
 	options: { label: string; value: string }[];
 	row?: boolean;
+	withError: boolean;
 }
 
 export const RadioGroup = <T extends FieldValues>({
@@ -28,6 +29,7 @@ export const RadioGroup = <T extends FieldValues>({
 	row = true,
 	control,
 	options,
+	withError = true,
 }: RadioGroupProps): ReactElement => {
 	return (
 		<Controller
@@ -37,7 +39,7 @@ export const RadioGroup = <T extends FieldValues>({
 				field: { onChange, value, ref },
 				fieldState: { error },
 			}) => (
-				<>
+				<div>
 					{name && (
 						<Flex justify="flex-start">
 							<Text bold className={labelStyle}>
@@ -64,16 +66,19 @@ export const RadioGroup = <T extends FieldValues>({
 									key={value}
 									label={label}
 									value={value}
+									className={radioStyle}
 								/>
 							))}
 						</BlueprintRadioGroup>
 					</div>
-					<div className={boxStyle}>
-						<Text className={emptyMessageStyle}>
-							{error?.message || ''}
-						</Text>
-					</div>
-				</>
+					{withError && (
+						<div className={boxStyle}>
+							<Text className={emptyMessageStyle}>
+								{error?.message || ''}
+							</Text>
+						</div>
+					)}
+				</div>
 			)}
 		/>
 	);

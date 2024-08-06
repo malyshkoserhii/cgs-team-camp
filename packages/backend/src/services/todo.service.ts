@@ -1,11 +1,15 @@
 import { Todo, User } from '@prisma/client';
 import prisma from '@/client';
+import { getQueryParamsTodos } from '@/utils/helpers/query/getQueryParamsTodos';
+import { TodoFilterParams } from '@/utils/types/todos.type';
 
 export default class TodoService {
-	async findAll(userId: number): Promise<Todo[]> {
+	async findAll(userId: number, params: TodoFilterParams): Promise<Todo[]> {
+		const { query } = getQueryParamsTodos(params);
 		return await prisma.todo.findMany({
 			where: {
 				OR: [{ isPrivate: false }, { userId }],
+				...query,
 			},
 			orderBy: {
 				createdAt: 'desc',
