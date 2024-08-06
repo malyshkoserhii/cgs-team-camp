@@ -12,7 +12,7 @@ export class PrismaErrors {
 					'Unable to connect to the database. Please try again later.',
 				);
 			case 'P2002':
-				return ApiErrors.Conflict('Record already exists.');
+				return ApiErrors.Conflict('Record already exists!.');
 			case 'P2025':
 				return ApiErrors.NotFound('Record not found.');
 			default:

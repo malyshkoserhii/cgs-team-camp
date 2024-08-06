@@ -1,4 +1,4 @@
-import { ActivationToken, User } from '@prisma/client';
+import { ActivationToken, ResetPasswordToken, User } from '@prisma/client';
 
 import { prismaClient } from '@/prisma/prismaClient';
 import { MailService } from '@/services/mail.service';
@@ -8,8 +8,13 @@ export class AuthService {
 
 	async getUserDataToSend(
 		data: User,
-	): Promise<Omit<User, 'password' | 'id'>> {
-		const { password: _password, id: _id, ...userDataToSend } = data;
+	): Promise<Omit<User, 'password' | 'id' | 'isEmailVerified'>> {
+		const {
+			password: _password,
+			id: _id,
+			isEmailVerified: _isEmailVerified,
+			...userDataToSend
+		} = data;
 		return userDataToSend;
 	}
 
@@ -42,5 +47,29 @@ export class AuthService {
 		token: string,
 	): Promise<ActivationToken | null> {
 		return prismaClient.activationToken.findUnique({ where: { token } });
+	}
+
+	async deleteActivationToken(token: string): Promise<void> {
+		prismaClient.activationToken.delete({
+			where: { token },
+		});
+	}
+
+	async createResetPasswordToken(
+		userId: string,
+	): Promise<ResetPasswordToken> {
+		return prismaClient.resetPasswordToken.create({ data: { userId } });
+	}
+
+	async deleteResetPasswordToken(token: string): Promise<void> {
+		prismaClient.resetPasswordToken.delete({
+			where: { token },
+		});
+	}
+
+	async verifyResetPasswordToken(
+		token: string,
+	): Promise<ActivationToken | null> {
+		return prismaClient.resetPasswordToken.findUnique({ where: { token } });
 	}
 }
