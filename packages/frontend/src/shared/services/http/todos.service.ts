@@ -4,6 +4,7 @@ import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { encodeSearchParams } from '~shared/helpers/searchParams';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFormModel } from '~shared/models/todo.model';
+import { TodoFilterModel } from '~shared/models/todoFilter.model';
 import HttpService from './http.service';
 
 class TodoService extends HttpService {
@@ -12,12 +13,18 @@ class TodoService extends HttpService {
 	}
 
 	async findAll(
-		params?: Record<string, string>,
-	): Promise<AxiosResponse<TodoI[]>> {
+		params?: TodoFilterModel,
+	): Promise<
+		AxiosResponse<{ todos: TodoI[]; totalPages: number; hasMore: boolean }>
+	> {
 		return await this.get({
 			config: {
 				url: `${ApiPath.TODOS}${TodosApiPath.ALL}`,
-				params: params ? encodeSearchParams(params) : {},
+				params: params
+					? encodeSearchParams(
+							params as unknown as Record<string, string>,
+						)
+					: {},
 			},
 			withAuth: true,
 		});

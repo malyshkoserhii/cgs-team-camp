@@ -206,7 +206,7 @@ export default class UserService {
 
 	async updateUser(
 		id: number,
-		data: { name: string; password: string; oldPassword: string },
+		data: { name: string; password: string; oldPassword?: string },
 	): Promise<UserResponseDto> {
 		const user = await prisma.user.findUnique({
 			where: { id },
@@ -216,23 +216,26 @@ export default class UserService {
 			throw ApiError.AuthorizationError();
 		}
 
-		const isOldPasswordValid = await bcrypt.compare(
-			data.oldPassword,
-			user.password,
-		);
+		if (data.password) {
+			const isOldPasswordValid = await bcrypt.compare(
+				data.oldPassword!,
+				user.password,
+			);
 
-		if (!isOldPasswordValid) {
-			throw ApiError.AuthorizationError('Old password is incorrect');
+			if (!isOldPasswordValid) {
+				throw ApiError.AuthorizationError('Old password is incorrect.');
+			}
 		}
 
 		if (data.password) {
+			delete data.oldPassword;
 			data.password = await bcrypt.hash(data.password, 10);
 		}
 
 		const updatedUser = await prisma.user.update({
 			where: { id },
 			include: { todos: { select: { id: true } } },
-			data: { password: data.password, name: data.name },
+			data,
 		});
 
 		return new UserResponseDto(updatedUser);

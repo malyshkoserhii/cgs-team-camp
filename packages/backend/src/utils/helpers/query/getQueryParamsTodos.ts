@@ -8,14 +8,26 @@ type QueryParams = {
 		contains: string;
 		mode: 'insensitive';
 	};
+	page?: string | number;
+	limit?: number | string;
 };
 
 type ReturnType = {
 	query: QueryParams;
+	pagination: { skip: number; take: number };
 };
 
+const defaultPage = 1;
+const defaultLimit = 10;
+
 export const getQueryParamsTodos = (params: TodoFilterParams): ReturnType => {
-	const { status, isPrivate, name } = params;
+	const {
+		status,
+		isPrivate,
+		name,
+		page = defaultPage,
+		limit = defaultLimit,
+	} = params;
 
 	const query: QueryParams = {};
 
@@ -34,5 +46,7 @@ export const getQueryParamsTodos = (params: TodoFilterParams): ReturnType => {
 		};
 	}
 
-	return { query };
+	const skip = (Number(page) - 1) * Number(limit);
+
+	return { query, pagination: { skip, take: Number(limit) } };
 };

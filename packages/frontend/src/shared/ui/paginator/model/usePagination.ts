@@ -3,10 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
 
 interface UsePaginationOptions {
-	totalItems: number;
 	itemsPerPage: number;
 	initialPage?: number;
 	siblingCount?: number;
+	totalPages?: number;
 }
 
 interface PaginationState {
@@ -23,8 +23,7 @@ interface PaginationState {
 const queryName = 'page';
 
 export const usePagination = ({
-	totalItems,
-	itemsPerPage,
+	totalPages,
 	initialPage = 1,
 	siblingCount = 1,
 }: UsePaginationOptions): PaginationState => {
@@ -33,8 +32,6 @@ export const usePagination = ({
 		Number(searchParams.get(queryName)) || initialPage,
 	);
 	const { onUpdateFilter } = useFilter();
-
-	const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 	const goToPage = (page: number): void => {
 		if (page) {

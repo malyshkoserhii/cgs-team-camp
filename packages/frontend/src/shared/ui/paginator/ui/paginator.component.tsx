@@ -1,24 +1,30 @@
 import { ReactElement } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '../../base/flex';
 import { usePagination } from '../model/usePagination';
 import { paginationContainerStyles } from './pagination.styles';
 import { PaginationButton } from './paginationButton.component';
 
 interface PaginationProps {
-	totalResults?: number;
 	initialPage?: number;
 	itemsPerPage?: number;
 	siblingCount?: number;
+	totalPages?: number;
 }
 
+export const defaultLimit = 10;
+
 export const Pagination = ({
-	totalResults = 2500,
 	initialPage = 1,
 	siblingCount = 1,
-	itemsPerPage = 10,
+	itemsPerPage = defaultLimit,
+	totalPages,
 }: PaginationProps): ReactElement | null => {
+	const isMobileAndTablet = useMediaQuery({
+		query: `(max-width: ${breakpoints.lg})`,
+	});
 	const {
-		currentPage,
 		goToPage,
 		nextPage,
 		prevPage,
@@ -26,13 +32,15 @@ export const Pagination = ({
 		canNextPage,
 		canPrevPage,
 	} = usePagination({
-		totalItems: totalResults,
+		totalPages,
 		itemsPerPage,
 		initialPage,
 		siblingCount,
 	});
 
-	if (!totalResults) return null;
+	if (isMobileAndTablet) {
+		return null;
+	}
 
 	return (
 		<Flex
@@ -50,7 +58,7 @@ export const Pagination = ({
 				{pageNumbers.map((pageNumber, index) => (
 					<PaginationButton
 						key={index}
-						active={currentPage === pageNumber}
+						active={pageNumber === initialPage}
 						onClick={() => goToPage(Number(pageNumber))}
 						text={pageNumber}
 					/>
