@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="Merge branch 'iruskevych/main'">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.styles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/ForgetPassword.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

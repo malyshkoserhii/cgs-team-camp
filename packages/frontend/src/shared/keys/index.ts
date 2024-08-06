@@ -29,6 +29,7 @@ export const API_KEYS = {
 	BY_ID: (id: string): string => `todos/todo/${id}`,
 	REGISTER: 'auth/register',
 	LOGIN: 'auth/login',
+	FORGOT_PSW: 'auth/forgot-password',
 	VERIFY_EMAIL: (token: string): string => `auth/verify-email/${token}`,
 };
 

@@ -16,6 +16,12 @@ export class AuthService extends HttpService {
 		return this.post({ url: API_KEYS.LOGIN, data: user });
 	}
 
+	async forgetPassword(email: User): Promise<AxiosResponse<User>> {
+		return this.post({ url: API_KEYS.FORGOT_PSW, data: email });
+	}
+
+	// ============================================0000000000
+
 	async verifyEmail(token: string): Promise<AxiosResponse<User>> {
 		console.log(
 			'API_KEYS.VERIFY_EMAIL(token)',

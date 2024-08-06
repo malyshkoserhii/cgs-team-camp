@@ -15,8 +15,7 @@ interface IUserStore {
 	error: AxiosError | null;
 	register: (user: User) => Promise<void>;
 	login: (user: User) => Promise<void>;
-
-	// isLoggedIn: boolean;
+	forgetPassword: (email: User) => Promise<void>;
 }
 
 export const useAuthStore = create<IUserStore>()(
@@ -52,7 +51,20 @@ export const useAuthStore = create<IUserStore>()(
 					set({ loading: false });
 				}
 			},
+
+			forgetPassword: async (email: User): Promise<void> => {
+				set({ loading: true });
+
+				try {
+					await authService.forgetPassword(email);
+				} catch (err) {
+					toast.error(err.response?.data?.message);
+				} finally {
+					set({ loading: false });
+				}
+			},
 		}),
+
 		{
 			name: STORAGE_KEYS.AUTH_PERSIST,
 		},
