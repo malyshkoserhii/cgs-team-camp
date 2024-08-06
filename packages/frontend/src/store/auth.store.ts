@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
 import { AuthService } from '~/services/auth.service';
+import { STORAGE_KEYS } from '~shared/keys';
 
 interface AuthState {
 	isAuthenticated: boolean;
@@ -24,7 +26,7 @@ export const useAuthStore = create<AuthState>()(
 			clearAuth: () => set({ isAuthenticated: false, userId: null }),
 		}),
 		{
-			name: 'auth-storage',
+			name: STORAGE_KEYS.AUTH_STORAGE,
 			getStorage: () => localStorage,
 		},
 	),

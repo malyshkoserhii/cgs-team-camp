@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Switch } from '@blueprintjs/core';
 
@@ -36,8 +36,10 @@ const TodoElement: FC<TodoElementProps> = ({
 	const { userId } = useAuthStore();
 	const { id, name, description, status } = todo;
 
-	const isCreator = userId === todo.userId;
-
+	const isCreator = useMemo(
+		() => (todo ? userId === todo.userId : false),
+		[userId, todo],
+	);
 	const handleStatusChange = useCallback(() => {
 		const newStatus =
 			status === TodoStatus.Completed

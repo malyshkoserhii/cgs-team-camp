@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@blueprintjs/core';
 
@@ -13,14 +13,16 @@ import { sectionHeading, todoDetailsWrapper } from './todo-details.styles';
 
 import { Todo } from '~typings/todo';
 
-const TodoDetails: React.FC = () => {
+const TodoDetails: FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
 	const { userId } = useAuthStore();
 	const { isLoading, data: todo, error } = useGetTodoById(id);
-	const isCreator = userId === todo.userId;
-
+	const isCreator = useMemo(
+		() => (todo ? userId === todo.userId : false),
+		[userId, todo],
+	);
 	const { mutateAsync: updateTodo } = useUpdateTodo();
 
 	const [isEditTodoFormOpen, setIsEditTodoFormOpen] = useState(false);
