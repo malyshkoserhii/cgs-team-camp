@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { Request, Response, NextFunction } from 'express';
-import passport from 'passport'; // Path to your passport configuration
+import passport from 'passport';
 
 export const authenticateJWT = (
 	req: Request,
@@ -17,4 +17,16 @@ export const authenticateJWT = (
 			next();
 		},
 	)(req, res, next);
+};
+
+export const authorizeUser = (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+): void => {
+	if (req.user && (req.user as User).id === parseInt(req.params.userId)) {
+		next();
+	} else {
+		res.status(403).json({ message: 'Forbidden' });
+	}
 };

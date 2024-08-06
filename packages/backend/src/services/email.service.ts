@@ -14,28 +14,26 @@ const transporter = nodemailer.createTransport({
 		user: process.env.SMTP_USER,
 		pass: process.env.SMTP_PASSWORD,
 	},
-});
+} as nodemailer.TransportOptions);
 
 export const mailService = {
-	// Function to send activation email
 	sendActivationEmail: async (
 		email: string,
 		token: string,
 	): Promise<void> => {
-		const verificationUrl = `${process.env.REACT_APP_URL}/verify/${token}`;
-		const mailOptions = {
-			from: process.env.EMAIL_FROM,
-			to: email,
-			subject: 'Verify your account',
-			html: `
+		const verificationUrl = `${process.env.VERIFICATION_URL}/verify/${token}`;
+
+		try {
+			await transporter.sendMail({
+				from: process.env.EMAIL_FROM,
+				to: email,
+				subject: 'Verify your account',
+				html: `
                 <h1>Account Verification</h1>
                 <p>Please click the link below to verify your account:</p>
                 <a href="${verificationUrl}">Verify Account</a>
             `,
-		};
-
-		try {
-			await transporter.sendMail(mailOptions);
+			});
 			console.log('Verification email sent successfully');
 		} catch (error) {
 			console.error('Error sending verification email:', error);

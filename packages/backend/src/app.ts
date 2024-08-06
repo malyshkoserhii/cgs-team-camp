@@ -7,7 +7,7 @@ import passport from 'passport';
 import AppRouter from './routes';
 import { errorHandler } from './middlewares/errorHandler';
 
-const port = 3030;
+const port = 5000;
 const app: Express = express();
 const router = new AppRouter(app);
 

@@ -12,6 +12,10 @@ const errorHandler = (
 	res: Response,
 	__: NextFunction,
 ): void => {
+	if (res.headersSent) {
+		return;
+	}
+
 	if (error instanceof AppError) {
 		res.status(error.statusCode).json({ message: error.message });
 	} else if (error instanceof PrismaClientKnownRequestError) {

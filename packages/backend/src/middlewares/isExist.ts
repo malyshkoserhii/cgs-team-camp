@@ -21,26 +21,32 @@ const isExist = <T extends keyof PrismaClient>(
 		next: NextFunction,
 	): Promise<void> => {
 		const { id } = req.params;
-		const numericId = parseInt(id, 10);
+		console.log(`Checking existence for ID: ${id}`);
 
-		if (isNaN(numericId)) {
-			return next(new AppError('Invalid ID format', 400));
-		}
+		if (id) {
+			const numericId = parseInt(id, 10);
 
-		try {
-			const delegateModel = prisma[model] as PrismaModelDelegate[T];
-
-			const foundItem = await delegateModel.findUnique({
-				where: { id: numericId },
-			});
-
-			if (!foundItem) {
-				return next(new AppError('Item not found', 404));
+			if (isNaN(numericId)) {
+				return next(new AppError('Invalid ID format', 400));
 			}
 
+			try {
+				const delegateModel = prisma[model] as PrismaModelDelegate[T];
+
+				const foundItem = await delegateModel.findUnique({
+					where: { id: numericId },
+				});
+
+				if (!foundItem) {
+					return next(new AppError('Item not found', 404));
+				}
+
+				next();
+			} catch (error) {
+				next(new AppError('Internal server error', 500));
+			}
+		} else {
 			next();
-		} catch (error) {
-			next(new AppError('Internal server error', 500));
 		}
 	};
 };
