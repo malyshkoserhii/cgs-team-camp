@@ -21,8 +21,7 @@ export const ForgetPasswordForm: React.FC = () => {
 		{ resetForm }: { resetForm: () => void },
 	): Promise<void> => {
 		await forgetPassword(values);
-		console.log('email after forgetPassword', user);
-		// navigate(ROUTER_KEYS.MAIN);
+		navigate(ROUTER_KEYS.MAIN);
 		resetForm();
 	};
 
@@ -32,10 +31,14 @@ export const ForgetPasswordForm: React.FC = () => {
 
 	return (
 		<div className={container}>
-			<h2>{'Registration'}</h2>
+			<h2>{'Forget password'}</h2>
 			<Formik initialValues={initialValues} onSubmit={handleSubmit}>
 				<Form className={formStyle}>
-					<CustomField id={'email'} name={'email'} label={'Email'} />
+					<CustomField
+						id={'email'}
+						name={'email'}
+						label={'Enter your email'}
+					/>
 					<div className={buttonGroupStyle}>
 						<Button
 							text="Back"

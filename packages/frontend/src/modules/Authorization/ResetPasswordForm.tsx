@@ -37,11 +37,7 @@ export const ResetPasswordForm: React.FC = () => {
 			<h2>{'Enter new password'}</h2>
 			<Formik initialValues={initialValues} onSubmit={handleSubmit}>
 				<Form className={formStyle}>
-					<CustomField
-						id={'password'}
-						label={'New password'}
-						name={'password'}
-					/>
+					<CustomField id={'password'} label={''} name={'password'} />
 					<div className={buttonGroupStyle}>
 						<Button
 							text="Back"

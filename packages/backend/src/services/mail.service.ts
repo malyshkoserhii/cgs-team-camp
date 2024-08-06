@@ -6,7 +6,7 @@ sgMail.setApiKey(SENDGRID_API_KEY as string);
 
 export class MailService {
 	async sendVerificationEmail(to: string, token: string): Promise<void> {
-		const verificationUrl = `${BASE_URL}/api/auth/verify-email/${token}`;
+		const verificationUrl = `${BASE_URL}/verify-email/${token}`;
 		const msg = {
 			to,
 			from: SENDGRID_EMAIL_FROM as string,

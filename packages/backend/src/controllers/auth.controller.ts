@@ -66,8 +66,7 @@ export class AuthController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const token = req.params.token;
-		console.log('token BE: ', token);
+		const { token } = req.body;
 
 		const activationToken =
 			await this.authService.verifyActivationToken(token);

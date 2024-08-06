@@ -1,11 +1,12 @@
 import { css } from '@emotion/css';
 
-import { COLORS, THEME, BREAKPOINTS } from '~shared/styles/theme';
+import { COLORS, THEME, BREAKPOINTS, SIZES } from '~shared/styles/theme';
 
 export const formStyle = css`
 	display: flex;
 	flex-direction: column;
 	gap: ${THEME.spaces.medium};
+	margin-top: ${SIZES.m};
 
 	@media (max-width: ${BREAKPOINTS.mobile}) {
 		gap: ${THEME.spaces.small};

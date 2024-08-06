@@ -16,8 +16,22 @@ export class AuthService extends HttpService {
 		return this.post({ url: API_KEYS.LOGIN, data: user });
 	}
 
-	async forgetPassword(email: User): Promise<AxiosResponse<User>> {
+	async forgetPassword(email: User): Promise<
+		AxiosResponse<{
+			message: string;
+			user: User;
+		}>
+	> {
 		return this.post({ url: API_KEYS.FORGOT_PSW, data: email });
+	}
+
+	async verifyEmail(token: string): Promise<
+		AxiosResponse<{
+			message: string;
+			user: User;
+		}>
+	> {
+		return this.post({ url: API_KEYS.VERIFY_EMAIL, data: { token } });
 	}
 
 	async resetPassword(
@@ -28,15 +42,5 @@ export class AuthService extends HttpService {
 			url: API_KEYS.RESET_PSW,
 			data: { password, token },
 		});
-	}
-
-	// ============================================
-
-	async verifyEmail(token: string): Promise<AxiosResponse<User>> {
-		console.log(
-			'API_KEYS.VERIFY_EMAIL(token)',
-			API_KEYS.VERIFY_EMAIL(token),
-		);
-		return this.post({ url: 'auth/verify-email/' });
 	}
 }

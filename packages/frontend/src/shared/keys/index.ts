@@ -31,7 +31,7 @@ export const API_KEYS = {
 	REGISTER: 'auth/register',
 	LOGIN: 'auth/login',
 	FORGOT_PSW: 'auth/forgot-password',
-	VERIFY_EMAIL: (token: string): string => `auth/verify-email/${token}`,
+	VERIFY_EMAIL: 'auth/verify-email',
 	RESET_PSW: 'auth/reset-password',
 };
 

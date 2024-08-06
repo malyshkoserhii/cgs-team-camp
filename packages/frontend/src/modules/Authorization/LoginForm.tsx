@@ -22,8 +22,7 @@ export const LoginForm: React.FC = () => {
 		{ resetForm }: { resetForm: () => void },
 	): Promise<void> => {
 		await login(values);
-		console.log('user after login', user);
-		navigate(ROUTER_KEYS.MAIN);
+		// navigate(ROUTER_KEYS.MAIN);
 		resetForm();
 	};
 
@@ -33,7 +32,7 @@ export const LoginForm: React.FC = () => {
 
 	return (
 		<div className={container}>
-			<h2>{'Registration'}</h2>
+			<h2>{'Login'}</h2>
 			<Formik initialValues={initialValues} onSubmit={handleSubmit}>
 				<Form className={formStyle}>
 					<CustomField id={'email'} name={'email'} label={'Email'} />

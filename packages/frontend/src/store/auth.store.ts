@@ -57,7 +57,8 @@ export const useAuthStore = create<IUserStore>()(
 				set({ loading: true });
 
 				try {
-					await authService.forgetPassword(email);
+					const { data } = await authService.forgetPassword(email);
+					toast.success(data?.message);
 				} catch (err) {
 					toast.error(err.response?.data?.message);
 				} finally {
