@@ -1,12 +1,14 @@
 import { Response, Request } from 'express';
 import TodoService from '@/services/todo.service';
 import { StatusCodes } from '@/utils/const/statusCode';
+import { User } from '@prisma/client';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
 
-	async getAllTodo(_: Request, res: Response): Promise<void> {
-		const todos = await this.todoService.findAll();
+	async getAllTodo(req: Request, res: Response): Promise<void> {
+		const user = req.user as User;
+		const todos = await this.todoService.findAll(user);
 		res.status(StatusCodes.OK).json({
 			code: StatusCodes.OK,
 			data: todos,
@@ -24,7 +26,8 @@ export class TodoController {
 	}
 
 	async createTodo(req: Request, res: Response): Promise<void> {
-		const newTodo = await this.todoService.createTodo(req.body);
+		const user = req.user as User;
+		const newTodo = await this.todoService.createTodo(user, req.body);
 
 		res.status(StatusCodes.Created).json({
 			code: StatusCodes.Created,

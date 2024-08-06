@@ -3,6 +3,7 @@ import 'dotenv/config';
 import bodyParser from 'body-parser';
 
 import AppRouter from './routes';
+import HttpErrorHandler from './helpers/httpErrorHandler';
 
 const port = 3030;
 const app: Express = express();
@@ -16,6 +17,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 router.init();
+
+app.use(HttpErrorHandler);
 
 app.listen(port, () => {
 	console.log(`Now listening on port ${port}`);
