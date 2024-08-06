@@ -24,16 +24,6 @@ export const THEME = {
 	},
 };
 
-// export const globalStyles = css`
-// 	body {
-// 		margin: 0;
-// 		padding: 0;
-// 		font-family: ${FONTS.body};
-// 		background-color: ${COLORS.background};
-// 		color: ${COLORS.text};
-// 	}
-// `;
-
 export const SIZES = Object.freeze({
 	xxs: '4px',
 	xs: '8px',

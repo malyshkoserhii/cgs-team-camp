@@ -1,18 +1,19 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import React, { useMemo } from 'react';
+import { Formik, Form } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useTodoStore } from '~store/todo.store';
 import { Todo } from '~typings/todo.types';
 import { ROUTER_KEYS } from '~shared/keys';
-import { Button, Loader } from '~shared/components';
 import {
-	container,
-	filedGroupWrapper,
-	formStyle,
-	inputStyle,
-} from '~modules/todos/TodoForm/TodoForm.styles';
+	Button,
+	CustomCheckbox,
+	CustomField,
+	Loader,
+} from '~shared/components';
+import { container, formStyle } from '~modules/todos/TodoForm/TodoForm.styles';
 import { buttonGroupStyle } from '~modules/todos/TodoItem/TodoItem.styles';
+import { todoValidationSchema } from '../../../shared/schemas/todo.schema';
 
 export const TodoForm: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
@@ -27,12 +28,15 @@ export const TodoForm: React.FC = () => {
 		}
 	}, [isEdit, getTodoById]);
 
-	const initialValues: Todo = {
-		title: todo?.title || '',
-		description: todo?.description || '',
-		isCompleted: todo?.isCompleted || false,
-		isPrivate: todo?.isPrivate || false,
-	};
+	const initialValues: Todo = useMemo(
+		() => ({
+			title: todo?.title || '',
+			description: todo?.description || '',
+			isCompleted: todo?.isCompleted || false,
+			isPrivate: todo?.isPrivate || false,
+		}),
+		[todo],
+	);
 
 	const handleSubmit = async (
 		values: Todo,
@@ -53,51 +57,50 @@ export const TodoForm: React.FC = () => {
 	}
 
 	return (
-		<>
-			<div className={container}>
-				<h2>{isEdit ? 'Edit Todo' : 'Create Todo'}</h2>
-				<Formik initialValues={initialValues} onSubmit={handleSubmit}>
-					<Form className={formStyle}>
-						<div className={filedGroupWrapper}>
-							<label htmlFor="title">Title</label>
-							<Field
-								id="title"
-								name="title"
-								className={inputStyle}
-							/>
-						</div>
-						<div className={filedGroupWrapper}>
-							<label htmlFor="description">Description</label>
-							<Field
-								as="textarea"
-								id="description"
-								name="description"
-								className={inputStyle}
-							/>
-						</div>
-						<label htmlFor="isPrivate">
-							<Field type="checkbox" name="isPrivate" />
-							Private
-						</label>
+		<div className={container}>
+			<h2>{isEdit ? 'Edit Todo' : 'Create Todo'}</h2>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={todoValidationSchema}
+				onSubmit={handleSubmit}
+			>
+				<Form className={formStyle}>
+					<CustomField id={'title'} name={'title'} label={'Title'} />
 
-						<label>
-							<Field type="checkbox" name="isCompleted" />
-							Completed
-						</label>
-						<div className={buttonGroupStyle}>
-							<Button
-								text={isEdit ? 'Update' : 'Create'}
-								type="submit"
-							/>
-							<Button
-								text="Back"
-								type="button"
-								onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
-							/>
-						</div>
-					</Form>
-				</Formik>
-			</div>
-		</>
+					<CustomField
+						id={'description'}
+						name={'description'}
+						label={'Description'}
+						as={'textarea'}
+					/>
+
+					<CustomCheckbox
+						id={'isPrivate'}
+						name={'isPrivate'}
+						type={'checkbox'}
+						label={'Private'}
+					/>
+
+					<CustomCheckbox
+						id={'isCompleted'}
+						name={'isCompleted'}
+						type={'checkbox'}
+						label={'Completed'}
+					/>
+
+					<div className={buttonGroupStyle}>
+						<Button
+							text={isEdit ? 'Update' : 'Create'}
+							type="submit"
+						/>
+						<Button
+							text="Back"
+							type="button"
+							onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}
+						/>
+					</div>
+				</Form>
+			</Formik>
+		</div>
 	);
 };

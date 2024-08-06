@@ -34,7 +34,6 @@ export const useTodoStore = create<ITodoStore>()(
 				const { data } = await todosService.getTodos();
 				set({ todos: data });
 			} catch (err) {
-				// set({ error: err.message });
 				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
@@ -48,7 +47,6 @@ export const useTodoStore = create<ITodoStore>()(
 				set((state) => ({ todos: [...state.todos, data] }));
 				toast.success('Todo created successfully');
 			} catch (err) {
-				// set({ error: err.message });
 				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
@@ -61,7 +59,6 @@ export const useTodoStore = create<ITodoStore>()(
 			set({ todo: data });
 			try {
 			} catch (err) {
-				// set({ error: err.message });
 				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
@@ -79,7 +76,6 @@ export const useTodoStore = create<ITodoStore>()(
 				}));
 				toast.success('Todo updated successfully');
 			} catch (err) {
-				// set({ error: err });
 				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
@@ -95,7 +91,6 @@ export const useTodoStore = create<ITodoStore>()(
 				}));
 				toast.success('Todo deleted successfully');
 			} catch (err) {
-				// set({ error: err.message });
 				toast.error(err.response?.data?.message);
 			} finally {
 				set({ loading: false });
