@@ -51,6 +51,15 @@
 			],
 			"~constants/*": [
 				"src/shared/constants/*"
+			],
+			"~auth/*": [
+				"src/modules/auth/*"
+			],
+			"~MainPage/*": [
+				"src/modules/MainPage/*"
+			],
+			"~Authorization/*": [
+				"src/modules/Authorization/*"
 			]
 		}
 	},

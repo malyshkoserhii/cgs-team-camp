@@ -1,7 +1,10 @@
 export const enum ROUTER_KEYS {
 	ALL_MATCH = '/*',
 	LOGIN = '/login',
+	REGISTER = '/register',
+	FORGET_PSW = '/forget-password',
 	DASHBOARD = '/dashboard',
+	VERIFY_EMAIL = '/verify-email/:token',
 	ADD_NEW = '/add',
 	VIEW = '/view/:id',
 	PROFILE = '/profile',
@@ -17,12 +20,15 @@ export const enum FILTER_KEYS {
 
 export const STORAGE_KEYS = Object.freeze({
 	TOKEN: 'TOKEN',
+	AUTH_PERSIST: 'AUTH_PERSIST',
 });
 
 export const API_KEYS = {
 	ALL: 'todos/all',
 	CREATE: 'todos/create',
 	BY_ID: (id: string): string => `todos/todo/${id}`,
+	REGISTER: 'auth/register',
+	VERIFY_EMAIL: (token: string): string => `auth/verify-email/${token}`,
 };
 
 const size = {
