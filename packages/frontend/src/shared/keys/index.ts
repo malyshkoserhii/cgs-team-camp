@@ -4,10 +4,14 @@ export const enum ROUTER_KEYS {
 	LOGIN = '/login',
 	REGISTER = '/sign-up',
 	RESET_PASSWORD = '/reset-password',
+	FORGOT_PASSWORD = '/forgot-password',
+	VERIFY_EMAIL = '/verify-email',
 	DASHBOARD = '/dashboard',
 	TODO = '/todo',
+	PROFILE = '/profile',
 }
 
 export const STORAGE_KEYS = Object.freeze({
-	TOKEN: 'TOKEN',
+	ACCESS_TOKEN: 'ACCESS_TOKEN',
+	REFRESH_TOKEN: 'REFRESH_TOKEN',
 });

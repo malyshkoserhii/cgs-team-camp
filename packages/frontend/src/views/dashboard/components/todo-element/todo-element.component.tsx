@@ -9,6 +9,7 @@ import {
 } from '~shared/components/table/grid-table.component';
 import { ROUTER_KEYS } from '~shared/keys';
 import { showTodoStatus } from '~/utils/showTodoStatus';
+import { useAuthStore } from '~store/auth.store';
 
 import {
 	todoElementDesktop,
@@ -32,7 +33,10 @@ const TodoElement: FC<TodoElementProps> = ({
 }) => {
 	const navigate = useNavigate();
 
+	const { userId } = useAuthStore();
 	const { id, name, description, status } = todo;
+
+	const isCreator = userId === todo.userId;
 
 	const handleStatusChange = useCallback(() => {
 		const newStatus =
@@ -50,12 +54,15 @@ const TodoElement: FC<TodoElementProps> = ({
 			>
 				View
 			</Button>
-			<Button intent="danger" onClick={() => handleDeleteTodo(id)}>
-				Delete
-			</Button>
+			{isCreator && (
+				<Button intent="danger" onClick={() => handleDeleteTodo(id)}>
+					Delete
+				</Button>
+			)}
 			<Switch
 				checked={status === TodoStatus.Completed}
 				label={showTodoStatus(status)}
+				disabled={!isCreator}
 				onChange={handleStatusChange}
 			/>
 		</>

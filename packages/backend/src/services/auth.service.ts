@@ -251,4 +251,20 @@ export default class AuthService {
 
 		return true;
 	}
+
+	async updateName(userId: string, name: string): Promise<SafeUser | null> {
+		const updatedUser = await prisma.user.update({
+			where: { id: userId },
+			data: { name },
+			select: {
+				id: true,
+				email: true,
+				name: true,
+				createdAt: true,
+				updatedAt: true,
+			},
+		});
+
+		return updatedUser;
+	}
 }

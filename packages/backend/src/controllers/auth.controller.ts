@@ -237,6 +237,39 @@ export class AuthController {
 			next(e);
 		}
 	}
+
+	async updateName(
+		req: RequestWithUser,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const { id } = req.params;
+		const { name } = req.body;
+		const requestingUserId = req.user!.id;
+
+		try {
+			if (id !== requestingUserId) {
+				res.status(responseCodes.FORBIDDEN).json({
+					message: responseMessages.FORBIDDEN,
+				});
+				return;
+			}
+
+			const updatedUser = await this.authService.updateName(id, name);
+			if (updatedUser) {
+				res.json({
+					message: responseMessages.SUCCESS,
+					user: updatedUser,
+				});
+			} else {
+				res.status(responseCodes.NOT_FOUND).json({
+					message: responseMessages.NOT_FOUND,
+				});
+			}
+		} catch (e) {
+			next(e);
+		}
+	}
 }
 
 const authController = new AuthController(new AuthService());

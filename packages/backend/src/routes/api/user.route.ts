@@ -13,6 +13,7 @@ import {
 	resetPasswordSchema,
 	refreshTokenSchema,
 	resendVerificationSchema,
+	updateNameSchema,
 } from '@/validation/user.validation';
 import { isExist } from '@/validation/isExist';
 
@@ -23,6 +24,14 @@ router.get(
 	authenticateJWT,
 	isExist(Prisma.ModelName.User as keyof PrismaClient),
 	tryCatch(authController.getUserById.bind(authController)),
+);
+
+router.put(
+	'/:id',
+	authenticateJWT,
+	isExist(Prisma.ModelName.User as keyof PrismaClient),
+	validate(updateNameSchema),
+	tryCatch(authController.updateName.bind(authController)),
 );
 
 router.post(
