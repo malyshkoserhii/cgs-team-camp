@@ -1,5 +1,6 @@
 import {
 	CreateTodoType,
+	GetAllTodoQuery,
 	GetAllTodosType,
 	TodoType,
 	UpdateTodoType,
@@ -8,10 +9,28 @@ import { UserType } from '@/types/user.types';
 import { prisma } from './prisma/prisma.service';
 
 export default class TodoService {
-	async findAll(user: UserType): Promise<GetAllTodosType> {
+	async findAll(
+		user: UserType,
+		query: GetAllTodoQuery,
+	): Promise<GetAllTodosType> {
 		const todos = await prisma.todoItem.findMany({
-			where: { authorId: user.id },
+			where: {
+				AND: [
+					{
+						title: {
+							contains: query.search,
+							mode: 'insensitive',
+						},
+					},
+					{ isCompleted: query.isCompleted },
+					{ isPrivate: query.isPrivate },
+					{
+						OR: [{ authorId: user.id }, { isPrivate: false }],
+					},
+				],
+			},
 		});
+
 		return todos;
 	}
 	async createTodo(user: UserType, data: CreateTodoType): Promise<TodoType> {

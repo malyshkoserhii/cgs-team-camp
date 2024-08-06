@@ -1,5 +1,7 @@
 import TodoService from '@/services/todo.service';
+import { GetAllTodoQuery } from '@/types/todos.type';
 import { UserType } from '@/types/user.types';
+import { parseBoolean } from '@/utils/parseBoolean';
 import { Request, Response } from 'express';
 
 export class TodoController {
@@ -7,7 +9,12 @@ export class TodoController {
 
 	async getAllTodo(req: Request, res: Response): Promise<void> {
 		const user = req.user as UserType;
-		const todos = await this.todoService.findAll(user);
+		const query = {
+			isPrivate: parseBoolean(req.query.isPrivate as string),
+			isCompleted: parseBoolean(req.query.isCompleted as string),
+			search: req.query.search as string,
+		} as unknown as GetAllTodoQuery;
+		const todos = await this.todoService.findAll(user, query);
 		res.send(todos);
 	}
 	async getTodoById(req: Request, res: Response): Promise<void> {
