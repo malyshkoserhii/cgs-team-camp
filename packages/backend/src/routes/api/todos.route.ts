@@ -42,6 +42,7 @@ todosRouter.put(
 
 todosRouter.delete(
 	'/delete/:id',
+	passport.authenticate('jwt', { session: false }),
 	isExist(TodoService),
 	isTodoCreator,
 	tryCatch(todoController.deleteTodo.bind(todoController)),

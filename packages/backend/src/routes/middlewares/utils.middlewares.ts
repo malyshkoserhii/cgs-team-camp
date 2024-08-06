@@ -50,6 +50,28 @@ export const isExist =
 		}
 	};
 
+export const isTodoCreator = async (
+	req: GetTodoRequest,
+	res: Response,
+	next: NextFunction,
+): Promise<void> => {
+	try {
+		const { id: userId } = req.user as IUserSession;
+		const { id: todoId } = req.params;
+
+		const isCreator = await prismaClient.todo.findFirstOrThrow({
+			where: { id: Number(todoId), user: { id: userId } },
+		});
+
+		if (!isCreator) throw Error('NOT_CREATOR');
+
+		next();
+	} catch (error) {
+		if (error instanceof Error)
+			res.status(400).json({ error: error.message });
+	}
+};
+
 export const tryCatch =
 	<
 		Params = unknown,
