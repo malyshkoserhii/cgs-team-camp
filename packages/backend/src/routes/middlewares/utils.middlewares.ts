@@ -2,7 +2,6 @@ import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import { GetTodoRequest } from '../../types/requests.types';
 import { ERRORS } from '../../constants';
-import UserService from '@/services/user.service';
 import Service from '@/services/index.service';
 import { prismaClient } from '@/modules/prisma';
 import { IUserSession } from '@/types/user.type';
@@ -23,36 +22,18 @@ export const validateRequestBody =
 	};
 
 export const isExist =
-	<T extends Service>(EntityClass: new () => T) =>
+	(EntityClass: new () => Service) =>
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		try {
 			const entity = new EntityClass();
 
-			if (entity instanceof UserService) {
-				const { email } = req.body;
-				try {
-					await entity.findOne(email);
-					if (req.route.path !== '/register') {
-						return next();
-					}
-				} catch (error) {
-					if (req.route.path === '/register') {
-						return next();
-					}
-					res.status(400).json({ error: ERRORS.USER.NOT_EXIST });
-					return;
-				}
-				res.status(400).json({ error: ERRORS.USER.NOT_EXIST });
+			const { id } = req.params;
+			if (Number.isNaN(Number(id))) {
+				res.status(400).json({ error: ERRORS.ID_UNDEFINED });
 				return;
-			} else {
-				const { id } = req.params;
-				if (Number.isNaN(Number(id))) {
-					res.status(400).json({ error: ERRORS.ID_UNDEFINED });
-					return;
-				}
-
-				await entity.findOne(Number(id));
 			}
+
+			await entity.findOne(Number(id));
 
 			next();
 		} catch (error: unknown) {
