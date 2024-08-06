@@ -8,43 +8,63 @@ export function generateActivationToken(): string {
 const transporter = nodemailer.createTransport({
 	host: process.env.SMTP_HOST,
 	port: Number(process.env.SMTP_PORT),
+	service: 'gmail',
 	secure: false,
 	auth: {
 		user: process.env.SMTP_USER,
 		pass: process.env.SMTP_PASSWORD,
 	},
-} as nodemailer.TransportOptions);
+});
 
 export const mailService = {
-	sendActivationEmail: async (to: string, link: string): Promise<void> => {
+	// Function to send activation email
+	sendActivationEmail: async (
+		email: string,
+		token: string,
+	): Promise<void> => {
+		const verificationUrl = `${process.env.REACT_APP_URL}/verify/${token}`;
+		const mailOptions = {
+			from: process.env.EMAIL_FROM,
+			to: email,
+			subject: 'Verify your account',
+			html: `
+                <h1>Account Verification</h1>
+                <p>Please click the link below to verify your account:</p>
+                <a href="${verificationUrl}">Verify Account</a>
+            `,
+		};
+
 		try {
-			await transporter.sendMail({
-				from: process.env.SMTP_USER,
-				to,
-				subject: 'Account activation',
-				html: `
-          <h1>Account activation</h1>
-          <a href="${link}">${link}</a>
-        `,
-			});
-		} catch (e) {
-			console.log(e);
+			await transporter.sendMail(mailOptions);
+			console.log('Verification email sent successfully');
+		} catch (error) {
+			console.error('Error sending verification email:', error);
+			throw new Error('Failed to send verification email');
 		}
 	},
 
-	sendPasswordResetEmail: async (to: string, link: string): Promise<void> => {
+	sendPasswordResetEmail: async (
+		email: string,
+		token: string,
+	): Promise<void> => {
+		const resetUrl = `${process.env.RESET_PASSWORD_URL}/${token}`;
+		const mailOptions = {
+			from: process.env.EMAIL_FROM,
+			to: email,
+			subject: 'Password Reset Request',
+			html: `
+                <h1>Password Reset</h1>
+                <p>Please click the link below to reset your password:</p>
+                <a href="${resetUrl}">Reset Password</a>
+            `,
+		};
+
 		try {
-			await transporter.sendMail({
-				from: process.env.SMTP_USER,
-				to,
-				subject: 'Password Reset Request',
-				html: `
-          <h1>Password Reset</h1>
-          <a href="${link}">${link}</a>
-        `,
-			});
-		} catch (e) {
-			console.log(e);
+			await transporter.sendMail(mailOptions);
+			console.log('Password reset email sent successfully');
+		} catch (error) {
+			console.error('Error sending password reset email:', error);
+			throw new Error('Failed to send password reset email');
 		}
 	},
 };
