@@ -37,7 +37,6 @@ todosRouter.put(
 
 todosRouter.delete(
 	'/delete/:id',
-todosRouter.get('/all', todoController.getAllTodo.bind(todoController));
 	isExist(TodoService),
 	tryCatch(todoController.deleteTodo.bind(todoController)),
 );

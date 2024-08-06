@@ -7,7 +7,6 @@ import {
 	UpdateTodoRequest,
 } from '../types/requests.types';
 import { GetTodosResponse, GetTodoResponse } from '../types/responses.types';
-import { IUserSession } from '../types/user.type';
 import { MESSAGES } from '../constants';
 
 export class TodoController {
@@ -45,9 +44,9 @@ export class TodoController {
 		req: CreateTodoRequest,
 		res: Response<GetTodoResponse>,
 	): Promise<void> {
-		const { id } = req.user as IUserSession;
+		// const { id } = req.user as IUserSession;
 		const todoBody = req.body;
-		todoBody.creatorId = id;
+		todoBody.creatorId = 1;
 
 		const todos = await this.todoService.create(todoBody);
 

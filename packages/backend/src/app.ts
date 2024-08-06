@@ -21,7 +21,6 @@ app.use(passport.initialize());
 router.init();
 
 const port = app.get('port');
-// eslint-disable-next-line no-console
 const server = app.listen(port, () =>
 	console.log(`Server started on port ${port}`),
 );
