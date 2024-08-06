@@ -8,6 +8,7 @@ import {
 } from '../types/requests.types';
 import { GetTodosResponse, GetTodoResponse } from '../types/responses.types';
 import { MESSAGES } from '../constants';
+import { IUserSession } from '@/types/user.type';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
@@ -22,9 +23,10 @@ export class TodoController {
 			search,
 			page,
 		);
+
 		res.send({
 			data: todos,
-			message: `Total items: ${totalCount} Page: ${page}`,
+			message: `Total items: ${totalCount}`,
 			pages: Math.ceil(totalCount / 10),
 		});
 	}
