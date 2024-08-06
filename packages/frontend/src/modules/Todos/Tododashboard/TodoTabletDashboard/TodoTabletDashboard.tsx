@@ -7,7 +7,7 @@ import './styles.css';
 
 import React from 'react';
 import TodoItem from '~modules/Todos/TodoItem/TodoItem';
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 
 export type TabletDashboardProps = {
 	todos: Todo[];

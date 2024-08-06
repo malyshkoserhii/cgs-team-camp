@@ -7,7 +7,7 @@ import { Textarea } from '~shared/components/textarea/textarea.component';
 
 import { UtilForm } from '~shared/components/form/form';
 import { TodoFormInitState } from '~shared/constants/form-initial-values/todo-form-init-values';
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 
 type AddTodoProps = {
 	onSubmit(todo: Todo): void;

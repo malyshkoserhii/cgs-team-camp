@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '~shared/components/button/button.component';
 import { ROUTER_KEYS } from '~shared/keys';
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 import { TodoLink } from './TodoItem.styles';
 export type TodoItemActionsProps = {
 	todo: Todo;

@@ -8,5 +8,6 @@ export const HttpError = (
 	const error = new Error(message) as HttpErrorType & Error;
 	error.status = status;
 	error.message = message;
+
 	return error;
 };

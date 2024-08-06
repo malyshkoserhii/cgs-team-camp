@@ -5,7 +5,11 @@ export type HttpErrorType = {
 	status: HttpStatus;
 	message: string;
 };
-export type ActionType = (req: Request, res: Response) => Promise<void>;
+export type ActionType = (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => Promise<void>;
 
 export type HandlerType = (
 	req: Request,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Todo } from '~shared/types/Todo.types';
+import { Todo } from '~shared/types/todo.types';
 import TodoItem from '../../TodoItem/TodoItem';
 import { MobileDashboardItem } from './TodoMobileDashboard.styles';
 

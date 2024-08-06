@@ -49,13 +49,11 @@ authRouter.put(
 );
 authRouter.post(
 	'/forget-password',
-
 	validateBody(resetPasswordSchema),
 	ctrlWrapper(authController.forgetPassword.bind(authController)),
 );
 authRouter.post(
 	'/reset-password/:id',
-
 	validateBody(newPasswordSchema),
 	ctrlWrapper(authController.resetPassword.bind(authController)),
 );

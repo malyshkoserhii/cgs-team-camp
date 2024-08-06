@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+
 import { ROUTER_KEYS } from '~shared/keys/router-keys';
+
+import { useAuthStore } from '~store/auth.store';
+import Loader from '../loader/loader.component';
+import UserProfile from '../user-profile/UserProfile';
 import { HeaderContainer, MainContainer } from './layout.styles';
 
 const Layout: React.FC = () => {
+	const authStore = useAuthStore();
+	const isLoggedIn = authStore.isLoggedIn;
+
 	return (
 		<>
 			<header className={HeaderContainer}>
-				<>
-					<NavLink to={ROUTER_KEYS.DASHBOARD}>Todo List</NavLink>
-				</>
+				{isLoggedIn ? (
+					<>
+						<NavLink to={ROUTER_KEYS.DASHBOARD}>Todo List</NavLink>
+						<UserProfile />
+					</>
+				) : (
+					<>
+						<NavLink to={ROUTER_KEYS.REGISTER}>Register</NavLink>
+						<NavLink to={ROUTER_KEYS.LOGIN}>Login</NavLink>
+					</>
+				)}
 			</header>
 
 			<main className={MainContainer}>
-				<Outlet />
+				<Suspense fallback={<Loader />}>
+					<Outlet />
+				</Suspense>
 			</main>
 			<footer></footer>
 		</>
 	);
 };
-
 export default Layout;

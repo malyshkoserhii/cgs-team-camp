@@ -1,13 +1,22 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { AuthErrorMessages } from '~shared/enums/auth-messages.enum';
+import {
+	TodoErrorMessages,
+	TodoMessages,
+} from '~shared/enums/todo-messages.enum';
+import {
+	errorNotification,
+	successNotification,
+} from '~shared/services/notifications.service';
 import TodosService from '~shared/services/todos.service';
 import {
 	CreateTodoType,
 	GetAllTodoType,
 	Todo,
 	UpdateTodoType,
-} from '~shared/types/Todo.types';
+} from '~shared/types/todo.types';
 
 const todosService = new TodosService();
 
@@ -15,7 +24,7 @@ interface TodoState {
 	todo: Todo;
 	todos: GetAllTodoType;
 	loading: boolean;
-	error: AxiosError | null;
+	todoError: string | null;
 	fetchTodos: () => Promise<void>;
 	addTodo: (newTodo: CreateTodoType) => Promise<void>;
 	removeTodo: (id: number) => Promise<void>;
@@ -30,7 +39,7 @@ export const useTodoStore = create<TodoState>()(
 		todos: [],
 
 		loading: false,
-		error: null,
+		todoError: null,
 
 		fetchTodos: async (): Promise<void> => {
 			set({ loading: true });
@@ -38,10 +47,23 @@ export const useTodoStore = create<TodoState>()(
 				const { data } = await todosService.fetchAllTodos();
 				set({
 					todos: data,
+					todoError: null,
 				});
 			} catch (error) {
-				console.error('Failed to fetch todos', error);
-				set({ error: error.message });
+				if (error instanceof AxiosError) {
+					set({
+						todoError: error.response?.data?.message,
+					});
+				} else {
+					set({
+						todoError: error.message,
+					});
+				}
+				errorNotification(
+					TodoErrorMessages.TODO_FETCH_FAIL(
+						error.response.data.message || error.message,
+					),
+				);
 			} finally {
 				set({ loading: false });
 			}
@@ -52,10 +74,26 @@ export const useTodoStore = create<TodoState>()(
 			try {
 				const { data } = await todosService.createTodo(newTodo);
 
-				set((state) => ({ todos: [...state.todos, data] }));
+				set((state) => ({
+					todos: [...state.todos, data],
+					todoError: null,
+				}));
+				successNotification(TodoMessages.TODO_CREATE_SUCCESS);
 			} catch (error) {
-				console.error('Failed to add todo', error);
-				set({ error: error.message });
+				if (error instanceof AxiosError) {
+					set({
+						todoError: error.response?.data?.message,
+					});
+				} else {
+					set({
+						todoError: error.message,
+					});
+				}
+				errorNotification(
+					TodoErrorMessages.TODO_CREATE_FAIL(
+						error.response.data.message || error.message,
+					),
+				);
 			} finally {
 				set({ loading: false });
 			}
@@ -66,10 +104,23 @@ export const useTodoStore = create<TodoState>()(
 				await todosService.removeTodo(id);
 				set((state) => ({
 					todos: state.todos.filter((todo) => todo.id !== id),
+					todoError: null,
 				}));
 			} catch (error) {
-				console.error('Failed to remove todo', error);
-				set({ error: error.message });
+				if (error instanceof AxiosError) {
+					set({
+						todoError: error.response?.data?.message,
+					});
+				} else {
+					set({
+						todoError: error.message,
+					});
+				}
+				errorNotification(
+					TodoErrorMessages.TODO_DELETE_FAIL(
+						error.response.data.message || error.message,
+					),
+				);
 			} finally {
 				set({ loading: false });
 			}
@@ -83,10 +134,27 @@ export const useTodoStore = create<TodoState>()(
 					todos: state.todos.map((todo) =>
 						todo.id === id ? data : todo,
 					),
+					todoError: null,
 				}));
+
+				successNotification(
+					TodoMessages.TODO_UPDATE_SUCCESS(data.title),
+				);
 			} catch (error) {
-				console.error('Failed to update todo', error);
-				set({ error: error.message });
+				if (error instanceof AxiosError) {
+					set({
+						todoError: error.response?.data?.message,
+					});
+				} else {
+					set({
+						todoError: error.message,
+					});
+				}
+				errorNotification(
+					TodoErrorMessages.TODO_UPDATE_FAIL(
+						error.response.data.message || error.message,
+					),
+				);
 			} finally {
 				set({ loading: false });
 			}
@@ -94,10 +162,22 @@ export const useTodoStore = create<TodoState>()(
 		getTodoById: async (id): Promise<void> => {
 			try {
 				const { data } = await todosService.getTodoById(id);
-				set({ loading: false });
-				set({ todo: data });
+				set({ loading: false, todoError: null, todo: data });
 			} catch (error) {
-				set({ error: error.message });
+				if (error instanceof AxiosError) {
+					set({
+						todoError: error.response?.data?.message,
+					});
+				} else {
+					set({
+						todoError: error.message,
+					});
+				}
+				errorNotification(
+					AuthErrorMessages.GENERAL_ERROR_MESSAGE(
+						error.response.data.message || error.message,
+					),
+				);
 			}
 		},
 	})),

@@ -13,6 +13,7 @@ interface UtilFormProps<T> {
 	submitButtonText?: string;
 	children: React.ReactNode;
 	additionalStyles?: string;
+	serverError?: string;
 }
 
 export function UtilForm<T>({
@@ -22,6 +23,7 @@ export function UtilForm<T>({
 	submitButtonText = 'Submit',
 	children,
 	additionalStyles,
+	serverError,
 }: UtilFormProps<T>): JSX.Element {
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -54,14 +56,18 @@ export function UtilForm<T>({
 					{submitFailed && (
 						<div>
 							<p>submit failed</p>
-							{submitFailed}
 						</div>
 					)}
-
+					{serverError && (
+						<div>
+							<p>{serverError}</p>
+						</div>
+					)}
 					<Button
 						type="submit"
 						text={submitButtonText}
 						disabled={submitting}
+						loading={submitting}
 					/>
 				</form>
 			)}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
-import { UpdateTodoType } from '~shared/types/Todo.types';
+import { UpdateTodoType } from '~shared/types/todo.types';
 import { useTodoStore } from '~store/todos.store';
 import { DialogContainer } from '../TodoForm/Form.styles';
 import { AddTodoForm } from '../TodoForm/TodoForm';
