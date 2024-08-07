@@ -5,6 +5,7 @@ import todoController from '../../controllers/todo.controller';
 import validate from '@/middlewares/validate';
 import {
 	createTodoSchema,
+	getTodosQuerySchema,
 	updateTodoSchema,
 } from '@/validation/todo.validation';
 import tryCatch from '@/middlewares/tryCatch';
@@ -21,7 +22,11 @@ todosRouter.post(
 	tryCatch(todoController.createTodo.bind(todoController)),
 );
 
-todosRouter.get('/', tryCatch(todoController.getAllTodo.bind(todoController)));
+todosRouter.get(
+	'/',
+	validate(getTodosQuerySchema),
+	tryCatch(todoController.getAllTodo.bind(todoController)),
+);
 
 todosRouter.get(
 	'/:id',

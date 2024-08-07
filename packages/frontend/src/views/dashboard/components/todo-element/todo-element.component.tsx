@@ -22,7 +22,7 @@ import { TodoStatus, Todo } from '~typings/todo';
 
 type TodoElementProps = {
 	todo: Todo;
-	handleUpdateTodo: (values: Todo) => void;
+	handleUpdateTodo: (values: Partial<Todo>) => void;
 	handleDeleteTodo: (id: string) => void;
 };
 
@@ -45,7 +45,7 @@ const TodoElement: FC<TodoElementProps> = ({
 			status === TodoStatus.Completed
 				? TodoStatus.InProgress
 				: TodoStatus.Completed;
-		handleUpdateTodo({ ...todo, status: newStatus });
+		handleUpdateTodo({ id, status: newStatus });
 	}, [status, handleUpdateTodo]);
 
 	const ActionButtonsGroup = () => (

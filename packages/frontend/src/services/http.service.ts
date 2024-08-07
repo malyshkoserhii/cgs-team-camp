@@ -35,6 +35,7 @@ export class HttpService {
 
 						if (!refreshToken) {
 							clearTokens();
+							localStorage.removeItem(STORAGE_KEYS.AUTH_STORAGE);
 							window.location.href = ROUTER_KEYS.LOGIN;
 							return Promise.reject(error);
 						}
@@ -93,7 +94,11 @@ export class HttpService {
 	}
 
 	get(
-		config: { apiRoute: string; headers?: Record<string, string> },
+		config: {
+			apiRoute: string;
+			headers?: Record<string, string>;
+			params?: Record<string, unknown>;
+		},
 		withAuth = true,
 	) {
 		if (withAuth) {
@@ -105,6 +110,7 @@ export class HttpService {
 		return this.handleRequest(
 			this.axiosInstance.get(this.getFullApiUrl(config.apiRoute), {
 				headers: config.headers,
+				params: config.params,
 			}),
 		);
 	}
