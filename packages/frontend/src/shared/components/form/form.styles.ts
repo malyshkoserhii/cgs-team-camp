@@ -22,7 +22,7 @@ export const FormContainer = css`
 		line-height: ${SIZES.lineHeightM};
 		font-size: ${SIZES.m};
 		padding: ${SIZES.s};
-		border: 1px solid black;
+		border: 2px solid;
 	}
 	div {
 		display: flex;
@@ -55,6 +55,6 @@ export const FormContainer = css`
 	}
 `;
 export const ErrorStlyes = css`
-	color: red;
-	border-color: red !important;
+	color: ${colors.maximumRedPurple};
+	border-color: ${colors.maximumRedPurple};
 `;

@@ -48,6 +48,8 @@ const TodoPageBar = ({
 			<DebounceInput
 				type="text"
 				placeholder="Search"
+				id="search"
+				name="search"
 				className={FilterInput}
 				value={searchInputValue}
 				onChange={onSearchnputChange}

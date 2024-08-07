@@ -48,6 +48,7 @@ export const TodoLink = css`
 	:focus {
 		color: ${colors.lotion};
 		background-color: ${colors.blueLight};
+		text-decoration: none;
 		transition: all 0.3s ease;
 	}
 

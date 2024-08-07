@@ -104,30 +104,31 @@ const TodoDashboardPage = (): JSX.Element => {
 					<Loader />
 				</div>
 			)}
-			{showContent && !!todos.length ? (
-				<>
-					{isTablet && (
-						<TabletDashboard
-							todos={todos}
-							removeTodo={removeTodo}
-							loading={loading}
-						/>
-					)}
-					{isMobile && (
-						<TodoList todos={todos} removeTodo={removeTodo} />
-					)}
-					{isDesktop && (
-						<>
-							<TodoDesktopDashboard
+			{showContent &&
+				(!!todos.length ? (
+					<>
+						{isTablet && (
+							<TabletDashboard
 								todos={todos}
 								removeTodo={removeTodo}
+								loading={loading}
 							/>
-						</>
-					)}
-				</>
-			) : (
-				<p>No todos found</p>
-			)}
+						)}
+						{isMobile && (
+							<TodoList todos={todos} removeTodo={removeTodo} />
+						)}
+						{isDesktop && (
+							<>
+								<TodoDesktopDashboard
+									todos={todos}
+									removeTodo={removeTodo}
+								/>
+							</>
+						)}
+					</>
+				) : (
+					<p>No todos found</p>
+				))}
 
 			<Dialog
 				onClose={closeAddToDoModal}
