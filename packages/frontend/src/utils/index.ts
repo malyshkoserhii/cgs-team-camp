@@ -6,6 +6,7 @@ import {
 	showErrorToast,
 	showErrorToastWithText,
 } from '~shared/components/form.toasts';
+import { TodoFilters } from '~shared/types/todo/todo.types';
 
 export const validateFormValues =
 	<T>(schema: ObjectSchema<T> | (() => ObjectSchema<T>)) =>
@@ -49,3 +50,16 @@ export const tryCatch = async (
 		else showErrorToast(toast);
 	}
 };
+
+export const buildQueryString = (params: TodoFilters): string =>
+	Object.entries(params)
+		.filter(([key, value]) => value !== '' && key !== 'maxPages')
+		.flatMap(([key, value]) =>
+			Array.isArray(value)
+				? value.map(
+						(item) =>
+							`${encodeURIComponent(key)}=${encodeURIComponent(item)}`,
+					)
+				: [`${encodeURIComponent(key)}=${encodeURIComponent(value)}`],
+		)
+		.join('&');

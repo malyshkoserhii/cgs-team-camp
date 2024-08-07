@@ -17,11 +17,13 @@ export class TodoController {
 		req: Request<unknown, unknown, unknown, GetTodoRequestQuery>,
 		res: Response<GetTodosResponse>,
 	): Promise<void> {
+		const user = req.user as IUserSession;
 		const { filter, search, page = 1 } = req.query;
 		const { todos, totalCount } = await this.todoService.findAll(
 			filter,
 			search,
 			page,
+			user.id,
 		);
 
 		res.send({
@@ -46,9 +48,9 @@ export class TodoController {
 		req: CreateTodoRequest,
 		res: Response<GetTodoResponse>,
 	): Promise<void> {
-		// const { id } = req.user as IUserSession;
+		const { id } = req.user as IUserSession;
 		const todoBody = req.body;
-		todoBody.creatorId = 1;
+		todoBody.creatorId = id;
 
 		const todos = await this.todoService.create(todoBody);
 

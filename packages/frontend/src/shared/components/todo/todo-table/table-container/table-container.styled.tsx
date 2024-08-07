@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import { COLORS, FONTS } from '../../../../../theme';
 
 export const TodoTableContainerStyled = styled.div`
-	border-left: 1px solid ${COLORS.gray};
-	border-right: 1px solid ${COLORS.gray};
+	border: 1px solid ${COLORS.gray};
 
 	& td {
 		text-align: center;

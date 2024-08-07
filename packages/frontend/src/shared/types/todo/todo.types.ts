@@ -11,7 +11,13 @@ export interface ITodoCreate extends Omit<ITodo, 'id'> {}
 
 export interface TodoFilters {
 	search: string;
-	filter: '' | 'completed' | 'private';
+	filter: TodoFiltersParams[];
 	page: number;
 	maxPages: number;
+}
+
+export enum TodoFiltersParams {
+	PRIVATE = 'private',
+	COMPLETED = 'completed',
+	ALL = '',
 }

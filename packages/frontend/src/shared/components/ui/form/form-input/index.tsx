@@ -25,6 +25,7 @@ export const FormInput: React.FunctionComponent<FormInputProps> = ({
 	Component,
 	label,
 	type = 'text',
+	defaultChecked,
 }) => {
 	return (
 		<Field name={name}>
@@ -37,6 +38,7 @@ export const FormInput: React.FunctionComponent<FormInputProps> = ({
 						type={type}
 						variant="filled"
 						placeholder={placeholder}
+						defaultChecked={defaultChecked}
 					>
 						{children}
 					</Component>

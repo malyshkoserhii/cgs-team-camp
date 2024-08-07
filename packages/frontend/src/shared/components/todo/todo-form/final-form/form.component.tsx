@@ -94,6 +94,7 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
+										defaultChecked={values.completed}
 									>
 										Completed
 									</FormInput>
@@ -106,6 +107,7 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
+										defaultChecked={values.private}
 									>
 										Private
 									</FormInput>

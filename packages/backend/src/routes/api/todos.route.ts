@@ -15,6 +15,7 @@ const todosRouter: Router = Router();
 
 todosRouter.get(
 	'/all',
+	passport.authenticate('jwt', { session: false }),
 	tryCatch(todoController.getAllTodo.bind(todoController)),
 );
 

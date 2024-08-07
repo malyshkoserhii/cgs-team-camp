@@ -9,4 +9,5 @@ export interface ITodo {
 export enum TodoFilters {
 	PRIVATE = 'private',
 	COMPLETED = 'completed',
+	ALL = '',
 }
