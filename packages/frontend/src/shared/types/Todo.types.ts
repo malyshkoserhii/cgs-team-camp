@@ -10,3 +10,8 @@ export type CreateTodoType = Omit<Todo, 'id'>;
 export type UpdateTodoType = Partial<Todo>;
 
 export type GetAllTodoType = Todo[];
+export type GetAllTodoQueryType = {
+	search?: string;
+	isCompleted?: string;
+	isPrivate?: string;
+};

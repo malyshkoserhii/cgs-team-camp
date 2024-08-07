@@ -11,14 +11,21 @@ import { AddTodoForm } from '../TodoForm/TodoForm';
 import TodoDesktopDashboard from '../Tododashboard/TodoDesktopDashboard/TodoDesktopDashboard';
 import TodoList from '../Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
 
-import Button from '~shared/components/button/button.component';
+import { useSearchParams } from 'react-router-dom';
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import { useTodoStore } from '~store/todos.store';
+import TodoPageBar from '../TodoPageBar/TodoPageBar';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
 import { PageLoader } from './TodoDashboardPage.styles';
 
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
+	const [filterValue, setFilterValue] = React.useState('');
+	const [searchParams, setSearchParams] = useSearchParams();
+	const isPrivate = searchParams.get('isPrivate');
+	const isCompleted = searchParams.get('isCompleted');
+	const filter = searchParams.get('search');
+
 	const isDesktop = useMediaQuery({
 		minWidth: `${parseInt(BREAKPOINTS.desktop, 10) + 1}px`,
 	});
@@ -29,12 +36,28 @@ const TodoDashboardPage = (): JSX.Element => {
 	const isMobile = useMediaQuery({ maxWidth: `${BREAKPOINTS.tablet}` });
 	const todoStore = useTodoStore();
 	const loading = todoStore.loading;
-	const error = todoStore.error;
+	const error = todoStore.todoError;
 	const todos = todoStore.todos;
-
+	const updateSearchParams = (
+		params: Record<string, string | null>,
+	): void => {
+		const newSearchParams = new URLSearchParams(searchParams);
+		Object.entries(params).forEach(([key, value]) => {
+			if (value) {
+				newSearchParams.set(key, value);
+			} else {
+				newSearchParams.delete(key);
+			}
+		});
+		setSearchParams(newSearchParams);
+	};
 	React.useEffect(() => {
-		todoStore.fetchTodos();
-	}, []);
+		todoStore.fetchTodos({
+			search: filter,
+			isPrivate: isPrivate,
+			isCompleted: isCompleted,
+		});
+	}, [filter, isPrivate, isCompleted]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
 	};
@@ -43,20 +66,51 @@ const TodoDashboardPage = (): JSX.Element => {
 		setOpenModal(false);
 	};
 
-	const createTodo = (todo: Todo): void => {
-		todoStore.addTodo(todo);
+	const createTodo = async (todo: Todo): Promise<void> => {
+		await todoStore.addTodo(todo);
 		closeAddToDoModal();
 	};
 
-	const removeTodo = (id: number): void => {
-		todoStore.removeTodo(id);
+	const removeTodo = async (id: number): Promise<void> => {
+		await todoStore.removeTodo(id);
+	};
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLInputElement>,
+	): void => {
+		const newFilterValue = e.target.value;
+		setFilterValue(newFilterValue);
+		updateSearchParams({ search: newFilterValue });
+	};
+	const handleFilterCompleted = (): void => {
+		updateSearchParams({ isCompleted: 'true' });
+	};
+
+	const handleFilterPrivate = (): void => {
+		updateSearchParams({ isPrivate: 'true' });
+	};
+
+	const handleFilterPublic = (): void => {
+		updateSearchParams({ isPrivate: 'false' });
+	};
+
+	const showAllTodos = (): void => {
+		setFilterValue('');
+		setSearchParams('');
 	};
 
 	const showContent = !error && !loading;
 
 	return (
 		<>
-			<Button text="Create New Todo" onClick={openAddToDoModal} />
+			<TodoPageBar
+				onAddTodo={openAddToDoModal}
+				showAllTodos={showAllTodos}
+				searchInputValue={filterValue}
+				onSearchnputChange={handleInputChange}
+				onFilterPrivate={handleFilterPrivate}
+				onFilterCompleted={handleFilterCompleted}
+				onFilterPublic={handleFilterPublic}
+			/>
 			{error && (
 				<p>
 					Something went wrong <>{error}</>
