@@ -1,6 +1,6 @@
 import { Switch } from '@blueprintjs/core';
 
-import React, { FC } from 'react';
+import React, { FC, useId } from 'react';
 export type CustomToggleType = {
 	status: boolean;
 	readOnly?: boolean;
@@ -13,8 +13,10 @@ const CustomToggle: FC<CustomToggleType> = ({
 	readOnly = true,
 	additionalStyles,
 }) => {
+	const id = useId();
 	return (
 		<Switch
+			id={id}
 			large={true}
 			checked={status}
 			readOnly={readOnly}

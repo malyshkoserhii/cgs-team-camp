@@ -23,3 +23,6 @@ export const UtilInputStyles = css`
 		outline: none;
 	}
 `;
+export const ErrorSpanStyle = css`
+	color: red;
+`;
