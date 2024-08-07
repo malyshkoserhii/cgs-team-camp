@@ -8,6 +8,13 @@ export interface Todo {
 	isCompleted?: boolean;
 }
 
+// for filtering todos by params
+export type TodoQueryParams = {
+	search?: string;
+	isPrivate?: boolean;
+	isCompleted?: boolean;
+};
+
 // for isExistMiddleware
 export type ModelType = {
 	findUnique: (
