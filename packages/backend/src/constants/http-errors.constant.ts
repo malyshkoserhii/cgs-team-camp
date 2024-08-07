@@ -20,4 +20,5 @@ export enum GeneralErrorMessageList {
 	NO_ID = 'No such id in this model',
 	WRONG_TYPE = 'Wrong type',
 	NOT_FOUND = 'Not found',
+	BAD_REQUEST = 'Bad request',
 }

@@ -1,3 +1,5 @@
+import { AuthErrorMessages } from '@/constants/auth-messages.constant';
+import { HttpStatus } from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import { prisma } from '@/services/prisma/prisma.service';
 import { User } from '@prisma/client';
@@ -23,12 +25,20 @@ export function useLocalStrategy(passport: PassportStatic): void {
 
 				if (!user) {
 					return done(
-						HttpError(404, 'No user with this email'),
+						HttpError(
+							HttpStatus.NotFound,
+							AuthErrorMessages.NO_USER_WITH_EMAIL,
+						),
 						false,
 					);
 				}
 				if (password !== user.password) {
-					return done(HttpError(401, 'Email or password is wrong'));
+					return done(
+						HttpError(
+							HttpStatus.Unauthorized,
+							AuthErrorMessages.WRONG_EMAIL_OR_PASSWORD,
+						),
+					);
 				}
 
 				return done(null, user);

@@ -1,6 +1,8 @@
 body {
 	margin: 0;
 	overflow-x: hidden;
+	scrollbar-gutter: stable;
+
 	font-family: 'RobotoMono', sans-serif;
 }
 @font-face {
@@ -29,8 +31,6 @@ h6 {
 	margin: 0;
 	font-family: 'Montserrat', sans-serif;
 }
-
-/* Your Fonts */
 
 * {
 	margin: 0;

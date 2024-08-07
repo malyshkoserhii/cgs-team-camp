@@ -206,11 +206,6 @@ export const useAuthStore = create(
 							authError: error.message,
 						});
 					}
-					errorNotification(
-						AuthErrorMessages.CURRENT_USER_ERROR(
-							error.response.data.message || error.message,
-						),
-					);
 				} finally {
 					set({ loading: false });
 				}
