@@ -11,8 +11,11 @@ import {
 	CustomField,
 	Loader,
 } from '~shared/components';
-import { container, formStyle } from '~modules/todos/TodoForm/TodoForm.styles';
-import { buttonGroupStyle } from '~modules/todos/TodoItem/TodoItem.styles';
+import {
+	buttonGroupStyle,
+	container,
+	formStyle,
+} from '~modules/todos/TodoForm/TodoForm.styles';
 import { todoValidationSchema } from '../../../shared/schemas/todo.schema';
 
 export const TodoForm: React.FC = () => {

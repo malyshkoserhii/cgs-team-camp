@@ -46,11 +46,11 @@
 			"~services/*": [
 				"src/services/*"
 			],
-			"~schemas/*": [
-				"src/shared/schemas/*"
+			"~AuthForms/*": [
+				"src/modules/AuthForms/*"
 			],
-			"~constants/*": [
-				"src/shared/constants/*"
+			"~Profile/*": [
+				"src/modules/Profile/*"
 			]
 		}
 	},

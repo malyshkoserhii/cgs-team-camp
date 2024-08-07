@@ -4,12 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" afterDir="false" />
+    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="Merge branch 'iruskevych/main'">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/ForgetPassword.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/RegisterForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/ResetPasswordForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/MainPage/MainPage.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/MainPage/MainPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Profile/Profile.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/Profile/Profile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomForm/CustomForm.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomForm/CustomForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/schemas/user.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/typings/user.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/.prettierrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/.prettierrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804082819_todo/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240806083557_user/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/migration_lock.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/middlewares/isExist.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/modules/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/modules/test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/auth.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/todo.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/schemas/user.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/mail.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/types/modules.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/types/modules.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/.prettierrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/.prettierrc.cjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/schemas/todo.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/schemas/todo.schema.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/styles/colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/styles/colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/styles/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/styles/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/counter.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/counter.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/typings/env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/typings/env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/typings/global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/typings/global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/vite.env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/vite.env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.node.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/vite.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +64,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/authorization-backend" />
+        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,24 +86,24 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "iruskevych/main",
-    "javascript.nodejs.core.library.configured.version": "20.11.1",
-    "javascript.nodejs.core.library.typings.version": "20.11.30",
-    "last_opened_file_path": "D:/FSDev-advanced",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Ivan\\AppData\\Roaming\\npm\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/auth-frontend&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\!NEW--22\\cgs-team-camp\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\!NEW--22\\cgs-team-camp\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -77,6 +121,7 @@
       <updated>1722759792004</updated>
       <workItem from="1722759794914" duration="8517000" />
       <workItem from="1722768504790" duration="805000" />
+      <workItem from="1723034169381" duration="533000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'iruskevych/main'">
       <option name="closed" value="true" />

@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useTodoStore } from '~store/todo.store';
-import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
 import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
 import { TodoList } from '~modules/todos/TodoList/TodoList';
 import {
@@ -11,6 +10,7 @@ import {
 	wrapper,
 	wrapperFlex,
 } from '~modules/todos/todos.styles';
+import { FilterSelect, Loader, StyledNavLink } from '../../shared/components';
 
 export const TodosModule = (): React.ReactNode => {
 	const { todos, getTodos, loading, error } = useTodoStore();
