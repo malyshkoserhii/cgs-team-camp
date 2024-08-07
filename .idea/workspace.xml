@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="Merge branch 'iruskevych/main'">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
+    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240804082819_todo/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/20240806083557_user/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/prisma/migrations/migration_lock.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +46,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/authorization-backend-v2",
+    "git-widget-placeholder": "iruskevych/main",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
     "last_opened_file_path": "D:/FSDev-advanced",
@@ -51,7 +54,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Ivan\\AppData\\Roaming\\npm\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -94,6 +97,6 @@
     <MESSAGE value="merge from iruskevych/main" />
     <MESSAGE value="Merge branch 'iruskevych/main' into feature/authorization-backend-v2&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge branch 'iruskevych/main'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'iruskevych/main'" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
