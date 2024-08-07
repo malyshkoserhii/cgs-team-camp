@@ -4,12 +4,10 @@ import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { useAuth } from '~shared/hooks/useAuth.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
-import { TodoFilterModel } from '~shared/models/todoFilter.model';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '~shared/ui/base/flex';
 import { Text } from '~shared/ui/base/text';
 import Button from '~shared/ui/button/button.component';
-import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
 import { Switch } from '~shared/ui/switch';
 import useModalStore from '~store/modal.store';
 import { useTodoStore } from '~store/todos.store';
@@ -32,10 +30,8 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 	(todo, ref): ReactElement => {
 		const { description, name, id, isPrivate } = todo;
 		const openModal = useModalStore((state) => state.openModal);
-		const { params } = useFilter<TodoFilterModel>();
 		const {
 			deleteTodoById,
-			fetchTodos,
 			changeStatusById,
 			changeStatusIsLoading,
 			deleteIsLoading,
@@ -53,12 +49,10 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 					? TodoStatusE.InProgress
 					: TodoStatusE.Completed,
 			);
-			fetchTodos(params);
 		};
 
 		const onDelete = async (id: string): Promise<void> => {
 			await deleteTodoById(id);
-			fetchTodos(params);
 		};
 
 		const onOpenModal = (): void => {

@@ -137,12 +137,19 @@ export const useTodoStore = create<TodoStore>()(
 				state.error = null;
 			});
 			try {
-				await todoService.updateById(id.toString(), data);
+				const response = await todoService.updateById(
+					id.toString(),
+					data,
+				);
 				useModalStore.getState().closeModal();
 				notificationService.success(
 					Messages.UPDATED_SUCCESSFULLY(name),
 				);
+
 				set((state) => {
+					state.items = state.items.map((item) =>
+						item.id === Number(id) ? response.data : item,
+					);
 					state.editLoading = false;
 				});
 			} catch (error) {
@@ -161,8 +168,11 @@ export const useTodoStore = create<TodoStore>()(
 				state.error = null;
 			});
 			try {
-				await todoService.changeStatusById(id, status);
+				const response = await todoService.changeStatusById(id, status);
 				set((state) => {
+					state.items = state.items.map((item) =>
+						item.id === Number(id) ? response.data : item,
+					);
 					state.changeStatusIsLoading = false;
 				});
 			} catch (error) {
@@ -183,6 +193,9 @@ export const useTodoStore = create<TodoStore>()(
 					Messages.DELETED_SUCCESSFULLY(name),
 				);
 				set((state) => {
+					state.items = state.items.filter(
+						(item) => item.id !== Number(id),
+					);
 					state.deleteIsLoading = false;
 				});
 			} catch (error) {

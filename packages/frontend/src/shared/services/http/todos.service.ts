@@ -61,7 +61,7 @@ class TodoService extends HttpService {
 	async updateById(
 		id: string,
 		todo: TodoFormModel,
-	): Promise<AxiosResponse<TodoFormModel>> {
+	): Promise<AxiosResponse<TodoI>> {
 		return await this.put({
 			config: {
 				url: `${ApiPath.TODOS}/${id}`,
