@@ -20,5 +20,8 @@ export const StyledTableErrorMessage = styled.div`
 	text-align: center;
 	font-size: ${FONTS.SIZES.l};
 	font-weight: ${FONTS.WEIGHTS.bold};
-	margin: 2em;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;

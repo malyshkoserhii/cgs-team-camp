@@ -57,6 +57,9 @@
 			],
 			"~utils/*": [
 				"src/utils/*"
+			],
+			"~auth/*": [
+				"src/pages/auth/*"
 			]
 		}
 	},

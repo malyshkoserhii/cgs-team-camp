@@ -3,6 +3,7 @@ import {
 	ComponentWithAs,
 	FormControl,
 	FormErrorMessage,
+	FormLabel,
 	InputProps,
 	TextareaProps,
 } from '@chakra-ui/react';
@@ -14,6 +15,7 @@ interface FormInputProps extends InputProps {
 	Component:
 		| ComponentWithAs<'input', InputProps>
 		| ComponentWithAs<'textarea', TextareaProps>;
+	label?: string;
 }
 
 export const FormInput: React.FunctionComponent<FormInputProps> = ({
@@ -21,15 +23,18 @@ export const FormInput: React.FunctionComponent<FormInputProps> = ({
 	placeholder,
 	children,
 	Component,
+	label,
+	type = 'text',
 }) => {
 	return (
 		<Field name={name}>
 			{({ input, meta }) => (
 				<FormControl isInvalid={meta.touched && meta.error}>
+					{label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 					<Component
 						{...input}
 						id={name}
-						type="text"
+						type={type}
 						variant="filled"
 						placeholder={placeholder}
 					>

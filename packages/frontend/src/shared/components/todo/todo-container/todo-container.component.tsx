@@ -18,10 +18,8 @@ import { useTodoStore } from '~/state/store/todo.store';
 import { TodoSwiperContainer } from '../todo-swiper-container';
 import { TodoListContainer } from '../todo-list-container';
 
-/* eslint-disable */
-
-export const TodoContainer = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
+	const { isOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
 
 	const {
@@ -59,10 +57,7 @@ export const TodoContainer = () => {
 
 			<TabletView>
 				<TodoTableHeader variant="flushed" />
-				<TodoSwiperContainer
-					// fetchMoreFunc={fetchMore}
-					data={todos}
-				/>
+				<TodoSwiperContainer data={todos} />
 			</TabletView>
 
 			<MobileOnlyView>
@@ -73,4 +68,4 @@ export const TodoContainer = () => {
 			</MobileOnlyView>
 		</TodoContainerStyled>
 	);
-};
+}

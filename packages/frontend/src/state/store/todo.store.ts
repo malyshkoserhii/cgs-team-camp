@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import { create } from 'zustand';
 import todoService from '~shared/components/todo/todo.service';
 import TodoModel from '~shared/types/todo/todo.model';

@@ -1,7 +1,12 @@
 import { Todo } from '@prisma/client';
+import { IUser, IUserSession } from './user.type';
 
 export interface Status {
 	message?: string;
+}
+
+export interface Error {
+	error?: string;
 }
 
 export interface Pages {
@@ -20,7 +25,7 @@ export interface GetUserResponse {
 	data?: IUserSession;
 }
 
-export interface CreateUserResponse extends Status, GetUserResponse {}
+export interface CreateUserResponse extends Status, GetUserResponse, Error {}
 
 export interface LoginUserResponse extends Status {
 	data?: IUser;

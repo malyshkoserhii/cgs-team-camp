@@ -1,5 +1,11 @@
+import { CreateToastFnReturn } from '@chakra-ui/react';
+import { AxiosError } from 'axios';
 import { setIn } from 'final-form';
 import { ObjectSchema, ValidationError } from 'yup';
+import {
+	showErrorToast,
+	showErrorToastWithText,
+} from '~shared/components/form.toasts';
 
 export const validateFormValues =
 	<T>(schema: ObjectSchema<T> | (() => ObjectSchema<T>)) =>
@@ -30,3 +36,16 @@ export const validateFormValues =
 			throw err;
 		}
 	};
+
+export const tryCatch = async (
+	fn: () => unknown,
+	toast: CreateToastFnReturn,
+): Promise<void> => {
+	try {
+		await fn();
+	} catch (error) {
+		if (error instanceof AxiosError)
+			showErrorToastWithText(toast, error.response?.data.error);
+		else showErrorToast(toast);
+	}
+};
