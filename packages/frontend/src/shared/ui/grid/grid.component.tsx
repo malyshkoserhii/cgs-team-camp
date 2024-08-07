@@ -1,7 +1,10 @@
 import { cx } from '@emotion/css';
-import { FunctionComponent, ReactElement } from 'react';
+import { FunctionComponent, ReactElement, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useMediaQuery } from 'react-responsive';
+import { useShowMore } from '~shared/hooks/useShowMore.hook';
 import { breakpoints } from '~shared/styles/breakpoints';
+import { Loader } from '../loader';
 import { TodoItemHeading } from '../todo/todoItem/todoItemHeading.component';
 import { TodoSwiper } from '../todo/todoSwiper';
 import { generateGridStyles } from './grid.styles';
@@ -30,6 +33,7 @@ type Props<T> = {
 	columnGap?: number | ResponsiveGap;
 	rowGap?: number | ResponsiveGap;
 	className?: string;
+	showMoreIsLoading?: boolean;
 };
 
 export const AppGrid = <T extends { id: number }>({
@@ -39,6 +43,7 @@ export const AppGrid = <T extends { id: number }>({
 	columnGap = 8,
 	rowGap = { base: 2, lg: 4 },
 	className,
+	showMoreIsLoading,
 	...otherProps
 }: Props<T>): ReactElement => {
 	const isTablet = useMediaQuery({
@@ -47,20 +52,39 @@ export const AppGrid = <T extends { id: number }>({
 	const isMobileAndTablet = useMediaQuery({
 		query: `(max-width: ${breakpoints.lg})`,
 	});
+	const showMore = useShowMore();
+	const { ref, inView } = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+
+	useEffect(() => {
+		if (inView && isMobileAndTablet) {
+			showMore();
+		}
+	}, [inView, isMobileAndTablet, showMore]);
 
 	if (isTablet) {
 		return <TodoSwiper<T> items={items} component={Component} />;
 	}
 
-	const gridStyles = generateGridStyles(columns, columnGap, rowGap);
-
 	return (
-		<ul className={cx(gridStyles, className)} {...otherProps}>
-			{!isMobileAndTablet && <TodoItemHeading />}
-			{items.map((item, index) => {
-				const id = item.id || `${index}-${new Date().getTime()}`;
-				return <Component key={id} {...item} />;
-			})}
-		</ul>
+		<>
+			<ul
+				className={cx(
+					generateGridStyles(columns, columnGap, rowGap),
+					className,
+				)}
+				{...otherProps}
+			>
+				{!isMobileAndTablet && <TodoItemHeading />}
+				{items.map((item, index) => {
+					const id = item.id || `${index}-${new Date().getTime()}`;
+					return <Component {...item} key={id} />;
+				})}
+			</ul>
+			<div ref={ref} />
+			{showMoreIsLoading && <Loader />}
+		</>
 	);
 };

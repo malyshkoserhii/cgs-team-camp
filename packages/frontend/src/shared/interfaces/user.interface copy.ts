@@ -5,6 +5,7 @@ export interface UserI {
 	password: string;
 	refreshToken?: string;
 	activationToken?: string;
+	oldPassword?: string;
 	isActivated: boolean;
 	createdAt: Date;
 	updatedAt: Date;

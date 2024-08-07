@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { forwardRef, ReactElement, Ref } from 'react';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { Flex } from '~shared/ui/base/flex';
@@ -22,71 +22,81 @@ type TodoItemCardProps = {
 	isMobileAndTablet: boolean;
 	isUsersTodo: boolean;
 	isPrivate: boolean;
+	ref?: Ref<HTMLLIElement>;
 };
 
-export const TodoItemCard = ({
-	todo,
-	onUpdateStatus,
-	onOpenModal,
-	onDelete,
-	changeStatusIsLoading,
-	deleteIsLoading,
-	isUsersTodo,
-	isPrivate,
-}: TodoItemCardProps): ReactElement => {
-	return (
-		<li className={todoBoxStyles}>
-			<div>
-				<Flex>
-					<Heading level={3} size="small" className={todoCardHeading}>
-						{todo.name}
-					</Heading>
-					{isPrivate ? (
-						<Button
-							variant="clear"
-							fullWidth={false}
-							text="Private"
-						/>
-					) : (
-						<Button
-							variant="clear"
-							fullWidth={false}
-							text="Public"
-						/>
-					)}
-				</Flex>
-				<Text size="medium" align="left">
-					{todo.description}
-				</Text>
-			</div>
-			<div className={todoCardContentStyle}>
-				<Flex justify="space-between">
+export const TodoItemCard = forwardRef<HTMLLIElement, TodoItemCardProps>(
+	(
+		{
+			todo,
+			onUpdateStatus,
+			onOpenModal,
+			onDelete,
+			changeStatusIsLoading,
+			deleteIsLoading,
+			isUsersTodo,
+			isPrivate,
+		},
+		ref,
+	): ReactElement => {
+		return (
+			<li className={todoBoxStyles} ref={ref}>
+				<div>
+					<Flex>
+						<Heading
+							level={3}
+							size="small"
+							className={todoCardHeading}
+						>
+							{todo.name}
+						</Heading>
+						{isPrivate ? (
+							<Button
+								variant="clear"
+								fullWidth={false}
+								text="Private"
+							/>
+						) : (
+							<Button
+								variant="clear"
+								fullWidth={false}
+								text="Public"
+							/>
+						)}
+					</Flex>
 					<Text size="medium" align="left">
-						Competed
+						{todo.description}
 					</Text>
-					<Switch
-						onChange={onUpdateStatus}
-						disabled={changeStatusIsLoading || isUsersTodo}
-						checked={todo.status === TodoStatusE.Completed}
-					/>
-				</Flex>
-				<Flex gap="10px" justify="flex-end">
-					<Button
-						fullWidth={false}
-						text="Edit"
-						onClick={onOpenModal}
-						disabled={isUsersTodo}
-					/>
-					<Button
-						onClick={() => onDelete(String(todo.id))}
-						loading={deleteIsLoading}
-						variant="outline"
-						fullWidth={false}
-						text="Delete"
-						disabled={isUsersTodo}
-					/>
-				</Flex>
-			</div>
-		</li>
-	);
-};
+				</div>
+				<div className={todoCardContentStyle}>
+					<Flex justify="space-between">
+						<Text size="medium" align="left">
+							Completed
+						</Text>
+						<Switch
+							onChange={onUpdateStatus}
+							disabled={changeStatusIsLoading || isUsersTodo}
+							checked={todo.status === TodoStatusE.Completed}
+						/>
+					</Flex>
+					<Flex gap="10px" justify="flex-end">
+						<Button
+							fullWidth={false}
+							text="Edit"
+							onClick={onOpenModal}
+							disabled={isUsersTodo}
+						/>
+						<Button
+							onClick={() => onDelete(String(todo.id))}
+							loading={deleteIsLoading}
+							variant="outline"
+							fullWidth={false}
+							text="Delete"
+							disabled={isUsersTodo}
+						/>
+					</Flex>
+				</div>
+			</li>
+		);
+	},
+);

@@ -4,17 +4,36 @@ import { getQueryParamsTodos } from '@/utils/helpers/query/getQueryParamsTodos';
 import { TodoFilterParams } from '@/utils/types/todos.type';
 
 export default class TodoService {
-	async findAll(userId: number, params: TodoFilterParams): Promise<Todo[]> {
-		const { query } = getQueryParamsTodos(params);
-		return await prisma.todo.findMany({
-			where: {
-				OR: [{ isPrivate: false }, { userId }],
-				...query,
-			},
-			orderBy: {
-				createdAt: 'desc',
-			},
-		});
+	async findAll(
+		userId: number,
+		params: TodoFilterParams,
+	): Promise<{ todos: Todo[]; totalPages: number; hasMore: boolean }> {
+		const { query, pagination } = getQueryParamsTodos(params);
+
+		const [totalCount, todos] = await prisma.$transaction([
+			prisma.todo.count({
+				where: {
+					OR: [{ isPrivate: false }, { userId }],
+					...query,
+				},
+			}),
+			prisma.todo.findMany({
+				where: {
+					OR: [{ isPrivate: false }, { userId }],
+					...query,
+				},
+				orderBy: {
+					createdAt: 'desc',
+				},
+				skip: pagination.skip,
+				take: pagination.take,
+			}),
+		]);
+
+		const totalPages = Math.ceil(totalCount / pagination.take);
+		const hasMore = pagination.skip + todos.length < totalCount;
+
+		return { todos, totalPages, hasMore };
 	}
 
 	async create(todo: Todo, user: User): Promise<Todo> {

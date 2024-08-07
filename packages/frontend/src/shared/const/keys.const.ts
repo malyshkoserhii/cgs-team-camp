@@ -16,3 +16,8 @@ export const STORAGE_KEYS = Object.freeze({
 	TOKEN_REFRESH: 'TOKEN_REFRESH',
 	THEME: 'theme',
 });
+
+export const QUERY_PARAMS_KEYS = Object.freeze({
+	SHOW_MORE: 'showMore',
+	PAGE: 'page',
+});

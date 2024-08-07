@@ -37,7 +37,7 @@ export const Filter = <T extends FieldValues>({
 	const onSubmit = useDebouncedCallback(
 		useCallback(
 			(data: T) => {
-				onUpdateFilter(data);
+				onUpdateFilter(data, { resetPage: true });
 			},
 			[resetPage, onUpdateFilter],
 		),

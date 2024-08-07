@@ -13,7 +13,7 @@ import {
 	outlineButtonStyle,
 } from './button.styles';
 
-interface CustomButtonProps extends ButtonProps {
+export interface CustomButtonProps extends ButtonProps {
 	variant?: 'filled' | 'outline' | 'clear';
 	fullWidth?: boolean;
 	toolTipMessage?: string;

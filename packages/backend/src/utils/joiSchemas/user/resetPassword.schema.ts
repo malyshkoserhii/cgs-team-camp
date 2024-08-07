@@ -5,3 +5,8 @@ export const resetPasswordSchema = Joi.object({
 	password: passwordValidation,
 	token: tokenValidation,
 });
+
+export const updatePasswordSchema = Joi.object({
+	oldPassword: Joi.string().required(),
+	password: passwordValidation,
+});
