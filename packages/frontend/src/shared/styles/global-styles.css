@@ -1,3 +1,8 @@
+html,
+body,
+#root {
+	height: 100%;
+}
 body {
 	margin: 0;
 	overflow-x: hidden;
@@ -15,36 +20,38 @@ h6 {
 }
 
 p {
-	font-family: "Open Sans", sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 @font-face {
-    font-family: 'Roboto';
-    src: url('/path/to/fonts/Roboto-Regular.woff2') format('woff2'),
-         url('/path/to/fonts/Roboto-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Roboto';
+	src:
+		url('/path/to/fonts/Roboto-Regular.woff2') format('woff2'),
+		url('/path/to/fonts/Roboto-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('/path/to/fonts/OpenSans-Regular.woff2') format('woff2'),
-         url('/path/to/fonts/OpenSans-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Open Sans';
+	src:
+		url('/path/to/fonts/OpenSans-Regular.woff2') format('woff2'),
+		url('/path/to/fonts/OpenSans-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('/path/to/fonts/Poppins-Regular.woff2') format('woff2'),
-         url('/path/to/fonts/Poppins-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Poppins';
+	src:
+		url('/path/to/fonts/Poppins-Regular.woff2') format('woff2'),
+		url('/path/to/fonts/Poppins-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
-
 
 * {
 	margin: 0;

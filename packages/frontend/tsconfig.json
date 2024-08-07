@@ -55,26 +55,14 @@
 			"~views/*": [
 				"src/views/*"
 			],
-			"~dashboard/*": [
-				"src/views/dashboard/*"
-			],
-			"~layout/*": [
-				"src/shared/layout/*"
-			],
-			"~hooks/*": [
-				"src/api/hooks/*"
-			],
 			"~providers/*": [
 				"src/providers/*"
 			],
-			"~forms/*": [
-				"src/shared/forms/*"
+			"~forgot-password/*": [
+				"src/views/forgot-password/*"
 			],
-			"~todo/*": [
-				"src/views/todo/*"
-			],
-			"~modals/*": [
-				"src/shared/modals/*"
+			"~reset-password/*": [
+				"src/views/reset-password/*"
 			]
 		}
 	},

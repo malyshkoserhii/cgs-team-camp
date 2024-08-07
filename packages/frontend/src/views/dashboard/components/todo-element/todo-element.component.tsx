@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Switch } from '@blueprintjs/core';
 
@@ -9,6 +9,7 @@ import {
 } from '~shared/components/table/grid-table.component';
 import { ROUTER_KEYS } from '~shared/keys';
 import { showTodoStatus } from '~/utils/showTodoStatus';
+import { useAuthStore } from '~store/auth.store';
 
 import {
 	todoElementDesktop,
@@ -21,7 +22,7 @@ import { TodoStatus, Todo } from '~typings/todo';
 
 type TodoElementProps = {
 	todo: Todo;
-	handleUpdateTodo: (values: Todo) => void;
+	handleUpdateTodo: (values: Partial<Todo>) => void;
 	handleDeleteTodo: (id: string) => void;
 };
 
@@ -32,14 +33,19 @@ const TodoElement: FC<TodoElementProps> = ({
 }) => {
 	const navigate = useNavigate();
 
+	const { userId } = useAuthStore();
 	const { id, name, description, status } = todo;
 
+	const isCreator = useMemo(
+		() => (todo ? userId === todo.userId : false),
+		[userId, todo],
+	);
 	const handleStatusChange = useCallback(() => {
 		const newStatus =
 			status === TodoStatus.Completed
 				? TodoStatus.InProgress
 				: TodoStatus.Completed;
-		handleUpdateTodo({ ...todo, status: newStatus });
+		handleUpdateTodo({ id, status: newStatus });
 	}, [status, handleUpdateTodo]);
 
 	const ActionButtonsGroup = () => (
@@ -50,12 +56,15 @@ const TodoElement: FC<TodoElementProps> = ({
 			>
 				View
 			</Button>
-			<Button intent="danger" onClick={() => handleDeleteTodo(id)}>
-				Delete
-			</Button>
+			{isCreator && (
+				<Button intent="danger" onClick={() => handleDeleteTodo(id)}>
+					Delete
+				</Button>
+			)}
 			<Switch
 				checked={status === TodoStatus.Completed}
 				label={showTodoStatus(status)}
+				disabled={!isCreator}
 				onChange={handleStatusChange}
 			/>
 		</>

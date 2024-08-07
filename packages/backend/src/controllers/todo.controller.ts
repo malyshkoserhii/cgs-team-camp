@@ -4,6 +4,7 @@ import { responseCodes } from '@/const/responseCodes';
 
 import type { Response, NextFunction } from 'express';
 
+import { TodoStatus } from '@prisma/client';
 import type { RequestWithUser } from '@/types/request.type';
 
 export class TodoController {
@@ -58,7 +59,20 @@ export class TodoController {
 	): Promise<void> {
 		try {
 			const userId = req.user!.id;
-			const todos = await this.todoService.findAll(userId);
+			const { search, isPrivate, status } = req.query;
+
+			const filters = {
+				search: search as string | undefined,
+				isPrivate:
+					isPrivate === 'true'
+						? true
+						: isPrivate === 'false'
+							? false
+							: undefined,
+				status: status as TodoStatus | undefined,
+			};
+
+			const todos = await this.todoService.findAll(userId, filters);
 			res.json(todos);
 		} catch (e) {
 			next(e);

@@ -1,22 +1,31 @@
-import React, { useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@blueprintjs/core';
+import { omit } from 'lodash';
 
 import { useGetTodoById, useUpdateTodo } from '~/api/hooks/useTodo';
 import Loader from '~shared/components/loader/loader.component';
 import { ROUTER_KEYS } from '~shared/keys';
 import TodoFormModal from '~shared/modals/todo/todo-form.modal';
 import { showTodoStatus } from '~/utils/showTodoStatus';
+import { useAuthStore } from '~store/auth.store';
 
 import { sectionHeading, todoDetailsWrapper } from './todo-details.styles';
 
 import { Todo } from '~typings/todo';
 
-const TodoDetails: React.FC = () => {
+const TodoDetails: FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 
+	const { userId } = useAuthStore();
+
 	const { isLoading, data: todo, error } = useGetTodoById(id);
+
+	const isCreator = useMemo(
+		() => (todo ? userId === todo.userId : false),
+		[userId, todo],
+	);
 	const { mutateAsync: updateTodo } = useUpdateTodo();
 
 	const [isEditTodoFormOpen, setIsEditTodoFormOpen] = useState(false);
@@ -30,9 +39,10 @@ const TodoDetails: React.FC = () => {
 
 	const handleUpdateTodo = useCallback(
 		async (updatedTodo: Todo) => {
+			const updatedTodoWithoutUserId = omit(updatedTodo, 'userId');
 			await updateTodo({
-				id: updatedTodo.id,
-				data: updatedTodo,
+				id: updatedTodoWithoutUserId.id,
+				data: updatedTodoWithoutUserId,
 			});
 		},
 		[updateTodo],
@@ -57,9 +67,11 @@ const TodoDetails: React.FC = () => {
 			<p>{showTodoStatus(status)}</p>
 			<span className={sectionHeading}>Access:</span>
 			<p>{isPrivate ? 'Private' : 'Public'}</p>
-			<Button intent="primary" onClick={openEditTodoForm}>
-				Edit
-			</Button>
+			{isCreator && (
+				<Button intent="primary" onClick={openEditTodoForm}>
+					Edit
+				</Button>
+			)}
 			<Button onClick={() => navigate(ROUTER_KEYS.DASHBOARD)}>
 				Back
 			</Button>
