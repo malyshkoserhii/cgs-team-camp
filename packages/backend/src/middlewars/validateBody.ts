@@ -1,3 +1,4 @@
+import { HttpStatus } from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import { HandlerType } from '@/types/http-errors.type';
 import { NextFunction, Request, Response } from 'express';
@@ -12,7 +13,7 @@ export function validateBody(schema: Schema): HandlerType {
 			await schema.validateAsync(req.body);
 			next();
 		} catch (error) {
-			next(HttpError(400, (error as Error).message));
+			next(HttpError(HttpStatus.BadRequest, (error as Error).message));
 		}
 	};
 	return func;

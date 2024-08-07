@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useId } from 'react';
 
 import { Field } from 'react-final-form';
 import { UtilLabelStyles } from '../input/input.styles';
@@ -22,6 +22,7 @@ export const Select: FC<SelectProps> = ({
 	children,
 	parse,
 }) => {
+	const id = useId();
 	return (
 		<Field
 			name={name}
@@ -29,9 +30,13 @@ export const Select: FC<SelectProps> = ({
 			render={({ input, meta }) => (
 				<div className={additionalStyles}>
 					{title && (
-						<label className={UtilLabelStyles}>{title}</label>
+						<label className={UtilLabelStyles} htmlFor={id}>
+							{title}
+						</label>
 					)}
-					<select {...input}>{children}</select>
+					<select {...input} id={id}>
+						{children}
+					</select>
 					{meta.submitFailed && meta.error && (
 						<span>{meta.error}</span>
 					)}

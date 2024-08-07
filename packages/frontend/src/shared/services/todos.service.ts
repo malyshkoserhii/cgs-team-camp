@@ -4,6 +4,7 @@ import { ApiTodoEndpoints } from '~shared/keys/api-keys';
 
 import {
 	CreateTodoType,
+	GetAllTodoQueryType,
 	GetAllTodoType,
 	Todo,
 	UpdateTodoType,
@@ -16,31 +17,42 @@ class TodosService extends HttpService {
 	}
 
 	public async getTodoById(id: number): Promise<AxiosResponse<Todo>> {
-		return this.get({ url: ApiTodoEndpoints.GETTODOBYID(id) }, true);
+		return await this.get({ url: ApiTodoEndpoints.GETTODOBYID(id) }, true);
 	}
 
-	public async fetchAllTodos(): Promise<AxiosResponse<GetAllTodoType>> {
-		return this.get({ url: ApiTodoEndpoints.ALL }, true);
+	public async fetchAllTodos(
+		query: GetAllTodoQueryType,
+	): Promise<AxiosResponse<GetAllTodoType>> {
+		return await this.get(
+			{ url: ApiTodoEndpoints.ALL, params: query },
+			true,
+		);
 	}
 
 	public async createTodo(
 		todo: CreateTodoType,
 	): Promise<AxiosResponse<Todo>> {
-		return this.post({ url: ApiTodoEndpoints.CREATE, data: todo }, true);
+		return await this.post(
+			{ url: ApiTodoEndpoints.CREATE, data: todo },
+			true,
+		);
 	}
 
 	public async updateTodo(
 		id: number,
 		todo: UpdateTodoType,
 	): Promise<AxiosResponse<Todo>> {
-		return this.put(
+		return await this.put(
 			{ url: ApiTodoEndpoints.GETTODOBYID(id), data: todo },
 			true,
 		);
 	}
 
 	public async removeTodo(id: number): Promise<AxiosResponse<Todo>> {
-		return this.delete({ url: ApiTodoEndpoints.GETTODOBYID(id) }, true);
+		return await this.delete(
+			{ url: ApiTodoEndpoints.GETTODOBYID(id) },
+			true,
+		);
 	}
 }
 

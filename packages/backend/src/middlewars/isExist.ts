@@ -1,3 +1,7 @@
+import {
+	GeneralErrorMessageList,
+	HttpStatus,
+} from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import { PrismaModelWithId } from '@/types/prisma.types';
 import { NextFunction, Request, Response } from 'express';
@@ -10,7 +14,12 @@ export function isExist<T>(model: PrismaModelWithId<T>) {
 	): Promise<void> {
 		try {
 			if (Number.isNaN(+req.params.id)) {
-				return next(HttpError(404, 'wrong type of id'));
+				return next(
+					HttpError(
+						HttpStatus.NotFound,
+						GeneralErrorMessageList.WRONG_TYPE,
+					),
+				);
 			}
 
 			await model.findUniqueOrThrow({
@@ -18,7 +27,7 @@ export function isExist<T>(model: PrismaModelWithId<T>) {
 			});
 			next();
 		} catch (error) {
-			next(HttpError(404, 'no such id in this model'));
+			next(HttpError(HttpStatus.NotFound, GeneralErrorMessageList.NO_ID));
 		}
 	};
 }

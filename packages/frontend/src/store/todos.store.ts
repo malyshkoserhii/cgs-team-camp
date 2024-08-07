@@ -13,6 +13,7 @@ import {
 import TodosService from '~shared/services/todos.service';
 import {
 	CreateTodoType,
+	GetAllTodoQueryType,
 	GetAllTodoType,
 	Todo,
 	UpdateTodoType,
@@ -25,7 +26,7 @@ interface TodoState {
 	todos: GetAllTodoType;
 	loading: boolean;
 	todoError: string | null;
-	fetchTodos: () => Promise<void>;
+	fetchTodos: (query: GetAllTodoQueryType) => Promise<void>;
 	addTodo: (newTodo: CreateTodoType) => Promise<void>;
 	removeTodo: (id: number) => Promise<void>;
 	updateTodo: (id: number, updatedTodo: UpdateTodoType) => Promise<void>;
@@ -41,10 +42,11 @@ export const useTodoStore = create<TodoState>()(
 		loading: false,
 		todoError: null,
 
-		fetchTodos: async (): Promise<void> => {
+		fetchTodos: async (query): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await todosService.fetchAllTodos();
+				const { data } = await todosService.fetchAllTodos(query);
+
 				set({
 					todos: data,
 					todoError: null,

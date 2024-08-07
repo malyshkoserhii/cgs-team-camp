@@ -5,7 +5,8 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 } from 'react-router-dom';
-import HomePage from '~modules/app/app.module';
+import HomePage from '~modules/app/home.page.';
+import NotFoundPage from '~modules/app/not-found.page';
 import ChangePassword from '~modules/Auth/ChangePasswordPage/ChangePasswordPage';
 import EmailVerificationPage from '~modules/Auth/EmailVerificationPage/EmailVerificationPage';
 import LoginPage from '~modules/Auth/LoginPage/LoginPage';
@@ -61,7 +62,7 @@ const router = createBrowserRouter(
 				element={<PublicRoute element={<ResetPasswordPage />} />}
 			/>
 
-			<Route path="*" element={<p>Sorry, no page found</p>} />
+			<Route path="*" element={<NotFoundPage />} />
 		</Route>,
 	),
 );

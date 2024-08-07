@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { SIZES } from '~shared/styles';
+import { colors, SIZES } from '~shared/styles';
 
 export const UtilLabelStyles = css`
 	font-family: 'Montserrat', sans-serif;
@@ -14,12 +14,14 @@ export const UtilInputStyles = css`
 	width: 100%;
 	padding: ${SIZES.s};
 	font-size: ${SIZES.m};
-	border: 1px solid black;
-	border-radius: 4px;
+	border: 2px solid black;
+	border-radius: 16px;
 
 	&:focus,
 	&:hover {
-		border-color: blue;
-		outline: none;
+		border-color: ${colors.oceanBlue};
 	}
+`;
+export const ErrorSpanStyle = css`
+	color: inherit;
 `;

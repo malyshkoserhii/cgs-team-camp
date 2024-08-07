@@ -36,8 +36,8 @@ export function UtilForm<T>({
 		}
 	}, []);
 
-	function handleSubmit(values: T): void {
-		onSubmit(values);
+	async function handleSubmit(values: T): Promise<void> {
+		await onSubmit(values);
 	}
 
 	return (
@@ -45,7 +45,13 @@ export function UtilForm<T>({
 			onSubmit={handleSubmit}
 			initialValues={initialValues}
 			validate={(values) => validate(values, schema)}
-			render={({ handleSubmit, submitFailed, submitting }) => (
+			render={({
+				handleSubmit,
+				submitFailed,
+				submitting,
+				valid,
+				pristine,
+			}) => (
 				<form
 					ref={formRef}
 					onSubmit={handleSubmit}
@@ -63,10 +69,11 @@ export function UtilForm<T>({
 							<p>{serverError}</p>
 						</div>
 					)}
+
 					<Button
 						type="submit"
 						text={submitButtonText}
-						disabled={submitting}
+						disabled={(!pristine && !valid) || submitting}
 						loading={submitting}
 					/>
 				</form>

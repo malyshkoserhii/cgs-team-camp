@@ -1,3 +1,8 @@
+import { AuthErrorMessages } from '@/constants/auth-messages.constant';
+import {
+	GeneralErrorMessageList,
+	HttpStatus,
+} from '@/constants/http-errors.constant';
 import { HttpError } from '@/helpers/http-error';
 import { prisma } from '@/services/prisma/prisma.service';
 import { UserType } from '@/types/user.types';
@@ -20,14 +25,23 @@ export function useJwtStrategy(passport: PassportStatic): void {
 				});
 				if (!user) {
 					return done(
-						HttpError(404, 'No user with this email'),
+						HttpError(
+							HttpStatus.NotFound,
+							AuthErrorMessages.NO_USER_WITH_EMAIL,
+						),
 						false,
 					);
 				} else {
 					return done(null, user);
 				}
 			} catch (error) {
-				return done(HttpError(400, 'Bad request'), false);
+				return done(
+					HttpError(
+						HttpStatus.BadRequest,
+						GeneralErrorMessageList.BAD_REQUEST,
+					),
+					false,
+				);
 			}
 		}),
 	);

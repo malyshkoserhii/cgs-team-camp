@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useId } from 'react';
 
 import classNames from 'classnames';
 import { Field } from 'react-final-form';
@@ -12,15 +12,19 @@ export const Textarea: FC<InputProps> = ({
 	title,
 	additionalStyles,
 }) => {
+	const id = useId();
 	return (
 		<Field
 			name={name}
 			render={({ input, meta }) => (
 				<div className={additionalStyles}>
 					{title && (
-						<label className={UtilLabelStyles}>{title}</label>
+						<label className={UtilLabelStyles} htmlFor={id}>
+							{title}
+						</label>
 					)}
 					<textarea
+						id={id}
 						className={classNames(
 							UtilInputStyles,
 							meta.error && meta.submitFailed && ErrorStlyes,

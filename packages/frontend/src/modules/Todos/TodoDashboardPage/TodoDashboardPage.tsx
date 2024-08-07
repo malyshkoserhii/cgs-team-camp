@@ -1,9 +1,7 @@
 import { Dialog, DialogBody } from '@blueprintjs/core';
 import * as React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Loader from '~shared/components/loader/loader.component';
 
-import { BREAKPOINTS } from '~shared/styles';
 import { Todo } from '~shared/types/todo.types';
 
 import { DialogContainer } from '../TodoForm/Form.styles';
@@ -11,30 +9,38 @@ import { AddTodoForm } from '../TodoForm/TodoForm';
 import TodoDesktopDashboard from '../Tododashboard/TodoDesktopDashboard/TodoDesktopDashboard';
 import TodoList from '../Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
 
-import Button from '~shared/components/button/button.component';
+import useFilteredTodos from '~shared/helpers/useFilteredTodos';
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
+import useResponsiveLayout from '~shared/utils/useResponsiveLayout';
 import { useTodoStore } from '~store/todos.store';
+import TodoPageBar from '../TodoPageBar/TodoPageBar';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
 import { PageLoader } from './TodoDashboardPage.styles';
 
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
-	const isDesktop = useMediaQuery({
-		minWidth: `${parseInt(BREAKPOINTS.desktop, 10) + 1}px`,
-	});
-	const isTablet = useMediaQuery({
-		minWidth: `${parseInt(BREAKPOINTS.tablet, 10) + 1}px`,
-		maxWidth: `${BREAKPOINTS.desktop}`,
-	});
-	const isMobile = useMediaQuery({ maxWidth: `${BREAKPOINTS.tablet}` });
+	const [filterValue, setFilterValue] = React.useState('');
+
+	const { isDesktop, isTablet, isMobile } = useResponsiveLayout();
+	const {
+		filter,
+		isPrivate,
+		isCompleted,
+		updateSearchParams,
+		clearSearchParams,
+	} = useFilteredTodos();
 	const todoStore = useTodoStore();
 	const loading = todoStore.loading;
-	const error = todoStore.error;
+	const error = todoStore.todoError;
 	const todos = todoStore.todos;
 
 	React.useEffect(() => {
-		todoStore.fetchTodos();
-	}, []);
+		todoStore.fetchTodos({
+			search: filter,
+			isPrivate: isPrivate,
+			isCompleted: isCompleted,
+		});
+	}, [filter, isPrivate, isCompleted]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
 	};
@@ -43,20 +49,51 @@ const TodoDashboardPage = (): JSX.Element => {
 		setOpenModal(false);
 	};
 
-	const createTodo = (todo: Todo): void => {
-		todoStore.addTodo(todo);
+	const createTodo = async (todo: Todo): Promise<void> => {
+		await todoStore.addTodo(todo);
 		closeAddToDoModal();
 	};
 
-	const removeTodo = (id: number): void => {
-		todoStore.removeTodo(id);
+	const removeTodo = async (id: number): Promise<void> => {
+		await todoStore.removeTodo(id);
+	};
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLInputElement>,
+	): void => {
+		const newFilterValue = e.target.value;
+		setFilterValue(newFilterValue);
+		updateSearchParams({ search: newFilterValue });
+	};
+	const handleFilterCompleted = (): void => {
+		updateSearchParams({ isCompleted: 'true' });
+	};
+
+	const handleFilterPrivate = (): void => {
+		updateSearchParams({ isPrivate: 'true' });
+	};
+
+	const handleFilterPublic = (): void => {
+		updateSearchParams({ isPrivate: 'false' });
+	};
+
+	const showAllTodos = (): void => {
+		setFilterValue('');
+		clearSearchParams();
 	};
 
 	const showContent = !error && !loading;
 
 	return (
 		<>
-			<Button text="Create New Todo" onClick={openAddToDoModal} />
+			<TodoPageBar
+				onAddTodo={openAddToDoModal}
+				showAllTodos={showAllTodos}
+				searchInputValue={filterValue}
+				onSearchnputChange={handleInputChange}
+				onFilterPrivate={handleFilterPrivate}
+				onFilterCompleted={handleFilterCompleted}
+				onFilterPublic={handleFilterPublic}
+			/>
 			{error && (
 				<p>
 					Something went wrong <>{error}</>
@@ -67,28 +104,31 @@ const TodoDashboardPage = (): JSX.Element => {
 					<Loader />
 				</div>
 			)}
-			{showContent && todos && (
-				<>
-					{isTablet && (
-						<TabletDashboard
-							todos={todos}
-							removeTodo={removeTodo}
-							loading={loading}
-						/>
-					)}
-					{isMobile && (
-						<TodoList todos={todos} removeTodo={removeTodo} />
-					)}
-					{isDesktop && (
-						<>
-							<TodoDesktopDashboard
+			{showContent &&
+				(!!todos.length ? (
+					<>
+						{isTablet && (
+							<TabletDashboard
 								todos={todos}
 								removeTodo={removeTodo}
+								loading={loading}
 							/>
-						</>
-					)}
-				</>
-			)}
+						)}
+						{isMobile && (
+							<TodoList todos={todos} removeTodo={removeTodo} />
+						)}
+						{isDesktop && (
+							<>
+								<TodoDesktopDashboard
+									todos={todos}
+									removeTodo={removeTodo}
+								/>
+							</>
+						)}
+					</>
+				) : (
+					<p>No todos found</p>
+				))}
 
 			<Dialog
 				onClose={closeAddToDoModal}

@@ -10,7 +10,7 @@ export const btnStyles = (disabled: boolean): string => {
 		padding: ${SIZES.xs};
 		font-size: ${SIZES.xs};
 		font-weight: 700;
-		color: ${disabled ? colors.spaceCadet : colors.white};
+		color: ${disabled ? colors.darkOrchid : colors.white};
 		background-color: ${disabled
 			? colors.americanPurple
 			: colors.majorelleBlue};
@@ -19,10 +19,9 @@ export const btnStyles = (disabled: boolean): string => {
 		box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.06);
 		text-align: center;
 		transition: all 0.3s ease;
-		cursor: pointer;
+		cursor: ${disabled ? 'not-allowed' : 'pointer'};
 		:hover,
 		:focus {
-			color: ${colors.lotion};
 			background-color: ${colors.blueLight};
 			transition: all 0.3s ease;
 		}
@@ -50,4 +49,10 @@ export const iconWrapper = css`
 
 export const mr = css`
 	margin-right: 15px;
+`;
+export const btnLoaderWrapper = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20px;
 `;
