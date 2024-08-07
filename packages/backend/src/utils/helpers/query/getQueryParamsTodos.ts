@@ -26,7 +26,7 @@ export const getQueryParamsTodos = (params: TodoFilterParams): ReturnType => {
 		isPrivate,
 		name,
 		page = defaultPage,
-		limit = defaultLimit,
+		limit = params.showMore ? defaultLimit * +page : defaultLimit,
 	} = params;
 
 	const query: QueryParams = {};
@@ -46,5 +46,8 @@ export const getQueryParamsTodos = (params: TodoFilterParams): ReturnType => {
 
 	const skip = (Number(page) - 1) * Number(limit);
 
-	return { query, pagination: { skip, take: Number(limit) } };
+	return {
+		query,
+		pagination: { skip: params.showMore ? 0 : skip, take: Number(limit) },
+	};
 };

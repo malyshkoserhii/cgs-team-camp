@@ -6,4 +6,5 @@ export type TodoFilterParams = {
 	isPrivate: string;
 	page: string | number;
 	limit: number | string;
+	showMore: string;
 };

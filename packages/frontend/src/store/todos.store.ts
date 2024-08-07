@@ -87,7 +87,7 @@ export const useTodoStore = create<TodoStore>()(
 			try {
 				const response = await todoService.findAll(params);
 				set((state) => {
-					state.items = [...state.items, ...response.data.todos];
+					state.items = response.data.todos;
 					state.totalPages = response.data.totalPages;
 					state.showMoreIsLoading = false;
 					state.hasMore = response.data.hasMore;

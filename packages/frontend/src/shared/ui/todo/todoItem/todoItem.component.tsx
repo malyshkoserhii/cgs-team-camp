@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { useAuth } from '~shared/hooks/useAuth.hook';
+import { useConfirm } from '~shared/hooks/useConfirm.hook';
 import { useFetchTodos } from '~shared/hooks/useFetchTodos.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { breakpoints } from '~shared/styles/breakpoints';
@@ -42,6 +43,10 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 		const isMobileAndTablet = useMediaQuery({
 			query: `(max-width: ${breakpoints.lg})`,
 		});
+		const confirm = useConfirm({
+			message: `Are you sure you want to delete task ${name}?`,
+		});
+
 		const isUsersTodo = !user?.todos?.find((elId) => elId === id);
 
 		const onUpdateStatus = async (): Promise<void> => {
@@ -51,13 +56,13 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 					? TodoStatusE.InProgress
 					: TodoStatusE.Completed,
 			);
+			await fetchTodos();
 		};
 
 		const onDelete = async (id: string): Promise<void> => {
+			await confirm();
 			await deleteTodoById(id);
-			if (!isMobileAndTablet) {
-				await fetchTodos();
-			}
+			await fetchTodos();
 		};
 
 		const onOpenModal = (): void => {
