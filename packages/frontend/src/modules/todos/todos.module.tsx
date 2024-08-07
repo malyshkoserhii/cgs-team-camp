@@ -1,14 +1,15 @@
-import { useTodoStore } from '~store/todo.store';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
 import { toast } from 'react-toastify';
+
+import { useTodoStore } from '~store/todo.store';
+import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
+import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
 import {
 	container,
 	searchInputStyle,
 	wrapper,
 	wrapperFlex,
 } from '~modules/todos/todos.styles';
-import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
 import { TodoList } from '~modules/todos/TodoList/TodoList';
 
 export const TodosModule = (): React.ReactNode => {
