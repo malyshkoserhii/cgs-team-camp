@@ -17,6 +17,7 @@ import { useTodoStore } from '~/state/store/todo.store';
 import { TodoSwiperContainer } from '../todo-swiper-container';
 import { TodoListContainer } from '../todo-list-container';
 import { useFilterStore } from '~/state/store/filter.store';
+import { Pagination } from '../pagination';
 
 export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 	const navigate = useNavigate();
@@ -26,11 +27,13 @@ export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 		getTodos,
 	} = useTodoStore();
 
-	const { data: filter, setDefaultFilter } = useFilterStore();
+	const { data: filter, setDefaultFilter, setMaxPages } = useFilterStore();
 
 	useEffect(() => {
-		getTodos(filter);
-	}, [filter]);
+		getTodos(filter).then(({ pages }) => {
+			setMaxPages(pages);
+		});
+	}, [filter.filter, filter.search, filter.page]);
 
 	useEffect(() => {
 		setDefaultFilter();
@@ -56,6 +59,7 @@ export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 				<StyledTodoTableContainer>
 					<TodoTableHeader variant="enclosed" />
 					<TodoTableContainer data={todos} />
+					<Pagination />
 				</StyledTodoTableContainer>
 			</BrowserView>
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 import { config } from 'react-spring';
 import Carousel from 'react-spring-3d-carousel';
@@ -8,6 +8,7 @@ import { TodoListCard } from '../todo-card';
 import { StyledTableErrorMessage } from '../todo-table/table-container';
 import { FormModal } from '../todo-form/form-modal';
 import { TodoSwiperContainerStyled } from './swiper-container.styled';
+import { useFilterStore } from '~/state/store/filter.store';
 
 interface TodoListContainerProps {
 	data: ITodo[] | undefined;
@@ -21,6 +22,7 @@ export const TodoSwiperContainer: React.FunctionComponent<
 > = ({ data }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [initialState, setInitialState] = useState<ITodo>();
+	const { data: filter, setPage } = useFilterStore();
 
 	const [state, setState] = useState({
 		goToSlide: 0,
@@ -105,13 +107,18 @@ export const TodoSwiperContainer: React.FunctionComponent<
 		[state.enableSwipe, state.xDown, state.yDown],
 	);
 
+	useEffect(() => {
+		if (
+			state.goToSlide >= (data?.length ?? 0) - state.offsetRadius &&
+			state.goToSlide === (data?.length ?? 1) - 1
+		) {
+			setPage(filter.page + 1);
+		}
+	}, [state.goToSlide]);
+
 	return (
 		<TodoSwiperContainerStyled>
-			{data === undefined ? (
-				<StyledTableErrorMessage>
-					Something bad happend...
-				</StyledTableErrorMessage>
-			) : data.length === 0 ? (
+			{!data || data.length === 0 ? (
 				<StyledTableErrorMessage>No data</StyledTableErrorMessage>
 			) : (
 				<div

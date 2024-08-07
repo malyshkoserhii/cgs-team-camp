@@ -1,14 +1,20 @@
+import { isMobile } from 'react-device-detect';
 import { create } from 'zustand';
 import todoService from '~shared/components/todo/todo.service';
 import TodoModel from '~shared/types/todo/todo.model';
 import { TodoFilters } from '~shared/types/todo/todo.types';
 
+export interface IGetTodo {
+	todos: TodoModel[];
+	pages: number;
+}
+
 export interface ITodoStore {
-	data: { todos: TodoModel[]; pages: number };
+	data: IGetTodo;
 	addTodo: (todo: TodoModel) => void;
 	updateTodo: (todo: TodoModel) => void;
 	deleteTodo: (todoId: number) => void;
-	getTodos: (filter: TodoFilters) => void;
+	getTodos: (filter: TodoFilters) => Promise<IGetTodo>;
 }
 
 export const useTodoStore = create<ITodoStore>((set) => ({
@@ -38,13 +44,21 @@ export const useTodoStore = create<ITodoStore>((set) => ({
 			},
 		})),
 
-	getTodos: async (filter: TodoFilters): Promise<void> => {
-		const data = await todoService.getTodos(filter);
+	getTodos: async (filter: TodoFilters): Promise<IGetTodo> => {
+		const response = await todoService.getTodos(filter);
 
-		set(() => ({
-			data: {
-				...data,
-			},
-		}));
+		set(({ data }) => {
+			return {
+				data: {
+					todos:
+						isMobile && filter.page === 1
+							? response.todos
+							: [...data.todos, ...response.todos],
+					pages: response.pages,
+				},
+			};
+		});
+
+		return response;
 	},
 }));
