@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { inputStyles, errorMessageStyles } from './textinput.styles';
-import { UseFormRegister, FieldError } from 'react-hook-form';
-import { FormData } from '../form/form.component';
+import { UseFormRegister, FieldError, Path } from 'react-hook-form';
 
-interface FormFieldProps {
-	name: keyof FormData;
-	register: UseFormRegister<FormData>;
+interface FormFieldProps<T extends Record<string, unknown>> {
+	name: Path<T>;
+	register: UseFormRegister<T>;
 	placeholder: string;
 	defaultValue?: string;
 	required: boolean;
@@ -15,7 +14,7 @@ interface FormFieldProps {
 	maxLength?: number;
 }
 
-export const TextInput: React.FC<FormFieldProps> = ({
+export const TextInput = <T extends Record<string, unknown>>({
 	name,
 	register,
 	placeholder,
@@ -25,11 +24,11 @@ export const TextInput: React.FC<FormFieldProps> = ({
 	error,
 	minLength,
 	maxLength,
-}) => {
+}: FormFieldProps<T>): React.ReactElement => {
 	const sharedProps = useMemo(
 		() => ({
 			className: inputStyles,
-			...register(`${name}`, {
+			...register(name, {
 				required: required ? 'This field is required' : false,
 				minLength: minLength
 					? {

@@ -1,29 +1,56 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TodoList } from '../../components/TodoList/TodoList';
 import { useTodoStore } from '~store/todo.store';
-import { ButtonGroup, Button } from '@blueprintjs/core';
+import { useUserStore } from '~store/user.store';
+import { ButtonGroup, Button, Spinner } from '@blueprintjs/core';
 import { buttonGroup } from './TodosPage.styles';
 import { FILTER_TYPES } from '~shared/keys';
 
 export const TodosPage: React.FC = () => {
-	const { fetchTodos, isLoading, error } = useTodoStore();
-	const [filter, setFilter] = React.useState<FILTER_TYPES>(FILTER_TYPES.ALL);
+	const {
+		todos,
+		fetchTodos,
+		isLoading: todoLoading,
+		error: todoError,
+	} = useTodoStore();
+	const {
+		user,
+		getUser,
+		error: userError,
+		isLoading: userLoading,
+	} = useUserStore();
+	const [filter, setFilter] = useState<FILTER_TYPES>(FILTER_TYPES.ALL);
 
 	useEffect(() => {
-		fetchTodos();
-	}, [fetchTodos]);
+		const loadInitialData = async (): Promise<void> => {
+			await Promise.all([fetchTodos(), getUser()]);
+		};
 
-	if (isLoading) {
-		return <div>Loading...</div>;
+		loadInitialData();
+	}, [fetchTodos, getUser]);
+
+	if (!user || !todos) {
+		return (
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: '100vh',
+				}}
+			>
+				<Spinner size={50} />
+			</div>
+		);
 	}
 
-	if (error) {
-		return <div>Error: {error}</div>;
+	if (todoError || userError) {
+		return <div>Error: {todoError || userError}</div>;
 	}
 
 	return (
 		<div>
-			<ButtonGroup large className={buttonGroup}>
+			<ButtonGroup className={buttonGroup}>
 				<Button
 					icon="globe"
 					onClick={() => setFilter(FILTER_TYPES.ALL)}
@@ -54,7 +81,11 @@ export const TodosPage: React.FC = () => {
 				</Button>
 			</ButtonGroup>
 			<div>
-				<TodoList filter={filter} />
+				{todoLoading || userLoading ? (
+					<Spinner size={20} />
+				) : (
+					<TodoList filter={filter} />
+				)}
 			</div>
 		</div>
 	);

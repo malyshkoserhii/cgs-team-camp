@@ -4,6 +4,5 @@ export type Todo = {
 	description: string;
 	completed: boolean;
 	public: boolean;
+	userId: number;
 };
-
-export type ViewType = 'table' | 'card' | 'list';

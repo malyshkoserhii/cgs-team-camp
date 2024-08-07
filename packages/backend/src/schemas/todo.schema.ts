@@ -5,4 +5,5 @@ export const todoSchema = Joi.object({
 	description: Joi.string().allow('').optional(),
 	completed: Joi.boolean().required(),
 	public: Joi.boolean().required(),
+	userId: Joi.number(),
 });

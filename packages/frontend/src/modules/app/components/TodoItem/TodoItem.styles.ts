@@ -25,62 +25,32 @@ export const todoElementStyles = css`
 	}
 `;
 
-export const titleStyles = css`
-	@media (min-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: table-cell;
-		padding: ${THEME.SPACING.MEDIUM};
-	}
-	@media (max-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: block;
-		font-weight: bold;
-		margin-bottom: ${THEME.SPACING.SMALL};
-	}
-`;
-
-export const descriptionStyles = css`
-	@media (min-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: table-cell;
-		padding: ${THEME.SPACING.MEDIUM};
-	}
-	@media (max-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: block;
-		margin-bottom: ${THEME.SPACING.MEDIUM};
-	}
-`;
-
-export const actionsStyles = css`
-	@media (min-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: table-cell;
-		padding: ${THEME.SPACING.MEDIUM};
-	}
-	@media (max-width: ${THEME.BREAKPOINTS.DESKTOP}) {
-		display: flex;
-		justify-content: space-between;
-	}
-`;
-
 export const tableRowStyles = css`
 	display: table-row;
 
 	&:nth-of-type(even) {
 		background-color: ${COLORS.BACKGROUND};
 	}
+`;
 
-	span {
-		display: table-cell;
-		padding-left: ${THEME.SPACING.MEDIUM};
-		padding-right: ${THEME.SPACING.MEDIUM};
+export const tableCellStyles = css`
+	display: table-cell;
+	align-content: center;
+	max-width: 300px;
+	overflow: auto;
+	padding-left: ${THEME.SPACING.MEDIUM};
+	padding-right: ${THEME.SPACING.MEDIUM};
+`;
 
-		div {
-			display: flex;
-			padding: ${THEME.SPACING.MEDIUM};
-			justify-content: space-between;
-			align-items: center;
+export const rowActionsStyles = css`
+	display: flex;
+	padding: ${THEME.SPACING.MEDIUM};
+	justify-content: space-between;
+	align-items: center;
+	min-height: 70px;
 
-			div {
-				gap: ${THEME.SPACING.SMALL};
-			}
-		}
+	div {
+		gap: ${THEME.SPACING.SMALL};
 	}
 `;
 
@@ -100,9 +70,18 @@ export const listItemStyles = css`
 	align-items: center;
 	padding: ${THEME.SPACING.MEDIUM};
 	border-bottom: 1px solid ${COLORS.BORDER};
+	font-size: ${THEME.FONT_SIZES.SMALL};
 
 	&:last-child {
 		border-bottom: none;
+	}
+
+	div {
+		width: 33%;
+	}
+
+	label {
+		width: 33%;
 	}
 `;
 

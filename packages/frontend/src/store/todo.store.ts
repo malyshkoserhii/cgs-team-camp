@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Todo } from '../shared/types/types';
 import { todoService } from '~shared/services/todo.service';
+import { Todo } from '~shared/types/todo.type';
 
 interface TodoState {
 	todos: Todo[];

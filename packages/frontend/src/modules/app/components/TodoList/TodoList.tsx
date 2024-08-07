@@ -11,7 +11,9 @@ import {
 import { useMediaQuery } from 'usehooks-ts';
 import { THEME } from '~shared/styles/constants';
 import { FILTER_TYPES } from '~shared/keys';
-import { Todo, ViewType } from '~types/types';
+import { Todo } from '~shared/types/todo.type';
+import { ViewType } from '~shared/types/view.type';
+import { useUserStore } from '~store/user.store';
 
 interface TodoListProps {
 	filter: string;
@@ -19,6 +21,7 @@ interface TodoListProps {
 
 export const TodoList: React.FC<TodoListProps> = ({ filter }) => {
 	const todos = useTodoStore((state) => state.todos);
+	const user = useUserStore((state) => state.user);
 	const isDesktop = useMediaQuery(
 		`(min-width: ${THEME.BREAKPOINTS.DESKTOP})`,
 	);
@@ -67,7 +70,12 @@ export const TodoList: React.FC<TodoListProps> = ({ filter }) => {
 				</div>
 			)}
 			{filteredTodos.map((todo) => (
-				<TodoElement key={todo.id} todo={todo} view={viewType} />
+				<TodoElement
+					key={todo.id}
+					todo={todo}
+					view={viewType}
+					editable={todo.userId === user.id}
+				/>
 			))}
 		</div>
 	);

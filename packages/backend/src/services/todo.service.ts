@@ -3,15 +3,17 @@ import { PrismaClient, Todo } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export class TodoService {
-	async getTodosByUserId(userId: number): Promise<Todo[]> {
+	async getAllTodos(userId: number): Promise<Todo[]> {
 		return prisma.todo.findMany({
-			where: { userId },
+			where: {
+				OR: [{ userId: userId }, { public: true }],
+			},
 		});
 	}
 
-	async getPublicTodos(): Promise<Todo[]> {
+	async getTodosByUserId(userId: number): Promise<Todo[]> {
 		return prisma.todo.findMany({
-			where: { public: true },
+			where: { userId },
 		});
 	}
 

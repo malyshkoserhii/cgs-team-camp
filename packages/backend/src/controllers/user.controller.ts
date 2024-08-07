@@ -25,7 +25,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 		await userService.saveRefreshToken(user.id, refreshToken);
 		res.json({ accessToken, refreshToken });
 	} catch (error) {
-		res.status(401).json({ message: (error as Error).message });
+		res.status(405).json({ message: (error as Error).message });
 	}
 };
 

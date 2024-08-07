@@ -5,7 +5,7 @@ export const formContainerStyles = css`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 80vh;
+	min-height: 75vh;
 	background-color: ${COLORS.BACKGROUND};
 `;
 

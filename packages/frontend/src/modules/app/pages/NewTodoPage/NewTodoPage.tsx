@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, FormData } from '~shared/components/form/form.component';
+import { Form } from '~shared/components/form/form.component';
 import { useNavigate } from 'react-router-dom';
 import { useTodoStore } from '~store/todo.store';
 import { TextInput } from '~shared/components/textinput/textinput.component';
@@ -8,6 +8,7 @@ import { CheckBox } from '~shared/components/checkbox/checkbox.component';
 import { checkboxContainerStyles } from './NewTodoPage.styles';
 import { ROUTER_KEYS } from '~shared/keys';
 import { TextArea } from '~shared/components/textarea/textarea.component';
+import { Todo } from '~shared/types/todo.type';
 
 export const NewTodoPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -16,13 +17,13 @@ export const NewTodoPage: React.FC = () => {
 		reset,
 		register,
 		formState: { errors },
-	} = useForm<FormData>();
+	} = useForm<Omit<Todo, 'id'>>();
 	const addTodo = useTodoStore((state) => state.addTodo);
 	const [submitError, setSubmitError] = useState<string | undefined>(
 		undefined,
 	);
 
-	const onSubmit = async (data: FormData): Promise<void> => {
+	const onSubmit = async (data: Omit<Todo, 'id'>): Promise<void> => {
 		try {
 			await addTodo(data);
 			reset();

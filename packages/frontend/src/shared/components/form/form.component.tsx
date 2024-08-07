@@ -7,26 +7,25 @@ import {
 	buttonStyles,
 	errorMessageStyles,
 } from './todo.form.styles';
-import { Todo } from '~types/types';
 import { Button, Intent } from '@blueprintjs/core';
 
-export interface FormData extends Omit<Todo, 'id'> {}
-
-interface FormProps {
-	handleSubmit: UseFormHandleSubmit<FormData, undefined>;
-	onSubmit: (data: FormData) => Promise<void>;
+interface FormProps<T extends Record<string, unknown>> {
+	handleSubmit: UseFormHandleSubmit<T, undefined>;
+	onSubmit: (data: T) => Promise<void>;
 	title: string;
 	children?: React.ReactNode;
 	submitError?: string;
+	submitButtonText?: string;
 }
 
-export const Form: React.FC<FormProps> = ({
+export const Form = <T extends Record<string, unknown>>({
 	handleSubmit,
 	onSubmit,
 	title,
 	children,
 	submitError,
-}) => {
+	submitButtonText = 'Submit',
+}: FormProps<T>): React.ReactElement => {
 	return (
 		<div className={formContainerStyles}>
 			<form className={formStyles} onSubmit={handleSubmit(onSubmit)}>
@@ -40,7 +39,7 @@ export const Form: React.FC<FormProps> = ({
 					type="submit"
 					intent={Intent.PRIMARY}
 				>
-					Submit
+					{submitButtonText}
 				</Button>
 			</form>
 		</div>

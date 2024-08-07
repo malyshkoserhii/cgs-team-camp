@@ -85,14 +85,31 @@ export const authenticateJwt = (
 	)(req, res, next);
 };
 
-export const authorizeUser = (
+export const authorizeUser = async (
 	req: Request,
 	res: Response,
 	next: NextFunction,
-): void => {
-	if (req.user && (req.user as User).id === parseInt(req.params.userId)) {
-		next();
-	} else {
-		res.status(403).json({ message: 'Forbidden' });
+): Promise<void> => {
+	try {
+		const todoId = parseInt(req.params.id);
+		const userId = (req.user as User).id;
+
+		const todo = await prisma.todo.findUnique({
+			where: { id: todoId },
+			select: { userId: true },
+		});
+
+		if (!todo) {
+			res.status(404).json({ message: 'Todo not found' });
+			return;
+		}
+
+		if (todo.userId === userId) {
+			next();
+		} else {
+			res.status(403).json({ message: 'Forbidden' });
+		}
+	} catch (error) {
+		res.status(500).json({ message: 'Server error' });
 	}
 };

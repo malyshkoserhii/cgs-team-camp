@@ -14,9 +14,9 @@ const todoController = new TodoController();
 
 todosRouter.use(authenticateJwt);
 
-todosRouter.get('/my', tryCatch(todoController.getMyTodos));
+todosRouter.get('/all', tryCatch(todoController.getAllTodos));
 
-todosRouter.get('/public', tryCatch(todoController.getPublicTodos));
+todosRouter.get('/my', tryCatch(todoController.getMyTodos));
 
 todosRouter.get('/:id', isExist('todo'), tryCatch(todoController.getTodoById));
 
