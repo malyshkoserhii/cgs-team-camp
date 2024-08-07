@@ -106,6 +106,14 @@ export class AuthController {
 			return next(ApiErrors.NotFound('User not found'));
 		}
 
+		if (!isUserExist.isEmailVerified) {
+			return next(
+				ApiErrors.Conflict(
+					'Email not verify. Please verify your email first',
+				),
+			);
+		}
+
 		const createPasswordReset =
 			await this.authService.createResetPasswordToken(isUserExist.id);
 

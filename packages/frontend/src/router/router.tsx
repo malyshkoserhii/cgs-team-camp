@@ -12,11 +12,11 @@ import { TodoForm } from '~modules/todos/TodoForm/TodoForm';
 import App from '~modules/app/app.module';
 import { ROUTER_KEYS } from '~shared/keys';
 import { MainPage } from '~modules/MainPage/MainPage';
-import { RegistrationForm } from '../modules/Authorization/RegisterForm';
+import { RegisterForm } from '~modules/AuthForms/RegisterForm';
 import { VerifyEmail } from '~shared/components/VerifyEmail/VerifyEmail';
-import { LoginForm } from '../modules/Authorization/LoginForm';
-import { ForgetPasswordForm } from '../modules/Authorization/ForgetPassword';
-import { ResetPasswordForm } from '../modules/Authorization/ResetPasswordForm';
+import { LoginForm } from '~modules/AuthForms/LoginForm';
+import { ForgetPasswordForm } from '~modules/AuthForms/ForgetPassword';
+import { ResetPasswordForm } from '~modules/AuthForms/ResetPasswordForm';
 import { PrivateRoutes, PublicRoutes } from '~router/routes';
 
 const router = createBrowserRouter(
@@ -30,7 +30,7 @@ const router = createBrowserRouter(
 				/>{' '}
 				<Route
 					path={`${ROUTER_KEYS.REGISTER}`}
-					element={<RegistrationForm />}
+					element={<RegisterForm />}
 				/>
 				<Route
 					path={`${ROUTER_KEYS.FORGET_PSW}`}

@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5380da-e808-4405-b496-696e09db4c2e" name="Changes" comment="Merge branch 'iruskevych/main'">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/ForgetPassword.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/RegisterForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/ResetPasswordForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomForm/CustomForm.styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomForm/CustomForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/schemas/user.schema.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/ForgetPassword.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.styles.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/LoginForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.styles.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/RegisterForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/Authorization/ResetPasswordForm.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +112,7 @@
       <workItem from="1722942862268" duration="5448000" />
       <workItem from="1722948400239" duration="7536000" />
       <workItem from="1722965178269" duration="7299000" />
-      <workItem from="1723011843213" duration="2266000" />
+      <workItem from="1723011843213" duration="8550000" />
     </task>
     <servers />
   </component>
