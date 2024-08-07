@@ -1,20 +1,15 @@
 import React, { FC, useCallback } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import { Button, Intent } from '@blueprintjs/core';
 
 import TextField from '~shared/components/text-field/text-field.component';
-import { initialValues } from './const';
+import { initialValues, ResendVerificationSchema } from './const';
 
 import type { EmailInput } from '~typings/user';
 
 type ResendVerificationFormProps = {
 	onSubmit: (values: EmailInput) => void;
 };
-
-const ResendVerificationSchema = Yup.object().shape({
-	email: Yup.string().email('Invalid email').required('Required'),
-});
 
 const ResendVerificationForm: FC<ResendVerificationFormProps> = ({
 	onSubmit,

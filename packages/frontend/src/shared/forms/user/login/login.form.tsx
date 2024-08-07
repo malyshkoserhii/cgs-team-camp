@@ -2,10 +2,9 @@ import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { Button } from '@blueprintjs/core';
-import * as Yup from 'yup';
 
 import { ROUTER_KEYS } from '~shared/keys';
-import { initialValues } from './const';
+import { initialValues, LoginSchema } from './const';
 import TextField from '~shared/components/text-field/text-field.component';
 
 import { buttonsWrapper } from './login-form.styles';
@@ -15,11 +14,6 @@ import type { LoginInput } from '~typings/user';
 type LoginFormProps = {
 	onSubmit: (values: LoginInput) => void;
 };
-
-const LoginSchema = Yup.object().shape({
-	email: Yup.string().email('Invalid email').required('Required'),
-	password: Yup.string().required('Required'),
-});
 
 const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
 	const navigate = useNavigate();

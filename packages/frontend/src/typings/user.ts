@@ -46,8 +46,8 @@ export type NameInput = {
 };
 
 export type ResetPasswordInput = {
-	resetToken: string;
 	newPassword: string;
+	confirmPassword: string;
 };
 
 export enum VerificationStatus {

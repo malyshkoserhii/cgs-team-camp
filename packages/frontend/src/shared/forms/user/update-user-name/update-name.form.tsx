@@ -1,20 +1,16 @@
 import React, { FC, useCallback } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import { Button, Intent } from '@blueprintjs/core';
 
 import TextField from '~shared/components/text-field/text-field.component';
+import { UpdateNameSchema } from './const';
 
 import type { NameInput } from '~typings/user';
 
-const UpdateNameSchema = Yup.object().shape({
-	name: Yup.string().required('Required'),
-});
-
-interface UpdateNameFormProps {
+type UpdateNameFormProps = {
 	initialName: string;
 	onSubmit: (name: string) => Promise<void>;
-}
+};
 
 const UpdateNameForm: FC<UpdateNameFormProps> = ({ initialName, onSubmit }) => {
 	const handleSubmit = useCallback(

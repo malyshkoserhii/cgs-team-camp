@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
-import { Formik, Form, Field } from 'formik';
-import { Button, FormGroup, InputGroup, Switch } from '@blueprintjs/core';
-import * as Yup from 'yup';
+import React, { FC, useCallback, useMemo } from 'react';
+import { Formik, Form } from 'formik';
+import { Button, FormGroup, Switch } from '@blueprintjs/core';
 
 import { actionButtonsWrapper, formWrapperStyles } from './todo-form.styles';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import TextField from '~shared/components/text-field/text-field.component';
+import { TodoSchema } from './const';
 
 import { TodoStatus, type Todo } from '~typings/todo';
 
@@ -14,18 +15,7 @@ type TodoFormProps = {
 	onSubmit: (values: Todo) => void;
 };
 
-const TodoSchema = Yup.object().shape({
-	name: Yup.string().required('Name is required'),
-	description: Yup.string(),
-	status: Yup.mixed().oneOf(Object.values(TodoStatus)),
-	isPrivate: Yup.boolean(),
-});
-
-const TodoForm: React.FC<TodoFormProps> = ({
-	onClose,
-	initialValues,
-	onSubmit,
-}) => {
+const TodoForm: FC<TodoFormProps> = ({ onClose, initialValues, onSubmit }) => {
 	const defaultValues = useMemo(
 		() => ({
 			name: initialValues?.name ?? '',
@@ -62,11 +52,14 @@ const TodoForm: React.FC<TodoFormProps> = ({
 		[],
 	);
 
-	const handleFormSubmit = useCallback((values, { setSubmitting }) => {
-		onSubmit(values);
-		setSubmitting(false);
-		onClose();
-	}, []);
+	const handleFormSubmit = useCallback(
+		(values, { setSubmitting }) => {
+			onSubmit(values);
+			setSubmitting(false);
+			onClose();
+		},
+		[onSubmit, onClose],
+	);
 
 	return (
 		<div className={formWrapperStyles}>
@@ -78,44 +71,23 @@ const TodoForm: React.FC<TodoFormProps> = ({
 			>
 				{({ errors, touched, isSubmitting, values, setFieldValue }) => (
 					<Form>
-						<FormGroup
+						<TextField<Todo>
+							name="name"
+							type="text"
 							label="Name"
-							labelFor="name"
-							helperText={
-								touched.name && getErrorMessage(errors.name)
-							}
-							intent={
-								touched.name && errors.name ? 'danger' : 'none'
-							}
-						>
-							<Field
-								as={InputGroup}
-								id="name"
-								name="name"
-								placeholder="Enter todo name"
-							/>
-						</FormGroup>
+							placeholder="Enter todo name"
+							errors={errors}
+							touched={touched}
+						/>
 
-						<FormGroup
+						<TextField<Todo>
+							name="description"
+							type="text"
 							label="Description"
-							labelFor="description"
-							helperText={
-								touched.description &&
-								getErrorMessage(errors.description)
-							}
-							intent={
-								touched.description && errors.description
-									? 'danger'
-									: 'none'
-							}
-						>
-							<Field
-								as={InputGroup}
-								id="description"
-								name="description"
-								placeholder="Enter todo description"
-							/>
-						</FormGroup>
+							placeholder="Enter todo description"
+							errors={errors}
+							touched={touched}
+						/>
 
 						<FormGroup
 							label="Status"
