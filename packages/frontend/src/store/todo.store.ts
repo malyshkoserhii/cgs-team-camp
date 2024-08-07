@@ -3,8 +3,9 @@ import { AxiosError } from 'axios';
 
 import { Todo } from '~typings/todo.types';
 import { TodosService } from '~/services/todos.service';
-import { immer } from 'zustand/middleware/immer';
+// import { immer } from 'zustand/middleware/immer';
 import { toast } from 'react-toastify';
+import { immer } from 'zustand/middleware/immer';
 
 const todosService = new TodosService();
 
