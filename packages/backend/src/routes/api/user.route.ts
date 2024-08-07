@@ -1,12 +1,13 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import { jwtAuth } from '@/middlewares/auth.middleware';
+import {
+	ctrGetCurrentUser,
+	ctrUpdateUser,
+} from '@/controllers/user.controller';
 
 const router: Router = Router();
 
-// @route   POST api/user
-// @desc    Register user given their email and password, returns the token upon successful registration
-// @access  Public
-router.post('/register', async (_: Request, res: Response) => {
-	res.send('Add registration logic there');
-});
+router.get('/current', jwtAuth, ctrGetCurrentUser);
+router.post('/update', jwtAuth, ctrUpdateUser);
 
 export default router;

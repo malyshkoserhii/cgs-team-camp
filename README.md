@@ -65,7 +65,8 @@ Time-frames of the test task is highly important! You have only 2 weeks for the 
 - _User should have username, password and email_
 - _Logic related to token processing should be stored in `middlewares/auth.middleware.ts`_
 - _Private todos should be accessible only for Todo creators_
-- _Public todos should be accessible for all users. CRUD operations of public todos is accessible only for owner. Public todos is accessible only for reading for all users_
+- _Public todos should be accessible for all users. CRUD operations of public todos is accessible only for owner.
+-  Public todos is accessible only for reading for all users_
 - _You should implement account verification functionallity via email_
 - _Change password endpoint_
 - _Forgot password endpoint. Reseting password demands a special link, which you should send via email_
@@ -73,7 +74,9 @@ Time-frames of the test task is highly important! You have only 2 weeks for the 
 4. **Authorization (login/signup) frontend;**
 
 - _Should store token in localStorage_
-- _You have to devide your routes into 2 groups: public and private. Private routes should be accessible only for user, who is logged in. Public routes should be accessible for all users_
+- _You have to devide your routes into 2 groups: public and private. 
+Private routes should be accessible only for user, who is logged in. 
+Public routes should be accessible for all users_
 - _Create `STORAGE_KEYS` const for storing your local storage keys_
 - _Use React Final Form for handling validation and submit func_
 - _Extend your http service for interacting with auth requests (check our codestyle)_

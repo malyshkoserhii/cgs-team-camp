@@ -20,7 +20,7 @@ export class TodoController {
 		if (isTodoExist)
 			return next(
 				ApiErrors.Conflict(
-					`Todo whit title: "${isTodoExist.title}" already exists`,
+					`Todo with title: "${isTodoExist.title}" already exists`,
 				),
 			);
 

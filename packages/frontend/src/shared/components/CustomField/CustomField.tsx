@@ -11,7 +11,6 @@ interface CustomFieldProps {
 	name: string;
 	type?: string;
 	as?: string;
-	err: string;
 }
 
 export const CustomField: React.FC<CustomFieldProps> = ({
