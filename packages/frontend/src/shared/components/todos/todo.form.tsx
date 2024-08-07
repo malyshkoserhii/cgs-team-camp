@@ -3,7 +3,10 @@ import { useFormik } from 'formik';
 import { TodoCreateType } from '../../../typings/todos.type';
 import { useTodoStore } from '../../../store';
 
-const TodoForm: React.FC = () => {
+interface TodoFormProps {
+	dashboardId?: number;
+}
+const TodoForm: React.FC<TodoFormProps> = ({ dashboardId }) => {
 	const { addTodo } = useTodoStore();
 
 	const formik = useFormik<TodoCreateType>({
@@ -12,8 +15,8 @@ const TodoForm: React.FC = () => {
 			descr: '',
 			status: 'ToDo',
 			date: new Date(),
-			dashboardId: 1, // Example value, replace it with your actual dashboardId
-			userId: 1, // Example value, replace it with your actual userId
+			dashboardId: dashboardId,
+			userId: 1,
 		},
 		onSubmit: (values) => {
 			addTodo(values);
@@ -35,6 +38,13 @@ const TodoForm: React.FC = () => {
 				value={formik.values.descr}
 				onChange={formik.handleChange}
 				placeholder="Description"
+			/>
+			<input
+				type="text"
+				name="userId"
+				value={formik.values.userId}
+				onChange={formik.handleChange}
+				placeholder="userId"
 			/>
 			<button type="submit">Add Todo</button>
 		</form>

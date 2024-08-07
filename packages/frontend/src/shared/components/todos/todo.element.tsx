@@ -7,12 +7,11 @@ interface TodoItemProps {
 }
 
 const TodoElement: React.FC<TodoItemProps> = ({ todo }) => {
-	const { removeTodo, updateTodo } = useTodoStore();
+	const { updateTodo, removeTodo } = useTodoStore();
 
-	const handleDelete = (): void => {
+	const handleDelete = (todo): void => {
 		removeTodo(todo.id);
 	};
-
 	const handleToggleStatus = (): void => {
 		updateTodo({
 			id: todo.id, // Ensuring the id is included
@@ -34,7 +33,7 @@ const TodoElement: React.FC<TodoItemProps> = ({ todo }) => {
 			<button onClick={handleToggleStatus}>
 				Mark as {todo.status === 'ToDo' ? 'Done' : 'ToDo'}
 			</button>
-			<button onClick={handleDelete}>Delete</button>
+			<button onClick={() => handleDelete(todo)}>Delete</button>
 		</div>
 	);
 };

@@ -1,57 +1,71 @@
-// src/modules/dashboard/dashboardForm.tsx
-import * as React from 'react';
 import { useFormik } from 'formik';
-import { useDashboardStore } from '../../../store';
-import { DashboardCreateType } from '../../../typings/dashboard.type';
+import { useDashboardStore } from '../../../store/index';
 
 const DashboardForm: React.FC = () => {
 	const { addDashboard } = useDashboardStore();
 
-	const formik = useFormik<DashboardCreateType>({
+	const formik = useFormik({
 		initialValues: {
 			name: '',
-			descr: '',
 			ownername: '',
+			descr: '',
 			private: false,
+			date: new Date(),
 		},
-		onSubmit: (values) => {
-			addDashboard(values);
-			formik.resetForm();
+		onSubmit: async (values) => {
+			try {
+				await addDashboard({
+					name: values.name,
+					descr: values.descr,
+					ownername: values.ownername,
+					private: values.private,
+				});
+				formik.resetForm();
+			} catch (error) {
+				console.error('Failed to create dashboard', error);
+			}
 		},
 	});
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
-			<input
-				type="text"
-				name="name"
-				value={formik.values.name}
-				onChange={formik.handleChange}
-				placeholder="Name"
-			/>
-			<textarea
-				name="descr"
-				value={formik.values.descr}
-				onChange={formik.handleChange}
-				placeholder="Description"
-			/>
-			<input
-				type="text"
-				name="ownername"
-				value={formik.values.ownername}
-				onChange={formik.handleChange}
-				placeholder="Owner Name"
-			/>
 			<label>
-				Private
+				Name:
+				<input
+					type="text"
+					name="name"
+					onChange={formik.handleChange}
+					value={formik.values.name}
+				/>
+			</label>
+			<label>
+				Name:
+				<input
+					type="text"
+					name="descr"
+					onChange={formik.handleChange}
+					value={formik.values.descr}
+				/>
+			</label>
+			<label>
+				Owner Name:
+				<input
+					type="text"
+					name="ownername"
+					onChange={formik.handleChange}
+					value={formik.values.ownername}
+				/>
+			</label>
+			<label>
+				Private:
 				<input
 					type="checkbox"
 					name="private"
-					checked={formik.values.private}
 					onChange={formik.handleChange}
+					checked={formik.values.private}
 				/>
 			</label>
-			<button type="submit">Add Dashboard</button>
+			<button type="submit">Create Dashboard</button>
 		</form>
 	);
 };

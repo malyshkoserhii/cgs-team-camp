@@ -1,20 +1,32 @@
-import * as React from 'react';
 import { useEffect } from 'react';
-import TodoElement from './todo.element';
-import { useTodoStore } from '../../../store';
+import { useTodoStore } from '../../../store/index';
+import { TodoType } from '../../../typings/todos.type';
+import TodoElement from '../todos/todo.element';
+interface TodoListProps {
+	dashboardId?: number;
+}
 
-const TodoList: React.FC = () => {
-	const { todos, fetchTodos } = useTodoStore();
+const TodoList: React.FC<TodoListProps> = ({ dashboardId }) => {
+	const { todos, fetchTodos, getTodoItemsByDashboard } = useTodoStore(
+		(state) => ({
+			todos: state.todos,
+			fetchTodos: state.fetchTodos,
+			getTodoItemsByDashboard: state.getTodoItemsByDashboard,
+		}),
+	);
 
 	useEffect(() => {
-		fetchTodos();
-	}, [fetchTodos]);
+		dashboardId ? getTodoItemsByDashboard(dashboardId) : fetchTodos();
+	}, [fetchTodos, dashboardId, getTodoItemsByDashboard]);
 
 	return (
 		<div>
-			{todos.map((todo) => (
-				<TodoElement key={todo.id} todo={todo} />
-			))}
+			<h2>Todo List</h2>
+			<ul>
+				{todos.map((todo: TodoType) => (
+					<TodoElement key={todo.id} todo={todo} />
+				))}
+			</ul>
 		</div>
 	);
 };

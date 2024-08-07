@@ -16,6 +16,7 @@ const DashboardItem: React.FC<DashboardItemProps> = ({ dashboard }) => {
 		<div>
 			<h3>{dashboard.name}</h3>
 			<p>{dashboard.descr}</p>
+			<p>{dashboard.id}</p>
 			<button onClick={handleDelete}>Delete</button>
 		</div>
 	);

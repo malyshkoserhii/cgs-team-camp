@@ -46,6 +46,9 @@
             ],
             "~app/*": [
                 "src/modules/app/*"
+            ],
+            "~pages/*": [
+                "src/pages/*"
             ]
         },
         "jsx": "react-jsx"

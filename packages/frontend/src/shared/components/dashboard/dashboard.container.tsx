@@ -1,17 +1,29 @@
-import * as React from 'react';
-import { DashboardType } from '../../../typings/dashboard.type';
-import DashboardItem from './dashboard.item';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDashboardStore } from '~/store';
 
-interface DashboardListProps {
-	dashboards: DashboardType[];
-}
+const DashboardList: React.FC = () => {
+	const { dashboards, fetchDashboards } = useDashboardStore((state) => ({
+		dashboards: state.dashboards,
+		fetchDashboards: state.fetchDashboards,
+	}));
 
-const DashboardList: React.FC<DashboardListProps> = ({ dashboards }) => {
+	useEffect(() => {
+		fetchDashboards();
+	}, [fetchDashboards]);
+
 	return (
 		<div>
-			{dashboards.map((dashboard) => (
-				<DashboardItem key={dashboard.id} dashboard={dashboard} />
-			))}
+			<h1>Dashboards</h1>
+			<ul>
+				{dashboards.map((dashboard) => (
+					<li key={dashboard.id}>
+						<Link to={`/dashboard/${dashboard.id}`}>
+							{dashboard.name}
+						</Link>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 };

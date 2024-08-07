@@ -20,6 +20,7 @@ import {
 	createTodo,
 	deleteTodo,
 	fetchTodos,
+	getTodoItemsByDashboard,
 	updateTodo,
 } from '../shared/services/todoIitem.service';
 
@@ -29,6 +30,7 @@ interface TodoState {
 	addTodo: (todo: TodoCreateType) => void;
 	updateTodo: (todo: TodoUpdateType) => void;
 	removeTodo: (id: number) => void;
+	getTodoItemsByDashboard: (dashboardId: number) => void;
 }
 
 const useTodoStore = create<TodoState>((set) => ({
@@ -52,6 +54,10 @@ const useTodoStore = create<TodoState>((set) => ({
 	removeTodo: async (id: number): Promise<void> => {
 		await deleteTodo(id);
 		set((state) => ({ todos: state.todos.filter((t) => t.id !== id) }));
+	},
+	getTodoItemsByDashboard: async (dashboardId: number): Promise<void> => {
+		const todos = await getTodoItemsByDashboard(dashboardId);
+		set({ todos });
 	},
 }));
 
