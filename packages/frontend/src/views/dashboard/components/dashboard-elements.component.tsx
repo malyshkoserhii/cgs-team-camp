@@ -14,11 +14,6 @@ export const TopBar = styled.div`
 	align-items: center;
 `;
 
-export const TabGroup = styled.div`
-	display: flex;
-	gap: ${THEME.spacings.sm};
-`;
-
 export const Tab = styled.button`
 	padding: ${THEME.spacings.xs} ${THEME.spacings.sm};
 	background-color: ${THEME.colors.light};

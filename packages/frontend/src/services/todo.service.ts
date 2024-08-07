@@ -2,6 +2,7 @@ import { apiRoutes } from '~/api/api.routes';
 import { HttpService } from './http.service';
 
 import type { Todo } from '~typings/todo';
+import type { FilterQueryParams } from '~typings/api';
 
 export class TodoService extends HttpService {
 	private readonly apiRoute = apiRoutes.todos;
@@ -17,9 +18,10 @@ export class TodoService extends HttpService {
 		});
 	}
 
-	async getAllTodos() {
+	async getAllTodos(filters: FilterQueryParams) {
 		return this.get({
 			apiRoute: this.apiRoute,
+			params: filters,
 		});
 	}
 

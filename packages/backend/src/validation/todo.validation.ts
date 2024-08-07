@@ -1,6 +1,14 @@
 import Joi from 'joi';
 import { TodoStatus } from '@prisma/client';
 
+export const getTodosQuerySchema = Joi.object({
+	search: Joi.string().optional(),
+	isPrivate: Joi.boolean().optional(),
+	status: Joi.string()
+		.valid(...Object.values(TodoStatus))
+		.optional(),
+});
+
 export const createTodoSchema = Joi.object({
 	name: Joi.string().min(3).max(32).required(),
 	description: Joi.string().optional().allow(''),

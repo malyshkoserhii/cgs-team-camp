@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@blueprintjs/core';
+import { omit } from 'lodash';
 
 import { useGetTodoById, useUpdateTodo } from '~/api/hooks/useTodo';
 import Loader from '~shared/components/loader/loader.component';
@@ -18,7 +19,9 @@ const TodoDetails: FC = () => {
 	const navigate = useNavigate();
 
 	const { userId } = useAuthStore();
+
 	const { isLoading, data: todo, error } = useGetTodoById(id);
+
 	const isCreator = useMemo(
 		() => (todo ? userId === todo.userId : false),
 		[userId, todo],
@@ -36,9 +39,10 @@ const TodoDetails: FC = () => {
 
 	const handleUpdateTodo = useCallback(
 		async (updatedTodo: Todo) => {
+			const updatedTodoWithoutUserId = omit(updatedTodo, 'userId');
 			await updateTodo({
-				id: updatedTodo.id,
-				data: updatedTodo,
+				id: updatedTodoWithoutUserId.id,
+				data: updatedTodoWithoutUserId,
 			});
 		},
 		[updateTodo],
