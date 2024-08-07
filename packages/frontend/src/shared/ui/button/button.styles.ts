@@ -48,6 +48,7 @@ export const outlineButtonStyle = css`
 
 export const clearButtonStyle = css`
 	color: ${colors.accentColor};
+	padding: 0 !important;
 	background: transparent !important;
 	border: none !important;
 	box-shadow: none !important;

@@ -12,8 +12,14 @@ import { notificationService } from '~shared/services/notificationService';
 import useModalStore from './modal.store';
 import { useUserStore } from './user.store';
 
+export type TodoStatusCounter = {
+	completedCount: number;
+	inProgressCount: number;
+};
+
 interface TodoStore {
 	items: TodoI[] | null;
+	totalResults: number;
 	loading: boolean;
 	editLoading: boolean;
 	totalPages: number;
@@ -23,6 +29,7 @@ interface TodoStore {
 	changeStatusIsLoading: boolean;
 	hasMore: boolean;
 	error: AxiosError | null;
+	statusCounter: TodoStatusCounter;
 	fetchTodos: (params?: TodoFilterModel) => Promise<void>;
 	showMoreTodos: (params?: TodoFilterModel) => Promise<void>;
 	fetchTodoById: (id: number) => Promise<void>;
@@ -43,6 +50,8 @@ export const useTodoStore = create<TodoStore>()(
 		loading: false,
 		deleteIsLoading: false,
 		totalPages: 0,
+		totalResults: 0,
+		statusCounter: { completedCount: 0, inProgressCount: 0 },
 		editLoading: false,
 		showMoreIsLoading: false,
 		createIsLoading: false,
@@ -60,6 +69,8 @@ export const useTodoStore = create<TodoStore>()(
 					state.items = response.data.todos;
 					state.totalPages = response.data.totalPages;
 					state.loading = false;
+					state.totalResults = response.data.totalResults;
+					state.statusCounter = response.data.statusCounter;
 				});
 			} catch (error) {
 				set((state) => {
@@ -80,6 +91,8 @@ export const useTodoStore = create<TodoStore>()(
 					state.totalPages = response.data.totalPages;
 					state.showMoreIsLoading = false;
 					state.hasMore = response.data.hasMore;
+					state.totalResults = response.data.totalResults;
+					state.statusCounter = response.data.statusCounter;
 				});
 			} catch (error) {
 				set((state) => {

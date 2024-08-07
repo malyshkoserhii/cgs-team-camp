@@ -1,4 +1,6 @@
+import { Divider } from '@blueprintjs/core';
 import { forwardRef, ReactElement, Ref } from 'react';
+import { dividerStyle } from '~/components/updateUserForm/ui/updateUserForm.styles';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { Flex } from '~shared/ui/base/flex';
@@ -42,14 +44,19 @@ export const TodoItemCard = forwardRef<HTMLLIElement, TodoItemCardProps>(
 		return (
 			<li className={todoBoxStyles} ref={ref}>
 				<div>
-					<Flex>
-						<Heading
-							level={3}
-							size="small"
-							className={todoCardHeading}
-						>
-							{todo.name}
-						</Heading>
+					<Flex justify="space-between" align="center">
+						<div>
+							<Heading
+								level={3}
+								size="small"
+								className={todoCardHeading}
+							>
+								{todo.name}
+							</Heading>
+							<Text size="small" className={todoCardHeading}>
+								Author: {todo.user.name}
+							</Text>
+						</div>
 						{isPrivate ? (
 							<Button
 								variant="clear"
@@ -64,6 +71,7 @@ export const TodoItemCard = forwardRef<HTMLLIElement, TodoItemCardProps>(
 							/>
 						)}
 					</Flex>
+					<Divider className={dividerStyle} />
 					<Text size="medium" align="left">
 						{todo.description}
 					</Text>

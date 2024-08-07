@@ -10,6 +10,7 @@ interface UseTodoStore {
 	fetchTodos: () => void;
 	showMoreTodos: (params: TodoFilterModel) => void;
 	showMoreIsLoading: boolean;
+	totalResults: number;
 	loading: boolean;
 }
 
@@ -24,6 +25,7 @@ export const useFetchTodos = (): Partial<
 		showMoreTodos,
 		showMoreIsLoading,
 		loading,
+		totalResults,
 	} = useTodoStore();
 
 	const fetchTodos = useCallback((): void => {
@@ -41,5 +43,6 @@ export const useFetchTodos = (): Partial<
 		showMoreIsLoading,
 		loading,
 		params,
+		totalResults,
 	};
 };

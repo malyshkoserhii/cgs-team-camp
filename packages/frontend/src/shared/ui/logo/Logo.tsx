@@ -7,7 +7,7 @@ import { Image } from '../image';
 export const Logo = (): ReactElement => {
 	return (
 		<NavLink to={ROUTER_KEYS.DASHBOARD}>
-			<Image src={logo} width="150px" alt="Logo" />
+			<Image src={logo} width="100px" alt="Logo" />
 		</NavLink>
 	);
 };

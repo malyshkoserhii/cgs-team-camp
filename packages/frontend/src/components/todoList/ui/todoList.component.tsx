@@ -3,6 +3,7 @@ import { useAuth } from '~shared/hooks/useAuth.hook';
 import { useFetchTodos } from '~shared/hooks/useFetchTodos.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFilterModel } from '~shared/models/todoFilter.model';
+import { Flex } from '~shared/ui/base/flex';
 import { Heading } from '~shared/ui/base/heading';
 import { Filter } from '~shared/ui/filter/ui/filter.component';
 import { AppGrid } from '~shared/ui/grid';
@@ -10,6 +11,7 @@ import { Loader } from '~shared/ui/loader';
 import { NotFoundBox } from '~shared/ui/notFoundBox/notFoundBox.component';
 import { Pagination } from '~shared/ui/paginator';
 import { TodoItem } from '~shared/ui/todo';
+import { TodoCounter } from '~shared/ui/todo/todoCounter';
 import { filterOptions, filterOptionsWithAuth } from '../model/filterOptions';
 import { filterBoxStyles, headingStyle, listBoxStyle } from './todoList.styles';
 
@@ -22,6 +24,7 @@ export const TodoList = (): ReactElement => {
 		showMoreIsLoading,
 		loading,
 		params,
+		totalResults,
 	} = useFetchTodos();
 
 	useEffect(() => {
@@ -46,7 +49,10 @@ export const TodoList = (): ReactElement => {
 				/>
 			</div>
 			<div className={listBoxStyle}>
-				<Heading className={headingStyle}>Tasks</Heading>
+				<Flex justify="space-between">
+					<Heading className={headingStyle}>Tasks</Heading>
+					<TodoCounter />
+				</Flex>
 				{items?.length === 0 ? (
 					<NotFoundBox
 						message="Nothing found by your query."
@@ -61,6 +67,7 @@ export const TodoList = (): ReactElement => {
 				)}
 				{items?.length !== 0 && (
 					<Pagination
+						totalResults={totalResults}
 						initialPage={params.page}
 						totalPages={totalPages}
 					/>

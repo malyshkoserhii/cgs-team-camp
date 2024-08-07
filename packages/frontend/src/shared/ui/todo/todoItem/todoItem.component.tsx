@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { useAuth } from '~shared/hooks/useAuth.hook';
+import { useFetchTodos } from '~shared/hooks/useFetchTodos.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '~shared/ui/base/flex';
@@ -28,7 +29,7 @@ type TodoItemProps = TodoI & {
 
 export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 	(todo, ref): ReactElement => {
-		const { description, name, id, isPrivate } = todo;
+		const { description, name, id, isPrivate, user: author } = todo;
 		const openModal = useModalStore((state) => state.openModal);
 		const {
 			deleteTodoById,
@@ -36,6 +37,7 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 			changeStatusIsLoading,
 			deleteIsLoading,
 		} = useTodoStore();
+		const { fetchTodos } = useFetchTodos();
 		const { user } = useAuth();
 		const isMobileAndTablet = useMediaQuery({
 			query: `(max-width: ${breakpoints.lg})`,
@@ -53,6 +55,9 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 
 		const onDelete = async (id: string): Promise<void> => {
 			await deleteTodoById(id);
+			if (!isMobileAndTablet) {
+				await fetchTodos();
+			}
 		};
 
 		const onOpenModal = (): void => {
@@ -109,14 +114,14 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 					<Flex className={privacyStyle}>
 						{isPrivate ? (
 							<Button
-								toolTipMessage="Private task."
+								toolTipMessage={`Private task, author - ${author.name}.`}
 								variant="clear"
 								icon="lock"
 								fullWidth={false}
 							/>
 						) : (
 							<Button
-								toolTipMessage="Public task."
+								toolTipMessage={`Public task, author - ${author.name}.`}
 								variant="clear"
 								fullWidth={false}
 								icon="eye-open"
