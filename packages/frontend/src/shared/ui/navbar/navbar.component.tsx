@@ -21,6 +21,13 @@ interface NavOption {
 }
 
 const navOptions: NavOption[] = [
+	{
+		to: ROUTER_KEYS.DASHBOARD,
+		icon: 'home',
+		text: 'Home',
+		authRequired: false,
+		hideOnSmallScreen: true,
+	},
 	{ to: ROUTER_KEYS.LOGIN, icon: 'log-in', authRequired: false },
 	{
 		to: ROUTER_KEYS.CREATE_TODO,
@@ -42,9 +49,6 @@ export const Navbar = (): ReactElement => {
 			<Logo />
 			<Flex gap="10px">
 				{isAuth && <Text>Welcome, {user.name}!</Text>}
-				<Link to={ROUTER_KEYS.DASHBOARD}>
-					<Button icon="home" text="Home" />
-				</Link>
 				{navOptions.map((option, index) => {
 					if (isMobileAndTablet && option.hideOnSmallScreen) {
 						return null;

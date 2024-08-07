@@ -52,7 +52,7 @@ export const Pagination = ({
 			align="center"
 			className={paginationContainerStyles}
 		>
-			<Text bold>Total items: {totalResults}</Text>
+			<Text bold>Total items found: {totalResults}</Text>
 			<Flex align="center" gap="2px">
 				<PaginationButton
 					onClick={() => prevPage()}

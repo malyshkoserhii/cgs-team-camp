@@ -84,6 +84,13 @@ export default class TodoService {
 		return await prisma.todo.update({
 			where: { id },
 			data,
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+			},
 		});
 	}
 

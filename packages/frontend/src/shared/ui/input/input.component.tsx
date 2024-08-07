@@ -1,5 +1,11 @@
 import { cx } from '@emotion/css';
-import { InputHTMLAttributes, memo, ReactElement, ReactNode } from 'react';
+import {
+	InputHTMLAttributes,
+	memo,
+	ReactElement,
+	ReactNode,
+	useState,
+} from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import {
 	asteriskStyle,
@@ -9,6 +15,7 @@ import {
 } from '~shared/styles/formComponentBase.styles';
 import { Flex } from '../base/flex';
 import { Text } from '../base/text';
+import Button from '../button/button.component';
 import { addonStyle, inputStyle, inputWrapperStyle } from './input.styles';
 
 type HTMLInputProps = Omit<
@@ -50,6 +57,22 @@ export const Input = memo(
 			withError = true,
 			...otherProps
 		} = props;
+		const [showPassword, setShowPassword] = useState<boolean>(false);
+		let passwordAddon;
+
+		const onClickShowPassword = (): void => {
+			setShowPassword((prev) => !prev);
+		};
+
+		if (type === 'password') {
+			passwordAddon = (
+				<Button
+					variant="clear"
+					onClick={onClickShowPassword}
+					icon={showPassword ? 'eye-open' : 'lock'}
+				/>
+			);
+		}
 
 		return (
 			<Controller
@@ -78,7 +101,9 @@ export const Input = memo(
 								{
 									readonly,
 									withAddonLeft: Boolean(addonLeft),
-									withAddonRight: Boolean(addonRight),
+									withAddonRight: Boolean(
+										passwordAddon || addonRight,
+									),
 								},
 								emptyMessageStyle,
 							)}
@@ -86,7 +111,7 @@ export const Input = memo(
 							<div className={addonStyle}>{addonLeft}</div>
 							<input
 								ref={ref}
-								type={type}
+								type={showPassword ? 'text' : type}
 								value={value || ''}
 								onChange={onChange}
 								className={inputStyle}
@@ -94,7 +119,9 @@ export const Input = memo(
 								placeholder={placeholder}
 								{...otherProps}
 							/>
-							<div className={addonStyle}>{addonRight}</div>
+							<div className={addonStyle}>
+								{passwordAddon || addonRight}
+							</div>
 						</div>
 						{withError && (
 							<div className={boxStyle}>
