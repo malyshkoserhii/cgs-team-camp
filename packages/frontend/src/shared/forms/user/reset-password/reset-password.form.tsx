@@ -1,112 +1,60 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import { Formik, Form } from 'formik';
+import { Button, Intent } from '@blueprintjs/core';
 
 import { useResetPassword } from '~/api/hooks/useUser';
 import { showToast } from '~/utils/showToast';
 import { ROUTER_KEYS } from '~shared/keys';
+import TextField from '~shared/components/text-field/text-field.component';
+import { initialValues, ResetPasswordSchema } from './const';
 
-const ResetPasswordSchema = Yup.object().shape({
-	newPassword: Yup.string()
-		.min(6, 'Password must be at least 6 characters')
-		.required('Required'),
-	confirmPassword: Yup.string()
-		.oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
-		.required('Required'),
-});
+import type { ResetPasswordInput } from '~typings/user';
 
-interface ResetPasswordFormProps {
+type ResetPasswordFormProps = {
 	resetToken: string;
-}
+};
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ resetToken }) => {
 	const navigate = useNavigate();
 	const { mutateAsync: resetPassword } = useResetPassword();
 
-	const handleSubmit = async (values: {
-		newPassword: string;
-		confirmPassword: string;
-	}) => {
-		await resetPassword({
-			resetToken,
-			newPassword: values.newPassword,
-		});
-		showToast('Password has been reset successfully');
-		navigate(ROUTER_KEYS.LOGIN);
-	};
+	const handleSubmit = useCallback(
+		async (values: ResetPasswordInput) => {
+			await resetPassword({
+				resetToken,
+				newPassword: values.newPassword,
+			});
+			showToast('Password has been reset successfully');
+			navigate(ROUTER_KEYS.LOGIN);
+		},
+		[resetPassword],
+	);
 
 	return (
 		<Formik
-			initialValues={{ newPassword: '', confirmPassword: '' }}
+			initialValues={initialValues}
 			validationSchema={ResetPasswordSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, touched }) => (
 				<Form>
-					<FormGroup
+					<TextField<ResetPasswordInput>
+						name="newPassword"
+						type="password"
 						label="New Password"
-						labelFor="newPassword"
-						intent={
-							errors.newPassword && touched.newPassword
-								? Intent.DANGER
-								: Intent.NONE
-						}
-						helperText={
-							errors.newPassword && touched.newPassword
-								? errors.newPassword
-								: ''
-						}
-					>
-						<Field name="newPassword">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="newPassword"
-									placeholder="Enter new password"
-									type="password"
-									intent={
-										errors.newPassword &&
-										touched.newPassword
-											? Intent.DANGER
-											: Intent.NONE
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
-					<FormGroup
+						placeholder="Enter new password"
+						errors={errors}
+						touched={touched}
+					/>
+					<TextField<ResetPasswordInput>
+						name="confirmPassword"
+						type="password"
 						label="Confirm Password"
-						labelFor="confirmPassword"
-						intent={
-							errors.confirmPassword && touched.confirmPassword
-								? Intent.DANGER
-								: Intent.NONE
-						}
-						helperText={
-							errors.confirmPassword && touched.confirmPassword
-								? errors.confirmPassword
-								: ''
-						}
-					>
-						<Field name="confirmPassword">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="confirmPassword"
-									placeholder="Confirm new password"
-									type="password"
-									intent={
-										errors.confirmPassword &&
-										touched.confirmPassword
-											? Intent.DANGER
-											: Intent.NONE
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+						placeholder="Confirm new password"
+						errors={errors}
+						touched={touched}
+					/>
 					<Button
 						type="submit"
 						intent={Intent.PRIMARY}

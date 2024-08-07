@@ -1,10 +1,11 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import { Button, FormGroup, InputGroup } from '@blueprintjs/core';
-import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { Button } from '@blueprintjs/core';
 
 import { ROUTER_KEYS } from '~shared/keys';
+import { initialValues, RegisterSchema } from './const';
+import TextField from '~shared/components/text-field/text-field.component';
 
 import { buttonsWrapper } from './registration-form.styles';
 
@@ -13,14 +14,6 @@ import type { RegisterInput } from '~typings/user';
 type RegisterFormProps = {
 	onSubmit: (values: RegisterInput) => void;
 };
-
-const RegisterSchema = Yup.object().shape({
-	name: Yup.string().required('Required'),
-	email: Yup.string().email('Invalid email').required('Required'),
-	password: Yup.string()
-		.min(6, 'Password should be at least 6 characters')
-		.required('Required'),
-});
 
 const RegisterForm: FC<RegisterFormProps> = ({ onSubmit }) => {
 	const navigate = useNavigate();
@@ -32,64 +25,39 @@ const RegisterForm: FC<RegisterFormProps> = ({ onSubmit }) => {
 		},
 		[onSubmit],
 	);
+
 	return (
 		<Formik
-			initialValues={{ name: '', email: '', password: '' }}
+			initialValues={initialValues}
 			validationSchema={RegisterSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, touched, isSubmitting }) => (
 				<Form>
-					<FormGroup label="Name" labelFor="name">
-						<Field name="name">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="name"
-									placeholder="Enter your name"
-									intent={
-										errors.name && touched.name
-											? 'danger'
-											: 'none'
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
-					<FormGroup label="Email" labelFor="email">
-						<Field name="email">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="email"
-									type="email"
-									placeholder="Enter your email"
-									intent={
-										errors.email && touched.email
-											? 'danger'
-											: 'none'
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
-					<FormGroup label="Password" labelFor="password">
-						<Field name="password">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="password"
-									type="password"
-									placeholder="Enter your password"
-									intent={
-										errors.password && touched.password
-											? 'danger'
-											: 'none'
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+					<TextField<RegisterInput>
+						name="name"
+						type="text"
+						label="Name"
+						placeholder="Enter your name"
+						errors={errors}
+						touched={touched}
+					/>
+					<TextField<RegisterInput>
+						name="email"
+						type="email"
+						label="Email"
+						placeholder="Enter your email"
+						errors={errors}
+						touched={touched}
+					/>
+					<TextField<RegisterInput>
+						name="password"
+						type="password"
+						label="Password"
+						placeholder="Enter your password"
+						errors={errors}
+						touched={touched}
+					/>
 					<div className={buttonsWrapper}>
 						<Button
 							type="submit"

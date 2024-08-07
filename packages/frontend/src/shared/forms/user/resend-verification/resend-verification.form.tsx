@@ -1,17 +1,15 @@
 import React, { FC, useCallback } from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import { Formik, Form } from 'formik';
+import { Button, Intent } from '@blueprintjs/core';
+
+import TextField from '~shared/components/text-field/text-field.component';
+import { initialValues, ResendVerificationSchema } from './const';
 
 import type { EmailInput } from '~typings/user';
 
 type ResendVerificationFormProps = {
 	onSubmit: (values: EmailInput) => void;
 };
-
-const ResendVerificationSchema = Yup.object().shape({
-	email: Yup.string().email('Invalid email').required('Required'),
-});
 
 const ResendVerificationForm: FC<ResendVerificationFormProps> = ({
 	onSubmit,
@@ -23,40 +21,23 @@ const ResendVerificationForm: FC<ResendVerificationFormProps> = ({
 		},
 		[onSubmit],
 	);
+
 	return (
 		<Formik
-			initialValues={{ email: '' }}
+			initialValues={initialValues}
 			validationSchema={ResendVerificationSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, touched, isSubmitting }) => (
 				<Form>
-					<FormGroup
+					<TextField<EmailInput>
+						name="email"
+						type="email"
 						label="Email"
-						labelFor="email"
-						helperText={touched.email && errors.email}
-						intent={
-							errors.email && touched.email
-								? Intent.DANGER
-								: Intent.NONE
-						}
-					>
-						<Field name="email">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="email"
-									placeholder="Enter your email"
-									type="email"
-									intent={
-										errors.email && touched.email
-											? Intent.DANGER
-											: Intent.NONE
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+						placeholder="Enter your email"
+						errors={errors}
+						touched={touched}
+					/>
 					<Button
 						type="submit"
 						intent={Intent.PRIMARY}

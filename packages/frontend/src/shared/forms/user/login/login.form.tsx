@@ -1,10 +1,11 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import { Button, FormGroup, InputGroup } from '@blueprintjs/core';
-import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { Button } from '@blueprintjs/core';
 
 import { ROUTER_KEYS } from '~shared/keys';
+import { initialValues, LoginSchema } from './const';
+import TextField from '~shared/components/text-field/text-field.component';
 
 import { buttonsWrapper } from './login-form.styles';
 
@@ -13,11 +14,6 @@ import type { LoginInput } from '~typings/user';
 type LoginFormProps = {
 	onSubmit: (values: LoginInput) => void;
 };
-
-const LoginSchema = Yup.object().shape({
-	email: Yup.string().email('Invalid email').required('Required'),
-	password: Yup.string().required('Required'),
-});
 
 const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
 	const navigate = useNavigate();
@@ -32,46 +28,28 @@ const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
 
 	return (
 		<Formik
-			initialValues={{ email: '', password: '' }}
+			initialValues={initialValues}
 			validationSchema={LoginSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, touched, isSubmitting }) => (
 				<Form>
-					<FormGroup label="Email" labelFor="email">
-						<Field name="email">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="email"
-									type="email"
-									placeholder="Enter your email"
-									intent={
-										errors.email && touched.email
-											? 'danger'
-											: 'none'
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
-					<FormGroup label="Password" labelFor="password">
-						<Field name="password">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="password"
-									type="password"
-									placeholder="Enter your password"
-									intent={
-										errors.password && touched.password
-											? 'danger'
-											: 'none'
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+					<TextField<LoginInput>
+						name="email"
+						type="email"
+						label="Email"
+						placeholder="Enter your email"
+						errors={errors}
+						touched={touched}
+					/>
+					<TextField<LoginInput>
+						name="password"
+						type="password"
+						label="Password"
+						placeholder="Enter your password"
+						errors={errors}
+						touched={touched}
+					/>
 					<div className={buttonsWrapper}>
 						<Button
 							type="submit"

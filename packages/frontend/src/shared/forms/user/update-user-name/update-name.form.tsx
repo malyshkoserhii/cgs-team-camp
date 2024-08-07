@@ -1,28 +1,25 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import React, { FC, useCallback } from 'react';
+import { Formik, Form } from 'formik';
+import { Button, Intent } from '@blueprintjs/core';
 
-const UpdateNameSchema = Yup.object().shape({
-	name: Yup.string().required('Required'),
-});
+import TextField from '~shared/components/text-field/text-field.component';
+import { UpdateNameSchema } from './const';
 
-interface UpdateNameFormProps {
+import type { NameInput } from '~typings/user';
+
+type UpdateNameFormProps = {
 	initialName: string;
 	onSubmit: (name: string) => Promise<void>;
-}
+};
 
-const UpdateNameForm: React.FC<UpdateNameFormProps> = ({
-	initialName,
-	onSubmit,
-}) => {
-	const handleSubmit = async (
-		values: { name: string },
-		{ setSubmitting },
-	) => {
-		await onSubmit(values.name);
-		setSubmitting(false);
-	};
+const UpdateNameForm: FC<UpdateNameFormProps> = ({ initialName, onSubmit }) => {
+	const handleSubmit = useCallback(
+		async (values: NameInput, { setSubmitting }) => {
+			await onSubmit(values.name);
+			setSubmitting(false);
+		},
+		[onSubmit],
+	);
 
 	return (
 		<Formik
@@ -32,33 +29,14 @@ const UpdateNameForm: React.FC<UpdateNameFormProps> = ({
 		>
 			{({ errors, touched }) => (
 				<Form>
-					<FormGroup
+					<TextField<NameInput>
+						name="name"
+						type="text"
 						label="Name"
-						labelFor="name"
-						intent={
-							errors.name && touched.name
-								? Intent.DANGER
-								: Intent.NONE
-						}
-						helperText={
-							errors.name && touched.name ? errors.name : ''
-						}
-					>
-						<Field name="name">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="name"
-									placeholder="Enter your name"
-									intent={
-										errors.name && touched.name
-											? Intent.DANGER
-											: Intent.NONE
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+						placeholder="Enter your name"
+						errors={errors}
+						touched={touched}
+					/>
 					<Button
 						type="submit"
 						intent={Intent.PRIMARY}

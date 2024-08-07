@@ -31,11 +31,27 @@ export type LoginInput = {
 	password: string;
 };
 
+export type ChangePasswordInput = {
+	oldPassword: string;
+	newPassword: string;
+	confirmNewPassword: string;
+};
+
 export type EmailInput = {
 	email: string;
 };
 
-export type ResetPasswordInput = {
-	resetToken: string;
-	newPassword: string;
+export type NameInput = {
+	name: string;
 };
+
+export type ResetPasswordInput = {
+	newPassword: string;
+	confirmPassword: string;
+};
+
+export enum VerificationStatus {
+	Loading = 'loading',
+	Success = 'success',
+	Error = 'error',
+}

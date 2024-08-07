@@ -1,59 +1,41 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import React, { FC, useCallback } from 'react';
+import { Formik, Form } from 'formik';
+import { Button, Intent } from '@blueprintjs/core';
 
 import { useForgotPassword } from '~/api/hooks/useUser';
 import { showToast } from '~/utils/showToast';
+import TextField from '~shared/components/text-field/text-field.component';
+import { ForgotPasswordSchema, initialValues } from './const';
 
-const ForgotPasswordSchema = Yup.object().shape({
-	email: Yup.string().email('Invalid email').required('Required'),
-});
+import type { EmailInput } from '~typings/user';
 
-const ForgotPasswordForm: React.FC = () => {
+const ForgotPasswordForm: FC = () => {
 	const { mutateAsync: forgotPassword } = useForgotPassword();
 
-	const handleSubmit = async (values: { email: string }) => {
-		await forgotPassword(values.email);
-		showToast('Password reset instructions sent to your email');
-	};
+	const handleSubmit = useCallback(
+		async (values: EmailInput) => {
+			await forgotPassword(values.email);
+			showToast('Password reset instructions sent to your email');
+		},
+		[forgotPassword],
+	);
 
 	return (
 		<Formik
-			initialValues={{ email: '' }}
+			initialValues={initialValues}
 			validationSchema={ForgotPasswordSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, touched }) => (
 				<Form>
-					<FormGroup
+					<TextField<EmailInput>
+						name="email"
+						type="email"
 						label="Email"
-						labelFor="email"
-						intent={
-							errors.email && touched.email
-								? Intent.DANGER
-								: Intent.NONE
-						}
-						helperText={
-							errors.email && touched.email ? errors.email : ''
-						}
-					>
-						<Field name="email">
-							{({ field }) => (
-								<InputGroup
-									{...field}
-									id="email"
-									placeholder="Enter your email"
-									type="email"
-									intent={
-										errors.email && touched.email
-											? Intent.DANGER
-											: Intent.NONE
-									}
-								/>
-							)}
-						</Field>
-					</FormGroup>
+						placeholder="Enter your email"
+						errors={errors}
+						touched={touched}
+					/>
 					<Button
 						type="submit"
 						intent={Intent.PRIMARY}
