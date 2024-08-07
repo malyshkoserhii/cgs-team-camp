@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { AuthService } from '~/services/auth.service';
-import { userKeys } from '../queryKeys';
+import { QUERY_KEYS } from '../queryKeys';
 
 import type { LoginInput, RegisterInput, UpdateUserInput } from '~typings/user';
 
@@ -9,7 +9,7 @@ const authService = new AuthService();
 
 export const useGetUserProfile = (id) => {
 	return useQuery({
-		queryKey: userKeys.profileById(id),
+		queryKey: QUERY_KEYS.profileById(id),
 		queryFn: () => authService.getUserProfile(id),
 	});
 };
@@ -22,7 +22,7 @@ export const useUpdateUser = () => {
 			authService.updateUser(newUserData),
 		onSuccess: ({ id }) => {
 			queryClient.invalidateQueries({
-				queryKey: userKeys.profileById(id),
+				queryKey: QUERY_KEYS.profileById(id),
 			});
 		},
 	});

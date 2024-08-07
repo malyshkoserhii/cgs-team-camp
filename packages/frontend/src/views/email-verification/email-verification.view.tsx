@@ -5,10 +5,11 @@ import { Button, Card, H3, Intent, Spinner } from '@blueprintjs/core';
 import { useVerifyEmail } from '~/api/hooks/useUser';
 import { ROUTER_KEYS } from '~shared/keys';
 
+import { VerificationStatus } from '~typings/user';
+
 const EmailVerification: FC = () => {
-	const [verificationStatus, setVerificationStatus] = useState<
-		'loading' | 'success' | 'error'
-	>('loading');
+	const [verificationStatus, setVerificationStatus] =
+		useState<VerificationStatus>(VerificationStatus.Loading);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const verifyEmailMutation = useVerifyEmail();
@@ -20,15 +21,14 @@ const EmailVerification: FC = () => {
 		if (token) {
 			verifyEmailMutation.mutate(token, {
 				onSuccess: () => {
-					setVerificationStatus('success');
-					setTimeout(() => navigate(ROUTER_KEYS.LOGIN), 3000);
+					setVerificationStatus(VerificationStatus.Success);
 				},
 				onError: () => {
-					setVerificationStatus('error');
+					setVerificationStatus(VerificationStatus.Error);
 				},
 			});
 		} else {
-			setVerificationStatus('error');
+			setVerificationStatus(VerificationStatus.Error);
 		}
 	}, []);
 
