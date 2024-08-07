@@ -10,11 +10,12 @@ import { STORAGE_KEYS } from '~shared/keys';
 const authService = new AuthService();
 
 interface IUserStore {
-	user: User;
+	user: User | null;
 	loading: boolean;
 	error: AxiosError | null;
 	register: (user: User) => Promise<void>;
 	login: (user: User) => Promise<void>;
+	logout: () => Promise<void>;
 	forgetPassword: (email: User) => Promise<void>;
 	resetPassword: (password: string, token: string) => Promise<void>;
 	isAuth: boolean;
@@ -26,7 +27,6 @@ export const useAuthStore = create<IUserStore>()(
 			user: null,
 			loading: false,
 			error: null,
-			// isAuth: !!localStorage.getItem(STORAGE_KEYS.TOKEN),
 			isAuth: false,
 
 			register: async (user: User): Promise<void> => {
@@ -34,7 +34,7 @@ export const useAuthStore = create<IUserStore>()(
 
 				try {
 					const { data } = await authService.registerUser(user);
-					set({ user: data });
+					toast.success(data?.message);
 				} catch (err) {
 					toast.error(err.response?.data?.message);
 				} finally {
@@ -48,6 +48,18 @@ export const useAuthStore = create<IUserStore>()(
 				try {
 					const { data } = await authService.loginUser(user);
 					set({ user: data, isAuth: true });
+				} catch (err) {
+					toast.error(err.response?.data?.message);
+				} finally {
+					set({ loading: false });
+				}
+			},
+
+			logout: async (): Promise<void> => {
+				try {
+					localStorage.removeItem(STORAGE_KEYS.TOKEN);
+					set({ isAuth: false, user: null });
+					toast.success('Successful logout');
 				} catch (err) {
 					toast.error(err.response?.data?.message);
 				} finally {
@@ -73,9 +85,12 @@ export const useAuthStore = create<IUserStore>()(
 				token: string,
 			): Promise<void> => {
 				set({ loading: true });
-
 				try {
-					await authService.resetPassword(password, token);
+					const { data } = await authService.resetPassword(
+						password,
+						token,
+					);
+					toast.success(data?.message);
 				} catch (err) {
 					toast.error(err.response?.data?.message);
 				} finally {

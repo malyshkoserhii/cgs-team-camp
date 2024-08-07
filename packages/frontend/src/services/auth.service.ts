@@ -1,6 +1,7 @@
+import { AxiosResponse } from 'axios';
+
 import { HttpService } from '~services/http.service';
 import { User } from '~typings/user.types';
-import { AxiosResponse } from 'axios';
 import { API_KEYS } from '~shared/keys';
 
 export class AuthService extends HttpService {
@@ -8,7 +9,9 @@ export class AuthService extends HttpService {
 		super();
 	}
 
-	async registerUser(user: User): Promise<AxiosResponse<User>> {
+	async registerUser(
+		user: User,
+	): Promise<AxiosResponse<{ message: string }>> {
 		return this.post({ url: API_KEYS.REGISTER, data: user });
 	}
 
@@ -37,7 +40,7 @@ export class AuthService extends HttpService {
 	async resetPassword(
 		password: string,
 		token: string,
-	): Promise<AxiosResponse<string>> {
+	): Promise<AxiosResponse<{ message: string }>> {
 		return this.post({
 			url: API_KEYS.RESET_PSW,
 			data: { password, token },

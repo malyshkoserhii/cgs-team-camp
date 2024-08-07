@@ -18,6 +18,7 @@ import { LoginForm } from '~modules/AuthForms/LoginForm';
 import { ForgetPasswordForm } from '~modules/AuthForms/ForgetPassword';
 import { ResetPasswordForm } from '~modules/AuthForms/ResetPasswordForm';
 import { PrivateRoutes, PublicRoutes } from '~router/routes';
+import { Profile } from '~modules/Profile/Profile';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -49,10 +50,7 @@ const router = createBrowserRouter(
 				<Route path={ROUTER_KEYS.DASHBOARD} element={<TodosModule />} />
 				<Route path={ROUTER_KEYS.ADD_NEW} element={<TodoForm />} />
 				<Route path={`${ROUTER_KEYS.VIEW}`} element={<TodoForm />} />
-				<Route
-					path={`${ROUTER_KEYS.PROFILE}`}
-					element={<h1>Profile</h1>}
-				/>
+				<Route path={`${ROUTER_KEYS.PROFILE}`} element={<Profile />} />
 			</Route>
 			<Route
 				path={ROUTER_KEYS.ALL_MATCH}

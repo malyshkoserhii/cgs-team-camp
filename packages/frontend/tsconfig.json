@@ -48,6 +48,9 @@
 			],
 			"~AuthForms/*": [
 				"src/modules/AuthForms/*"
+			],
+			"~Profile/*": [
+				"src/modules/Profile/*"
 			]
 		}
 	},

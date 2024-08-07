@@ -23,10 +23,6 @@ export const RegisterForm: React.FC = () => {
 		await register(values);
 		resetForm();
 		navigate(ROUTER_KEYS.MAIN);
-		// TODO use message from BE for toast.success
-		// toast.success(
-		// 	'For complete registration, please check your email and verify your account.',
-		// );
 	};
 
 	if (loading) {

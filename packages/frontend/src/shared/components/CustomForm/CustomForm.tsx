@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '~shared/components';
-import { userValidationSchema } from '~schemas/user.schema';
+import { userValidationSchema } from '../../schemas/user.schema';
 import {
 	buttonGroupStyle,
 	container,
