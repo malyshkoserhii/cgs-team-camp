@@ -17,6 +17,13 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+  password             String
+  refreshToken         String?
+  activationToken      String?
+  isActivated          Boolean   @default(false)
+  todos                Todo[]
+  resetToken           String?   @unique
+  resetTokenExpiration DateTime?
 }
 model Todo {
   id          Int      @id @default(autoincrement())
@@ -25,7 +32,7 @@ model Todo {
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  // userId      Int
-  // user        User     @relation(fields: [userId], references: [id])
+  isPrivate   Boolean    @default(false)
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 }
