@@ -23,8 +23,7 @@ export const Layout: React.FC = () => {
 			if (token) {
 				try {
 					const response = await verifyEmail(token);
-					console.log('verifyEmailToken response:', response);
-					// toast.success(response?.data?.message);
+					toast.success(response?.data?.message);
 				} catch (err) {
 					toast.error(
 						err.response?.data?.message || 'Verification failed',

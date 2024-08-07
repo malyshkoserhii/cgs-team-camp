@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '~store/auth.store';
@@ -10,10 +10,14 @@ import { CustomForm, CustomField, Loader } from '~shared/components';
 export const LoginForm: React.FC = () => {
 	const navigate = useNavigate();
 	const { user, login, loading } = useAuthStore();
-	const initialValues: User = {
-		email: user?.email || '',
-		password: user?.password || '',
-	};
+
+	const initialValues = useMemo(
+		() => ({
+			email: user?.email || '',
+			password: user?.password || '',
+		}),
+		[user],
+	);
 
 	const handleSubmit = async (
 		values: User,

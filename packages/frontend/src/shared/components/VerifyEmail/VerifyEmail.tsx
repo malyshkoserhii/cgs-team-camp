@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { AuthService } from '~services/auth.service';
+import { authService } from '~services/auth.service';
 import { Loader, StyledNavLink } from '~shared/components';
 import { ROUTER_KEYS } from '~shared/keys';
 import { useAuthStore } from '~store/auth.store';
-
-const authService = new AuthService();
 
 export const VerifyEmail: React.FC = () => {
 	const navigate = useNavigate();
@@ -15,8 +13,6 @@ export const VerifyEmail: React.FC = () => {
 	const { loading } = useAuthStore();
 
 	useEffect(() => {
-		console.log('start useEffect');
-
 		const verifyEmailToken = async (): Promise<void> => {
 			if (token) {
 				try {

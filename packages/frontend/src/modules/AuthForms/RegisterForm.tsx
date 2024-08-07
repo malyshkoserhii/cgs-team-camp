@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '~store/auth.store';
@@ -7,18 +7,26 @@ import { userValidationSchema } from '../../shared/schemas/user.schema';
 import { ROUTER_KEYS } from '~shared/keys';
 import { CustomForm, CustomField, Loader } from '~shared/components';
 
+type FormSubmitArgs = {
+	resetForm: () => void;
+};
+
 export const RegisterForm: React.FC = () => {
 	const navigate = useNavigate();
 	const { user, register, loading } = useAuthStore();
-	const initialValues: User = {
-		username: user?.username || '',
-		email: user?.email || '',
-		password: user?.password || '',
-	};
+
+	const initialValues = useMemo(
+		() => ({
+			username: user?.username || '',
+			email: user?.email || '',
+			password: user?.password || '',
+		}),
+		[user],
+	);
 
 	const handleSubmit = async (
 		values: User,
-		{ resetForm }: { resetForm: () => void },
+		{ resetForm }: FormSubmitArgs,
 	): Promise<void> => {
 		await register(values);
 		resetForm();
