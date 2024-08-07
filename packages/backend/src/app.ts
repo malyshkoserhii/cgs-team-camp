@@ -1,19 +1,22 @@
-import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
+import express, { Express } from 'express';
 import 'dotenv/config';
 import bodyParser from 'body-parser';
-
+import { errorHandler } from '@/middlewares/errorHandling.middleware';
 import AppRouter from './routes';
-
 const port = 3030;
 const app: Express = express();
 const router = new AppRouter(app);
 
+app.use(
+	cors({
+		origin: 'http://localhost:5173',
+		optionsSuccessStatus: 200,
+	}),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-app.get('/', (req: Request, res: Response) => {
-	res.send('Hello Node!');
-});
+app.use(errorHandler);
 
 router.init();
 

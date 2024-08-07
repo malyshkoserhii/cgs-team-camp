@@ -13,9 +13,12 @@
 	"dependencies": {
 		"@blueprintjs/core": "^5.4.0",
 		"@emotion/css": "^11.11.2",
+		"@emotion/styled": "^11.13.0",
 		"axios": "^1.5.1",
 		"classnames": "^2.3.2",
+		"dotenv": "^16.4.5",
 		"final-form": "^4.20.10",
+		"formik": "^2.4.6",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-final-form": "^6.5.9",
