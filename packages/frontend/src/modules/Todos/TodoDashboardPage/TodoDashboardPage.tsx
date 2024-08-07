@@ -1,9 +1,7 @@
 import { Dialog, DialogBody } from '@blueprintjs/core';
 import * as React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Loader from '~shared/components/loader/loader.component';
 
-import { BREAKPOINTS } from '~shared/styles';
 import { Todo } from '~shared/types/todo.types';
 
 import { DialogContainer } from '../TodoForm/Form.styles';
@@ -11,8 +9,9 @@ import { AddTodoForm } from '../TodoForm/TodoForm';
 import TodoDesktopDashboard from '../Tododashboard/TodoDesktopDashboard/TodoDesktopDashboard';
 import TodoList from '../Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
 
-import { useSearchParams } from 'react-router-dom';
+import useFilteredTodos from '~shared/helpers/useFilteredTodos';
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
+import useResponsiveLayout from '~shared/utils/useResponsiveLayout';
 import { useTodoStore } from '~store/todos.store';
 import TodoPageBar from '../TodoPageBar/TodoPageBar';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
@@ -21,36 +20,20 @@ import { PageLoader } from './TodoDashboardPage.styles';
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
 	const [filterValue, setFilterValue] = React.useState('');
-	const [searchParams, setSearchParams] = useSearchParams();
-	const isPrivate = searchParams.get('isPrivate');
-	const isCompleted = searchParams.get('isCompleted');
-	const filter = searchParams.get('search');
 
-	const isDesktop = useMediaQuery({
-		minWidth: `${parseInt(BREAKPOINTS.desktop, 10) + 1}px`,
-	});
-	const isTablet = useMediaQuery({
-		minWidth: `${parseInt(BREAKPOINTS.tablet, 10) + 1}px`,
-		maxWidth: `${BREAKPOINTS.desktop}`,
-	});
-	const isMobile = useMediaQuery({ maxWidth: `${BREAKPOINTS.tablet}` });
+	const { isDesktop, isTablet, isMobile } = useResponsiveLayout();
+	const {
+		filter,
+		isPrivate,
+		isCompleted,
+		updateSearchParams,
+		clearSearchParams,
+	} = useFilteredTodos();
 	const todoStore = useTodoStore();
 	const loading = todoStore.loading;
 	const error = todoStore.todoError;
 	const todos = todoStore.todos;
-	const updateSearchParams = (
-		params: Record<string, string | null>,
-	): void => {
-		const newSearchParams = new URLSearchParams(searchParams);
-		Object.entries(params).forEach(([key, value]) => {
-			if (value) {
-				newSearchParams.set(key, value);
-			} else {
-				newSearchParams.delete(key);
-			}
-		});
-		setSearchParams(newSearchParams);
-	};
+
 	React.useEffect(() => {
 		todoStore.fetchTodos({
 			search: filter,
@@ -95,7 +78,7 @@ const TodoDashboardPage = (): JSX.Element => {
 
 	const showAllTodos = (): void => {
 		setFilterValue('');
-		setSearchParams('');
+		clearSearchParams();
 	};
 
 	const showContent = !error && !loading;
@@ -121,7 +104,7 @@ const TodoDashboardPage = (): JSX.Element => {
 					<Loader />
 				</div>
 			)}
-			{showContent && todos && (
+			{showContent && !!todos.length ? (
 				<>
 					{isTablet && (
 						<TabletDashboard
@@ -142,6 +125,8 @@ const TodoDashboardPage = (): JSX.Element => {
 						</>
 					)}
 				</>
+			) : (
+				<p>No todos found</p>
 			)}
 
 			<Dialog

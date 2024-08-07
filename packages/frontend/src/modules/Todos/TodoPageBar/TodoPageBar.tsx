@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import Button from '~shared/components/button/button.component';
 import {
@@ -57,4 +57,4 @@ const TodoPageBar = ({
 	);
 };
 
-export default memo(TodoPageBar);
+export default TodoPageBar;
