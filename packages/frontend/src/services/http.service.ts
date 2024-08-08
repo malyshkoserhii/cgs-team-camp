@@ -56,7 +56,6 @@ export class HttpService {
 				...this.populateTokenToHeaderConfig(),
 			};
 		}
-		console.log('config.data', config.data);
 		return this.fetchingService.post(
 			this.getFullApiUrl(config.url),
 			config.data,

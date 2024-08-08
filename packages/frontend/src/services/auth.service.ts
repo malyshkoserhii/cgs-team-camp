@@ -47,3 +47,5 @@ export class AuthService extends HttpService {
 		});
 	}
 }
+
+export const authService = new AuthService();
