@@ -2,7 +2,7 @@ import cors from 'cors';
 import express, { Express } from 'express';
 import 'dotenv/config';
 import bodyParser from 'body-parser';
-import { errorHandler } from '@/middlewares/errorHandling.middleware';
+import { errorHandler } from './middlewares/errorHandling.middleware';
 import AppRouter from './routes';
 const port = 3030;
 const app: Express = express();
