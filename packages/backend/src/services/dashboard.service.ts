@@ -63,8 +63,9 @@ export class DashboardService {
 					});
 				}
 			}
+		} else {
+			return prisma.dashboard.findMany();
 		}
-		return [];
 	}
 
 	async create(data: DashboardCreateType): Promise<DashboardType> {
