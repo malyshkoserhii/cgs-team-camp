@@ -17,6 +17,8 @@ export const TodosModule = (): React.ReactNode => {
 	const [searchFilter, setSearchFilter] = useState('');
 	const [filter, setFilter] = useState<FILTER_KEYS>(FILTER_KEYS.ALL);
 
+	console.log('todos:', todos);
+
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setSearchFilter(e.target.value);
 	};
@@ -26,18 +28,21 @@ export const TodosModule = (): React.ReactNode => {
 	};
 
 	useEffect(() => {
-		let isCompleted: boolean | undefined = undefined;
-		let isPrivate: boolean | undefined = undefined;
+		const statusPrivate =
+			filter === FILTER_KEYS.PRIVATE
+				? 'private'
+				: FILTER_KEYS.PUBLIC
+					? 'public'
+					: undefined;
 
-		if (filter === FILTER_KEYS.COMPLETED) {
-			isCompleted = true;
-		} else if (filter === FILTER_KEYS.PRIVATE) {
-			isPrivate = true;
-		} else if (filter === FILTER_KEYS.PUBLIC) {
-			isPrivate = false;
-		}
+		const statusCompleted =
+			filter === FILTER_KEYS.COMPLETED
+				? 'completed'
+				: FILTER_KEYS.ACTIVE
+					? 'active'
+					: undefined;
 
-		getTodos(searchFilter, isCompleted, isPrivate);
+		getTodos(searchFilter, statusCompleted, statusPrivate);
 	}, [getTodos, searchFilter, filter]);
 
 	useEffect(() => {

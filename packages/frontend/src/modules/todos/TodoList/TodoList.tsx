@@ -16,6 +16,8 @@ export const TodoList: React.FC<{ filteredTodos: Todo[] }> = ({
 }) => {
 	const { isMobile, isTablet, isLaptop } = useDeviceType();
 
+	console.log('filteredTodos: ', filteredTodos);
+
 	return (
 		<div className={todosContainer}>
 			{isMobile &&

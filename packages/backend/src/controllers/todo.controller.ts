@@ -33,7 +33,8 @@ export class TodoController {
 	async getFilteredTodos(req: Request, res: Response): Promise<void> {
 		const userId = (req.user as { id: string }).id;
 		const { search, isComplete, isPrivate, page, pageSize } = req.query;
-
+		console.log('userID: ', userId);
+		console.log('req.query: ', req.query);
 		const query = {
 			userId,
 			search: search as string | undefined,
@@ -57,26 +58,26 @@ export class TodoController {
 		});
 	}
 
-	async getAllTodos(req: Request, res: Response): Promise<void> {
-		const user = req.user as User;
-		const query = {
-			search: req.query.search as string,
-			isPrivate: req.query.isPrivate
-				? req.query.isPrivate === 'true'
-				: undefined,
-			isCompleted: req.query.isCompleted
-				? req.query.isCompleted === 'true'
-				: undefined,
-		} as unknown as TodoQueryParams;
-
-		const filteredTodos = await this.todoService.findAll(user, query);
-		res.status(200).json(filteredTodos);
-	}
-
-	async getAllTodo(_: Request, res: Response): Promise<void> {
-		const todos = await this.todoService.findTodos();
-		res.status(200).json(todos);
-	}
+	// async getAllTodos(req: Request, res: Response): Promise<void> {
+	// 	const user = req.user as User;
+	// 	const query = {
+	// 		search: req.query.search as string,
+	// 		isPrivate: req.query.isPrivate
+	// 			? req.query.isPrivate === 'true'
+	// 			: undefined,
+	// 		isCompleted: req.query.isCompleted
+	// 			? req.query.isCompleted === 'true'
+	// 			: undefined,
+	// 	} as unknown as TodoQueryParams;
+	//
+	// 	const filteredTodos = await this.todoService.findAll(user, query);
+	// 	res.status(200).json(filteredTodos);
+	// }
+	//
+	// async getAllTodo(_: Request, res: Response): Promise<void> {
+	// 	const todos = await this.todoService.findTodos();
+	// 	res.status(200).json(todos);
+	// }
 
 	async getTodoById(req: Request, res: Response): Promise<void> {
 		const reqId = req.params.id || req.body.id;
@@ -122,9 +123,9 @@ const todoController = new TodoController(new TodoService());
 export const ctrAddNewTodo = tryCatchMiddleware(
 	todoController.addNewTodo.bind(todoController),
 );
-export const ctrGetAllTodo = tryCatchMiddleware(
-	todoController.getAllTodo.bind(todoController),
-);
+// export const ctrGetAllTodo = tryCatchMiddleware(
+// 	todoController.getAllTodo.bind(todoController),
+// );
 export const ctrGetTodoById = tryCatchMiddleware(
 	todoController.getTodoById.bind(todoController),
 );
@@ -137,9 +138,9 @@ export const ctrDeleteTodoById = tryCatchMiddleware(
 export const ctrPatchTodoById = tryCatchMiddleware(
 	todoController.patchTodoById.bind(todoController),
 );
-export const ctrGetAllWithFilter = tryCatchMiddleware(
-	todoController.getAllTodos.bind(todoController),
-);
+// export const ctrGetAllWithFilter = tryCatchMiddleware(
+// 	todoController.getAllTodos.bind(todoController),
+// );
 export const ctrGetFilteredTodos = tryCatchMiddleware(
 	todoController.getFilteredTodos.bind(todoController),
 );

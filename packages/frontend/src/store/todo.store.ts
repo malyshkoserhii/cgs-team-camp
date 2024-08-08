@@ -6,21 +6,31 @@ import { toast } from 'react-toastify';
 import { Todo } from '~typings/todo.types';
 import { todosService } from '~/services/todos.service';
 
+interface Pagination {
+	total: number;
+	page: number;
+	pageSize: number;
+	totalPages: number;
+}
+
 interface ITodoStore {
-	todo: Todo;
+	todo: Todo | null;
 	todos: Todo[];
 	loading: boolean;
 	error: AxiosError | null;
 	getTodos: (
 		search?: string,
-		isCompleted?: boolean,
-		isPrivate?: boolean,
+		statusCompleted?: 'completed' | 'active',
+		statusPrivate?: 'private' | 'public',
+		page?: number,
+		pageSize?: number,
 	) => Promise<void>;
 	createTodo: (todo: Todo) => Promise<void>;
 	getTodoById: (id: string) => Promise<void>;
 	updateTodo: (id: string, todo: Todo) => Promise<void>;
 	deleteTodo: (id: string) => Promise<void>;
 	patchTodoById: (id: string, updates: Partial<Todo>) => Promise<void>;
+	pagination: Pagination | null;
 }
 
 export const useTodoStore = create<ITodoStore>()(
@@ -29,11 +39,14 @@ export const useTodoStore = create<ITodoStore>()(
 		todos: [],
 		loading: false,
 		error: null,
+		pagination: null,
 
 		getTodos: async (
 			search?: string,
-			isCompleted?: boolean,
-			isPrivate?: boolean,
+			isCompleted?: 'completed' | 'active',
+			isPrivate?: 'private' | 'public',
+			page?: number,
+			pageSize?: number,
 		): Promise<void> => {
 			set({ loading: true });
 			try {
@@ -41,8 +54,11 @@ export const useTodoStore = create<ITodoStore>()(
 					search,
 					isCompleted,
 					isPrivate,
+					page,
+					pageSize,
 				);
-				set({ todos: data });
+
+				set({ todos: data.todos, pagination: data.pagination });
 			} catch (err) {
 				toast.error(err.response?.data?.message);
 			} finally {

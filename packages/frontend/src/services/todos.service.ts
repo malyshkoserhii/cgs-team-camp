@@ -4,6 +4,24 @@ import { Todo } from '~typings/todo.types';
 import { HttpService } from '~services/http.service';
 import { API_KEYS } from '~shared/keys';
 
+interface TodosParams {
+	search?: string;
+	isCompleted?: 'completed' | 'active';
+	isPrivate?: 'private' | 'public';
+	page?: number;
+	pageSize?: number;
+}
+
+interface TodoResponse {
+	todos: Todo[];
+	pagination: {
+		total: number;
+		page: number;
+		pageSize: number;
+		totalPages: number;
+	};
+}
+
 export class TodosService extends HttpService {
 	constructor() {
 		super();
@@ -11,20 +29,20 @@ export class TodosService extends HttpService {
 
 	public async getTodos(
 		search?: string,
-		isCompleted?: boolean,
-		isPrivate?: boolean,
-	): Promise<AxiosResponse<Todo[]>> {
-		const params: Record<string, any> = { search };
-		if (isCompleted !== undefined) {
-			params.isCompleted = isCompleted;
-		}
-		if (isPrivate !== undefined) {
-			params.isPrivate = isPrivate;
-		}
-		return this.get(
-			{ url: API_KEYS.ALL, params: { search, isCompleted, isPrivate } },
-			true,
-		);
+		isCompleted?: 'completed' | 'active',
+		isPrivate?: 'private' | 'public',
+		page?: number,
+		pageSize?: number,
+	): Promise<AxiosResponse<TodoResponse>> {
+		const params: TodosParams = {};
+
+		if (search) params.search = search;
+		if (isCompleted) params.isCompleted = isCompleted;
+		if (isPrivate) params.isPrivate = isPrivate;
+		if (page) params.page = page;
+		if (pageSize) params.pageSize = pageSize;
+
+		return this.get({ url: API_KEYS.ALL, params }, true);
 	}
 
 	public async createTodo(todo: Todo): Promise<AxiosResponse<Todo>> {
