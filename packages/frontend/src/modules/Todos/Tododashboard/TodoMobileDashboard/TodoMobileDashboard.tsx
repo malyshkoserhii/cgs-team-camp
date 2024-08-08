@@ -37,7 +37,7 @@ const TodoList: React.FC<TodoListProps> = ({
 
 	return (
 		<div>
-			<h1 style={{ marginBottom: '40px' }}>Todo List</h1>
+			<h1>Todo List</h1>
 			<ul>
 				{todos?.map((todo: Todo) => (
 					<TodoItem

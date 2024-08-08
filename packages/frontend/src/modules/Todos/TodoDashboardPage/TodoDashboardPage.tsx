@@ -73,18 +73,22 @@ const TodoDashboardPage = (): JSX.Element => {
 	): void => {
 		const newFilterValue = e.target.value;
 		setFilterValue(newFilterValue);
-		updateSearchParams({ search: newFilterValue, page: '1' });
+		updateSearchParams({ search: newFilterValue });
+		setPage('1');
 	};
 	const handleFilterCompleted = (): void => {
-		updateSearchParams({ isCompleted: 'true', page: '1' });
+		setPage('1');
+		updateSearchParams({ isCompleted: 'true' });
 	};
 
 	const handleFilterPrivate = (): void => {
-		updateSearchParams({ isPrivate: 'true', page: '1' });
+		setPage('1');
+		updateSearchParams({ isPrivate: 'true' });
 	};
 
 	const handleFilterPublic = (): void => {
-		updateSearchParams({ isPrivate: 'false', page: '1' });
+		setPage('1');
+		updateSearchParams({ isPrivate: 'false' });
 	};
 
 	const showAllTodos = (): void => {
@@ -93,8 +97,10 @@ const TodoDashboardPage = (): JSX.Element => {
 		clearSearchParams();
 	};
 	const addPage = (): void => {
+		const nextPage = (+page + 1).toString();
 		setPage((prev) => (+prev + 1).toString());
-		updateSearchParams({ page: page });
+
+		updateSearchParams({ page: nextPage });
 	};
 
 	const handlePageClick = (data): void => {
