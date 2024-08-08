@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="Merge branch 'iruskevych/main'">
+    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_08_2024_10_36__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoForm/TodoForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/CustomField/CustomField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/LoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/RegisterForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/AuthForms/RegisterForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/Layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/VerifyEmail/VerifyEmail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/authorization-backend" />
+        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,7 +48,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/authorization-backend-v2",
+    "git-widget-placeholder": "feature/auth-frontend-v2",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
     "last_opened_file_path": "D:/FSDev-advanced",
@@ -51,7 +56,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
+    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\!NEW--22\\cgs-team-camp\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -74,6 +79,7 @@
       <updated>1722759792004</updated>
       <workItem from="1722759794914" duration="8517000" />
       <workItem from="1722768504790" duration="805000" />
+      <workItem from="1723034169381" duration="533000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'iruskevych/main'">
       <option name="closed" value="true" />
@@ -94,6 +100,6 @@
     <MESSAGE value="merge from iruskevych/main" />
     <MESSAGE value="Merge branch 'iruskevych/main' into feature/authorization-backend-v2&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge branch 'iruskevych/main'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'iruskevych/main'" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

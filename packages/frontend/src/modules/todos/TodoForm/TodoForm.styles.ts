@@ -34,6 +34,7 @@ export const fieldStyle = css`
 
 export const buttonGroupStyle = css`
 	display: flex;
+	justify-content: space-between;
 	gap: 10px;
 `;
 

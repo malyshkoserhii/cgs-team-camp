@@ -66,7 +66,7 @@ export class AuthController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const token = req.params.token;
+		const { token } = req.body;
 
 		const activationToken =
 			await this.authService.verifyActivationToken(token);
@@ -106,6 +106,14 @@ export class AuthController {
 			return next(ApiErrors.NotFound('User not found'));
 		}
 
+		if (!isUserExist.isEmailVerified) {
+			return next(
+				ApiErrors.Conflict(
+					'Email not verify. Please verify your email first',
+				),
+			);
+		}
+
 		const createPasswordReset =
 			await this.authService.createResetPasswordToken(isUserExist.id);
 
@@ -124,9 +132,7 @@ export class AuthController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const token = req.params.token;
-		const { password } = req.body;
-
+		const { password, token } = req.body;
 		if (!password && !token) {
 			return next(ApiErrors.BadRequest());
 		}
