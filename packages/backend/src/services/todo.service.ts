@@ -14,6 +14,7 @@ export default class TodoService {
 		user: UserType,
 		query: GetAllTodoQuery,
 	): Promise<GetAllTodosType> {
+		console.log(query.page);
 		const queryPage = query.page ?? 1;
 		const skip = TodosPerPage * (queryPage - 1);
 

@@ -9,9 +9,14 @@ export type Todo = {
 export type CreateTodoType = Omit<Todo, 'id'>;
 export type UpdateTodoType = Partial<Todo>;
 
-export type GetAllTodoType = Todo[];
+export type GetAllTodoType = {
+	isLastPage: boolean;
+	todos: Todo[];
+	pages: number;
+};
 export type GetAllTodoQueryType = {
 	search?: string;
 	isCompleted?: string;
 	isPrivate?: string;
+	page?: string;
 };
