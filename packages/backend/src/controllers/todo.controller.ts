@@ -32,6 +32,7 @@ export class TodoController {
 
 	async getAllTodos(req: Request, res: Response): Promise<void> {
 		const user = req.user as User;
+		console.log('req.query: ', req.query);
 		const query = {
 			search: req.query.search as string,
 			isPrivate: req.query.isPrivate
@@ -42,7 +43,9 @@ export class TodoController {
 				: undefined,
 		} as unknown as TodoQueryParams;
 
+		console.log('query: ', query);
 		const filteredTodos = await this.todoService.findAll(user, query);
+		console.log('filteredTodos1: ', filteredTodos);
 		res.status(200).json(filteredTodos);
 	}
 

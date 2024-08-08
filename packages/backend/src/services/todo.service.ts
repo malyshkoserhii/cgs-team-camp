@@ -35,32 +35,6 @@ export default class TodoService {
 					},
 				],
 			},
-
-			//TODO=====================0
-			// where: {
-			// 	AND: [
-			// 		// Якщо isPrivate не вказаний, то не фільтруємо за isPrivate
-			// 		...(query.isPrivate !== undefined
-			// 			? [{ isPrivate: query.isPrivate }]
-			// 			: [
-			// 					{
-			// 						OR: [
-			// 							{ userId: user.id },
-			// 							{ isPrivate: false },
-			// 						],
-			// 					},
-			// 				]),
-			// 		// Фільтруємо по пошуку
-			// 		{
-			// 			title: {
-			// 				contains: query.search,
-			// 				mode: 'insensitive',
-			// 			},
-			// 		},
-			// 		// Фільтруємо по завершеності
-			// 		{ isCompleted: query.isCompleted },
-			// 	],
-			// },
 		});
 	}
 

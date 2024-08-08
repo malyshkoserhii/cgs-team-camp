@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="Merge branch 'iruskevych/main'">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/shared/helpers/getAccessToken.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/http.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/helpers/getAccessToken.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/helpers/getAccessToken.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +46,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/todo-filters-v2",
+    "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
     "last_opened_file_path": "D:/FSDev-advanced",
@@ -87,6 +83,7 @@
       <workItem from="1722759794914" duration="8517000" />
       <workItem from="1722768504790" duration="805000" />
       <workItem from="1723034169381" duration="533000" />
+      <workItem from="1723107842060" duration="236000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'iruskevych/main'">
       <option name="closed" value="true" />
