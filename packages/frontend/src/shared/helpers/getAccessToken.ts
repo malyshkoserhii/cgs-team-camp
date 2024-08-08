@@ -1,6 +1,6 @@
 import { STORAGE_KEYS } from '~shared/keys';
 
-export const getToken = (): string => {
+export const getAccessToken = (): string => {
 	const tokenString = localStorage.getItem(STORAGE_KEYS.AUTH_PERSIST);
 	let token = '';
 	if (tokenString) {

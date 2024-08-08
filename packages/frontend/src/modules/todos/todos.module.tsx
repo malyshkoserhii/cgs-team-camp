@@ -26,11 +26,22 @@ export const TodosModule = (): React.ReactNode => {
 	};
 
 	useEffect(() => {
-		getTodos();
-	}, [getTodos]);
+		let isCompleted: boolean | undefined = undefined;
+		let isPrivate: boolean | undefined = undefined;
+
+		if (filter === FILTER_KEYS.COMPLETED) {
+			isCompleted = true;
+		} else if (filter === FILTER_KEYS.PRIVATE) {
+			isPrivate = true;
+		} else if (filter === FILTER_KEYS.PUBLIC) {
+			isPrivate = false;
+		}
+
+		getTodos(searchFilter, isCompleted, isPrivate);
+	}, [getTodos, searchFilter, filter]);
 
 	useEffect(() => {
-		if (searchFilter) {
+		if (searchFilter && todos.length === 0) {
 			toast.warning('No todos match this filter');
 		}
 	}, [searchFilter]);

@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { STORAGE_KEYS } from '~shared/keys';
+
+import { getAccessToken } from '~shared/helpers/getAccessToken';
 
 export class HttpService {
 	constructor(
@@ -17,8 +18,9 @@ export class HttpService {
 	}
 
 	private populateTokenToHeaderConfig(): Record<string, string> {
+		const token = getAccessToken();
 		return {
-			Authorization: localStorage.getItem(STORAGE_KEYS.TOKEN) || '',
+			Authorization: token ? `Bearer ${token}` : '',
 		};
 	}
 

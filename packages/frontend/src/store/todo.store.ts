@@ -1,20 +1,21 @@
 import { create } from 'zustand';
 import { AxiosError } from 'axios';
+import { immer } from 'zustand/middleware/immer';
+import { toast } from 'react-toastify';
 
 import { Todo } from '~typings/todo.types';
-import { TodosService } from '~/services/todos.service';
-// import { immer } from 'zustand/middleware/immer';
-import { toast } from 'react-toastify';
-import { immer } from 'zustand/middleware/immer';
-
-const todosService = new TodosService();
+import { todosService } from '~/services/todos.service';
 
 interface ITodoStore {
 	todo: Todo;
 	todos: Todo[];
 	loading: boolean;
 	error: AxiosError | null;
-	getTodos: () => Promise<void>;
+	getTodos: (
+		search?: string,
+		isCompleted?: boolean,
+		isPrivate?: boolean,
+	) => Promise<void>;
 	createTodo: (todo: Todo) => Promise<void>;
 	getTodoById: (id: string) => Promise<void>;
 	updateTodo: (id: string, todo: Todo) => Promise<void>;
@@ -29,10 +30,18 @@ export const useTodoStore = create<ITodoStore>()(
 		loading: false,
 		error: null,
 
-		getTodos: async (): Promise<void> => {
+		getTodos: async (
+			search?: string,
+			isCompleted?: boolean,
+			isPrivate?: boolean,
+		): Promise<void> => {
 			set({ loading: true });
 			try {
-				const { data } = await todosService.getTodos();
+				const { data } = await todosService.getTodos(
+					search,
+					isCompleted,
+					isPrivate,
+				);
 				set({ todos: data });
 			} catch (err) {
 				toast.error(err.response?.data?.message);
