@@ -46,11 +46,8 @@
 			"~services/*": [
 				"src/services/*"
 			],
-			"~AuthForms/*": [
-				"src/modules/AuthForms/*"
-			],
-			"~Profile/*": [
-				"src/modules/Profile/*"
+			"~helpers/*": [
+				"src/shared/helpers/*"
 			]
 		}
 	},

@@ -1,9 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 
-import TodoService from '@/services/todo.service';
+import { User } from '@prisma/client';
+import { Todo, TodoQueryParams } from '@/types';
 import { tryCatchMiddleware } from '@/middlewares';
+import TodoService from '@/services/todo.service';
 import { ApiErrors } from '@/utils';
-import { Todo } from '@/types';
 
 export class TodoController {
 	constructor(private todoService: TodoService) {}
@@ -27,6 +28,22 @@ export class TodoController {
 		// create new record
 		const newTodo = await this.todoService.createTodo(req.body);
 		res.status(201).json(newTodo);
+	}
+
+	async getAllTodos(req: Request, res: Response): Promise<void> {
+		const user = req.user as User;
+		const query = {
+			search: req.query.search as string,
+			isPrivate: req.query.isPrivate
+				? req.query.isPrivate === 'true'
+				: undefined,
+			isCompleted: req.query.isCompleted
+				? req.query.isCompleted === 'true'
+				: undefined,
+		} as unknown as TodoQueryParams;
+
+		const filteredTodos = await this.todoService.findAll(user, query);
+		res.status(200).json(filteredTodos);
 	}
 
 	async getAllTodo(_: Request, res: Response): Promise<void> {
@@ -78,7 +95,6 @@ const todoController = new TodoController(new TodoService());
 export const ctrAddNewTodo = tryCatchMiddleware(
 	todoController.addNewTodo.bind(todoController),
 );
-
 export const ctrGetAllTodo = tryCatchMiddleware(
 	todoController.getAllTodo.bind(todoController),
 );
@@ -93,4 +109,7 @@ export const ctrDeleteTodoById = tryCatchMiddleware(
 );
 export const ctrPatchTodoById = tryCatchMiddleware(
 	todoController.patchTodoById.bind(todoController),
+);
+export const ctrGetAllWithFilter = tryCatchMiddleware(
+	todoController.getAllTodos.bind(todoController),
 );
