@@ -13,9 +13,10 @@ export class TodoController {
 			isPrivate: parseBoolean(req.query.isPrivate as string),
 			isCompleted: parseBoolean(req.query.isCompleted as string),
 			search: req.query.search as string,
+			page: req.query.page,
 		} as unknown as GetAllTodoQuery;
-		const todos = await this.todoService.findAll(user, query);
-		res.send(todos);
+		const data = await this.todoService.findAll(user, query);
+		res.send(data);
 	}
 	async getTodoById(req: Request, res: Response): Promise<void> {
 		const { id } = req.params;

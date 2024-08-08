@@ -1,3 +1,4 @@
+import { TodosPerPage } from '@/constants/todos-per-page.constant';
 import {
 	CreateTodoType,
 	GetAllTodoQuery,
@@ -13,7 +14,29 @@ export default class TodoService {
 		user: UserType,
 		query: GetAllTodoQuery,
 	): Promise<GetAllTodosType> {
-		const todos = await prisma.todoItem.findMany({
+		const queryPage = query.page ?? 1;
+		const skip = TodosPerPage * (queryPage - 1);
+
+		const result = await prisma.todoItem.findMany({
+			where: {
+				AND: [
+					{
+						title: {
+							contains: query.search,
+							mode: 'insensitive',
+						},
+					},
+					{ isCompleted: query.isCompleted },
+					{ isPrivate: query.isPrivate },
+					{
+						OR: [{ authorId: user.id }, { isPrivate: false }],
+					},
+				],
+			},
+			skip: skip,
+			take: TodosPerPage + 1,
+		});
+		const alltodos = await prisma.todoItem.findMany({
 			where: {
 				AND: [
 					{
@@ -30,8 +53,13 @@ export default class TodoService {
 				],
 			},
 		});
+		const pages = Math.ceil(alltodos.length / TodosPerPage);
 
-		return todos;
+		return {
+			todos: result.slice(0, TodosPerPage),
+			isLastPage: result.length !== TodosPerPage + 1,
+			pages: pages,
+		};
 	}
 	async createTodo(user: UserType, data: CreateTodoType): Promise<TodoType> {
 		return prisma.todoItem.create({
