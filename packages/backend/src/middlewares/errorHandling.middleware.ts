@@ -1,4 +1,4 @@
-import e, { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 
 // Generic error-handling middleware
 export const tryCatch = (
@@ -15,16 +15,16 @@ export const errorHandler: (
 		status: number;
 		message: string;
 	},
-	req: e.Request,
-	res: e.Response,
-	next: e.NextFunction,
+	req: Request,
+	res: Response,
+	next: NextFunction,
 ) => void = (
 	err: { status: number; message: string },
 	req: Request,
 	res: Response,
+	next: NextFunction,
 ) => {
 	console.error(err);
-	res.status(err.status || 500).json({
-		message: err.message || 'Internal Server Error',
-	});
+	res.status(err.status).send({ error: err.message }).end();
+	next();
 };

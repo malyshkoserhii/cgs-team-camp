@@ -1,12 +1,17 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import userController from '@/controllers/user.controller';
 
-const router: Router = Router();
+const router = Router();
 
-// @route   POST api/user
-// @desc    Register user given their email and password, returns the token upon successful registration
-// @access  Public
-router.post('/register', async (_: Request, res: Response) => {
-	res.send('Add registration logic there');
-});
+router.post('/register', userController.register.bind(userController));
+router.post('/login', userController.login.bind(userController));
+router.post(
+	'/forgot-password',
+	userController.forgotPassword.bind(userController),
+);
+router.post(
+	'/reset-password',
+	userController.resetUserPassword.bind(userController),
+);
 
 export default router;
