@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { TodoFilterModel } from '~shared/models/todoFilter.model';
 import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
@@ -35,6 +35,13 @@ export const useFetchTodos = (): Partial<
 			fetch(params);
 		}
 	}, [params, showMoreTodos, fetch]);
+
+	useEffect(() => {
+		if (params.page !== 1 && items?.length === 0) {
+			params.page = 1;
+			fetch(params);
+		}
+	}, [params.page, items?.length]);
 
 	return {
 		items,
