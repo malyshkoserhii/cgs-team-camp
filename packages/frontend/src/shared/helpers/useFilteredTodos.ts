@@ -6,6 +6,7 @@ export type useFilteredTodosType = {
 	isCompleted: string;
 	updateSearchParams: (params: Record<string, string | null>) => void;
 	clearSearchParams: () => void;
+	pageFromQuery?: number | string;
 };
 
 const useFilteredTodos = (): useFilteredTodosType => {
@@ -13,6 +14,7 @@ const useFilteredTodos = (): useFilteredTodosType => {
 	const isPrivate = searchParams.get('isPrivate');
 	const isCompleted = searchParams.get('isCompleted');
 	const filter = searchParams.get('search');
+	const pageFromQuery = searchParams.get('page');
 
 	const updateSearchParams = useCallback(
 		(params: Record<string, string | null>): void => {
@@ -37,6 +39,7 @@ const useFilteredTodos = (): useFilteredTodosType => {
 		isPrivate,
 		isCompleted,
 		updateSearchParams,
+		pageFromQuery,
 		clearSearchParams,
 	};
 };

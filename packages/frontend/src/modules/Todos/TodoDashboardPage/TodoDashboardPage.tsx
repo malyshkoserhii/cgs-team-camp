@@ -14,14 +14,17 @@ import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import useResponsiveLayout from '~shared/utils/useResponsiveLayout';
 import { useTodoStore } from '~store/todos.store';
 import TodoPageBar from '../TodoPageBar/TodoPageBar';
+import { DesktopPagination } from '../Tododashboard/TodoDesktopDashboard/DesktopPagination/DesktopPagination';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
 import { PageLoader } from './TodoDashboardPage.styles';
 
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
 	const [filterValue, setFilterValue] = React.useState('');
+	const [page, setPage] = React.useState('1');
 
 	const { isDesktop, isTablet, isMobile } = useResponsiveLayout();
+
 	const {
 		filter,
 		isPrivate,
@@ -34,13 +37,18 @@ const TodoDashboardPage = (): JSX.Element => {
 	const error = todoStore.todoError;
 	const todos = todoStore.todos;
 
+	const pages = todoStore.pages;
 	React.useEffect(() => {
-		todoStore.fetchTodos({
-			search: filter,
-			isPrivate: isPrivate,
-			isCompleted: isCompleted,
-		});
-	}, [filter, isPrivate, isCompleted]);
+		todoStore.fetchTodos(
+			{
+				search: filter,
+				isPrivate: isPrivate,
+				isCompleted: isCompleted,
+				page: page,
+			},
+			!isDesktop,
+		);
+	}, [filter, isPrivate, isCompleted, page]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
 	};
@@ -65,20 +73,25 @@ const TodoDashboardPage = (): JSX.Element => {
 		updateSearchParams({ search: newFilterValue });
 	};
 	const handleFilterCompleted = (): void => {
-		updateSearchParams({ isCompleted: 'true' });
+		updateSearchParams({ isCompleted: 'true', page: page });
 	};
 
 	const handleFilterPrivate = (): void => {
-		updateSearchParams({ isPrivate: 'true' });
+		updateSearchParams({ isPrivate: 'true', page: page });
 	};
 
 	const handleFilterPublic = (): void => {
-		updateSearchParams({ isPrivate: 'false' });
+		updateSearchParams({ isPrivate: 'false', page: page });
 	};
 
 	const showAllTodos = (): void => {
 		setFilterValue('');
+		setPage('1');
 		clearSearchParams();
+	};
+
+	const handlePageClick = (data): void => {
+		setPage(data.selected + 1);
 	};
 
 	const showContent = !error && !loading;
@@ -122,6 +135,12 @@ const TodoDashboardPage = (): JSX.Element => {
 								<TodoDesktopDashboard
 									todos={todos}
 									removeTodo={removeTodo}
+								/>
+
+								<DesktopPagination
+									page={page}
+									pages={pages}
+									handlePageClick={handlePageClick}
 								/>
 							</>
 						)}
