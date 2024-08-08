@@ -39,16 +39,19 @@
                 "src/shared/components/*"
             ],
             "~todos/*": [
-                "src/modules/todos/*"
+                "src/shared/components/todos/*"
             ],
             "~dashboard/*": [
-                "src/modules/dashboard/*"
+                "src/shared/components/dashboard/*"
             ],
             "~app/*": [
                 "src/modules/app/*"
             ],
             "~pages/*": [
                 "src/pages/*"
+            ],
+            "~styles/*": [
+                "src/shared/styles/*"
             ]
         },
         "jsx": "react-jsx"
