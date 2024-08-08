@@ -10,16 +10,35 @@ export default class TodoService extends Service {
 		title: true,
 		description: true,
 		private: true,
+		completed: true,
 		userId: true,
 	};
 
 	async findAll(
-		filter: TodoFilters,
+		filter: TodoFilters[] = [],
 		search: string,
 		page: number,
+		userId?: number,
 	): Promise<{ todos: Todo[]; totalCount: number }> {
 		const findArgs: Prisma.TodoFindManyArgs = {
-			where: { title: { contains: search } },
+			where: {
+				OR: [
+					{
+						AND: [
+							{ private: false },
+							...filter.map((f) => ({ [f]: true })),
+						],
+					},
+					{
+						AND: [
+							{ private: true },
+							...[userId ? { userId } : {}],
+							...filter.map((f) => ({ [f]: true })),
+						],
+					},
+				],
+				title: { contains: search },
+			},
 			skip: (page - 1) * 10,
 			take: 10,
 			orderBy: { id: 'desc' },

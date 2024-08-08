@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { BrowserView, MobileOnlyView, TabletView } from 'react-device-detect';
 import { useNavigate } from 'react-router';
@@ -12,16 +12,13 @@ import {
 	StyledTodoTableContainer,
 	TodoContainerStyled,
 } from './todo-container.styled';
-import { FormModal } from '../todo-form/form-modal';
 import { ROUTER_KEYS } from '~shared/keys';
 import { useTodoStore } from '~/state/store/todo.store';
 import { TodoSwiperContainer } from '../todo-swiper-container';
 import { TodoListContainer } from '../todo-list-container';
+import { useFilterStore } from '~/state/store/filter.store';
 
-/* eslint-disable */
-
-export const TodoContainer = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 	const navigate = useNavigate();
 
 	const {
@@ -29,8 +26,14 @@ export const TodoContainer = () => {
 		getTodos,
 	} = useTodoStore();
 
+	const { data: filter, setDefaultFilter } = useFilterStore();
+
 	useEffect(() => {
-		getTodos();
+		getTodos(filter);
+	}, [filter]);
+
+	useEffect(() => {
+		setDefaultFilter();
 	}, []);
 
 	return (
@@ -47,7 +50,6 @@ export const TodoContainer = () => {
 				>
 					NEW TODO
 				</Button>
-				<FormModal isOpen={isOpen} formType="ADD" onClose={onClose} />
 			</StyledTitle>
 
 			<BrowserView>
@@ -59,10 +61,7 @@ export const TodoContainer = () => {
 
 			<TabletView>
 				<TodoTableHeader variant="flushed" />
-				<TodoSwiperContainer
-					// fetchMoreFunc={fetchMore}
-					data={todos}
-				/>
+				<TodoSwiperContainer data={todos} />
 			</TabletView>
 
 			<MobileOnlyView>
@@ -73,4 +72,4 @@ export const TodoContainer = () => {
 			</MobileOnlyView>
 		</TodoContainerStyled>
 	);
-};
+}

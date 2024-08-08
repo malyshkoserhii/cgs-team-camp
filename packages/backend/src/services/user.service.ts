@@ -63,11 +63,10 @@ export default class UserService extends Service {
 
 	async requestPasswordReset(userEmail: string): Promise<string> {
 		const { id, email, name } = await this.findOne(userEmail);
-		const token = await this.tokenService.findOne(id);
-
-		if (token) {
+		try {
+			const token = await this.tokenService.findOne(id);
 			await this.tokenService.deleteOne(token);
-		}
+		} catch (e) {}
 
 		const resetToken = crypto.randomBytes(32).toString('hex');
 		const hash = await bcrypt.hash(resetToken, 10);

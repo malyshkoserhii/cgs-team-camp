@@ -7,7 +7,7 @@ export interface CreateTodoRequest extends Express.Request {
 }
 
 export interface GetTodoRequestQuery {
-	filter: TodoFilters;
+	filter: TodoFilters[];
 	search: string;
 	page: number;
 }

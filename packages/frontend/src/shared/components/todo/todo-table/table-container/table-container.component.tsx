@@ -16,11 +16,7 @@ export const TodoTableContainer: React.FunctionComponent<
 	TodoTableContainerProps
 > = ({ data }) => (
 	<TodoTableContainerStyled>
-		{data === undefined ? (
-			<StyledTableErrorMessage>
-				Something bad happend...
-			</StyledTableErrorMessage>
-		) : data.length === 0 ? (
+		{data.length === 0 || !data ? (
 			<StyledTableErrorMessage>No data</StyledTableErrorMessage>
 		) : (
 			<TodoDataTable columns={useTodoColumns()} data={data} />

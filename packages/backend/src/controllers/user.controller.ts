@@ -32,6 +32,16 @@ export class UserController {
 		res: Response<CreateUserResponse>,
 	): Promise<void> {
 		const { email, name, password } = req.body;
+
+		const user = await prismaClient.user.findUnique({
+			where: { email },
+		});
+
+		if (user) {
+			res.status(400).json({ error: ERRORS.USER.EXIST });
+			return;
+		}
+
 		const response = await this.userService.create({
 			email,
 			name,
@@ -48,14 +58,17 @@ export class UserController {
 	): Promise<void> {
 		passport.authenticate('login', async (err: Error) => {
 			const userReq = req.body;
+
 			const user = await prismaClient.user.findUnique({
-				where: {
-					email: userReq.email,
-					active: true,
-				},
+				where: { email: userReq.email },
 			});
 
 			if (err || !user) {
+				res.status(400).json({ error: ERRORS.USER.NOT_EXIST });
+				return;
+			}
+
+			if (err || user.active === false) {
 				return res.status(400).json({ error: ERRORS.NOT_ACTIVE });
 			}
 
@@ -116,8 +129,7 @@ export class UserController {
 	}
 
 	async activateAccount(
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		req: Request<any, any, any, ActivateAccData>,
+		req: Request<unknown, unknown, unknown, ActivateAccData>,
 		res: Response<Status>,
 	): Promise<void> {
 		await this.userService.activateAcc({

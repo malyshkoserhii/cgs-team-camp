@@ -19,8 +19,8 @@ import { useTodoStore } from '~/state/store/todo.store';
 import TodoModel from '~shared/types/todo/todo.model';
 import { validateFormValues } from '~/utils';
 import todoService from '../../todo.service';
-import { FormInput } from './form-input/form-input.component';
-import { FormButton } from './form-button/form-button';
+import { FormInput } from '../../../ui/form/form-input';
+import { FormButton } from '../../../ui/form/form-button';
 
 export interface FormikFormProps {
 	type: 'ADD' | 'UPDATE';
@@ -94,6 +94,7 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
+										defaultChecked={values.completed}
 									>
 										Completed
 									</FormInput>
@@ -106,6 +107,7 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 												e.target.checked,
 											);
 										}}
+										defaultChecked={values.private}
 									>
 										Private
 									</FormInput>

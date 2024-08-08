@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import { COLORS, FONTS } from '../../../../../theme';
 
 export const TodoTableContainerStyled = styled.div`
-	border-left: 1px solid ${COLORS.gray};
-	border-right: 1px solid ${COLORS.gray};
+	border: 1px solid ${COLORS.gray};
 
 	& td {
 		text-align: center;
@@ -20,5 +19,8 @@ export const StyledTableErrorMessage = styled.div`
 	text-align: center;
 	font-size: ${FONTS.SIZES.l};
 	font-weight: ${FONTS.WEIGHTS.bold};
-	margin: 2em;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;

@@ -1,12 +1,17 @@
 import { BACKEND_KEYS } from '~shared/keys';
 import HttpService from '../../../api/http.service';
 import TodoModel, { createTodoModel } from '../../types/todo/todo.model';
-import { ITodo, ITodoCreate } from '../../types/todo/todo.types';
+import { ITodo, ITodoCreate, TodoFilters } from '../../types/todo/todo.types';
 
 class TodoService extends HttpService {
-	async getTodos(): Promise<{ todos: TodoModel[]; pages: number }> {
+	async getTodos(
+		filter: TodoFilters,
+	): Promise<{ todos: TodoModel[]; pages: number }> {
+		console.log(filter);
+
 		const { data, pages = 1 } = await this.get<ITodo[]>({
 			url: BACKEND_KEYS.TODOS.ROOT,
+			params: { ...filter },
 		});
 
 		return { todos: data.map((todo) => createTodoModel(todo)), pages };

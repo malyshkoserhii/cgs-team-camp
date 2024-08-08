@@ -3,11 +3,11 @@ export interface ITodo {
 	description: string;
 	completed: boolean;
 	private: boolean;
-	completed: boolean;
 	creatorId: number;
 }
 
 export enum TodoFilters {
 	PRIVATE = 'private',
 	COMPLETED = 'completed',
+	ALL = '',
 }

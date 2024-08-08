@@ -5,6 +5,7 @@ import { TodoFilter } from '../../todo-filters';
 import { TodoSearch } from '../../todo-search';
 import { TodoHeaderStyled } from './todo-header.styled';
 import { debounce } from 'lodash';
+import { useFilterStore } from '~/state/store/filter.store';
 
 export interface TodoTableHeaderProps {
 	variant: string;
@@ -13,18 +14,27 @@ export interface TodoTableHeaderProps {
 export const TodoTableHeader: React.FunctionComponent<TodoTableHeaderProps> = ({
 	variant,
 }) => {
+	const { data: filter, setFilter } = useFilterStore();
+
 	return (
 		<TodoHeaderStyled>
 			<TodoFilter
 				onChange={() => {}}
 				width="100%"
 				justifyContent={isMobile ? 'space-around' : 'flex-start'}
-				size="md"
-				variant={isMobile ? 'line' : 'enclosed'}
+				direction={'row'}
 			/>
 
 			<TodoSearch
-				onChange={debounce(() => {}, 500)}
+				onChange={debounce((event) => {
+					const { value } = event.target as HTMLInputElement;
+
+					setFilter({
+						...filter,
+						search: value,
+						page: 1,
+					});
+				}, 500)}
 				width={isMobile ? '100%' : 'fit-content'}
 				size="md"
 				variant={variant}
