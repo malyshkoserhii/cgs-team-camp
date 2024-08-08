@@ -59,7 +59,13 @@ export class TodoController {
 	): Promise<void> {
 		try {
 			const userId = req.user!.id;
-			const { search, isPrivate, status } = req.query;
+			const {
+				search,
+				isPrivate,
+				status,
+				page = '1',
+				pageSize = '10',
+			} = req.query;
 
 			const filters = {
 				search: search as string | undefined,
@@ -72,8 +78,19 @@ export class TodoController {
 				status: status as TodoStatus | undefined,
 			};
 
-			const todos = await this.todoService.findAll(userId, filters);
-			res.json(todos);
+			const result = await this.todoService.findAll(
+				userId,
+				filters,
+				parseInt(page as string, 10),
+				parseInt(pageSize as string, 10),
+			);
+
+			res.json({
+				todos: result.todos,
+				totalCount: result.totalCount,
+				currentPage: parseInt(page as string, 10),
+				pageSize: parseInt(pageSize as string, 10),
+			});
 		} catch (e) {
 			next(e);
 		}

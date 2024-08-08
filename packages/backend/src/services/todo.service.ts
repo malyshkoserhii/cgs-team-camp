@@ -40,7 +40,9 @@ export default class TodoService {
 			isPrivate?: boolean;
 			status?: TodoStatus;
 		},
-	): Promise<Todo[]> {
+		page: number = 1,
+		pageSize: number = 10,
+	): Promise<{ todos: Todo[]; totalCount: number }> {
 		const { search, isPrivate, status } = filters;
 		const where: Prisma.TodoWhereInput = {
 			OR: [{ userId }, { isPrivate: false }],
@@ -58,7 +60,19 @@ export default class TodoService {
 			where.status = status;
 		}
 
-		return this.prisma.todo.findMany({ where });
+		const skip = (page - 1) * pageSize;
+
+		const [todos, totalCount] = await Promise.all([
+			this.prisma.todo.findMany({
+				where,
+				skip,
+				take: pageSize,
+				orderBy: { createdAt: 'desc' },
+			}),
+			this.prisma.todo.count({ where }),
+		]);
+
+		return { todos, totalCount };
 	}
 
 	async findById(id: string, userId: string): Promise<Todo | null> {

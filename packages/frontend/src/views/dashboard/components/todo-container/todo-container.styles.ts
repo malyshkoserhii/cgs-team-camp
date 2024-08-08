@@ -6,29 +6,31 @@ import { THEME } from '~shared/styles/theme';
 export const desktopContainer = css`
 	display: block;
 	${mediaQuery(THEME.breakpoints.tablet)(`
-        display: none;
-      `)}
+    display: none;
+  `)}
 	${mediaQuery(THEME.breakpoints.mobile)(`
-        display: none;
-      `)}
+    display: none;
+  `)}
 `;
 
 export const tabletContainer = css`
 	display: none;
 	${mediaQuery(THEME.breakpoints.tablet)(`
-        display: block;
-      `)}
+    display: block;
+  `)}
 	${mediaQuery(THEME.breakpoints.mobile)(`
-        display: none;
-      `)}
+    display: none;
+  `)}
 `;
 
 export const mobileContainer = css`
 	display: none;
 	${mediaQuery(THEME.breakpoints.tablet)(`
-        display: none;
-      `)}
+    display: none;
+  `)}
 	${mediaQuery(THEME.breakpoints.mobile)(`
-        display: block;
-      `)}
+    display: flex;
+    flex-direction: column;
+    gap: ${THEME.spacings.sm};
+  `)}
 `;

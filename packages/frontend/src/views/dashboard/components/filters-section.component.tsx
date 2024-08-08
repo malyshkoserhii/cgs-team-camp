@@ -62,7 +62,6 @@ const FiltersSection: FC<FiltersSectionProps> = ({ filters, setFilters }) => {
 				animate={true}
 				large={true}
 				onChange={handleTabChange}
-				selectedTabId={filters.filter || 'all'}
 			>
 				<Tab id="all" title="All" panel={<div>All todos</div>} />
 				<Tab
