@@ -12,8 +12,14 @@ import { notificationService } from '~shared/services/notificationService';
 import useModalStore from './modal.store';
 import { useUserStore } from './user.store';
 
+export type TodoStatusCounter = {
+	completedCount: number;
+	inProgressCount: number;
+};
+
 interface TodoStore {
 	items: TodoI[] | null;
+	totalResults: number;
 	loading: boolean;
 	editLoading: boolean;
 	totalPages: number;
@@ -23,6 +29,7 @@ interface TodoStore {
 	changeStatusIsLoading: boolean;
 	hasMore: boolean;
 	error: AxiosError | null;
+	statusCounter: TodoStatusCounter;
 	fetchTodos: (params?: TodoFilterModel) => Promise<void>;
 	showMoreTodos: (params?: TodoFilterModel) => Promise<void>;
 	fetchTodoById: (id: number) => Promise<void>;
@@ -43,6 +50,8 @@ export const useTodoStore = create<TodoStore>()(
 		loading: false,
 		deleteIsLoading: false,
 		totalPages: 0,
+		totalResults: 0,
+		statusCounter: { completedCount: 0, inProgressCount: 0 },
 		editLoading: false,
 		showMoreIsLoading: false,
 		createIsLoading: false,
@@ -60,6 +69,8 @@ export const useTodoStore = create<TodoStore>()(
 					state.items = response.data.todos;
 					state.totalPages = response.data.totalPages;
 					state.loading = false;
+					state.totalResults = response.data.totalResults;
+					state.statusCounter = response.data.statusCounter;
 				});
 			} catch (error) {
 				set((state) => {
@@ -76,10 +87,12 @@ export const useTodoStore = create<TodoStore>()(
 			try {
 				const response = await todoService.findAll(params);
 				set((state) => {
-					state.items = [...state.items, ...response.data.todos];
+					state.items = response.data.todos;
 					state.totalPages = response.data.totalPages;
 					state.showMoreIsLoading = false;
 					state.hasMore = response.data.hasMore;
+					state.totalResults = response.data.totalResults;
+					state.statusCounter = response.data.statusCounter;
 				});
 			} catch (error) {
 				set((state) => {
@@ -137,12 +150,19 @@ export const useTodoStore = create<TodoStore>()(
 				state.error = null;
 			});
 			try {
-				await todoService.updateById(id.toString(), data);
+				const response = await todoService.updateById(
+					id.toString(),
+					data,
+				);
 				useModalStore.getState().closeModal();
 				notificationService.success(
 					Messages.UPDATED_SUCCESSFULLY(name),
 				);
+
 				set((state) => {
+					state.items = state.items.map((item) =>
+						item.id === Number(id) ? response.data : item,
+					);
 					state.editLoading = false;
 				});
 			} catch (error) {
@@ -161,8 +181,11 @@ export const useTodoStore = create<TodoStore>()(
 				state.error = null;
 			});
 			try {
-				await todoService.changeStatusById(id, status);
+				const response = await todoService.changeStatusById(id, status);
 				set((state) => {
+					state.items = state.items.map((item) =>
+						item.id === Number(id) ? response.data : item,
+					);
 					state.changeStatusIsLoading = false;
 				});
 			} catch (error) {
@@ -183,6 +206,9 @@ export const useTodoStore = create<TodoStore>()(
 					Messages.DELETED_SUCCESSFULLY(name),
 				);
 				set((state) => {
+					state.items = state.items.filter(
+						(item) => item.id !== Number(id),
+					);
 					state.deleteIsLoading = false;
 				});
 			} catch (error) {

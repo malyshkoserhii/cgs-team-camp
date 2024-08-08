@@ -13,6 +13,7 @@ type Props<T> = {
 	options: FormOption<FormVariantsEnum>[];
 	formValidationSchema?: Resolver<T>;
 	defaultValues?: T;
+	resetValues?: T;
 	values?: T;
 	onSubmit?: (data: T) => void;
 	onChange?: (data: T) => void;
@@ -45,6 +46,7 @@ export const Form = <T extends FieldValues>({
 	values,
 	variant = 'default',
 	content,
+	resetValues,
 }: Props<T>): ReactElement => {
 	const { handleSubmit, reset, control, getValues, trigger, watch } =
 		useForm<T>({
@@ -62,14 +64,14 @@ export const Form = <T extends FieldValues>({
 			onSubmit(transformedData as T);
 		}
 
-		reset(defaultValues);
+		reset(resetValues);
 	});
 
 	const handleCancel = (): void => {
 		if (onCancel) {
 			onCancel();
 		}
-		reset(defaultValues);
+		reset(resetValues);
 	};
 
 	useEffect(() => {

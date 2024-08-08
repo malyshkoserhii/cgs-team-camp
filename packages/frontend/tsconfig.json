@@ -51,6 +51,9 @@
             ],
             "~ResetPasswordPage/*": [
                 "src/pages/ResetPasswordPage/*"
+            ],
+            "~modalContent/*": [
+                "src/components/modalContent/*"
             ]
         }
     }

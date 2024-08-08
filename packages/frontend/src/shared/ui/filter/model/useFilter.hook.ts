@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { decodeSearchParams, FilterKeys } from '~shared/helpers/searchParams';
 import { useAuth } from '~shared/hooks/useAuth.hook';
@@ -25,7 +25,10 @@ type SearchParams =
 export const useFilter = <T>(): UseFilterReturn<T> => {
 	const { isAuth } = useAuth();
 	const [searchParams, setSearchParams] = useSearchParams();
-	const params = decodeSearchParams(searchParams) as T;
+	const params = useMemo(
+		() => decodeSearchParams(searchParams) as T,
+		[searchParams],
+	);
 	const navigate = useNavigate();
 
 	const onUpdateFilter = useCallback(

@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { breakpoints } from '~shared/styles/breakpoints';
+import { Text } from '~shared/ui/base/text';
 import { Flex } from '../../base/flex';
 import { usePagination } from '../model/usePagination';
 import { paginationContainerStyles } from './pagination.styles';
 import { PaginationButton } from './paginationButton.component';
 
 interface PaginationProps {
+	totalResults?: number;
 	initialPage?: number;
 	itemsPerPage?: number;
 	siblingCount?: number;
@@ -20,6 +22,7 @@ export const Pagination = ({
 	siblingCount = 1,
 	itemsPerPage = defaultLimit,
 	totalPages,
+	totalResults,
 }: PaginationProps): ReactElement | null => {
 	const isMobileAndTablet = useMediaQuery({
 		query: `(max-width: ${breakpoints.lg})`,
@@ -49,6 +52,7 @@ export const Pagination = ({
 			align="center"
 			className={paginationContainerStyles}
 		>
+			<Text bold>Total items found: {totalResults}</Text>
 			<Flex align="center" gap="2px">
 				<PaginationButton
 					onClick={() => prevPage()}

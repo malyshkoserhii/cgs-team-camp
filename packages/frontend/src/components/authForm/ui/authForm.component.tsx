@@ -51,6 +51,11 @@ export const AuthForm = ({ isLogin }: Props): ReactElement => {
 				formValidationSchema={
 					isLogin ? loginSchemaResolver : userSchemaResolver
 				}
+				resetValues={
+					isLogin
+						? ({ email: '', password: '' } as UserFormModel)
+						: new UserFormModel()
+				}
 				onSubmit={onSubmit}
 				isLoading={registerLoading || loginLoading}
 				content={

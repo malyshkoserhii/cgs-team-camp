@@ -48,7 +48,7 @@ export const ChangePasswordForm = ({ firstStep }: Props): ReactElement => {
 				heading={
 					firstStep
 						? 'Write your email to change the password.'
-						: 'Confirm your password'
+						: 'Create new password'
 				}
 				options={firstStep ? optionsReset : optionsConfirm}
 				defaultValues={

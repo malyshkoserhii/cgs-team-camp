@@ -3,13 +3,13 @@ import { useMediaQuery } from 'react-responsive';
 import { TodoForm } from '~/components/todoForm';
 import { TodoStatusE } from '~shared/enums/TodoStatus.enum';
 import { useAuth } from '~shared/hooks/useAuth.hook';
+import { useConfirm } from '~shared/hooks/useConfirm.hook';
+import { useFetchTodos } from '~shared/hooks/useFetchTodos.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
-import { TodoFilterModel } from '~shared/models/todoFilter.model';
 import { breakpoints } from '~shared/styles/breakpoints';
 import { Flex } from '~shared/ui/base/flex';
 import { Text } from '~shared/ui/base/text';
 import Button from '~shared/ui/button/button.component';
-import { useFilter } from '~shared/ui/filter/model/useFilter.hook';
 import { Switch } from '~shared/ui/switch';
 import useModalStore from '~store/modal.store';
 import { useTodoStore } from '~store/todos.store';
@@ -30,20 +30,23 @@ type TodoItemProps = TodoI & {
 
 export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 	(todo, ref): ReactElement => {
-		const { description, name, id, isPrivate } = todo;
+		const { description, name, id, isPrivate, user: author } = todo;
 		const openModal = useModalStore((state) => state.openModal);
-		const { params } = useFilter<TodoFilterModel>();
 		const {
 			deleteTodoById,
-			fetchTodos,
 			changeStatusById,
 			changeStatusIsLoading,
 			deleteIsLoading,
 		} = useTodoStore();
+		const { fetchTodos } = useFetchTodos();
 		const { user } = useAuth();
 		const isMobileAndTablet = useMediaQuery({
 			query: `(max-width: ${breakpoints.lg})`,
 		});
+		const confirm = useConfirm({
+			message: `Are you sure you want to delete task ${name}?`,
+		});
+
 		const isUsersTodo = !user?.todos?.find((elId) => elId === id);
 
 		const onUpdateStatus = async (): Promise<void> => {
@@ -53,12 +56,13 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 					? TodoStatusE.InProgress
 					: TodoStatusE.Completed,
 			);
-			fetchTodos(params);
+			await fetchTodos();
 		};
 
 		const onDelete = async (id: string): Promise<void> => {
+			await confirm();
 			await deleteTodoById(id);
-			fetchTodos(params);
+			await fetchTodos();
 		};
 
 		const onOpenModal = (): void => {
@@ -115,14 +119,14 @@ export const TodoItem = forwardRef<HTMLLIElement, TodoItemProps>(
 					<Flex className={privacyStyle}>
 						{isPrivate ? (
 							<Button
-								toolTipMessage="Private task."
+								toolTipMessage={`Private task, author - ${author.name}.`}
 								variant="clear"
 								icon="lock"
 								fullWidth={false}
 							/>
 						) : (
 							<Button
-								toolTipMessage="Public task."
+								toolTipMessage={`Public task, author - ${author.name}.`}
 								variant="clear"
 								fullWidth={false}
 								icon="eye-open"

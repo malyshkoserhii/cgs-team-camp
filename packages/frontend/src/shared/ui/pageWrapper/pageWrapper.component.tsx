@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css';
+import { motion } from 'framer-motion';
 import { ReactElement, ReactNode } from 'react';
 import { centeredStyle, pageWrapperStyle } from './pageWrapper.styles';
 
@@ -9,8 +10,13 @@ type Props = {
 
 export const PageWrapper = ({ children, center }: Props): ReactElement => {
 	return (
-		<div className={cx(pageWrapperStyle, { [centeredStyle]: center })}>
+		<motion.div
+			className={cx(pageWrapperStyle, { [centeredStyle]: center })}
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.5 }}
+		>
 			{children}
-		</div>
+		</motion.div>
 	);
 };

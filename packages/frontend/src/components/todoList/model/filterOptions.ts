@@ -27,7 +27,6 @@ export const filterOptionsWithAuth: FormOption<FormVariantsEnum>[] = [
 		name: 'Search by title',
 		isRequired: false,
 		placeholder: 'Search by title...',
-		maxWidth: '300px',
 		withError: false,
 	},
 ];
@@ -47,7 +46,6 @@ export const filterOptions: FormOption<FormVariantsEnum>[] = [
 		name: 'Search by title',
 		isRequired: false,
 		placeholder: 'Search by title...',
-		maxWidth: '300px',
 		withError: false,
 	},
 ];

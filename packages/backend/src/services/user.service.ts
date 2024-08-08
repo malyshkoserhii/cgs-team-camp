@@ -44,7 +44,7 @@ export default class UserService {
 		});
 
 		if (!user) {
-			throw ApiError.NotFoundError(ErrorMessages.notFound());
+			throw ApiError.BadRequestError(ErrorMessages.badRequest);
 		}
 
 		if (user.isActivated) {

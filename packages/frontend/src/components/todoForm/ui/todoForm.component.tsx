@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFetchTodos } from '~shared/hooks/useFetchTodos.hook';
 import { TodoI } from '~shared/interfaces/todo.interface';
 import { todoSchemaResolver } from '~shared/joiSchemas/joiSchemas/todo/todo.schema';
 import { TodoFormModel } from '~shared/models/todo.model';
@@ -21,12 +22,14 @@ export const TodoForm = ({
 }: Props): ReactElement => {
 	const { updateTodoById, createIsLoading, editLoading, createTodo } =
 		useTodoStore();
+	const { fetchTodos } = useFetchTodos();
 	const navigate = useNavigate();
 
 	const onSubmit = async (data: TodoFormModel): Promise<void> => {
 		data.isPrivate = JSON.parse(data.isPrivate);
 		if (isEdit) {
 			await updateTodoById(todo.id, data);
+			await fetchTodos();
 		} else {
 			await createTodo(data, navigate);
 		}
@@ -35,7 +38,7 @@ export const TodoForm = ({
 	return (
 		<Form<TodoFormModel>
 			variant={variant}
-			heading={isEdit ? 'Edit todo' : 'Create todo'}
+			heading={isEdit ? 'Edit task' : 'Create task'}
 			options={options}
 			defaultValues={new TodoFormModel(todo)}
 			formValidationSchema={todoSchemaResolver}

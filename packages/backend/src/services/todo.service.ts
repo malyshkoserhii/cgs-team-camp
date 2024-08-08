@@ -7,33 +7,68 @@ export default class TodoService {
 	async findAll(
 		userId: number,
 		params: TodoFilterParams,
-	): Promise<{ todos: Todo[]; totalPages: number; hasMore: boolean }> {
+	): Promise<{
+		todos: Todo[];
+		totalPages: number;
+		hasMore: boolean;
+		totalResults: number;
+		statusCounter: {
+			completedCount: number;
+			inProgressCount: number;
+		};
+	}> {
 		const { query, pagination } = getQueryParamsTodos(params);
 
-		const [totalCount, todos] = await prisma.$transaction([
-			prisma.todo.count({
-				where: {
-					OR: [{ isPrivate: false }, { userId }],
-					...query,
-				},
-			}),
-			prisma.todo.findMany({
-				where: {
-					OR: [{ isPrivate: false }, { userId }],
-					...query,
-				},
-				orderBy: {
-					createdAt: 'desc',
-				},
-				skip: pagination.skip,
-				take: pagination.take,
-			}),
-		]);
+		const [totalCount, completedCount, inProgressCount, todos] =
+			await prisma.$transaction([
+				prisma.todo.count({
+					where: {
+						OR: [{ isPrivate: false }, { userId }],
+						...query,
+					},
+				}),
+				prisma.todo.count({
+					where: {
+						OR: [{ isPrivate: false }, { userId }],
+						status: 'completed',
+					},
+				}),
+				prisma.todo.count({
+					where: {
+						OR: [{ isPrivate: false }, { userId }],
+						status: 'inProgress',
+					},
+				}),
+				prisma.todo.findMany({
+					where: {
+						OR: [{ isPrivate: false }, { userId }],
+						...query,
+					},
+					orderBy: {
+						createdAt: 'desc',
+					},
+					skip: pagination.skip,
+					take: pagination.take,
+					include: {
+						user: {
+							select: {
+								name: true,
+							},
+						},
+					},
+				}),
+			]);
 
 		const totalPages = Math.ceil(totalCount / pagination.take);
 		const hasMore = pagination.skip + todos.length < totalCount;
 
-		return { todos, totalPages, hasMore };
+		return {
+			todos,
+			totalPages,
+			hasMore,
+			totalResults: totalCount,
+			statusCounter: { completedCount, inProgressCount },
+		};
 	}
 
 	async create(todo: Todo, user: User): Promise<Todo> {
@@ -49,6 +84,13 @@ export default class TodoService {
 		return await prisma.todo.update({
 			where: { id },
 			data,
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+			},
 		});
 	}
 

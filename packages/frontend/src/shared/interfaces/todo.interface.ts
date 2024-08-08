@@ -8,4 +8,7 @@ export interface TodoI {
 	status: TodoStatusE;
 	createdAt: Date;
 	updatedAt: Date;
+	user: {
+		name: string;
+	};
 }
