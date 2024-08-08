@@ -1,56 +1,50 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   // project: path.join(__dirname, 'tsconfig.json'),
   parserOptions: {
     project: [
-      "./packages/backend/tsconfig.json",
-      "./packages/frontend/tsconfig.json",
+      './packages/backend/tsconfig.json',
+      './packages/frontend/tsconfig.json',
     ],
     tsconfigRootDir: __dirname,
-    sourceType: "module",
+    sourceType: 'module',
   },
-  plugins: ["@typescript-eslint/eslint-plugin"],
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  // extends: [
+  //   'plugin:@typescript-eslint/recommended',
+  //   'plugin:prettier/recommended',
+  // ],
   root: true,
   env: {
     node: true,
     jest: true,
   },
-  ignorePatterns: [".eslintrc.js"],
+  ignorePatterns: ['.eslintrc.js'],
   rules: {
-    "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-explicit-any": "error",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
       {
-        argsIgnorePattern: "^_",
-        varsIgnorePattern: "^_",
-        caughtErrorsIgnorePattern: "^_",
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
       },
     ],
-    "no-unused-vars": "off",
+    'no-unused-vars': 'off',
     // indent: ['error', 'tab'],
-    quotes: ["error", "single"],
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
+    quotes: ['error', 'single'],
   },
   overrides: [
     {
       // enable the rule specifically for TypeScript files
-      files: ["*.ts", "*.tsx"],
+      files: ['*.ts', '*.tsx'],
       rules: {
-        "@typescript-eslint/explicit-function-return-type": ["error"],
+        '@typescript-eslint/explicit-function-return-type': ['error'],
       },
       // parserOptions: { project: ['./tsconfig.json'] },
     },

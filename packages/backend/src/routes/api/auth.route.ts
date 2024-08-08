@@ -22,16 +22,16 @@ authRouter.post(
 	genericValidatorMiddleware(userSchema),
 	ctrRegister,
 );
+authRouter.post('/verify-email', ctrVerifyEmail);
 
 authRouter.post('/login', localAuth, ctrLogin);
-authRouter.post('/verify-email/:token', ctrVerifyEmail);
 authRouter.post(
 	'/forgot-password',
 	genericValidatorMiddleware(forgotPasswordSchema),
 	ctrForgotPassword,
 );
 authRouter.post(
-	'/reset-password/:token',
+	'/reset-password',
 	genericValidatorMiddleware(resetPasswordSchema),
 	ctrResetPassword,
 );

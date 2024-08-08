@@ -1,5 +1,6 @@
 import { prismaClient } from '@/prisma/prismaClient';
 import { Todo } from '@/types';
+import { User } from '@prisma/client';
 
 export default class TodoService {
 	async createTodo(data: Todo): Promise<Todo> {
@@ -8,6 +9,33 @@ export default class TodoService {
 
 	async findTodos(): Promise<Todo[]> {
 		return prismaClient.todo.findMany();
+	}
+
+	async findAll(
+		user: User,
+		query: {
+			search?: string;
+			isPrivate?: boolean;
+			isCompleted?: boolean;
+		},
+	): Promise<Todo[]> {
+		return prismaClient.todo.findMany({
+			where: {
+				AND: [
+					{
+						title: {
+							contains: query.search,
+							mode: 'insensitive',
+						},
+					},
+					{ isPrivate: query.isPrivate },
+					{ isCompleted: query.isCompleted },
+					{
+						OR: [{ userId: user.id }, { isPrivate: false }],
+					},
+				],
+			},
+		});
 	}
 
 	async findTodoById(id: string): Promise<Todo | null> {

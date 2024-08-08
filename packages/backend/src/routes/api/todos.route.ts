@@ -6,11 +6,13 @@ import { genericValidatorMiddleware, isExistMiddleware } from '@/middlewares';
 import {
 	ctrAddNewTodo,
 	ctrDeleteTodoById,
-	ctrGetAllTodo,
+	ctrGetAllWithFilter,
+	// ctrGetAllTodo,
 	ctrGetTodoById,
 	ctrPatchTodoById,
 	ctrUpdateTodoById,
 } from '@/controllers';
+import { jwtAuth } from '@/middlewares/auth.middleware';
 
 const todosRouter: Router = Router();
 
@@ -20,7 +22,7 @@ todosRouter.post(
 	ctrAddNewTodo,
 );
 
-todosRouter.get('/all', ctrGetAllTodo);
+todosRouter.get('/all', jwtAuth, ctrGetAllWithFilter);
 
 todosRouter.get(
 	'/todo/:id',

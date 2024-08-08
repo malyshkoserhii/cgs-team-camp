@@ -45,6 +45,9 @@
 			],
 			"~services/*": [
 				"src/services/*"
+			],
+			"~helpers/*": [
+				"src/shared/helpers/*"
 			]
 		}
 	},
