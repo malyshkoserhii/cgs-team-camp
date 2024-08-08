@@ -23,9 +23,6 @@ export default class TodoService {
 			where: {
 				AND: [
 					{
-						OR: [{ userId: user.id }, { isPrivate: false }],
-					},
-					{
 						title: {
 							contains: query.search,
 							mode: 'insensitive',
@@ -33,8 +30,37 @@ export default class TodoService {
 					},
 					{ isPrivate: query.isPrivate },
 					{ isCompleted: query.isCompleted },
+					{
+						OR: [{ userId: user.id }, { isPrivate: false }],
+					},
 				],
 			},
+
+			//TODO=====================0
+			// where: {
+			// 	AND: [
+			// 		// Якщо isPrivate не вказаний, то не фільтруємо за isPrivate
+			// 		...(query.isPrivate !== undefined
+			// 			? [{ isPrivate: query.isPrivate }]
+			// 			: [
+			// 					{
+			// 						OR: [
+			// 							{ userId: user.id },
+			// 							{ isPrivate: false },
+			// 						],
+			// 					},
+			// 				]),
+			// 		// Фільтруємо по пошуку
+			// 		{
+			// 			title: {
+			// 				contains: query.search,
+			// 				mode: 'insensitive',
+			// 			},
+			// 		},
+			// 		// Фільтруємо по завершеності
+			// 		{ isCompleted: query.isCompleted },
+			// 	],
+			// },
 		});
 	}
 

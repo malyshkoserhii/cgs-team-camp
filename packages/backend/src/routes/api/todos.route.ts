@@ -22,7 +22,6 @@ todosRouter.post(
 	ctrAddNewTodo,
 );
 
-// todosRouter.get('/all', ctrGetAllTodo);
 todosRouter.get('/all', jwtAuth, ctrGetAllWithFilter);
 
 todosRouter.get(
