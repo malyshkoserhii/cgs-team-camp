@@ -1,27 +1,32 @@
 import React from 'react';
-import { TodoElement } from '../TodoItem/TodoItem';
 import { useTodoStore } from '~store/todo.store';
-import {
-	emptyStateStyles,
-	headerStyles,
-	listStyles,
-	sliderStyles,
-	tableStyles,
-} from './TodoList.styles';
+import { useUserStore } from '~store/user.store';
 import { useMediaQuery } from 'usehooks-ts';
 import { THEME } from '~shared/styles/constants';
-import { ViewType } from '~shared/types/view.type';
-import { useUserStore } from '~store/user.store';
+import { emptyStateStyles } from './TodoList.styles';
+import { CarouselView } from './TodoListViews/CarouselView/CarouselView';
+import { ListView } from './TodoListViews/ListView/ListView';
+import { TableView } from './TodoListViews/TableView/TableView';
+import { DisplayType } from '~shared/types/display.type';
 
 export const TodoList: React.FC = () => {
-	const todos = useTodoStore((state) => state.todos);
+	const { todos, pagination, fetchTodos } = useTodoStore();
 	const user = useUserStore((state) => state.user);
+
 	const isDesktop = useMediaQuery(
 		`(min-width: ${THEME.BREAKPOINTS.DESKTOP})`,
 	);
 	const isTablet = useMediaQuery(
 		`(min-width: ${THEME.BREAKPOINTS.TABLET}) and (max-width: ${THEME.BREAKPOINTS.DESKTOP})`,
 	);
+
+	const getViewType = (): DisplayType => {
+		if (isDesktop) return DisplayType.DESKTOP;
+		if (isTablet) return DisplayType.TABLET;
+		return DisplayType.PHONE;
+	};
+
+	const viewType = getViewType();
 
 	if (todos.length === 0) {
 		return (
@@ -31,37 +36,33 @@ export const TodoList: React.FC = () => {
 		);
 	}
 
-	const viewStyles: Record<ViewType, string> = {
-		table: tableStyles,
-		card: sliderStyles,
-		list: listStyles,
+	const handleLoadMore = (): void => {
+		if (pagination.page < pagination.totalPages) {
+			fetchTodos(undefined, pagination.page + 1, 3, true);
+		}
 	};
 
-	const getViewType = (): ViewType => {
-		if (isDesktop) return 'table';
-		if (isTablet) return 'card';
-		return 'list';
+	const hasMoreTodos = pagination.page < pagination.totalPages;
+
+	const viewComponents = {
+		[DisplayType.DESKTOP]: <TableView todos={todos} userId={user.id} />,
+		[DisplayType.TABLET]: (
+			<CarouselView
+				todos={todos}
+				userId={user.id}
+				onLoadMore={handleLoadMore}
+				hasMoreTodos={hasMoreTodos}
+			/>
+		),
+		[DisplayType.PHONE]: (
+			<ListView
+				todos={todos}
+				userId={user.id}
+				onLoadMore={handleLoadMore}
+				hasMoreTodos={hasMoreTodos}
+			/>
+		),
 	};
 
-	const viewType = getViewType();
-
-	return (
-		<div className={viewStyles[viewType]}>
-			{viewType === 'table' && (
-				<div className={headerStyles}>
-					<span>Title</span>
-					<span>Description</span>
-					<span>Actions</span>
-				</div>
-			)}
-			{todos.map((todo) => (
-				<TodoElement
-					key={todo.id}
-					todo={todo}
-					view={viewType}
-					editable={todo.userId === user.id}
-				/>
-			))}
-		</div>
-	);
+	return viewComponents[viewType];
 };

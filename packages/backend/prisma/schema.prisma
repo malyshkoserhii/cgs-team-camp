@@ -33,6 +33,7 @@ model Todo {
   description String?
   public      Boolean @default(false)
   completed   Boolean @default(false)
+  createdAt   DateTime @default(now())
   userId      Int
   user        User    @relation(fields: [userId], references: [id])
 }

@@ -1,6 +1,7 @@
 import { HttpService } from './http.service';
 import { Todo } from '../types/todo.type';
 import { todoFilters } from '~shared/types/todoFilters.type';
+import { Pagination } from '~shared/types/pagination.type';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,7 +14,11 @@ export class TodoService extends HttpService {
 		super(API_URL);
 	}
 
-	async getTodos(filters?: Partial<todoFilters>): Promise<Todo[]> {
+	async getTodos(
+		filters?: Partial<todoFilters>,
+		page: number = 1,
+		pageSize: number = 10,
+	): Promise<{ todos: Todo[]; pagination: Pagination }> {
 		const params = new URLSearchParams();
 		if (filters) {
 			if (filters.search) params.append('search', filters.search);
@@ -21,11 +26,13 @@ export class TodoService extends HttpService {
 			if (filters.public !== undefined)
 				params.append('public', filters.public.toString());
 		}
+		params.append('page', page.toString());
+		params.append('pageSize', pageSize.toString());
 
 		const queryString = params.toString();
 		const url = `/todos/all${queryString ? `?${queryString}` : ''}`;
 
-		return this.get<Todo[]>(url);
+		return this.get<{ todos: Todo[]; pagination: Pagination }>(url);
 	}
 
 	async getMyTodos(): Promise<Todo[]> {

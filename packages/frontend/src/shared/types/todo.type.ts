@@ -5,4 +5,5 @@ export type Todo = {
 	completed: boolean;
 	public: boolean;
 	userId: number;
+	createdAt: Date;
 };

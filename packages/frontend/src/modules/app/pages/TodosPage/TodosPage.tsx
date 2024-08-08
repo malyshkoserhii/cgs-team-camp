@@ -4,6 +4,8 @@ import { TodoList } from '../../components/TodoList/TodoList';
 import { useTodoStore } from '~store/todo.store';
 import { useUserStore } from '~store/user.store';
 import { ButtonGroup, Button, Spinner, InputGroup } from '@blueprintjs/core';
+import { useMediaQuery } from 'usehooks-ts';
+import { THEME } from '~shared/styles/constants';
 import {
 	buttonGroup,
 	searchFormStyles,
@@ -15,9 +17,18 @@ import { todoFilters } from '~shared/types/todoFilters.type';
 export const TodosPage: React.FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { todos, isLoading: todoLoading, error: todoError } = useTodoStore();
+	const {
+		todos,
+		pagination,
+		isLoading: todoLoading,
+		error: todoError,
+	} = useTodoStore();
 	const { user, error: userError, isLoading: userLoading } = useUserStore();
 	useInitialData();
+
+	const isDesktop = useMediaQuery(
+		`(min-width: ${THEME.BREAKPOINTS.DESKTOP})`,
+	);
 
 	const searchParams = new URLSearchParams(location.search);
 	const [searchInput, setSearchInput] = useState(
@@ -30,7 +41,7 @@ export const TodosPage: React.FC = () => {
 	};
 
 	const updateFilters = (
-		filterType: keyof todoFilters,
+		filterType: keyof todoFilters | 'page' | 'pageSize',
 		value: string | null,
 	): void => {
 		const updatedFilters = { ...currentFilters };
@@ -56,6 +67,10 @@ export const TodosPage: React.FC = () => {
 	const handleSearch = (e: React.FormEvent): void => {
 		e.preventDefault();
 		updateFilters('search', searchInput);
+	};
+
+	const handlePageChange = (newPage: number): void => {
+		updateFilters('page', newPage.toString());
 	};
 
 	if (!user || !todos) {
@@ -119,7 +134,28 @@ export const TodosPage: React.FC = () => {
 				{todoLoading || userLoading ? (
 					<Spinner size={20} />
 				) : (
-					<TodoList />
+					<>
+						<TodoList />
+						{isDesktop && (
+							<ButtonGroup>
+								{[...Array(pagination.totalPages)].map(
+									(_, index) => (
+										<Button
+											key={index}
+											onClick={() =>
+												handlePageChange(index + 1)
+											}
+											active={
+												pagination.page === index + 1
+											}
+										>
+											{index + 1}
+										</Button>
+									),
+								)}
+							</ButtonGroup>
+						)}
+					</>
 				)}
 			</div>
 		</div>

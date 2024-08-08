@@ -1,4 +1,4 @@
-import { PrismaClient, Todo } from '@prisma/client';
+import { Prisma, PrismaClient, Todo } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -8,25 +8,45 @@ export class TodoService {
 		status?: 'completed' | 'active';
 		public?: boolean;
 		userId: number;
-	}): Promise<Todo[]> {
-		const { search, status, public: isPublic, userId } = filters;
+		page?: number;
+		pageSize?: number;
+	}): Promise<{ todos: Todo[]; total: number }> {
+		const {
+			search,
+			status,
+			public: isPublic,
+			userId,
+			page = 1,
+			pageSize = 10,
+		} = filters;
 
 		let completedStatus: boolean | undefined;
 		if (status === 'completed') completedStatus = true;
 		else if (status === 'active') completedStatus = false;
 
-		return prisma.todo.findMany({
-			where: {
-				OR: [{ userId }, { public: true }],
-				title: search
-					? { contains: search, mode: 'insensitive' }
-					: undefined,
-				completed: completedStatus,
-				public: isPublic,
-			},
-		});
-	}
+		const whereClause = {
+			OR: [{ userId }, { public: true }],
+			title: search
+				? { contains: search, mode: 'insensitive' as Prisma.QueryMode }
+				: undefined,
+			completed: completedStatus,
+			public: isPublic,
+		};
 
+		const skip = (page - 1) * pageSize;
+
+		const [todos, total] = await Promise.all([
+			prisma.todo.findMany({
+				where: whereClause,
+				skip,
+				take: pageSize,
+				orderBy: { createdAt: 'desc' },
+			}),
+			prisma.todo.count({ where: whereClause }),
+		]);
+
+		return { todos, total };
+	}
 	async getTodoById(id: number, userId: number): Promise<Todo | null> {
 		const todo = await prisma.todo.findUnique({ where: { id } });
 
@@ -54,10 +74,12 @@ export class TodoService {
 
 		return prisma.todo.update({
 			where: { id },
-			data,
+			data: {
+				...data,
+				createdAt: new Date(),
+			},
 		});
 	}
-
 	async deleteTodo(id: number, userId: number): Promise<Todo | null> {
 		const todo = await prisma.todo.findUnique({ where: { id } });
 

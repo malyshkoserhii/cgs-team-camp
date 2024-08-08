@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { TextInput } from '~shared/components/textinput/textinput.component';
 import { ROUTER_KEYS } from '~shared/keys';
 import { useUserStore } from '~store/user.store';
-import { LinkContainerStyles } from './SignupPage.styles';
+import { LinkContainerStyles, messageStyles } from './SignupPage.styles';
 import { User } from '~shared/types/user.type';
 
 export const SignupPage: React.FC = () => {
@@ -79,7 +79,7 @@ export const SignupPage: React.FC = () => {
 				</Form>
 			) : (
 				<>
-					<p>{message}</p>
+					<p className={messageStyles}>{message}</p>
 				</>
 			)}
 		</>

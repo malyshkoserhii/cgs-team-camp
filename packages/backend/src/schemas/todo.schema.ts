@@ -6,4 +6,5 @@ export const todoSchema = Joi.object({
 	completed: Joi.boolean().required(),
 	public: Joi.boolean().required(),
 	userId: Joi.number(),
+	createdAt: Joi.date().optional(),
 });
