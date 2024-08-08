@@ -18,10 +18,18 @@ export class TodoService extends HttpService {
 		});
 	}
 
-	async getAllTodos(filters: FilterQueryParams) {
+	async getAllTodos(
+		filters: FilterQueryParams,
+		page: number,
+		pageSize: number,
+	) {
 		return this.get({
 			apiRoute: this.apiRoute,
-			params: filters,
+			params: {
+				...filters,
+				page,
+				pageSize,
+			},
 		});
 	}
 

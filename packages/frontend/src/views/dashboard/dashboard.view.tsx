@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { omit } from 'lodash';
 
@@ -11,11 +11,14 @@ import Loader from '~shared/components/loader/loader.component';
 import { DashboardContainer } from './components/dashboard-elements.component';
 import FiltersSection from './components/filters-section.component';
 import TodoContainer from './components/todo-container/todo-container.component';
+import { PAGE_SIZE } from './const';
 
 import type { Todo } from '~typings/todo';
 
 const Dashboard: FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [page, setPage] = useState(1);
+
 	const filters = useMemo(() => {
 		const params = Object.fromEntries(searchParams.entries());
 		return {
@@ -25,13 +28,18 @@ const Dashboard: FC = () => {
 		};
 	}, [searchParams]);
 
-	const { data: todos, refetch, isLoading, error } = useGetAllTodos(filters);
+	const { data, refetch, isLoading, error } = useGetAllTodos(
+		filters,
+		page,
+		PAGE_SIZE,
+	);
+
 	const { mutateAsync: updateTodo } = useUpdateTodo();
 	const { mutateAsync: deleteTodo } = useDeleteTodo();
 
 	useEffect(() => {
 		refetch();
-	}, [filters, refetch]);
+	}, [filters, page, refetch]);
 
 	const handleFiltersChange = useCallback(
 		(newFilters) => {
@@ -41,9 +49,14 @@ const Dashboard: FC = () => {
 				{},
 			);
 			setSearchParams(cleanFilters);
+			setPage(1);
 		},
-		[filters, setSearchParams],
+		[setSearchParams],
 	);
+
+	const handlePageChange = useCallback((newPage: number) => {
+		setPage(newPage);
+	}, []);
 
 	const handleUpdateTodo = useCallback(
 		async (updatedTodo: Todo) => {
@@ -66,6 +79,8 @@ const Dashboard: FC = () => {
 	if (isLoading) return <Loader />;
 	if (error) return <p>{error.message}</p>;
 
+	const { todos, totalCount } = data || {};
+
 	return (
 		<DashboardContainer>
 			<FiltersSection
@@ -74,6 +89,10 @@ const Dashboard: FC = () => {
 			/>
 			<TodoContainer
 				todos={todos}
+				totalCount={totalCount}
+				currentPage={page}
+				pageSize={PAGE_SIZE}
+				onPageChange={handlePageChange}
 				handleUpdateTodo={handleUpdateTodo}
 				handleDeleteTodo={handleDeleteTodo}
 			/>

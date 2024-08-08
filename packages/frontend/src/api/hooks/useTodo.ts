@@ -9,10 +9,14 @@ import type { FilterQueryParams } from '~typings/api';
 
 const todoService = new TodoService();
 
-export const useGetAllTodos = (filters: FilterQueryParams) => {
+export const useGetAllTodos = (
+	filters: FilterQueryParams,
+	page: number,
+	pageSize: number,
+) => {
 	return useQuery({
 		queryKey: QUERY_KEYS.todos,
-		queryFn: () => todoService.getAllTodos(),
+		queryFn: () => todoService.getAllTodos(filters, page, pageSize),
 	});
 };
 
