@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="" />
+    <list default="true" id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -29,7 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/pagination",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
@@ -62,6 +72,7 @@
       <workItem from="1723059383627" duration="202000" />
       <workItem from="1723059602201" duration="1317000" />
       <workItem from="1723117292332" duration="319000" />
+      <workItem from="1723118198148" duration="4688000" />
     </task>
     <servers />
   </component>

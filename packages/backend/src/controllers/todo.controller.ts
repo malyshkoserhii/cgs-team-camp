@@ -30,6 +30,33 @@ export class TodoController {
 		res.status(201).json(newTodo);
 	}
 
+	async getFilteredTodos(req: Request, res: Response): Promise<void> {
+		// const { id: userId } = req.user;
+		const userId = (req.user as { id: string }).id;
+		const { search, isCompleted, isPrivate, page, pageSize } = req.query;
+
+		const query = {
+			userId,
+			search: search as string | undefined,
+			isCompleted: isCompleted as boolean | undefined,
+			isPrivate: isPrivate as boolean | undefined,
+			page: page ? parseInt(page as string) : undefined,
+			pageSize: pageSize ? parseInt(pageSize as string) : undefined,
+		};
+		const { todos, total } =
+			await this.todoService.findFilteredTodos(query);
+
+		res.status(200).json({
+			todos,
+			pagination: {
+				total,
+				page: query.page || 1,
+				pageSize: query.pageSize || 5,
+				totalPages: Math.ceil(total / (query.pageSize || 5)),
+			},
+		});
+	}
+
 	async getAllTodos(req: Request, res: Response): Promise<void> {
 		const user = req.user as User;
 		const query = {
@@ -112,4 +139,7 @@ export const ctrPatchTodoById = tryCatchMiddleware(
 );
 export const ctrGetAllWithFilter = tryCatchMiddleware(
 	todoController.getAllTodos.bind(todoController),
+);
+export const ctrGetFilteredTodos = tryCatchMiddleware(
+	todoController.getFilteredTodos.bind(todoController),
 );

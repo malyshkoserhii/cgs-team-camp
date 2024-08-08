@@ -1,6 +1,6 @@
 import { prismaClient } from '@/prisma/prismaClient';
 import { Todo } from '@/types';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 
 export default class TodoService {
 	async createTodo(data: Todo): Promise<Todo> {
@@ -36,6 +36,64 @@ export default class TodoService {
 				],
 			},
 		});
+	}
+
+	async findFilteredTodos(
+		// user: User,
+		query: {
+			search?: string;
+			isCompleted?: boolean; // status
+			isPrivate?: boolean; // public
+			// public?: boolean;
+			userId: string;
+
+			page?: number;
+			pageSize?: number;
+		},
+	): Promise<{ todos: Todo[]; total: number }> {
+		const {
+			search,
+			isCompleted,
+			isPrivate, //
+			userId,
+			page = 1,
+			pageSize = 5,
+		} = query;
+
+		// let completedStatus: boolean | undefined;
+		// if (status === 'completed') completedStatus = true;
+		// else if (status === 'active') completedStatus = false;
+		const completedStatus = isCompleted
+			? true
+			: !isCompleted
+				? false
+				: undefined;
+
+		const privateStatus = isPrivate ? true : !isPrivate ? false : undefined;
+
+		const where = {
+			OR: [{ userId }, { isPrivate: false }],
+			title: search
+				? { contains: search, mode: 'insensitive' as Prisma.QueryMode }
+				: undefined,
+			isCompleted: completedStatus,
+			isPrivate: privateStatus,
+		};
+
+		const skip = (page - 1) * pageSize;
+
+		const [todos, total] = await Promise.all([
+			prismaClient.todo.findMany({
+				where,
+				skip,
+				take: pageSize,
+				// orderBy: { createdAt: 'DESC' },
+			}),
+
+			prismaClient.todo.count({ where }),
+		]);
+
+		return { todos, total };
 	}
 
 	async findTodoById(id: string): Promise<Todo | null> {
