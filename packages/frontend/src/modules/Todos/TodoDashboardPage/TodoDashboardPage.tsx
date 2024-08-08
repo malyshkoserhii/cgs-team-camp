@@ -36,9 +36,12 @@ const TodoDashboardPage = (): JSX.Element => {
 	const loading = todoStore.loading;
 	const error = todoStore.todoError;
 	const todos = todoStore.todos;
-
+	const isLastPage = todoStore.isLastPage;
 	const pages = todoStore.pages;
+
 	React.useEffect(() => {
+		const shouldAppendTodos = page !== '1' && !isDesktop;
+
 		todoStore.fetchTodos(
 			{
 				search: filter,
@@ -46,9 +49,9 @@ const TodoDashboardPage = (): JSX.Element => {
 				isCompleted: isCompleted,
 				page: page,
 			},
-			!isDesktop,
+			shouldAppendTodos,
 		);
-	}, [filter, isPrivate, isCompleted, page]);
+	}, [filter, isPrivate, isCompleted, page, isDesktop]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
 	};
@@ -70,18 +73,18 @@ const TodoDashboardPage = (): JSX.Element => {
 	): void => {
 		const newFilterValue = e.target.value;
 		setFilterValue(newFilterValue);
-		updateSearchParams({ search: newFilterValue });
+		updateSearchParams({ search: newFilterValue, page: '1' });
 	};
 	const handleFilterCompleted = (): void => {
-		updateSearchParams({ isCompleted: 'true', page: page });
+		updateSearchParams({ isCompleted: 'true', page: '1' });
 	};
 
 	const handleFilterPrivate = (): void => {
-		updateSearchParams({ isPrivate: 'true', page: page });
+		updateSearchParams({ isPrivate: 'true', page: '1' });
 	};
 
 	const handleFilterPublic = (): void => {
-		updateSearchParams({ isPrivate: 'false', page: page });
+		updateSearchParams({ isPrivate: 'false', page: '1' });
 	};
 
 	const showAllTodos = (): void => {
@@ -89,9 +92,14 @@ const TodoDashboardPage = (): JSX.Element => {
 		setPage('1');
 		clearSearchParams();
 	};
+	const addPage = (): void => {
+		setPage((prev) => (+prev + 1).toString());
+		updateSearchParams({ page: page });
+	};
 
 	const handlePageClick = (data): void => {
 		setPage(data.selected + 1);
+		updateSearchParams({ page: data.selected + 1 });
 	};
 
 	const showContent = !error && !loading;
@@ -125,10 +133,18 @@ const TodoDashboardPage = (): JSX.Element => {
 								todos={todos}
 								removeTodo={removeTodo}
 								loading={loading}
+								nextPage={addPage}
+								isLastPage={isLastPage}
 							/>
 						)}
 						{isMobile && (
-							<TodoList todos={todos} removeTodo={removeTodo} />
+							<TodoList
+								todos={todos}
+								removeTodo={removeTodo}
+								nextPage={addPage}
+								isLastPage={isLastPage}
+								page={+page}
+							/>
 						)}
 						{isDesktop && (
 							<>

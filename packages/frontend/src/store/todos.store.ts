@@ -46,42 +46,11 @@ export const useTodoStore = create<TodoState>()(
 		loading: false,
 		todoError: null,
 
-		// fetchTodos: async (query): Promise<void> => {
-		// 	set({ loading: true });
-		// 	try {
-		// 		const { data } = await todosService.fetchAllTodos(query);
-
-		// 		set({
-		// 			todos: data.todos,
-		// 			todoError: null,
-		// 			isLastPage: data.isLastPage,
-		// 			pages: data.pages,
-		// 		});
-		// 	} catch (error) {
-		// 		if (error instanceof AxiosError) {
-		// 			set({
-		// 				todoError: error.response?.data?.message,
-		// 			});
-		// 		} else {
-		// 			set({
-		// 				todoError: error.message,
-		// 			});
-		// 		}
-		// 		errorNotification(
-		// 			TodoErrorMessages.TODO_FETCH_FAIL(
-		// 				error.response.data.message || error.message,
-		// 			),
-		// 		);
-		// 	} finally {
-		// 		set({ loading: false });
-		// 	}
-		// },
 		fetchTodos: async (query, condition = false): Promise<void> => {
 			set({ loading: true });
 			try {
 				const { data } = await todosService.fetchAllTodos(query);
 				set((state) => {
-					console.log(condition);
 					if (condition) {
 						state.todos = [...state.todos, ...data.todos];
 					} else {

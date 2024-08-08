@@ -12,7 +12,6 @@ export const DesktopPagination = ({
 	handlePageClick,
 	pages,
 }): JSX.Element => {
-	console.log(page);
 	return (
 		<ReactPaginate
 			containerClassName="pagination-container"

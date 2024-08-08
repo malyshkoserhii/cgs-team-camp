@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { Todo } from '~shared/types/todo.types';
 import TodoItem from '../../TodoItem/TodoItem';
 import { MobileDashboardItem } from './TodoMobileDashboard.styles';
@@ -13,7 +14,27 @@ export type TodoListProps = {
 	page?: number;
 };
 
-const TodoList: React.FC<TodoListProps> = ({ todos, removeTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({
+	todos,
+	removeTodo,
+	nextPage,
+	isLastPage,
+	page,
+}) => {
+	useBottomScrollListener(
+		() => {
+			if (!isLastPage && nextPage) {
+				nextPage();
+			}
+		},
+		{ debounce: 400 },
+	);
+	React.useEffect(() => {
+		if (page > 1) {
+			window.scrollTo(0, page * 1000);
+		}
+	}, [page]);
+
 	return (
 		<div>
 			<h1 style={{ marginBottom: '40px' }}>Todo List</h1>
