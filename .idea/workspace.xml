@@ -7,7 +7,6 @@
     <list default="true" id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +71,7 @@
       <workItem from="1723059383627" duration="202000" />
       <workItem from="1723059602201" duration="1317000" />
       <workItem from="1723117292332" duration="319000" />
-      <workItem from="1723118198148" duration="4688000" />
+      <workItem from="1723118198148" duration="8976000" />
     </task>
     <servers />
   </component>

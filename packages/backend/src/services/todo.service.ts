@@ -38,38 +38,37 @@ export default class TodoService {
 		});
 	}
 
-	async findFilteredTodos(
-		// user: User,
-		query: {
-			search?: string;
-			isCompleted?: boolean; // status
-			isPrivate?: boolean; // public
-			// public?: boolean;
-			userId: string;
+	async findFilteredTodos(query: {
+		search?: string;
+		statusComplete?: 'completed' | 'active' | undefined;
+		statusPrivate?: 'private' | 'public' | undefined;
+		userId: string;
 
-			page?: number;
-			pageSize?: number;
-		},
-	): Promise<{ todos: Todo[]; total: number }> {
+		page?: number;
+		pageSize?: number;
+	}): Promise<{ todos: Todo[]; total: number }> {
 		const {
 			search,
-			isCompleted,
-			isPrivate, //
+			statusComplete,
+			statusPrivate,
 			userId,
 			page = 1,
 			pageSize = 5,
 		} = query;
 
-		// let completedStatus: boolean | undefined;
-		// if (status === 'completed') completedStatus = true;
-		// else if (status === 'active') completedStatus = false;
-		const completedStatus = isCompleted
-			? true
-			: !isCompleted
-				? false
-				: undefined;
+		const completedStatus =
+			statusComplete === 'completed'
+				? true
+				: statusComplete === 'active'
+					? false
+					: undefined;
 
-		const privateStatus = isPrivate ? true : !isPrivate ? false : undefined;
+		const privateStatus =
+			statusPrivate === 'private'
+				? true
+				: statusPrivate === 'public'
+					? false
+					: undefined;
 
 		const where = {
 			OR: [{ userId }, { isPrivate: false }],
@@ -87,7 +86,6 @@ export default class TodoService {
 				where,
 				skip,
 				take: pageSize,
-				// orderBy: { createdAt: 'DESC' },
 			}),
 
 			prismaClient.todo.count({ where }),
