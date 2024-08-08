@@ -20,5 +20,6 @@ export enum FILTER_TYPES {
 }
 
 export const STORAGE_KEYS = Object.freeze({
-	TOKEN: 'TOKEN',
+	ACCESS_TOKEN: 'accessToken',
+	REFRESH_TOKEN: 'refreshToken',
 });

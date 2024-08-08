@@ -8,6 +8,7 @@ import { useUserStore } from '~store/user.store';
 const AuthorizedLayout: React.FC = () => {
 	const { logOut } = useUserStore();
 	const navigator = useNavigate();
+
 	return (
 		<>
 			<Navbar>

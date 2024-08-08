@@ -48,6 +48,9 @@
 			],
 			"~types/*": [
 				"src/shared/types/*"
+			],
+			"~hooks/*": [
+				"src/shared/hooks/*"
 			]
 		}
 	},

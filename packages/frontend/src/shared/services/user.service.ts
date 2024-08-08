@@ -1,5 +1,6 @@
 import { HttpService } from './http.service';
 import { User } from '../types/user.type';
+import { STORAGE_KEYS } from '~shared/keys';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -69,7 +70,7 @@ export class UserService extends HttpService {
 	}
 
 	async refreshToken(): Promise<{ accessToken: string }> {
-		const refreshToken = localStorage.getItem('refreshToken');
+		const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
 		if (!refreshToken) {
 			throw new Error('No refresh token available');
 		}

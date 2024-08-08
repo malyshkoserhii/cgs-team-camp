@@ -4,6 +4,7 @@ import axios, {
 	AxiosError,
 	InternalAxiosRequestConfig,
 } from 'axios';
+import { STORAGE_KEYS } from '~shared/keys';
 
 interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
 	_retry?: boolean;
@@ -23,7 +24,7 @@ export class HttpService {
 
 		this.axiosInstance.interceptors.request.use(
 			(config) => {
-				const token = localStorage.getItem('accessToken');
+				const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
 				if (token) {
 					config.headers['Authorization'] = `Bearer ${token}`;
 				}
@@ -40,22 +41,26 @@ export class HttpService {
 				if (error.response?.status === 401 && !originalRequest._retry) {
 					originalRequest._retry = true;
 					try {
-						const refreshToken =
-							localStorage.getItem('refreshToken');
+						const refreshToken = localStorage.getItem(
+							STORAGE_KEYS.REFRESH_TOKEN,
+						);
 						const response = await axios.post(
 							`${baseURL}/user/refresh-token`,
 							{ refreshToken },
 						);
 						const { accessToken } = response.data;
-						localStorage.setItem('accessToken', accessToken);
+						localStorage.setItem(
+							STORAGE_KEYS.ACCESS_TOKEN,
+							accessToken,
+						);
 						if (originalRequest.headers) {
 							originalRequest.headers['Authorization'] =
 								`Bearer ${accessToken}`;
 						}
 						return this.axiosInstance(originalRequest);
 					} catch (refreshError) {
-						localStorage.removeItem('accessToken');
-						localStorage.removeItem('refreshToken');
+						localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+						localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
 						window.location.href = '/login';
 						return Promise.reject(refreshError);
 					}

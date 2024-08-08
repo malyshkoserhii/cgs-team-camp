@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTodoStore } from '~store/todo.store';
 import {
+	buttonsContainerStyles,
 	cardStyles,
 	listItemStyles,
 	rowActionsStyles,
@@ -40,14 +41,15 @@ export const TodoElement: React.FC<TodoElementProps> = ({
 
 	const renderActions = (): React.JSX.Element => (
 		<div className={rowActionsStyles}>
-			{editable && (
-				<>
-					<Switch
-						checked={todo.completed}
-						onChange={handleComplete}
-						label={todo.completed ? 'Completed' : 'Not Completed'}
-					/>
-					<div>
+			<>
+				<Switch
+					checked={todo.completed}
+					onChange={handleComplete}
+					label={todo.completed ? 'Completed' : 'Not Completed'}
+					disabled={!editable}
+				/>
+				{editable && (
+					<div className={buttonsContainerStyles}>
 						<Button intent={Intent.PRIMARY} onClick={handleEdit}>
 							Edit
 						</Button>
@@ -55,8 +57,8 @@ export const TodoElement: React.FC<TodoElementProps> = ({
 							Delete
 						</Button>
 					</div>
-				</>
-			)}
+				)}
+			</>
 		</div>
 	);
 

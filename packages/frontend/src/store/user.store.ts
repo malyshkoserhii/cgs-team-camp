@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { STORAGE_KEYS } from '~shared/keys';
 import { userService } from '~shared/services/user.service';
 import { User } from '~shared/types/user.type';
 
@@ -49,8 +50,14 @@ export const useUserStore = create<UserState>()(
 				try {
 					const { accessToken, refreshToken } =
 						await userService.logIn(user);
-					localStorage.setItem('accessToken', accessToken);
-					localStorage.setItem('refreshToken', refreshToken);
+					localStorage.setItem(
+						STORAGE_KEYS.ACCESS_TOKEN,
+						accessToken,
+					);
+					localStorage.setItem(
+						STORAGE_KEYS.REFRESH_TOKEN,
+						refreshToken,
+					);
 					const userData = await userService.getUser();
 					set({ user: userData, error: null });
 				} catch (error) {
@@ -121,8 +128,8 @@ export const useUserStore = create<UserState>()(
 			logOut: async (): Promise<string> => {
 				try {
 					const { message } = await userService.logOut();
-					localStorage.removeItem('accessToken');
-					localStorage.removeItem('refreshToken');
+					localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+					localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
 					set({ user: null });
 					return message;
 				} catch (error) {

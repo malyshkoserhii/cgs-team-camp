@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 import { useUserStore } from '~store/user.store';
 import { Button } from '@blueprintjs/core';
+import { errorStyles, messageContainerStyles } from './VerificationPage.styles';
 
 export const VerificationPage: React.FC = () => {
 	const { token } = useParams<{ token: string }>();
@@ -32,14 +33,14 @@ export const VerificationPage: React.FC = () => {
 	};
 
 	return (
-		<div style={{ textAlign: 'center', padding: '20px' }}>
+		<div className={messageContainerStyles}>
 			<h1>Email Verification</h1>
 			{isLoading ? (
 				<p>Verifying your email...</p>
 			) : (
 				<>
 					<p>{message}</p>
-					{error && <p style={{ color: 'red' }}>{error}</p>}
+					{error && <p className={errorStyles}>{error}</p>}
 					<Button onClick={goToLogin} disabled={isLoading}>
 						Go to Login
 					</Button>

@@ -1,9 +1,13 @@
 import { Router } from 'express';
 import { TodoController } from '../../controllers/todo.controller';
-import { validateBody } from '../../middleware/validator.middleware';
+import {
+	validateBody,
+	validateQuery,
+} from '../../middleware/validator.middleware';
 import { isExist } from '../../middleware/isExist.middleware';
 import { tryCatch } from '../../middleware/tryCatch.middleware';
 import { todoSchema } from '../../schemas/todo.schema';
+import { todoFilterSchema } from '../../schemas/todo-filter.schema';
 import {
 	authenticateJwt,
 	authorizeUser,
@@ -14,9 +18,11 @@ const todoController = new TodoController();
 
 todosRouter.use(authenticateJwt);
 
-todosRouter.get('/all', tryCatch(todoController.getAllTodos));
-
-todosRouter.get('/my', tryCatch(todoController.getMyTodos));
+todosRouter.get(
+	'/all',
+	validateQuery(todoFilterSchema),
+	tryCatch(todoController.getFilteredTodos),
+);
 
 todosRouter.get('/:id', isExist('todo'), tryCatch(todoController.getTodoById));
 

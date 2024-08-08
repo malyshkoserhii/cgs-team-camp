@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { todoService } from '~shared/services/todo.service';
 import { Todo } from '~shared/types/todo.type';
+import { todoFilters } from '~shared/types/todoFilters.type';
 
 interface TodoState {
 	todos: Todo[];
 	isLoading: boolean;
 	error: string | null;
-	fetchTodos: () => Promise<void>;
+	fetchTodos: (filters?: Partial<todoFilters>) => Promise<void>;
 	addTodo: (todo: Omit<Todo, 'id'>) => Promise<void>;
 	updateTodo: (id: number, updates: Partial<Todo>) => Promise<void>;
 	deleteTodo: (id: number) => Promise<void>;
@@ -16,10 +17,10 @@ export const useTodoStore = create<TodoState>((set) => ({
 	todos: [],
 	isLoading: false,
 	error: null,
-	fetchTodos: async (): Promise<void> => {
+	fetchTodos: async (filters?: Partial<todoFilters>): Promise<void> => {
 		set({ isLoading: true });
 		try {
-			const todos = await todoService.getTodos();
+			const todos = await todoService.getTodos(filters);
 			set({ todos, isLoading: false });
 		} catch (error) {
 			set({ error: 'Failed to fetch todos', isLoading: false });

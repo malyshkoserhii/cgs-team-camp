@@ -48,10 +48,11 @@ export const rowActionsStyles = css`
 	justify-content: space-between;
 	align-items: center;
 	min-height: 70px;
+`;
 
-	div {
-		gap: ${THEME.SPACING.SMALL};
-	}
+export const buttonsContainerStyles = css`
+	display: flex;
+	gap: ${THEME.SPACING.SMALL};
 `;
 
 export const cardStyles = css`

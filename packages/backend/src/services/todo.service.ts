@@ -3,17 +3,27 @@ import { PrismaClient, Todo } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export class TodoService {
-	async getAllTodos(userId: number): Promise<Todo[]> {
+	async getFilteredTodos(filters: {
+		search?: string;
+		status?: 'completed' | 'active';
+		public?: boolean;
+		userId: number;
+	}): Promise<Todo[]> {
+		const { search, status, public: isPublic, userId } = filters;
+
+		let completedStatus: boolean | undefined;
+		if (status === 'completed') completedStatus = true;
+		else if (status === 'active') completedStatus = false;
+
 		return prisma.todo.findMany({
 			where: {
-				OR: [{ userId: userId }, { public: true }],
+				OR: [{ userId }, { public: true }],
+				title: search
+					? { contains: search, mode: 'insensitive' }
+					: undefined,
+				completed: completedStatus,
+				public: isPublic,
 			},
-		});
-	}
-
-	async getTodosByUserId(userId: number): Promise<Todo[]> {
-		return prisma.todo.findMany({
-			where: { userId },
 		});
 	}
 
