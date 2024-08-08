@@ -14,14 +14,17 @@ import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import useResponsiveLayout from '~shared/utils/useResponsiveLayout';
 import { useTodoStore } from '~store/todos.store';
 import TodoPageBar from '../TodoPageBar/TodoPageBar';
+import { DesktopPagination } from '../Tododashboard/TodoDesktopDashboard/DesktopPagination/DesktopPagination';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
 import { PageLoader } from './TodoDashboardPage.styles';
 
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
 	const [filterValue, setFilterValue] = React.useState('');
+	const [page, setPage] = React.useState('1');
 
 	const { isDesktop, isTablet, isMobile } = useResponsiveLayout();
+
 	const {
 		filter,
 		isPrivate,
@@ -33,14 +36,22 @@ const TodoDashboardPage = (): JSX.Element => {
 	const loading = todoStore.loading;
 	const error = todoStore.todoError;
 	const todos = todoStore.todos;
+	const isLastPage = todoStore.isLastPage;
+	const pages = todoStore.pages;
 
 	React.useEffect(() => {
-		todoStore.fetchTodos({
-			search: filter,
-			isPrivate: isPrivate,
-			isCompleted: isCompleted,
-		});
-	}, [filter, isPrivate, isCompleted]);
+		const shouldAppendTodos = page !== '1' && !isDesktop;
+
+		todoStore.fetchTodos(
+			{
+				search: filter,
+				isPrivate: isPrivate,
+				isCompleted: isCompleted,
+				page: page,
+			},
+			shouldAppendTodos,
+		);
+	}, [filter, isPrivate, isCompleted, page, isDesktop]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
 	};
@@ -63,22 +74,38 @@ const TodoDashboardPage = (): JSX.Element => {
 		const newFilterValue = e.target.value;
 		setFilterValue(newFilterValue);
 		updateSearchParams({ search: newFilterValue });
+		setPage('1');
 	};
 	const handleFilterCompleted = (): void => {
+		setPage('1');
 		updateSearchParams({ isCompleted: 'true' });
 	};
 
 	const handleFilterPrivate = (): void => {
+		setPage('1');
 		updateSearchParams({ isPrivate: 'true' });
 	};
 
 	const handleFilterPublic = (): void => {
+		setPage('1');
 		updateSearchParams({ isPrivate: 'false' });
 	};
 
 	const showAllTodos = (): void => {
 		setFilterValue('');
+		setPage('1');
 		clearSearchParams();
+	};
+	const addPage = (): void => {
+		const nextPage = (+page + 1).toString();
+		setPage((prev) => (+prev + 1).toString());
+
+		updateSearchParams({ page: nextPage });
+	};
+
+	const handlePageClick = (data): void => {
+		setPage(data.selected + 1);
+		updateSearchParams({ page: data.selected + 1 });
 	};
 
 	const showContent = !error && !loading;
@@ -112,16 +139,30 @@ const TodoDashboardPage = (): JSX.Element => {
 								todos={todos}
 								removeTodo={removeTodo}
 								loading={loading}
+								nextPage={addPage}
+								isLastPage={isLastPage}
 							/>
 						)}
 						{isMobile && (
-							<TodoList todos={todos} removeTodo={removeTodo} />
+							<TodoList
+								todos={todos}
+								removeTodo={removeTodo}
+								nextPage={addPage}
+								isLastPage={isLastPage}
+								page={+page}
+							/>
 						)}
 						{isDesktop && (
 							<>
 								<TodoDesktopDashboard
 									todos={todos}
 									removeTodo={removeTodo}
+								/>
+
+								<DesktopPagination
+									page={page}
+									pages={pages}
+									handlePageClick={handlePageClick}
 								/>
 							</>
 						)}
