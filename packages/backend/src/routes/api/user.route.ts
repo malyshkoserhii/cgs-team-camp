@@ -4,7 +4,7 @@ import { tryCatchWrapper } from '@/middleware/tryCatch.middleware';
 import { validateBody } from '@/middleware/validation.middleware';
 import {
 	changePasswordSchema,
-	fogrtPassworSchema,
+	fogetPassworSchema,
 	loginSchema,
 	registerSchema,
 	resetPAsswordSchema,
@@ -46,7 +46,7 @@ router.patch(
 
 router.post(
 	'/foget-password',
-	validateBody(fogrtPassworSchema),
+	validateBody(fogetPassworSchema),
 	tryCatchWrapper(authController.fogetPassword.bind(authController)),
 );
 
