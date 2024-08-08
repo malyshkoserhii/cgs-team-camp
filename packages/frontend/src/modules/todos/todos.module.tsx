@@ -3,21 +3,32 @@ import { toast } from 'react-toastify';
 
 import { useTodoStore } from '~store/todo.store';
 import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
-import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
+import {
+	Button,
+	FilterSelect,
+	Loader,
+	StyledNavLink,
+} from '~shared/components';
 import { TodoList } from '~modules/todos/TodoList/TodoList';
 import {
 	container,
 	searchInputStyle,
 	wrapper,
 	wrapperFlex,
+	wrapperPagination,
 } from '~modules/todos/todos.styles';
 
 export const TodosModule = (): React.ReactNode => {
-	const { todos, getTodos, loading, error } = useTodoStore();
+	const { todos, getTodos, loading, error, pagination } = useTodoStore();
 	const [searchFilter, setSearchFilter] = useState('');
 	const [filter, setFilter] = useState<FILTER_KEYS>(FILTER_KEYS.ALL);
+	const [page, setPage] = useState(1);
+	const [pageSize, setPageSize] = useState(5);
 
-	console.log('todos:', todos);
+	console.log('pagination:', pagination);
+
+	// TODO const isPagination = pagination.totalPages > 1;
+	// console.log('isPagination', isPagination);
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setSearchFilter(e.target.value);
@@ -25,6 +36,18 @@ export const TodosModule = (): React.ReactNode => {
 
 	const handleFilterChange = (newFilter: FILTER_KEYS): void => {
 		setFilter(newFilter);
+	};
+
+	const handleNextPage = (): void => {
+		if (pagination && page < pagination.totalPages) {
+			setPage(page + 1);
+		}
+	};
+
+	const handlePreviousPage = (): void => {
+		if (page > 1) {
+			setPage(page - 1);
+		}
 	};
 
 	useEffect(() => {
@@ -42,8 +65,8 @@ export const TodosModule = (): React.ReactNode => {
 					? 'active'
 					: undefined;
 
-		getTodos(searchFilter, statusCompleted, statusPrivate);
-	}, [getTodos, searchFilter, filter]);
+		getTodos(searchFilter, statusCompleted, statusPrivate, page, pageSize);
+	}, [getTodos, searchFilter, filter, page, pageSize]);
 
 	useEffect(() => {
 		if (searchFilter && todos.length === 0) {
@@ -73,7 +96,15 @@ export const TodosModule = (): React.ReactNode => {
 				/>
 			</div>
 
-			{!loading && !error && <TodoList filteredTodos={todos} />}
+			{!loading && !error && (
+				<>
+					<TodoList
+						filteredTodos={todos}
+						handleNextPage={handleNextPage}
+						handlePreviousPage={handlePreviousPage}
+					/>
+				</>
+			)}
 			{loading && <Loader loading={loading} />}
 			{error && toast.error(error.message)}
 		</div>

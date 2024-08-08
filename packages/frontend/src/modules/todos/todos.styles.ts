@@ -46,3 +46,9 @@ export const wrapperFlex = css`
 		justify-content: space-between;
 	}
 `;
+
+export const wrapperPagination = css`
+	display: flex;
+	justify-content: space-between;
+	margin-top: ${SIZES.m};
+`;

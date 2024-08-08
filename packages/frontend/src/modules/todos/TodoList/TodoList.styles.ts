@@ -44,3 +44,8 @@ export const todosContainer = css`
 		display: block;
 	}
 `;
+
+export const wrapperMobilePagination = css`
+	overflow-y: auto;
+	max-height: 60vh;
+`;

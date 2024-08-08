@@ -6,12 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.styles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/todo.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.styles.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +75,7 @@
       <workItem from="1723059602201" duration="1317000" />
       <workItem from="1723117292332" duration="319000" />
       <workItem from="1723118198148" duration="11489000" />
-      <workItem from="1723132125088" duration="4930000" />
+      <workItem from="1723132125088" duration="8747000" />
     </task>
     <servers />
   </component>
