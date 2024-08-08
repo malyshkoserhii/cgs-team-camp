@@ -18,6 +18,7 @@ import { ROUTER_KEYS } from '~shared/keys';
 import { AuthData } from '~shared/types/auth/auth.types';
 import authService from '../auth.service';
 import { useUserStore } from '~/state/store/user.store';
+import { COLORS } from '~/theme';
 
 export interface AuthFormProps {
 	type: 'login' | 'register';
@@ -62,7 +63,7 @@ export const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
 							<VStack spacing={4} align="flex-start">
 								<Heading
 									size={'md'}
-									color="purple"
+									color={COLORS.purple}
 									textTransform={'uppercase'}
 								>
 									{type === 'login' ? 'sign in' : 'sign up'}
@@ -113,7 +114,7 @@ export const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
 								</HStack>
 								<Button
 									type="submit"
-									colorScheme="purple"
+									colorScheme={COLORS.purple}
 									width="fit-content"
 									alignSelf={'center'}
 									isLoading={submitting}

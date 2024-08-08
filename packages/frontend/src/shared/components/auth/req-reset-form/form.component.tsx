@@ -16,6 +16,7 @@ import { reqResetSchema } from './validation.schema';
 import { ReqResetPasswordData } from '~shared/types/auth/auth.types';
 import authService from '../auth.service';
 import { showInfoToast } from '~shared/components/form.toasts';
+import { COLORS } from '~/theme';
 
 export const ReqResetForm: React.FunctionComponent = () => {
 	const validate = validateFormValues(reqResetSchema);
@@ -43,7 +44,7 @@ export const ReqResetForm: React.FunctionComponent = () => {
 							<VStack spacing={4} align="flex-start">
 								<Heading
 									size={'md'}
-									color="purple"
+									color={COLORS.purple}
 									textTransform={'uppercase'}
 								>
 									Reset password
@@ -56,7 +57,7 @@ export const ReqResetForm: React.FunctionComponent = () => {
 								/>
 								<Button
 									type="submit"
-									colorScheme="purple"
+									colorScheme={COLORS.purple}
 									width="fit-content"
 									alignSelf={'center'}
 								>

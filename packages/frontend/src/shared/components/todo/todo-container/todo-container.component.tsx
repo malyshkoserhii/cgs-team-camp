@@ -18,6 +18,7 @@ import { TodoSwiperContainer } from '../todo-swiper-container';
 import { TodoListContainer } from '../todo-list-container';
 import { useFilterStore } from '~/state/store/filter.store';
 import { Pagination } from '../pagination';
+import { COLORS } from '~/theme';
 
 export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 	const navigate = useNavigate();
@@ -47,7 +48,7 @@ export function TodoContainer(): React.FunctionComponentElement<JSX.Element> {
 					onClick={() => {
 						navigate(ROUTER_KEYS.TODO.CREATE);
 					}}
-					colorScheme="purple"
+					colorScheme={COLORS.purple}
 					variant="outline"
 					leftIcon={<AddIcon boxSize={3} />}
 				>

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { UserHeaderStyled } from './user-header.styled';
 import { useUserStore } from '~/state/store/user.store';
 import { ROUTER_KEYS, STORAGE_KEYS } from '~shared/keys';
+import { COLORS } from '~/theme';
 
 export const UserHeader: React.FunctionComponent = () => {
 	const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const UserHeader: React.FunctionComponent = () => {
 					<Heading as="h1">{user.name}</Heading>
 					<HStack>
 						<Button
-							colorScheme="red"
+							colorScheme={COLORS.red}
 							onClick={() => {
 								localStorage.removeItem(STORAGE_KEYS.TOKEN);
 								setUser(null);
@@ -38,13 +39,13 @@ export const UserHeader: React.FunctionComponent = () => {
 			) : (
 				<HStack>
 					<Button
-						colorScheme="green"
+						colorScheme={COLORS.green}
 						onClick={() => navigate(ROUTER_KEYS.AUTH.LOGIN)}
 					>
 						LOGIN
 					</Button>
 					<Button
-						colorScheme="green"
+						colorScheme={COLORS.green}
 						variant={'outline'}
 						onClick={() => navigate(ROUTER_KEYS.AUTH.SIGN_UP)}
 					>
