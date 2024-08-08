@@ -6,6 +6,7 @@ import { TodoSearch } from '../../todo-search';
 import { TodoHeaderStyled } from './todo-header.styled';
 import { debounce } from 'lodash';
 import { useFilterStore } from '~/state/store/filter.store';
+import { COLORS } from '~/theme';
 
 export interface TodoTableHeaderProps {
 	variant: string;
@@ -22,6 +23,7 @@ export const TodoTableHeader: React.FunctionComponent<TodoTableHeaderProps> = ({
 				onChange={() => {}}
 				width="100%"
 				justifyContent={isMobile ? 'space-around' : 'flex-start'}
+				borderBottom={isMobile ? `1px solid ${COLORS.gray}` : '0px'}
 				direction={'row'}
 			/>
 

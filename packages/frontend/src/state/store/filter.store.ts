@@ -6,6 +6,8 @@ export interface IFilterStore {
 	data: TodoFilters;
 	setFilter: (filter: TodoFilters) => void;
 	setDefaultFilter: () => void;
+	setMaxPages: (maxPages: number) => void;
+	setPage: (page: number) => void;
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -29,6 +31,23 @@ export const useFilterStore = create<IFilterStore>((set) => ({
 
 		set(() => ({
 			data: filter,
+		}));
+	},
+	setMaxPages: (maxPages: number): void => {
+		set((state) => ({
+			data: {
+				...state.data,
+				maxPages,
+			},
+		}));
+	},
+	setPage: (page: number): void => {
+		set(({ data }) => ({
+			data: {
+				...data,
+				page:
+					page <= 0 ? 1 : page > data.maxPages ? data.maxPages : page,
+			},
 		}));
 	},
 	setDefaultFilter(): void {

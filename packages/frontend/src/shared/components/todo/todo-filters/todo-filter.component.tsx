@@ -4,6 +4,8 @@ import { TodoFilterEnum } from '../todo.enums';
 import { useFilterStore } from '~/state/store/filter.store';
 import { COLORS } from '~/theme';
 import { TodoFiltersParams } from '~shared/types/todo/todo.types';
+import { isMobile } from 'react-device-detect';
+import { isMotionValue } from 'framer-motion';
 
 interface TodoFilterProps extends Omit<StackProps, 'children'> {}
 
@@ -23,13 +25,18 @@ export const TodoFilter: React.FunctionComponent<TodoFilterProps> = ({
 					<Checkbox
 						name={value.toLowerCase()}
 						sx={{
-							'&': {
-								borderTop: '1px solid',
-								borderLeft: '1px solid',
-								borderRight: '1px solid',
-								borderColor: `${COLORS.gray}`,
-								borderRadius: '0.5em 0.5em 0 0',
-							},
+							'&': isMobile
+								? {
+										width: '100%',
+										textAlign: 'center',
+									}
+								: {
+										borderTop: '1px solid',
+										borderLeft: '1px solid',
+										borderRight: '1px solid',
+										borderColor: `${COLORS.gray}`,
+										borderRadius: '0.5em 0.5em 0 0',
+									},
 							'& input[type="checkbox"]': {
 								position: 'absolute',
 								opacity: 0,
@@ -43,7 +50,9 @@ export const TodoFilter: React.FunctionComponent<TodoFilterProps> = ({
 								margin: 0,
 								cursor: 'pointer',
 								width: '100%',
-								borderRadius: '0.5em 0.5em 0 0',
+								borderRadius: isMotionValue
+									? '0'
+									: '0.5em 0.5em 0 0',
 								padding: 2,
 								transition: 'background-color 0.2s',
 								borderBottom: '0px',
@@ -58,6 +67,7 @@ export const TodoFilter: React.FunctionComponent<TodoFilterProps> = ({
 							const { checked, name } = e.target;
 							setFilter({
 								...filterData,
+								page: 1,
 								filter: (checked
 									? [...filterData.filter, name]
 									: filterData.filter.filter(
