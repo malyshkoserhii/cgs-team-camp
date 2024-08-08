@@ -55,7 +55,7 @@ export const TodoListCard: React.FunctionComponent<TodoListProps> = ({
 					pointerEvents="none"
 					name="completed"
 					isChecked={todo.completed}
-					colorScheme="green"
+					colorScheme={COLORS.green}
 				>
 					Completed
 				</Checkbox>
@@ -64,7 +64,7 @@ export const TodoListCard: React.FunctionComponent<TodoListProps> = ({
 					name="private"
 					pointerEvents="none"
 					isChecked={todo.private}
-					colorScheme="blue"
+					colorScheme={COLORS.blue}
 				>
 					Private
 				</Checkbox>
@@ -77,7 +77,7 @@ export const TodoListCard: React.FunctionComponent<TodoListProps> = ({
 					onClick={editClick}
 					width="100%"
 					variant="solid"
-					colorScheme="teal"
+					colorScheme={COLORS.teal}
 				>
 					EDIT
 				</Button>

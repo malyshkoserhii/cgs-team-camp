@@ -4,6 +4,7 @@ import { Checkbox } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { ITodo } from '../../../../types/todo/todo.types';
+import { COLORS } from '~/theme';
 
 const columnHelper = createColumnHelper<ITodo>();
 
@@ -22,7 +23,7 @@ export const useTodoColumns = (): ColumnDef<ITodo>[] => [
 			<Checkbox
 				pointerEvents="none"
 				isInvalid={!props.getValue()}
-				colorScheme="green"
+				colorScheme={COLORS.green}
 				isChecked={props.getValue()}
 			/>
 		),
@@ -33,7 +34,7 @@ export const useTodoColumns = (): ColumnDef<ITodo>[] => [
 			<Checkbox
 				pointerEvents="none"
 				isInvalid={!props.getValue()}
-				colorScheme="blue"
+				colorScheme={COLORS.blue}
 				isChecked={props.getValue()}
 			/>
 		),

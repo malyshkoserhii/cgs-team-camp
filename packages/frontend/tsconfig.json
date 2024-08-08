@@ -34,9 +34,6 @@
 			"~shared/*": [
 				"src/shared/*"
 			],
-			"~store/*": [
-				"src/stores/*"
-			],
 			"~typings/*": [
 				"src/typings/*"
 			],
@@ -57,9 +54,6 @@
 			],
 			"~utils/*": [
 				"src/utils/*"
-			],
-			"~auth/*": [
-				"src/pages/auth/*"
 			]
 		}
 	},

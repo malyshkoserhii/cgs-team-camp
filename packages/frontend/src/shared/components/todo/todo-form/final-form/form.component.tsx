@@ -21,6 +21,7 @@ import { validateFormValues } from '~/utils';
 import todoService from '../../todo.service';
 import { FormInput } from '../../../ui/form/form-input';
 import { FormButton } from '../../../ui/form/form-button';
+import { COLORS } from '~/theme';
 
 export interface FormikFormProps {
 	type: 'ADD' | 'UPDATE';
@@ -114,7 +115,7 @@ export const FinalForm: React.FunctionComponent<FormikFormProps> = ({
 								</HStack>
 								<Button
 									type="submit"
-									colorScheme="purple"
+									colorScheme={COLORS.purple}
 									width="full"
 								>
 									{type}

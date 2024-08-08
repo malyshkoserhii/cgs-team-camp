@@ -55,7 +55,7 @@ export const ResetForm: React.FunctionComponent = () => {
 							<VStack spacing={4} align="flex-start">
 								<Heading
 									size={'md'}
-									color="purple"
+									color={COLORS.purple}
 									textTransform={'uppercase'}
 								>
 									Write new password
@@ -69,7 +69,7 @@ export const ResetForm: React.FunctionComponent = () => {
 								/>
 								<Button
 									type="submit"
-									colorScheme="purple"
+									colorScheme={COLORS.purple}
 									width="fit-content"
 									alignSelf={'center'}
 									isLoading={submitting}

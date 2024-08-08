@@ -5,7 +5,6 @@ import { useFilterStore } from '~/state/store/filter.store';
 import { COLORS } from '~/theme';
 import { TodoFiltersParams } from '~shared/types/todo/todo.types';
 import { isMobile } from 'react-device-detect';
-import { isMotionValue } from 'framer-motion';
 
 interface TodoFilterProps extends Omit<StackProps, 'children'> {}
 
@@ -50,7 +49,7 @@ export const TodoFilter: React.FunctionComponent<TodoFilterProps> = ({
 								margin: 0,
 								cursor: 'pointer',
 								width: '100%',
-								borderRadius: isMotionValue
+								borderRadius: isMobile
 									? '0'
 									: '0.5em 0.5em 0 0',
 								padding: 2,

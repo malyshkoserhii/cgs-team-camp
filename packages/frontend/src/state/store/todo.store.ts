@@ -1,5 +1,6 @@
 import { isMobile } from 'react-device-detect';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import todoService from '~shared/components/todo/todo.service';
 import TodoModel from '~shared/types/todo/todo.model';
 import { TodoFilters } from '~shared/types/todo/todo.types';
@@ -17,48 +18,56 @@ export interface ITodoStore {
 	getTodos: (filter: TodoFilters) => Promise<IGetTodo>;
 }
 
-export const useTodoStore = create<ITodoStore>((set) => ({
-	data: { todos: [], pages: 1 },
+export const useTodoStore = create(
+	persist<ITodoStore>(
+		(set) => ({
+			data: { todos: [], pages: 1 },
 
-	addTodo: (todo): void =>
-		set(({ data }) => ({
-			data: {
-				...data,
-				todos: [...data.todos, todo],
+			addTodo: (todo): void =>
+				set((state) => ({
+					data: {
+						...state.data,
+						todos: [...state.data.todos, todo],
+					},
+				})),
+
+			updateTodo: (todo): void =>
+				set((state) => ({
+					data: {
+						...state.data,
+						todos: state.data.todos.map((t) =>
+							t.id === todo.id ? todo : t,
+						),
+					},
+				})),
+
+			deleteTodo: (todoId): void =>
+				set((state) => ({
+					data: {
+						...state.data,
+						todos: state.data.todos.filter((t) => t.id !== todoId),
+					},
+				})),
+
+			getTodos: async (filter: TodoFilters): Promise<IGetTodo> => {
+				const response = await todoService.getTodos(filter);
+
+				set((state) => ({
+					data: {
+						todos:
+							(isMobile && filter.page === 1) || !isMobile
+								? response.todos
+								: [...state.data.todos, ...response.todos],
+						pages: response.pages,
+					},
+				}));
+
+				return response;
 			},
-		})),
-
-	updateTodo: (todo): void =>
-		set(({ data }) => ({
-			data: {
-				...data,
-				todos: data.todos.map((t) => (t.id === todo.id ? todo : t)),
-			},
-		})),
-
-	deleteTodo: (todoId): void =>
-		set(({ data }) => ({
-			data: {
-				...data,
-				todos: data.todos.filter((t) => t.id !== todoId),
-			},
-		})),
-
-	getTodos: async (filter: TodoFilters): Promise<IGetTodo> => {
-		const response = await todoService.getTodos(filter);
-
-		set(({ data }) => {
-			return {
-				data: {
-					todos:
-						isMobile && filter.page === 1
-							? response.todos
-							: [...data.todos, ...response.todos],
-					pages: response.pages,
-				},
-			};
-		});
-
-		return response;
-	},
-}));
+		}),
+		{
+			name: 'todo-store',
+			partialize: (state) => state,
+		},
+	),
+);

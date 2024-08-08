@@ -2,13 +2,13 @@ import { BACKEND_KEYS, STORAGE_KEYS } from '~shared/keys';
 import HttpService from '../../../api/http.service';
 import {
 	AuthData,
+	LoginData,
 	ReqResetPasswordData,
 	ResetPasswordData,
 } from '../../types/auth/auth.types';
-import UserModel from '../../types/user/user.model';
 import { IUser } from '../../types/user/user.types';
 
-class TodoService extends HttpService {
+class AuthService extends HttpService {
 	async register(body: AuthData): Promise<AuthData> {
 		const { data } = await this.put<AuthData>({
 			method: 'post',
@@ -27,11 +27,8 @@ class TodoService extends HttpService {
 		return data;
 	}
 
-	async login(body: AuthData): Promise<{ data: UserModel; token: string }> {
-		const { data: user, token } = await this.put<{
-			data: UserModel;
-			token: string;
-		}>({
+	async login(body: AuthData): Promise<LoginData> {
+		const { data: user, token } = await this.put<LoginData>({
 			method: 'post',
 			url: BACKEND_KEYS.AUTH.LOGIN,
 			data: body,
@@ -62,4 +59,4 @@ class TodoService extends HttpService {
 	}
 }
 
-export default new TodoService();
+export default new AuthService();

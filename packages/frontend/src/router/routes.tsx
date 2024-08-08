@@ -6,8 +6,6 @@ import { ROUTER_KEYS } from '~shared/keys';
 export const ProtectedRoutes: React.FunctionComponent = () => {
 	const { data: user } = useUserStore();
 
-	console.log(user);
-
 	const navigate = useNavigate();
 
 	useEffect(() => {
