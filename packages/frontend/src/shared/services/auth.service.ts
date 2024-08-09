@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import HttpServices from './http';
 import {
 	ChangePasswordData,
+	fogetPassword,
 	IRegisterData,
 	IUser,
 	LoginData,
@@ -43,7 +44,7 @@ class AuthService extends HttpServices {
 		return this.putch({ url: 'change-password', data }, true);
 	}
 
-	async fogetPAssword(email: string): Promise<AxiosResponse> {
+	async fogetPAssword(email: fogetPassword): Promise<AxiosResponse> {
 		return this.post({ url: 'foget-password', data: email });
 	}
 

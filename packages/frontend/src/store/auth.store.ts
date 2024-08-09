@@ -8,6 +8,7 @@ import {
 	IRegisterData,
 	IUser,
 	LoginData,
+	fogetPassword,
 } from '~shared/interfaces/user.interface';
 import { STORAGE_KEYS } from '~shared/keys';
 import AuthService from '~shared/services/auth.service';
@@ -23,7 +24,7 @@ interface IAuthStore {
 	verifyEmail: (verifyToken: string) => Promise<void>;
 	getCurrentUser: () => Promise<void>;
 	changePassword: (passwords: ChangePasswordData) => Promise<void>;
-	fogetPassword: (email: string) => Promise<void>;
+	fogetPassword: (fogetPassword: fogetPassword) => Promise<void>;
 	resetPassword: (resetToken: string, newPassword: string) => Promise<void>;
 }
 
@@ -154,11 +155,13 @@ export const useAuthStore = create<IAuthStore>()(
 				}
 			},
 
-			fogetPassword: async (email: string): Promise<void> => {
+			fogetPassword: async (
+				fogetPasswordData: fogetPassword,
+			): Promise<void> => {
 				set({ loading: true });
 
 				try {
-					await authService.fogetPAssword(email);
+					await authService.fogetPAssword(fogetPasswordData);
 
 					set({
 						loading: false,

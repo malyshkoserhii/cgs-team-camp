@@ -27,3 +27,7 @@ export interface LoginResponse {
 	data: IUser;
 	token: string;
 }
+
+export interface fogetPassword {
+	email: string;
+}

@@ -24,7 +24,7 @@ const FogetPasswordPage = (): React.ReactNode => {
 	} = useForm({ resolver: yupResolver(fogetPasswordSchema) });
 
 	const onSubmit = (data: IFormData): void => {
-		fogetPassword(data.email);
+		fogetPassword(data);
 		reset();
 	};
 
