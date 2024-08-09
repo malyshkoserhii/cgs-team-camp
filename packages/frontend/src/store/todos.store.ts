@@ -27,6 +27,7 @@ interface TodoState {
 	isLastPage: boolean;
 	pages: number;
 	todoError: string | null;
+	resetError: () => void;
 	fetchTodos: (
 		query: GetAllTodoQueryType,
 		condition: boolean,
@@ -79,6 +80,7 @@ export const useTodoStore = create<TodoState>()(
 				set({ loading: false });
 			}
 		},
+		resetError: (): void => set({ todoError: null }),
 
 		addTodo: async (newTodo): Promise<void> => {
 			set({ loading: true });
@@ -171,9 +173,10 @@ export const useTodoStore = create<TodoState>()(
 			}
 		},
 		getTodoById: async (id): Promise<void> => {
+			set({ loading: true });
 			try {
 				const { data } = await todosService.getTodoById(id);
-				set({ loading: false, todoError: null, todo: data });
+				set({ todoError: null, todo: data });
 			} catch (error) {
 				if (error instanceof AxiosError) {
 					set({
@@ -189,6 +192,8 @@ export const useTodoStore = create<TodoState>()(
 						error.response.data.message || error.message,
 					),
 				);
+			} finally {
+				set({ loading: false });
 			}
 		},
 	})),

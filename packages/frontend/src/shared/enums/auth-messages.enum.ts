@@ -1,5 +1,6 @@
 export const AuthMessages = {
-	REGISTER_SUCCESS: 'Registered successfully. Redirecting to login page',
+	REGISTER_SUCCESS:
+		'Registered successfully. Check Your email. Redirecting to login page',
 	LOGIN_SUCCESS: (name: string): string => ` Welcome, ${name}`,
 	PASSWORD_CHANGED: 'Password changed successfully',
 	EMAIL_SEND: 'Verification email has been sent. Check your email',

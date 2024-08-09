@@ -14,8 +14,6 @@ export type TabletDashboardProps = {
 	removeTodo: (id: number) => void;
 	nextPage?: () => void;
 	isLastPage?: boolean;
-
-	loading?: boolean;
 };
 export const TabletDashboard: React.FC<TabletDashboardProps> = ({
 	todos,

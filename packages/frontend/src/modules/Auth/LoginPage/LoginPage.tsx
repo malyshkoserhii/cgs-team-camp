@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { UtilForm } from '~shared/components/form/form';
 
 import { Input } from '~shared/components/input/input.component';
+import { PageHeader } from '~shared/components/page-wrapper/page-wraper.styles.';
+import PageWrapper from '~shared/components/page-wrapper/page-wrapper';
 import {
 	ForgetPasswordInitState,
 	LoginInitState,
@@ -20,6 +22,7 @@ const LoginPage = (): React.ReactNode => {
 	const navigate = useNavigate();
 	const authStore = useAuthStore();
 
+	const loading = authStore.loading;
 	const onlogin = async (values: LoginUserType): Promise<void> => {
 		await authStore.login(values);
 		navigate(ROUTER_KEYS.DASHBOARD);
@@ -29,32 +32,46 @@ const LoginPage = (): React.ReactNode => {
 	};
 
 	return (
-		<div>
-			<p>Login Page</p>
-
-			<UtilForm
-				onSubmit={onlogin}
-				initialValues={LoginInitState}
-				schema={UserLoginSchema}
-				submitButtonText="Login"
-			>
-				<Input name="email" placeholder="email" title="email" />
-				<Input
-					name="password"
-					placeholder="password"
-					title="password"
-				/>
-			</UtilForm>
-			<p>Forgot password - we will send yo reset link to your email</p>
-			<UtilForm
-				onSubmit={onForgetPassword}
-				initialValues={ForgetPasswordInitState}
-				schema={ForgetPasswordSchema}
-				submitButtonText="Forgot password"
-			>
-				<Input name="email" placeholder="email" title="email" />
-			</UtilForm>
-		</div>
+		<>
+			<h2 className={PageHeader}>Login Page</h2>
+			<PageWrapper loading={loading}>
+				<UtilForm
+					onSubmit={onlogin}
+					initialValues={LoginInitState}
+					schema={UserLoginSchema}
+					submitButtonText="Login"
+				>
+					<Input
+						name="email"
+						placeholder="email"
+						title="email"
+						type="email"
+					/>
+					<Input
+						name="password"
+						placeholder="password"
+						title="password"
+						type="password"
+					/>
+				</UtilForm>
+				<h3 className={PageHeader}>
+					Forgot password - we will send yo reset link to your email
+				</h3>
+				<UtilForm
+					onSubmit={onForgetPassword}
+					initialValues={ForgetPasswordInitState}
+					schema={ForgetPasswordSchema}
+					submitButtonText="Forgot password"
+				>
+					<Input
+						name="email"
+						placeholder="email"
+						title="email"
+						type="email"
+					/>
+				</UtilForm>
+			</PageWrapper>
+		</>
 	);
 };
 

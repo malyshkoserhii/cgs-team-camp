@@ -18,6 +18,7 @@ type IButtonProps = {
 	disabled?: boolean;
 	extraButtonStyles?: string;
 	icon?: React.ReactNode;
+	ariaLabel?: string;
 };
 
 const Button: React.FunctionComponent<IButtonProps> = ({
@@ -28,6 +29,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 	disabled,
 	extraButtonStyles,
 	icon,
+	ariaLabel,
 }) => {
 	const isDisabled = Boolean(loading ?? disabled);
 
@@ -48,6 +50,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 				btnStyles(Boolean(disabled)),
 				extraButtonStyles,
 			)}
+			aria-label={ariaLabel}
 		>
 			{Boolean(loading) ? (
 				<span className={btnLoaderWrapper}>
