@@ -8,8 +8,10 @@ import { useMediaQuery } from 'usehooks-ts';
 import { THEME } from '~shared/styles/constants';
 import {
 	buttonGroup,
+	paginationStyles,
 	searchFormStyles,
 	spinnerStyles,
+	todosContainerStyles,
 } from './TodosPage.styles';
 import { useInitialData } from '~shared/hooks/useInitialData';
 import { todoFilters } from '~shared/types/todoFilters.type';
@@ -29,6 +31,7 @@ export const TodosPage: React.FC = () => {
 	const isDesktop = useMediaQuery(
 		`(min-width: ${THEME.BREAKPOINTS.DESKTOP})`,
 	);
+	const isPhone = useMediaQuery(`(max-width: ${THEME.BREAKPOINTS.MOBILE})`);
 
 	const searchParams = new URLSearchParams(location.search);
 	const [searchInput, setSearchInput] = useState(
@@ -102,42 +105,42 @@ export const TodosPage: React.FC = () => {
 			</form>
 			<ButtonGroup className={buttonGroup}>
 				<Button
-					icon="person"
+					icon={isPhone ? undefined : 'lock'}
 					onClick={() => updateFilters('public', 'false')}
 					active={currentFilters.public === 'false'}
 				>
 					Private
 				</Button>
 				<Button
-					icon="people"
+					icon={isPhone ? undefined : 'people'}
 					onClick={() => updateFilters('public', 'true')}
 					active={currentFilters.public === 'true'}
 				>
 					Public
 				</Button>
 				<Button
-					icon="tick"
+					icon={isPhone ? undefined : 'tick'}
 					onClick={() => updateFilters('status', 'completed')}
 					active={currentFilters.status === 'completed'}
 				>
 					Completed
 				</Button>
 				<Button
-					icon="cross"
+					icon={isPhone ? undefined : 'target'}
 					onClick={() => updateFilters('status', 'active')}
 					active={currentFilters.status === 'active'}
 				>
 					Active
 				</Button>
 			</ButtonGroup>
-			<div>
+			<div className={todosContainerStyles}>
 				{todoLoading || userLoading ? (
 					<Spinner size={20} />
 				) : (
 					<>
 						<TodoList />
 						{isDesktop && (
-							<ButtonGroup>
+							<ButtonGroup className={paginationStyles}>
 								{[...Array(pagination.totalPages)].map(
 									(_, index) => (
 										<Button

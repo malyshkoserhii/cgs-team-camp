@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '~shared/keys';
 import { Todo } from '~shared/types/todo.type';
 import { ViewType } from '~shared/types/view.type';
+import { useMediaQuery } from 'usehooks-ts';
+import { THEME } from '~shared/styles/constants';
 
 interface TodoElementProps {
 	todo: Todo;
@@ -27,6 +29,7 @@ export const TodoElement: React.FC<TodoElementProps> = ({
 }) => {
 	const { updateTodo, deleteTodo } = useTodoStore();
 	const navigator = useNavigate();
+	const isPhone = useMediaQuery(`(max-width: ${THEME.BREAKPOINTS.MOBILE})`);
 
 	const handleComplete = (): void => {
 		const { id, ...rest } = todo;
@@ -45,17 +48,29 @@ export const TodoElement: React.FC<TodoElementProps> = ({
 				<Switch
 					checked={todo.completed}
 					onChange={handleComplete}
-					label={todo.completed ? 'Completed' : 'Not Completed'}
+					label={
+						isPhone
+							? undefined
+							: todo.completed
+								? 'Completed'
+								: 'Not Completed'
+					}
 					disabled={!editable}
 				/>
 				{editable && (
 					<div className={buttonsContainerStyles}>
-						<Button intent={Intent.PRIMARY} onClick={handleEdit}>
-							Edit
-						</Button>
-						<Button intent={Intent.DANGER} onClick={handleDelete}>
-							Delete
-						</Button>
+						<Button
+							intent={Intent.PRIMARY}
+							onClick={handleEdit}
+							icon={isPhone ? 'edit' : undefined}
+							text={isPhone ? '' : 'Edit'}
+						/>
+						<Button
+							intent={Intent.DANGER}
+							onClick={handleDelete}
+							icon={isPhone ? 'trash' : undefined}
+							text={isPhone ? '' : 'Delete'}
+						/>
 					</div>
 				)}
 			</>

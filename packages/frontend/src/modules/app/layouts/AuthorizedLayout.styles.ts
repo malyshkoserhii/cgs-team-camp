@@ -24,6 +24,8 @@ export const linkStyles = css`
 
 export const contentStyles = css`
 	margin-top: ${THEME.SPACING.MEDIUM};
+	width: 100%;
+	flex-grow: 1;
 	background-color: white;
 	border-radius: 4px;
 	padding: ${THEME.SPACING.LARGE};

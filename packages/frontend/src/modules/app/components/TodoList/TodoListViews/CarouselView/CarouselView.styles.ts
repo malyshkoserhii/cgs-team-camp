@@ -3,6 +3,8 @@ import { THEME, COLORS } from '~shared/styles/constants';
 
 export const carouselStyles = css`
 	display: flex;
+	width: 70%;
+	min-width: 300px;
 	align-items: center;
 	justify-content: space-between;
 	padding: ${THEME.SPACING.MEDIUM};

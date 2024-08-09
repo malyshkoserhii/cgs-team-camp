@@ -3,6 +3,7 @@ import { THEME, COLORS, FONTS } from '../../../shared/styles/constants';
 
 export const formContainerStyles = css`
 	display: flex;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	min-height: 75vh;

@@ -11,7 +11,6 @@ export const todoElementStyles = css`
 	@media (min-width: ${THEME.BREAKPOINTS.TABLET}) and (max-width: ${THEME
 			.BREAKPOINTS.DESKTOP}) {
 		flex: 0 0 300px;
-		margin-right: ${THEME.SPACING.MEDIUM};
 		scroll-snap-align: start;
 		background-color: white;
 		border: 1px solid ${COLORS.BORDER};
@@ -48,6 +47,12 @@ export const rowActionsStyles = css`
 	justify-content: space-between;
 	align-items: center;
 	min-height: 70px;
+
+	@media (min-width: ${THEME.BREAKPOINTS.TABLET}) and (max-width: ${THEME
+			.BREAKPOINTS.DESKTOP}) {
+		gap: ${THEME.SPACING.LARGE};
+		padding: ${THEME.SPACING.MEDIUM} 0;
+	}
 `;
 
 export const buttonsContainerStyles = css`
@@ -62,7 +67,6 @@ export const cardStyles = css`
 	border: 1px solid ${COLORS.BORDER};
 	border-radius: 4px;
 	padding: ${THEME.SPACING.MEDIUM};
-	margin-right: ${THEME.SPACING.MEDIUM};
 `;
 
 export const listItemStyles = css`

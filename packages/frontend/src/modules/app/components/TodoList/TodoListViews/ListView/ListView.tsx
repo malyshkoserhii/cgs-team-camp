@@ -57,13 +57,12 @@ export const ListView: React.FC<ListViewProps> = ({
 		<>
 			<div className={listStyles} ref={listRef}>
 				{todos.map((todo) => (
-					<div key={todo.id}>
-						<TodoElement
-							todo={todo}
-							view="list"
-							editable={todo.userId === userId}
-						/>
-					</div>
+					<TodoElement
+						todo={todo}
+						view="list"
+						editable={todo.userId === userId}
+						key={todo.id}
+					/>
 				))}
 			</div>
 			<div className={paginationControlsStyles}>

@@ -12,6 +12,10 @@ export const globalStyles = css`
 `;
 
 export const appStyles = css`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: ${THEME.SPACING.LARGE};
