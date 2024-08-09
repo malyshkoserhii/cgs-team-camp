@@ -75,6 +75,7 @@ export function UtilForm<T>({
 						text={submitButtonText}
 						disabled={(!pristine && !valid) || submitting}
 						loading={submitting}
+						ariaLabel="submit form"
 					/>
 				</form>
 			)}

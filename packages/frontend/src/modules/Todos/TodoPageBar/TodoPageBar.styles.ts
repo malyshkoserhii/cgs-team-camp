@@ -41,3 +41,7 @@ export const ButtonsContainer = css`
 	gap: ${SIZES.s};
 	flex-wrap: wrap;
 `;
+
+export const SearchInput = css`
+	min-width: 320px;
+`;

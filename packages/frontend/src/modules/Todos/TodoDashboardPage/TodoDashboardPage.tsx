@@ -1,6 +1,5 @@
 import { Dialog, DialogBody } from '@blueprintjs/core';
 import * as React from 'react';
-import Loader from '~shared/components/loader/loader.component';
 
 import { Todo } from '~shared/types/todo.types';
 
@@ -9,6 +8,7 @@ import { AddTodoForm } from '../TodoForm/TodoForm';
 import TodoDesktopDashboard from '../Tododashboard/TodoDesktopDashboard/TodoDesktopDashboard';
 import TodoList from '../Tododashboard/TodoMobileDashboard/TodoMobileDashboard';
 
+import PageWrapper from '~shared/components/page-wrapper/page-wrapper';
 import useFilteredTodos from '~shared/helpers/useFilteredTodos';
 import { AddTodoSchema } from '~shared/schemas/todo.schema';
 import useResponsiveLayout from '~shared/utils/useResponsiveLayout';
@@ -16,7 +16,6 @@ import { useTodoStore } from '~store/todos.store';
 import TodoPageBar from '../TodoPageBar/TodoPageBar';
 import { DesktopPagination } from '../Tododashboard/TodoDesktopDashboard/DesktopPagination/DesktopPagination';
 import { TabletDashboard } from '../Tododashboard/TodoTabletDashboard/TodoTabletDashboard';
-import { PageLoader } from './TodoDashboardPage.styles';
 
 const TodoDashboardPage = (): JSX.Element => {
 	const [openModal, setOpenModal] = React.useState(false);
@@ -40,17 +39,19 @@ const TodoDashboardPage = (): JSX.Element => {
 	const pages = todoStore.pages;
 
 	React.useEffect(() => {
-		const shouldAppendTodos = page !== '1' && !isDesktop;
+		(async function (): Promise<void> {
+			const shouldAppendTodos = page !== '1' && !isDesktop;
 
-		todoStore.fetchTodos(
-			{
-				search: filter,
-				isPrivate: isPrivate,
-				isCompleted: isCompleted,
-				page: page,
-			},
-			shouldAppendTodos,
-		);
+			await todoStore.fetchTodos(
+				{
+					search: filter,
+					isPrivate: isPrivate,
+					isCompleted: isCompleted,
+					page: page,
+				},
+				shouldAppendTodos,
+			);
+		})();
 	}, [filter, isPrivate, isCompleted, page, isDesktop]);
 	const openAddToDoModal = (): void => {
 		setOpenModal(true);
@@ -61,6 +62,7 @@ const TodoDashboardPage = (): JSX.Element => {
 	};
 
 	const createTodo = async (todo: Todo): Promise<void> => {
+		console.log(todo);
 		await todoStore.addTodo(todo);
 		closeAddToDoModal();
 	};
@@ -108,8 +110,6 @@ const TodoDashboardPage = (): JSX.Element => {
 		updateSearchParams({ page: data.selected + 1 });
 	};
 
-	const showContent = !error && !loading;
-
 	return (
 		<>
 			<TodoPageBar
@@ -121,24 +121,13 @@ const TodoDashboardPage = (): JSX.Element => {
 				onFilterCompleted={handleFilterCompleted}
 				onFilterPublic={handleFilterPublic}
 			/>
-			{error && (
-				<p>
-					Something went wrong <>{error}</>
-				</p>
-			)}
-			{loading && (
-				<div className={PageLoader}>
-					<Loader />
-				</div>
-			)}
-			{showContent &&
-				(!!todos.length ? (
+			<PageWrapper error={error} loading={loading}>
+				{!!todos.length ? (
 					<>
 						{isTablet && (
 							<TabletDashboard
 								todos={todos}
 								removeTodo={removeTodo}
-								loading={loading}
 								nextPage={addPage}
 								isLastPage={isLastPage}
 							/>
@@ -169,8 +158,8 @@ const TodoDashboardPage = (): JSX.Element => {
 					</>
 				) : (
 					<p>No todos found</p>
-				))}
-
+				)}
+			</PageWrapper>
 			<Dialog
 				onClose={closeAddToDoModal}
 				isOpen={openModal}

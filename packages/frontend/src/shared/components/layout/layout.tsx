@@ -1,15 +1,15 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 import { ROUTER_KEYS } from '~shared/keys/router-keys';
 
 import { useAuthStore } from '~store/auth.store';
-import Loader from '../loader/loader.component';
 import UserProfile from '../user-profile/UserProfile';
 import { HeaderContainer, MainContainer } from './layout.styles';
 
 const Layout: React.FC = () => {
 	const authStore = useAuthStore();
+
 	const isLoggedIn = authStore.isLoggedIn;
 
 	return (
@@ -29,9 +29,7 @@ const Layout: React.FC = () => {
 			</header>
 
 			<main className={MainContainer}>
-				<Suspense fallback={<Loader />}>
-					<Outlet />
-				</Suspense>
+				<Outlet />
 			</main>
 			<footer></footer>
 		</>

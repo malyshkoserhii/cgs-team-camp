@@ -13,3 +13,8 @@ export const DialogContainer = css`
 		width: 55vw;
 	}
 `;
+export const CheckBoxContainer = css`
+	display: flex;
+	flex-direction: row !important;
+	gap: ${SIZES.l};
+`;

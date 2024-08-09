@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '~shared/components/button/button.component';
-import CustomToggle from '~shared/components/toggle/toggle.component';
 import { ROUTER_KEYS } from '~shared/keys/router-keys';
 import { Todo } from '~shared/types/todo.types';
 
+import DecorativeToggle from '~shared/components/toggle/toggle.component';
 import {
 	TodoButtonsContainer,
 	TodoItemContainer,
@@ -63,14 +63,16 @@ const TodoItem: React.FC<TodoItemProps> = ({
 				)}
 
 				<div className={TodoSwitch}>
-					<CustomToggle
+					<p>Status</p>
+					<DecorativeToggle
 						status={todo.isCompleted}
 						readOnly={true}
 						additionalStyles={nonFocusable}
 					/>
 				</div>
 				<div className={TodoSwitch}>
-					<CustomToggle
+					<p>Private</p>
+					<DecorativeToggle
 						status={todo.isPrivate}
 						readOnly={true}
 						additionalStyles={nonFocusable}

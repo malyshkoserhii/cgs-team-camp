@@ -32,17 +32,20 @@ const ChangePassword: React.FC = () => {
 					name="oldPassword"
 					placeholder="Old Password"
 					title="Old Password"
+					type="password"
 				/>
 
 				<Input
 					name="newPassword"
 					placeholder="New password"
 					title="New Password"
+					type="password"
 				/>
 				<Input
 					name="confirmPassword"
 					placeholder="Confirm password"
 					title="Confirm Password"
+					type="password"
 				/>
 			</UtilForm>
 		</>

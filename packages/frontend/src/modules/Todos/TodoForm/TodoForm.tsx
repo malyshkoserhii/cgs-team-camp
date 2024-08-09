@@ -2,12 +2,15 @@ import React, { useMemo } from 'react';
 
 import { Schema } from 'joi';
 import { Input } from '~shared/components/input/input.component';
-import { Select } from '~shared/components/select/select.component';
 import { Textarea } from '~shared/components/textarea/textarea.component';
 
+import { CustomCheckBox } from '~shared/components/checkbox/checkbox';
 import { UtilForm } from '~shared/components/form/form';
+
+import { CustomToggle } from '~shared/components/toggle/toggle.component';
 import { TodoFormInitState } from '~shared/constants/form-initial-values/todo-form-init-values';
 import { Todo } from '~shared/types/todo.types';
+import { CheckBoxContainer } from './Form.styles';
 
 type AddTodoProps = {
 	onSubmit(todo: Todo): void;
@@ -24,7 +27,7 @@ export function AddTodoForm({
 	SubmitButtonText = 'Create Todo',
 	todo,
 }: AddTodoProps): JSX.Element {
-	const initStateS = useMemo(() => {
+	const initState = useMemo(() => {
 		return todo
 			? {
 					title: todo.title,
@@ -38,7 +41,7 @@ export function AddTodoForm({
 	return (
 		<UtilForm
 			onSubmit={onSubmit}
-			initialValues={initStateS}
+			initialValues={initState}
 			schema={schema}
 			submitButtonText={SubmitButtonText}
 		>
@@ -48,22 +51,10 @@ export function AddTodoForm({
 				placeholder="Todo's description"
 				title="Description"
 			/>
-			<Select
-				name="isCompleted"
-				title="Completed"
-				parse={(value) => value === 'true'}
-			>
-				<option value="true">Done</option>
-				<option value="false">Not Done</option>
-			</Select>
-			<Select
-				name="isPrivate"
-				title="Private"
-				parse={(value) => value === 'true'}
-			>
-				<option value="true">Private</option>
-				<option value="false">Public</option>
-			</Select>
+			<div className={CheckBoxContainer}>
+				<CustomToggle name="Completed" title="Completed" />
+				<CustomCheckBox name="isPrivate" title="Private Todo" />
+			</div>
 		</UtilForm>
 	);
 }

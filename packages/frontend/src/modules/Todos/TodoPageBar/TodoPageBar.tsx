@@ -1,10 +1,12 @@
+import { Icon } from '@blueprintjs/core';
+import classNames from 'classnames';
 import React from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import Button from '~shared/components/button/button.component';
 import {
 	BarContainer,
 	ButtonsContainer,
-	FilterInput,
+	SearchInput,
 } from './TodoPageBar.styles';
 
 export type TodoPageBarProps = {
@@ -45,16 +47,25 @@ const TodoPageBar = ({
 				<Button text="Create Todo" onClick={onAddTodo} type="button" />
 			</div>
 
-			<DebounceInput
-				type="text"
-				placeholder="Search"
-				id="search"
-				name="search"
-				className={FilterInput}
-				value={searchInputValue}
-				onChange={onSearchnputChange}
-				debounceTimeout={400}
-			/>
+			<div
+				className={classNames(
+					'bp5-input-group',
+					'bp5-large',
+					SearchInput,
+				)}
+			>
+				<Icon icon="search" size={16} aria-label="search" />
+				<DebounceInput
+					type="search"
+					placeholder="Search"
+					id="search"
+					name="search"
+					className="bp5-input bp5-fill "
+					value={searchInputValue}
+					onChange={onSearchnputChange}
+					debounceTimeout={400}
+				/>
+			</div>
 		</div>
 	);
 };
