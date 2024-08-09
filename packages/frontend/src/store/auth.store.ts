@@ -9,29 +9,33 @@ import {
 	IUser,
 	LoginData,
 } from '~shared/interfaces/user.interface';
+import { STORAGE_KEYS } from '~shared/keys';
 import AuthService from '~shared/services/auth.service';
 
-interface IAuthSrore {
+interface IAuthStore {
 	user: IUser | null;
+	token: string | null;
 	loading: boolean;
 	error: AxiosError | null;
 	register: (data: IRegisterData) => Promise<void>;
 	login: (data: LoginData) => Promise<void>;
+	logOut: () => void;
 	verifyEmail: (verifyToken: string) => Promise<void>;
 	getCurrentUser: () => Promise<void>;
 	changePassword: (passwords: ChangePasswordData) => Promise<void>;
 	fogetPassword: (email: string) => Promise<void>;
-	resetPassword: (resetToken: string) => Promise<void>;
+	resetPassword: (resetToken: string, newPassword: string) => Promise<void>;
 }
 
 const authService = new AuthService();
 
-export const useAuthStore = create<IAuthSrore>()(
+export const useAuthStore = create<IAuthStore>()(
 	immer((set) => {
 		return {
 			user: null,
 			loading: false,
 			error: null,
+			token: null,
 
 			register: async (registerData: IRegisterData): Promise<void> => {
 				set({
@@ -59,10 +63,11 @@ export const useAuthStore = create<IAuthSrore>()(
 				set({ loading: true });
 
 				try {
-					const data = await authService.login(loginData);
+					const { data, token } = await authService.login(loginData);
 
 					set({
-						user: data.data,
+						user: data,
+						token: token,
 						loading: false,
 						error: null,
 					});
@@ -72,6 +77,14 @@ export const useAuthStore = create<IAuthSrore>()(
 						loading: false,
 					});
 				}
+			},
+
+			logOut: (): void => {
+				localStorage.removeItem(STORAGE_KEYS.TOKEN);
+				set({
+					user: null,
+					token: null,
+				});
 			},
 
 			verifyEmail: async (verificationToken: string): Promise<void> => {
@@ -161,11 +174,14 @@ export const useAuthStore = create<IAuthSrore>()(
 				}
 			},
 
-			resetPassword: async (resetToken): Promise<void> => {
+			resetPassword: async (resetToken, newPassword): Promise<void> => {
 				set({ loading: true });
 
 				try {
-					const data = await authService.resetPassword(resetToken);
+					const data = await authService.resetPassword(
+						resetToken,
+						newPassword,
+					);
 
 					set({
 						user: data.data,

@@ -22,3 +22,8 @@ export interface LoginData {
 	email: string;
 	password: string;
 }
+
+export interface LoginResponse {
+	data: IUser;
+	token: string;
+}

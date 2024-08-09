@@ -1,25 +1,32 @@
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import HttpServices from './http';
 import {
 	ChangePasswordData,
 	IRegisterData,
 	IUser,
 	LoginData,
+	LoginResponse,
 } from '~shared/interfaces/user.interface';
+import { STORAGE_KEYS } from '~shared/keys';
 
 class AuthService extends HttpServices {
 	constructor() {
-		super();
+		super(process.env.SERVER_URL, axios, 'user');
 	}
 
 	async register(data: IRegisterData): Promise<AxiosResponse<IUser>> {
 		return this.post({ url: 'register', data }, false);
 	}
 
-	async login(data: LoginData): Promise<AxiosResponse<IUser>> {
-		return this.post({ url: 'login', data }, false);
+	async login(data: LoginData): Promise<LoginResponse> {
+		const response = await this.post<AxiosResponse<LoginResponse>>(
+			{ url: 'login', data },
+			false,
+		);
 
-		// set token to localstorage
+		localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
+
+		return response.data;
 	}
 
 	async verifyEmail(verifyToken: string): Promise<AxiosResponse<IUser>> {
@@ -40,8 +47,14 @@ class AuthService extends HttpServices {
 		return this.post({ url: 'foget-password', data: email });
 	}
 
-	async resetPassword(resetToken: string): Promise<AxiosResponse<IUser>> {
-		return this.post({ url: `reset-password/${resetToken}` });
+	async resetPassword(
+		resetToken: string,
+		newPassword: string,
+	): Promise<AxiosResponse<IUser>> {
+		return this.post({
+			url: `reset-password/${resetToken}`,
+			data: newPassword,
+		});
 	}
 }
 
