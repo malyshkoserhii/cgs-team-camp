@@ -17,6 +17,7 @@ export const enum FILTER_KEYS {
 	COMPLETED = 'Completed',
 	PRIVATE = 'Private',
 	PUBLIC = 'Public',
+	ACTIVE = 'Active',
 }
 
 export const STORAGE_KEYS = Object.freeze({

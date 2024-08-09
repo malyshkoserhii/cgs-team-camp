@@ -6,8 +6,7 @@ import { genericValidatorMiddleware, isExistMiddleware } from '@/middlewares';
 import {
 	ctrAddNewTodo,
 	ctrDeleteTodoById,
-	ctrGetAllWithFilter,
-	// ctrGetAllTodo,
+	ctrGetFilteredTodos,
 	ctrGetTodoById,
 	ctrPatchTodoById,
 	ctrUpdateTodoById,
@@ -22,7 +21,7 @@ todosRouter.post(
 	ctrAddNewTodo,
 );
 
-todosRouter.get('/all', jwtAuth, ctrGetAllWithFilter);
+todosRouter.get('/all', jwtAuth, ctrGetFilteredTodos);
 
 todosRouter.get(
 	'/todo/:id',

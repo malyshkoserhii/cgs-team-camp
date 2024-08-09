@@ -13,9 +13,11 @@ import {
 } from '~modules/todos/todos.styles';
 
 export const TodosModule = (): React.ReactNode => {
-	const { todos, getTodos, loading, error } = useTodoStore();
+	const { todos, getTodos, loading, error, pagination } = useTodoStore();
 	const [searchFilter, setSearchFilter] = useState('');
 	const [filter, setFilter] = useState<FILTER_KEYS>(FILTER_KEYS.ALL);
+	const [page, setPage] = useState(1);
+	const [pageSize, setPageSize] = useState(5);
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setSearchFilter(e.target.value);
@@ -25,20 +27,35 @@ export const TodosModule = (): React.ReactNode => {
 		setFilter(newFilter);
 	};
 
-	useEffect(() => {
-		let isCompleted: boolean | undefined = undefined;
-		let isPrivate: boolean | undefined = undefined;
-
-		if (filter === FILTER_KEYS.COMPLETED) {
-			isCompleted = true;
-		} else if (filter === FILTER_KEYS.PRIVATE) {
-			isPrivate = true;
-		} else if (filter === FILTER_KEYS.PUBLIC) {
-			isPrivate = false;
+	const handleNextPage = (): void => {
+		if (pagination && page < pagination.totalPages) {
+			setPage(page + 1);
 		}
+	};
 
-		getTodos(searchFilter, isCompleted, isPrivate);
-	}, [getTodos, searchFilter, filter]);
+	const handlePreviousPage = (): void => {
+		if (page > 1) {
+			setPage(page - 1);
+		}
+	};
+
+	useEffect(() => {
+		const statusPrivate =
+			filter === FILTER_KEYS.PRIVATE
+				? 'private'
+				: filter === FILTER_KEYS.PUBLIC
+					? 'public'
+					: undefined;
+
+		const statusCompleted =
+			filter === FILTER_KEYS.COMPLETED
+				? 'completed'
+				: filter === FILTER_KEYS.ACTIVE
+					? 'active'
+					: undefined;
+
+		getTodos(searchFilter, statusCompleted, statusPrivate, page, pageSize);
+	}, [getTodos, searchFilter, filter, page, pageSize]);
 
 	useEffect(() => {
 		if (searchFilter && todos.length === 0) {
@@ -68,7 +85,15 @@ export const TodosModule = (): React.ReactNode => {
 				/>
 			</div>
 
-			{!loading && !error && <TodoList filteredTodos={todos} />}
+			{!loading && !error && (
+				<>
+					<TodoList
+						filteredTodos={todos}
+						handleNextPage={handleNextPage}
+						handlePreviousPage={handlePreviousPage}
+					/>
+				</>
+			)}
 			{loading && <Loader loading={loading} />}
 			{error && toast.error(error.message)}
 		</div>

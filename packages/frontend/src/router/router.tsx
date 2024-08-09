@@ -45,6 +45,7 @@ const router = createBrowserRouter(
 					path={ROUTER_KEYS.VERIFY_EMAIL}
 					element={<VerifyEmail />}
 				/>
+				{/*<Route path={ROUTER_KEYS.DASHBOARD} element={<TodosModule />} />*/}
 			</Route>
 			<Route element={<PrivateRoutes />}>
 				<Route path={ROUTER_KEYS.DASHBOARD} element={<TodosModule />} />

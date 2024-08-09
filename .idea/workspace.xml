@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="Merge branch 'iruskevych/main'">
+    <list default="true" id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/controllers/todo.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/routes/api/todos.route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/services/todo.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/utils/TodoQueryParams.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoItem/TodoItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/TodoList/TodoList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/modules/todos/todos.module.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/helpers/getAccessToken.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/helpers/getAccessToken.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/router/router.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/services/todos.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/shared/components/FilterSelect/FilterSelect.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,19 +25,15 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/auth-frontend-v2" />
+        <entry key="$PROJECT_DIR$" value="iruskevych/main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
+  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2kBbCUWx8GSK41SnEq24Yzd4etT" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2kLORSiSULtAvkHlvX7s7rqxC9S" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
@@ -41,30 +43,24 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/todo-filters-v2",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.11.1",
-    "javascript.nodejs.core.library.typings.version": "20.11.30",
-    "last_opened_file_path": "D:/FSDev-advanced",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\FSDev-advanced\\test-CGS\\cgs-team-camp\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/pagination&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.30&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/FSDev-advanced&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\!SGS-select-1-2-3\\cgs-team-camp\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\FSDev-advanced\\test-CGS\\!SGS-select-1-2-3\\cgs-team-camp\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\FSDev-advanced\test-CGS\cgs-team-camp\packages\frontend\src\shared\helpers" />
-    </key>
-  </component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,35 +71,22 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c6362331-9f19-4187-ab07-55fede8fafb4" name="Changes" comment="" />
-      <created>1722759792004</created>
+      <changelist id="05f2af43-39d8-4519-b86d-28338f790011" name="Changes" comment="" />
+      <created>1723059382214</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1722759792004</updated>
-      <workItem from="1722759794914" duration="8517000" />
-      <workItem from="1722768504790" duration="805000" />
-      <workItem from="1723034169381" duration="533000" />
-      <workItem from="1723107842060" duration="236000" />
+      <updated>1723059382214</updated>
+      <workItem from="1723059383627" duration="202000" />
+      <workItem from="1723059602201" duration="1317000" />
+      <workItem from="1723117292332" duration="319000" />
+      <workItem from="1723118198148" duration="11489000" />
+      <workItem from="1723132125088" duration="8835000" />
+      <workItem from="1723141149446" duration="14000" />
+      <workItem from="1723186926002" duration="5497000" />
     </task>
-    <task id="LOCAL-00001" summary="Merge branch 'iruskevych/main'">
-      <option name="closed" value="true" />
-      <created>1722957834101</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1722957834101</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="merge from iruskevych/main" />
-    <MESSAGE value="Merge branch 'iruskevych/main' into feature/authorization-backend-v2&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <MESSAGE value="Merge branch 'iruskevych/main'" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
