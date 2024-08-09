@@ -1,6 +1,10 @@
 import React from 'react';
 import NavBar from '../navBar/navBar.component';
-import { menuConfig } from '../navBar/menu.config';
+import { menuConfig, publicMenuConfig } from '../navBar/menu.config';
+import { useAuthStore } from '~store/auth.store';
+import UserMenu from '../user/userMenu.component';
+import { menuWrapper } from './Dashboard.styles';
+import { STORAGE_KEYS } from '~shared/keys';
 
 interface IDashboardLayout {
 	children: React.ReactNode;
@@ -9,11 +13,15 @@ interface IDashboardLayout {
 const DashboardLayout = ({
 	children,
 }: IDashboardLayout): React.ReactElement => {
+	const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+	const { user } = useAuthStore();
+
 	return (
 		<div>
-			<div>
-				<h2>User menu</h2>
-				<NavBar config={menuConfig} />
+			<div className={menuWrapper}>
+				<NavBar config={token ? menuConfig : publicMenuConfig} />
+
+				{user && <UserMenu />}
 			</div>
 
 			<div>{children}</div>

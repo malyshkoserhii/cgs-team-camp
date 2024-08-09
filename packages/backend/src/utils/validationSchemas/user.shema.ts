@@ -16,7 +16,7 @@ export const changePasswordSchema = Joi.object({
 	newPassword: Joi.string().required(),
 });
 
-export const fogrtPassworSchema = Joi.object({
+export const fogetPassworSchema = Joi.object({
 	email: Joi.string().email().required(),
 });
 

@@ -12,7 +12,7 @@ class TodoService extends HttpServices {
 	}
 
 	async getAllTodos(): Promise<AxiosResponse<BaseResponse<ITodo[]>>> {
-		return this.get({ url: 'all' }, false);
+		return this.get({ url: 'all' }, true);
 	}
 
 	async getTodoById(id: string): Promise<AxiosResponse<BaseResponse<ITodo>>> {
