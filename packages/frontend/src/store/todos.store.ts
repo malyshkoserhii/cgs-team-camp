@@ -27,6 +27,7 @@ interface TodoState {
 	isLastPage: boolean;
 	pages: number;
 	todoError: string | null;
+	resetError: () => void;
 	fetchTodos: (
 		query: GetAllTodoQueryType,
 		condition: boolean,
@@ -79,6 +80,7 @@ export const useTodoStore = create<TodoState>()(
 				set({ loading: false });
 			}
 		},
+		resetError: (): void => set({ todoError: null }),
 
 		addTodo: async (newTodo): Promise<void> => {
 			set({ loading: true });

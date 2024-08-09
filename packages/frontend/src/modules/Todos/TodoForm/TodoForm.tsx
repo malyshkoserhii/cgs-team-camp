@@ -52,7 +52,7 @@ export function AddTodoForm({
 				title="Description"
 			/>
 			<div className={CheckBoxContainer}>
-				<CustomToggle name="Completed" title="Completed" />
+				<CustomToggle name="isCompleted" title="isCompleted" />
 				<CustomCheckBox name="isPrivate" title="Private Todo" />
 			</div>
 		</UtilForm>

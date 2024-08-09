@@ -21,7 +21,7 @@ import { useAuthStore } from '~store/auth.store';
 const LoginPage = (): React.ReactNode => {
 	const navigate = useNavigate();
 	const authStore = useAuthStore();
-	const error = authStore.authError;
+
 	const loading = authStore.loading;
 	const onlogin = async (values: LoginUserType): Promise<void> => {
 		await authStore.login(values);
@@ -34,7 +34,7 @@ const LoginPage = (): React.ReactNode => {
 	return (
 		<>
 			<h2 className={PageHeader}>Login Page</h2>
-			<PageWrapper error={error} loading={loading}>
+			<PageWrapper loading={loading}>
 				<UtilForm
 					onSubmit={onlogin}
 					initialValues={LoginInitState}

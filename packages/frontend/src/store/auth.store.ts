@@ -91,6 +91,7 @@ export const useAuthStore = create(
 					const response = await authService.register(user);
 
 					set({ user: response, authError: null });
+					successNotification(AuthMessages.REGISTER_SUCCESS);
 				} catch (error) {
 					if (error instanceof AxiosError) {
 						set({
@@ -219,6 +220,7 @@ export const useAuthStore = create(
 				try {
 					await authService.resetPassword(token, password);
 					set({ authError: null });
+					successNotification(AuthMessages.PASSWORD_CHANGED);
 				} catch (error) {
 					if (error instanceof AxiosError) {
 						set({
@@ -243,6 +245,7 @@ export const useAuthStore = create(
 				try {
 					await authService.forgetPassword(email);
 					set({ authError: null });
+					successNotification(AuthMessages.EMAIL_SEND);
 				} catch (error) {
 					if (error instanceof AxiosError) {
 						set({
