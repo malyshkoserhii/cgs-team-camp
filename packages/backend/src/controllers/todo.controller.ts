@@ -32,13 +32,11 @@ export class TodoController {
 
 	async getFilteredTodos(req: Request, res: Response): Promise<void> {
 		const userId = (req.user as { id: string }).id;
-		const { search, isComplete, isPrivate, page, pageSize } = req.query;
-		console.log('userID: ', userId);
-		console.log('req.query: ', req.query);
+		const { search, isCompleted, isPrivate, page, pageSize } = req.query;
 		const query = {
 			userId,
 			search: search as string | undefined,
-			statusComplete: isComplete as 'completed' | 'active' | undefined,
+			statusComplete: isCompleted as 'completed' | 'active' | undefined,
 			statusPrivate: isPrivate as 'private' | 'public' | undefined,
 			page: page ? parseInt(page as string) : undefined,
 			pageSize: pageSize ? parseInt(pageSize as string) : undefined,

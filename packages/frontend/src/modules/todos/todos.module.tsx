@@ -3,19 +3,13 @@ import { toast } from 'react-toastify';
 
 import { useTodoStore } from '~store/todo.store';
 import { FILTER_KEYS, ROUTER_KEYS } from '~shared/keys';
-import {
-	Button,
-	FilterSelect,
-	Loader,
-	StyledNavLink,
-} from '~shared/components';
+import { FilterSelect, Loader, StyledNavLink } from '~shared/components';
 import { TodoList } from '~modules/todos/TodoList/TodoList';
 import {
 	container,
 	searchInputStyle,
 	wrapper,
 	wrapperFlex,
-	wrapperPagination,
 } from '~modules/todos/todos.styles';
 
 export const TodosModule = (): React.ReactNode => {
@@ -24,11 +18,6 @@ export const TodosModule = (): React.ReactNode => {
 	const [filter, setFilter] = useState<FILTER_KEYS>(FILTER_KEYS.ALL);
 	const [page, setPage] = useState(1);
 	const [pageSize, setPageSize] = useState(5);
-
-	console.log('pagination:', pagination);
-
-	// TODO const isPagination = pagination.totalPages > 1;
-	// console.log('isPagination', isPagination);
 
 	const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setSearchFilter(e.target.value);
@@ -54,14 +43,14 @@ export const TodosModule = (): React.ReactNode => {
 		const statusPrivate =
 			filter === FILTER_KEYS.PRIVATE
 				? 'private'
-				: FILTER_KEYS.PUBLIC
+				: filter === FILTER_KEYS.PUBLIC
 					? 'public'
 					: undefined;
 
 		const statusCompleted =
 			filter === FILTER_KEYS.COMPLETED
 				? 'completed'
-				: FILTER_KEYS.ACTIVE
+				: filter === FILTER_KEYS.ACTIVE
 					? 'active'
 					: undefined;
 

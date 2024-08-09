@@ -34,7 +34,7 @@ export class TodosService extends HttpService {
 		page?: number,
 		pageSize?: number,
 	): Promise<AxiosResponse<TodoResponse>> {
-		const params: TodosParams = {};
+		let params: TodosParams = {};
 
 		if (search) params.search = search;
 		if (isCompleted) params.isCompleted = isCompleted;

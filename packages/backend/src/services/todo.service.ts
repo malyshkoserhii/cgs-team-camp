@@ -1,48 +1,17 @@
 import { prismaClient } from '@/prisma/prismaClient';
 import { Todo } from '@/types';
-import { Prisma, User } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 export default class TodoService {
 	async createTodo(data: Todo): Promise<Todo> {
 		return prismaClient.todo.create({ data });
 	}
 
-	async findTodos(): Promise<Todo[]> {
-		return prismaClient.todo.findMany();
-	}
-
-	async findAll(
-		user: User,
-		query: {
-			search?: string;
-			isPrivate?: boolean;
-			isCompleted?: boolean;
-		},
-	): Promise<Todo[]> {
-		return prismaClient.todo.findMany({
-			where: {
-				AND: [
-					{
-						title: {
-							contains: query.search,
-							mode: 'insensitive',
-						},
-					},
-					{ isPrivate: query.isPrivate },
-					{ isCompleted: query.isCompleted },
-					{
-						OR: [{ userId: user.id }, { isPrivate: false }],
-					},
-				],
-			},
-		});
-	}
-
 	async findFilteredTodos(query: {
+		userId: string;
 		search?: string;
 		statusComplete?: 'completed' | 'active' | undefined;
 		statusPrivate?: 'private' | 'public' | undefined;
-		userId: string;
 
 		page?: number;
 		pageSize?: number;
@@ -69,9 +38,14 @@ export default class TodoService {
 				: statusPrivate === 'public'
 					? false
 					: undefined;
+		console.log('privateStatus: ', privateStatus);
 
 		const where = {
-			OR: [{ userId }, { isPrivate: false }],
+			userId: privateStatus === true ? userId : undefined,
+			OR:
+				privateStatus === false
+					? [{ userId }, { isPrivate: false }]
+					: undefined,
 			title: search
 				? { contains: search, mode: 'insensitive' as Prisma.QueryMode }
 				: undefined,
@@ -90,7 +64,6 @@ export default class TodoService {
 
 			prismaClient.todo.count({ where }),
 		]);
-
 		return { todos, total };
 	}
 

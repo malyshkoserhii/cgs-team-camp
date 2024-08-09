@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -61,6 +61,7 @@ export const TodoList: React.FC<TodoListProps> = ({
 					{filteredTodos.map((item) => (
 						<TodoItem key={item.id} todo={item} />
 					))}
+
 					<div className={wrapperPagination}>
 						<Button
 							text={'Previous'}

@@ -13,6 +13,7 @@ interface FilterOption {
 const FILTER_OPTIONS: FilterOption[] = [
 	{ key: FILTER_KEYS.ALL, label: 'All' },
 	{ key: FILTER_KEYS.COMPLETED, label: 'Completed' },
+	{ key: FILTER_KEYS.ACTIVE, label: 'In progress' },
 	{ key: FILTER_KEYS.PRIVATE, label: 'Private' },
 	{ key: FILTER_KEYS.PUBLIC, label: 'Public' },
 ];
